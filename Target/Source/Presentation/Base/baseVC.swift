@@ -21,6 +21,10 @@ class baseVC<T: Reactor>: UIViewController{
         configureVC()
     }
     
+    @Inject var reactor: T
+    
+    init() { super.init(nibName: nil, bundle: nil) }
+    
     init(reactor: T){
         super.init(nibName: nil, bundle: nil)
         self.reactor = reactor
@@ -34,9 +38,11 @@ class baseVC<T: Reactor>: UIViewController{
         print("\(type(of: self)): \(#function)")
     }
     
+    func setUp(){}
     func addView(){}
     func setLayout(){}
     func configureVC(){}
+    func configureNavigation(){}
     
     func bindView(reactor: T){}
     func bindAction(reactor: T){}
