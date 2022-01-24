@@ -8,6 +8,6 @@
 
 import UIKit
 
-final class OnBoardingVC: baseVC{
+final class OnBoardingVC: baseVC<OnBoardingReactor>{
     
 }

@@ -52,6 +52,6 @@ extension OnBoardingReactor{
 
 
 // MARK: - Method
-private extension <#Name#>Reactor{OnBoarding
+private extension OnBoardingReactor{
     
 }
