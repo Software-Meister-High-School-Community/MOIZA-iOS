@@ -9,5 +9,6 @@
 import UIKit
 
 final class OnBoardingVC: baseVC<OnBoardingReactor>{
+    // MARK: - Properties
     
 }
