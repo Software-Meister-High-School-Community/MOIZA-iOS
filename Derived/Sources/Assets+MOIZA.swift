@@ -18,6 +18,17 @@
 // swiftlint:disable identifier_name line_length nesting type_body_length type_name
 public enum MOIZAAsset {
   public static let accentColor = MOIZAColors(name: "AccentColor")
+  public static let moizaPrimaryBlue = MOIZAColors(name: "MOIZA_Primary_Blue")
+  public static let moizaPrimaryYellow = MOIZAColors(name: "MOIZA_Primary_Yellow")
+  public static let moizaSecondaryBlue = MOIZAColors(name: "MOIZA_Secondary_Blue")
+  public static let moizaSecondaryYellow = MOIZAColors(name: "MOIZA_Secondary_Yellow")
+  public static let moizaTheme = MOIZAColors(name: "MOIZA_Theme")
+  public static let moizaGray1 = MOIZAColors(name: "MOIZA_Gray1")
+  public static let moizaGray2 = MOIZAColors(name: "MOIZA_Gray2")
+  public static let moizaGray3 = MOIZAColors(name: "MOIZA_Gray3")
+  public static let moizaGray4 = MOIZAColors(name: "MOIZA_Gray4")
+  public static let moizaGray5 = MOIZAColors(name: "MOIZA_Gray5")
+  public static let moizaGray6 = MOIZAColors(name: "MOIZA_Gray6")
   public static let moizaLogo = MOIZAImages(name: "MOIZA_Logo")
 }
 // swiftlint:enable identifier_name line_length nesting type_body_length type_name
