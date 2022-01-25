@@ -29,6 +29,7 @@ public enum MOIZAAsset {
   public static let moizaGray4 = MOIZAColors(name: "MOIZA_Gray4")
   public static let moizaGray5 = MOIZAColors(name: "MOIZA_Gray5")
   public static let moizaGray6 = MOIZAColors(name: "MOIZA_Gray6")
+  public static let moizaSymbol = MOIZAImages(name: "MOIZA_Symbol")
   public static let moizaLogo = MOIZAImages(name: "MOIZA_Logo")
 }
 // swiftlint:enable identifier_name line_length nesting type_body_length type_name
