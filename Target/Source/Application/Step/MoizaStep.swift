@@ -21,4 +21,8 @@ enum MoizaStep: Step{
     case signUpIsRequired
     case findingIDIsRequired
     case findingPasswordIsRequired
+    
+    // SignUp
+    case signUpInformationIsRequired
+    case signUpLoginSetupIsRequired
 }
