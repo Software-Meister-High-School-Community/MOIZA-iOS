@@ -20,6 +20,7 @@ target 'MOIZA' do
   pod 'SnapKit', '~> 5.0.1'
   pod 'Swinject', '~> 2.7'
   pod 'SwinjectAutoregistration', '~> 2.7'
+  pod 'FlexibleSteppedProgressBar', '~> 0.7.2'
 
   # Network
   pod 'Moya/RxSwift', '~> 15.0.0'
