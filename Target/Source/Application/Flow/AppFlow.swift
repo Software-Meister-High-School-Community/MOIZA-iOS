@@ -14,7 +14,9 @@ struct AppStepper: Stepper{
     private let disposeBag: DisposeBag = .init()
     
     func readyToEmitSteps() {
-        
+        Observable.just(MoizaStep.onBoardingIsRequired)
+            .bind(to: steps)
+            .disposed(by: disposeBag)
     }
 }
 
@@ -42,9 +44,10 @@ final class AppFlow: Flow{
     // MARK: - Navigate
     
     func navigate(to step: Step) -> FlowContributors {
-        
-        
+        guard let step = step.asMoizaStep else { return .none }
         switch step{
+        case .onBoardingIsRequired:
+            return coordinateToOnBoarding()
         default:
             return .none
         }
@@ -54,5 +57,16 @@ final class AppFlow: Flow{
 // MARK: - Method
 
 private extension AppFlow{
+    private func coordinateToOnBoarding() -> FlowContributors{
+        let flow = OnBoardingFlow()
+        
+        Flows.use(
+            flow,
+            when: .created
+        ) { [unowned self] root in
+            self.rootWindow.rootViewController = root
+        }
+        return .one(flowContributor: .contribute(withNextPresentable: flow, withNextStepper: flow.stepper))
+    }
 }
 

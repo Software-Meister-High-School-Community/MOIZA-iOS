@@ -6,7 +6,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     static let container = Container()
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        
+        AppDelegate.container.registerDependencies()
         return true
     }
 

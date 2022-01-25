@@ -19,6 +19,8 @@ final class OnBoardingReactor: Reactor, Stepper{
     
     // MARK: - Reactor
     enum Action{
+        case signUpButtonDidTap
+        case signInButtonDidTap
     }
     enum Mutation{
     }
@@ -33,25 +35,12 @@ final class OnBoardingReactor: Reactor, Stepper{
 extension OnBoardingReactor{
     func mutate(action: Action) -> Observable<Mutation> {
         switch action{
-        default:
+        case .signUpButtonDidTap:
+            steps.accept(MoizaStep.signUpIsRequired)
+            return .empty()
+        case .signInButtonDidTap:
+            steps.accept(MoizaStep.signInIsRequired)
             return .empty()
         }
     }
-}
-
-// MARK: - Reduce
-extension OnBoardingReactor{
-    func reduce(state: State, mutation: Mutation) -> State {
-        var newState = state
-        switch mutation {
-            
-        }
-        return newState
-    }
-}
-
-
-// MARK: - Method
-private extension <#Name#>Reactor{OnBoarding
-    
 }
