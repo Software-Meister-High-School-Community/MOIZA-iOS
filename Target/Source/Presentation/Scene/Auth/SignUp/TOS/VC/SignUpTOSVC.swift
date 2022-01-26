@@ -124,7 +124,6 @@ final class SignUpTOSVC: baseVC<SignUpTOSReactor>{
         }
     }
     override func configureVC() {
-        
     }
     override func configureNavigation() {
         self.navigationItem.configAuthNavigation(title: "회원가입")
