@@ -14,12 +14,16 @@ final class SignUpInfoVC: baseVC<SignUpInfoReactor>{
     private let progressBar = FlexibleSteppedProgressBar().then {
         $0.numberOfPoints = 3
         $0.currentSelectedCenterColor = MOIZAAsset.moizaPrimaryBlue.color
+        $0.selectedBackgoundColor = MOIZAAsset.moizaPrimaryBlue.color
         $0.selectedOuterCircleStrokeColor = .clear
-        $0.currentIndex = 1
         $0.hero.id = "progress"
+        $0.currentIndex = 1
     }
     
     // MARK: - UI
+    override func setUp() {
+        progressBar.delegate = self
+    }
     override func addView() {
         view.addSubViews(progressBar)
     }
@@ -31,5 +35,15 @@ final class SignUpInfoVC: baseVC<SignUpInfoReactor>{
     }
     override func configureVC() {
         
+    }
+    override func configureNavigation() {
+        self.navigationItem.configAuthNavigation(title: "회원가입")
+    }
+}
+
+// MARK: - Extension
+extension SignUpInfoVC: FlexibleSteppedProgressBarDelegate{
+    func progressBar(_ progressBar: FlexibleSteppedProgressBar, textAtIndex index: Int, position: FlexibleSteppedProgressBarTextLocation) -> String {
+        return ""
     }
 }

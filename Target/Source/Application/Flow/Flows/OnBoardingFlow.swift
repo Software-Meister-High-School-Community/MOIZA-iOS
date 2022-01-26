@@ -44,6 +44,8 @@ final class OnBoardingFlow: Flow{
             return coordinateToOnBoarding()
         case .signUpIsRequired:
             return coordinateToSignUpTOS()
+        case .signUpInformationIsRequired:
+            return coordinateToSignUpInfo()
         default:
             return .none
         }
