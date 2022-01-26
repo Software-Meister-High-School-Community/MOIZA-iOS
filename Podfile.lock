@@ -1,8 +1,8 @@
 PODS:
   - Alamofire (5.5.0)
-  - DLRadioButton (1.4.12)
   - FlexibleSteppedProgressBar (0.7.2)
   - Hero (1.6.1)
+  - M13Checkbox (3.4.0)
   - Moya/Core (15.0.0):
     - Alamofire (~> 5.0)
   - Moya/RxSwift (15.0.0):
@@ -31,9 +31,9 @@ PODS:
   - WeakMapTable (1.2.0)
 
 DEPENDENCIES:
-  - DLRadioButton (~> 1.4)
   - FlexibleSteppedProgressBar (~> 0.7.2)
   - Hero (~> 1.6.1)
+  - M13Checkbox (~> 3.4.0)
   - Moya/RxSwift (~> 15.0.0)
   - ReactorKit (~> 3.1.0)
   - RxCocoa (~> 6.2.0)
@@ -48,9 +48,9 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - Alamofire
-    - DLRadioButton
     - FlexibleSteppedProgressBar
     - Hero
+    - M13Checkbox
     - Moya
     - ReactorKit
     - RxCocoa
@@ -66,9 +66,9 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   Alamofire: 1c4fb5369c3fe93d2857c780d8bbe09f06f97e7c
-  DLRadioButton: d7c4e225ed0e8013cef7be61455230c7557ad7c1
   FlexibleSteppedProgressBar: 6a781cfed749bf59c69813a8706aa397c342ab5c
   Hero: 215865ba3ae41dd9bb08cd6c60a645529c6fc94b
+  M13Checkbox: 6f59404540ac98ba83a3d1afac335895a40c6a5d
   Moya: 138f0573e53411fb3dc17016add0b748dfbd78ee
   ReactorKit: a06dd2a5c9339287aedf3dc821cfab6347eca106
   RxCocoa: 4baf94bb35f2c0ab31bc0cb9f1900155f646ba42
@@ -82,6 +82,6 @@ SPEC CHECKSUMS:
   Then: acfe0be7e98221c6204e12f8161459606d5d822d
   WeakMapTable: 05c694ce8439a7a9ebabb56187287a63c57673d6
 
-PODFILE CHECKSUM: 15f8f125c8598182d3d4b6a85b308df22e2b18d3
+PODFILE CHECKSUM: bf7f317ab8cc0a1d7f76ebab2a08f301b23db4ac
 
 COCOAPODS: 1.11.2
