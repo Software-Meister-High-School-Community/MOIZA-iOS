@@ -9,6 +9,7 @@ import UIKit
 import ReactorKit
 import Then
 import SnapKit
+import Hero
 
 class baseVC<T: Reactor>: UIViewController{
     let bound = UIScreen.main.bounds
@@ -18,9 +19,12 @@ class baseVC<T: Reactor>: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        self.hero.isEnabled = true
+        setUp()
         addView()
         setLayout()
         configureVC()
+        configureNavigation()
     }
     
     @Inject var reactor: T

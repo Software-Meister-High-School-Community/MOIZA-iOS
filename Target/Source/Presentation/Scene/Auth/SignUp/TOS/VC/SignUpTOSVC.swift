@@ -7,7 +7,65 @@
 //
 
 import UIKit
+import FlexibleSteppedProgressBar
+import Hero
 
 final class SignUpTOSVC: baseVC<SignUpTOSReactor>{
+    // MARK: - Properties
+    private let progressBar = FlexibleSteppedProgressBar().then {
+        $0.numberOfPoints = 3
+        $0.currentSelectedCenterColor = MOIZAAsset.moizaPrimaryBlue.color
+        $0.selectedOuterCircleStrokeColor = .clear
+        $0.hero.id = "progress"
+    }
+    private let titleLabel = SubTitleLabel(title: "약관동의")
+    private let descriptionLabel = UILabel().then {
+        $0.font = UIFont(font: MOIZAFontFamily.Roboto.regular, size: 14)
+        $0.textColor = MOIZAAsset.moizaGray5.color
+        $0.text = "원활한 모이자 활동과 서비스 제공을 위해\n꼭 필요한 정보입니다."
+    }
+    private let subView = UIView().then {
+        $0.backgroundColor = MOIZAAsset.moizaGray2.color
+        $0.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        $0.layer.cornerRadius = 20
+    }
     
+    // MARK: - UI
+    override func setUp() {
+        progressBar.delegate = self
+    }
+    override func addView() {
+        view.addSubViews(progressBar, titleLabel, descriptionLabel, subView)
+    }
+    override func setLayout() {
+        progressBar.snp.makeConstraints {
+            $0.top.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(12)
+            $0.height.equalTo(10)
+        }
+        titleLabel.snp.makeConstraints {
+            $0.leading.equalToSuperview().inset(18)
+            $0.top.equalTo(progressBar.snp.bottom).offset(30)
+        }
+        descriptionLabel.snp.makeConstraints {
+            $0.leading.equalTo(titleLabel)
+            $0.top.equalTo(titleLabel.snp.bottom).offset(20)
+        }
+        subView.snp.makeConstraints {
+            $0.height.equalTo(bound.height*0.5086)
+            $0.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
+        }
+    }
+    override func configureVC() {
+        
+    }
+    override func configureNavigation() {
+        self.navigationItem.configAuthNavigation(title: "회원가입")
+    }
+}
+
+// MARK: - Extension
+extension SignUpTOSVC: FlexibleSteppedProgressBarDelegate{
+    func progressBar(_ progressBar: FlexibleSteppedProgressBar, textAtIndex index: Int, position: FlexibleSteppedProgressBarTextLocation) -> String {
+        return ""
+    }
 }

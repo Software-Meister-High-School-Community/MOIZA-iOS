@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import RxCocoa
+import Hero
 
 final class OnBoardingVC: baseVC<OnBoardingReactor>{
     // MARK: - Properties
@@ -14,7 +16,9 @@ final class OnBoardingVC: baseVC<OnBoardingReactor>{
         $0.image = MOIZAAsset.moizaLogo.image
         $0.contentMode = .scaleAspectFit
     }
-    private let signUpButton = OnBoardingButton(text: "회원가입", foregroundColor: .white, backgroundColor: MOIZAAsset.moizaPrimaryBlue.color)
+    private let signUpButton = OnBoardingButton(text: "회원가입", foregroundColor: .white, backgroundColor: MOIZAAsset.moizaPrimaryBlue.color).then {
+        $0.hero.id = "progress"
+    }
     private let signInButton = OnBoardingButton(text: "로그인", foregroundColor: .black, backgroundColor: .white).then {
         $0.layer.borderWidth = 1
         $0.layer.borderColor = UIColor.black.cgColor
@@ -48,5 +52,19 @@ final class OnBoardingVC: baseVC<OnBoardingReactor>{
     }
     override func configureVC() {
         
+    }
+    
+    // MARK: - Reactor
+    override func bindView(reactor: OnBoardingReactor) {
+        signUpButton.rx.tap
+            .withUnretained(self)
+            .do(onNext: { owner, item in
+                let back = UIBarButtonItem(title: "", style: .plain, target: owner, action: nil)
+                back.tintColor = .black
+                owner.navigationItem.backBarButtonItem = back
+            })
+            .map { _ in Reactor.Action.signUpButtonDidTap }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
     }
 }
