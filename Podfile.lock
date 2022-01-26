@@ -1,6 +1,8 @@
 PODS:
   - Alamofire (5.5.0)
+  - BEMCheckBox (1.4.1)
   - FlexibleSteppedProgressBar (0.7.2)
+  - Hero (1.6.1)
   - Moya/Core (15.0.0):
     - Alamofire (~> 5.0)
   - Moya/RxSwift (15.0.0):
@@ -29,6 +31,9 @@ PODS:
   - WeakMapTable (1.2.0)
 
 DEPENDENCIES:
+  - BEMCheckBox (~> 1.4.1)
+  - FlexibleSteppedProgressBar (~> 0.7.2)
+  - Hero (~> 1.6.1)
   - Moya/RxSwift (~> 15.0.0)
   - ReactorKit (~> 3.1.0)
   - RxCocoa (~> 6.2.0)
@@ -43,6 +48,9 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - Alamofire
+    - BEMCheckBox
+    - FlexibleSteppedProgressBar
+    - Hero
     - Moya
     - ReactorKit
     - RxCocoa
@@ -58,6 +66,9 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   Alamofire: 1c4fb5369c3fe93d2857c780d8bbe09f06f97e7c
+  BEMCheckBox: 5ba6e37ade3d3657b36caecc35c8b75c6c2b1a4e
+  FlexibleSteppedProgressBar: 6a781cfed749bf59c69813a8706aa397c342ab5c
+  Hero: 215865ba3ae41dd9bb08cd6c60a645529c6fc94b
   Moya: 138f0573e53411fb3dc17016add0b748dfbd78ee
   ReactorKit: a06dd2a5c9339287aedf3dc821cfab6347eca106
   RxCocoa: 4baf94bb35f2c0ab31bc0cb9f1900155f646ba42
@@ -71,6 +82,6 @@ SPEC CHECKSUMS:
   Then: acfe0be7e98221c6204e12f8161459606d5d822d
   WeakMapTable: 05c694ce8439a7a9ebabb56187287a63c57673d6
 
-PODFILE CHECKSUM: 1832c482c00c6284ba5cbac17c89e91982fa2a61
+PODFILE CHECKSUM: 6059edc0b41c57f219cbe932ba3ad2cdcab61a0b
 
 COCOAPODS: 1.11.2
