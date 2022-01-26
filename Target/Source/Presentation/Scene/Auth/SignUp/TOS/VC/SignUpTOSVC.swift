@@ -9,6 +9,7 @@
 import UIKit
 import FlexibleSteppedProgressBar
 import Hero
+import M13Checkbox
 
 final class SignUpTOSVC: baseVC<SignUpTOSReactor>{
     // MARK: - Properties
@@ -29,6 +30,16 @@ final class SignUpTOSVC: baseVC<SignUpTOSReactor>{
         $0.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         $0.layer.cornerRadius = 20
     }
+    private let allAgree = M13Checkbox().then {
+        $0.markType = .radio
+        $0.boxType = .circle
+        $0.tintColor = MOIZAAsset.moizaPrimaryYellow.color
+        $0.secondaryCheckmarkTintColor = .white
+        $0.checkmarkLineWidth = 4
+        $0.boxLineWidth = 1
+        $0.secondaryTintColor = MOIZAAsset.moizaGray3.color
+        $0.stateChangeAnimation = .bounce(.fill)
+    }
     
     // MARK: - UI
     override func setUp() {
@@ -36,6 +47,7 @@ final class SignUpTOSVC: baseVC<SignUpTOSReactor>{
     }
     override func addView() {
         view.addSubViews(progressBar, titleLabel, descriptionLabel, subView)
+        subView.addSubViews(allAgree)
     }
     override func setLayout() {
         progressBar.snp.makeConstraints {
@@ -53,6 +65,10 @@ final class SignUpTOSVC: baseVC<SignUpTOSReactor>{
         subView.snp.makeConstraints {
             $0.height.equalTo(bound.height*0.5086)
             $0.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
+        }
+        allAgree.snp.makeConstraints {
+            $0.top.leading.equalToSuperview().inset(23)
+            $0.width.height.equalTo(24)
         }
     }
     override func configureVC() {
