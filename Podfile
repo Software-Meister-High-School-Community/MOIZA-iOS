@@ -22,7 +22,7 @@ target 'MOIZA' do
   pod 'SwinjectAutoregistration', '~> 2.7'
   pod 'FlexibleSteppedProgressBar', '~> 0.7.2'
   pod 'Hero', '~> 1.6.1'
-  pod 'DLRadioButton', '~> 1.4'
+  pod 'M13Checkbox', '~> 3.4.0'
 
   # Network
   pod 'Moya/RxSwift', '~> 15.0.0'
