@@ -24,6 +24,8 @@ target 'MOIZA' do
   pod 'FlexibleSteppedProgressBar', '~> 0.7.2'
   pod 'Hero', '~> 1.6.1'
   pod 'M13Checkbox', '~> 3.4.0'
+  pod 'PinLayout', '~> 1.10.0'
+  pod 'FlexLayout', '~> 1.3.23'
 
   # Network
   pod 'Moya/RxSwift', '~> 15.0.0'
