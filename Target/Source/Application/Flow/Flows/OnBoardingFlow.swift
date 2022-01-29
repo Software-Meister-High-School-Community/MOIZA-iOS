@@ -8,6 +8,8 @@
 
 import RxFlow
 import RxRelay
+import Hero
+import Then
 
 struct OnBoardingStepper: Stepper{
     let steps: PublishRelay<Step> = .init()
@@ -25,7 +27,9 @@ final class OnBoardingFlow: Flow{
     
     @Inject private var vc: OnBoardingVC
     @Inject var stepper: OnBoardingStepper
-    private let rootVC = UINavigationController()
+    private let rootVC = UINavigationController().then {
+        $0.hero.isEnabled = true
+    }
     
     // MARK: - Init
     deinit {
@@ -38,6 +42,10 @@ final class OnBoardingFlow: Flow{
         switch step{
         case .onBoardingIsRequired:
             return coordinateToOnBoarding()
+        case .signUpIsRequired:
+            return coordinateToSignUpTOS()
+        case .signUpInformationIsRequired:
+            return coordinateToSignUpInfo()
         default:
             return .none
         }
@@ -48,6 +56,16 @@ final class OnBoardingFlow: Flow{
 private extension OnBoardingFlow{
     func coordinateToOnBoarding() -> FlowContributors{
         self.rootVC.setViewControllers([vc], animated: true)
+        return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: vc.reactor))
+    }
+    func coordinateToSignUpTOS() -> FlowContributors{
+        let vc = SignUpTOSVC()
+        self.rootVC.pushViewController(vc, animated: true)
+        return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: vc.reactor))
+    }
+    func coordinateToSignUpInfo() -> FlowContributors{
+        let vc = SignUpInfoVC()
+        self.rootVC.pushViewController(vc, animated: true)
         return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: vc.reactor))
     }
 }
