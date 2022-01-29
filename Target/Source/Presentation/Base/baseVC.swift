@@ -22,9 +22,13 @@ class baseVC<T: Reactor>: UIViewController{
         self.hero.isEnabled = true
         setUp()
         addView()
-        setLayout()
         configureVC()
         configureNavigation()
+        hideKeyboardWhenTappedAround()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        setLayout()
     }
     
     @Inject var reactor: T
