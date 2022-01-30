@@ -11,6 +11,8 @@ target 'MOIZA' do
   pod 'RxCocoa', '~> 6.2.0'
   pod 'RxViewController', '~> 2.0.0'
   pod 'RxDataSources', '~> 5.0.0'
+  pod 'RxGesture', '~> 4.0.3'
+  pod 'RxKeyboard', '~> 2.0.0'
 
   # Rx Framework
   pod 'ReactorKit', '~> 3.1.0'
@@ -27,7 +29,6 @@ target 'MOIZA' do
   pod 'PinLayout', '~> 1.10.0'
   pod 'FlexLayout', '~> 1.3.23'
   pod 'SwiftDate', '~> 6.3.1'
-  pod 'RxGesture', '~> 4.0.3'
 
   # Network
   pod 'Moya/RxSwift', '~> 15.0.0'
