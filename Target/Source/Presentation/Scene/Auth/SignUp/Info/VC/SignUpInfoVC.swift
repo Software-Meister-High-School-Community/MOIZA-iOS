@@ -162,7 +162,7 @@ final class SignUpInfoVC: baseVC<SignUpInfoReactor>{
     }
     override func setLayout() {
         scrollView.pin.all(view.safeAreaInsets)
-        scrollView.contentSize = .init(width: bound.width, height: 1500)
+        scrollView.contentSize = .init(width: bound.width, height: 1200)
         progressBar.pin.top(12).horizontally(20).height(10)
         titleLabel.pin.below(of: progressBar, aligned: .left).pinEdges().marginTop(30).width(of: progressBar).sizeToFit(.width)
         divisionContainer.pin.below(of: titleLabel, aligned: .left).height(120).width(of: titleLabel).marginTop(Metric.margin)
@@ -171,7 +171,7 @@ final class SignUpInfoVC: baseVC<SignUpInfoReactor>{
         schoolContainer.pin.below(of: birthContainer, aligned: .left).height(140).width(of: titleLabel).marginTop(Metric.margin)
         emailContainer.pin.below(of: schoolContainer, aligned: .left).height(140).width(of: titleLabel).marginTop(Metric.margin)
         authContainer.pin.below(of: emailContainer, aligned: .left).height(140).width(of: titleLabel).marginTop(Metric.margin)
-        nextButton.pin.below(of: authContainer, aligned: .right).width(88).height(36).marginTop(50)
+        nextButton.pin.below(of: authContainer, aligned: .right).width(88).height(36).marginTop(Metric.margin)
         
         divisionContainer.flex.define { flex in
             flex.addItem(divisionLabel).height(Metric.labelHeight).width(100%)
