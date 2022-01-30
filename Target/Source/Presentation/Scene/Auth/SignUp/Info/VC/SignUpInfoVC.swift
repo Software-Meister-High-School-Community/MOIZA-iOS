@@ -139,9 +139,7 @@ final class SignUpInfoVC: baseVC<SignUpInfoReactor>{
     private let nextButton = NextButton(title: "다음 단계")
     
     private let datePicker = UIDatePicker().then {
-        if #available(iOS 13.4, *) {
-            $0.preferredDatePickerStyle = .automatic
-        }
+        $0.preferredDatePickerStyle = .wheels
         $0.datePickerMode = .date
     }
     // MARK: - Lifecycle
@@ -300,8 +298,7 @@ final class SignUpInfoVC: baseVC<SignUpInfoReactor>{
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
         
-        birthTextField.rx.text
-            .orEmpty
+        datePicker.rx.controlEvent(.valueChanged)
             .map(Reactor.Action.updateBirth)
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
@@ -325,7 +322,7 @@ final class SignUpInfoVC: baseVC<SignUpInfoReactor>{
             .disposed(by: disposeBag)
     }
     override func bindState(reactor: SignUpInfoReactor) {
-        let sharedState = reactor.state.share(replay: 5).observe(on: MainScheduler.asyncInstance)
+        let sharedState = reactor.state.share(replay: 6).observe(on: MainScheduler.asyncInstance)
         
         sharedState
             .map(\.studentKind)
@@ -361,6 +358,14 @@ final class SignUpInfoVC: baseVC<SignUpInfoReactor>{
             .subscribe(onNext: { owner, item in
                 owner.nextButton.isEnabled = item
                 owner.nextButton.backgroundColor = item ? MOIZAAsset.moizaPrimaryBlue.color : MOIZAAsset.moizaSecondaryBlue.color
+            })
+            .disposed(by: disposeBag)
+        
+        sharedState
+            .map(\.birth)
+            .withUnretained(self)
+            .subscribe(onNext: { owner, item in
+                owner.birthTextField.text = item
             })
             .disposed(by: disposeBag)
     }

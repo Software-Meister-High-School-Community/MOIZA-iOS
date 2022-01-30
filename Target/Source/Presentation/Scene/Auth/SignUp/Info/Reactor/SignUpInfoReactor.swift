@@ -22,7 +22,7 @@ final class SignUpInfoReactor: Reactor, Stepper{
         case studentKindButtonDidTap(StudentKind)
         case updateName(String)
         case genderButtonDidTap(Gender)
-        case updateBirth(String)
+        case updateBirth(Date)
         case schoolButtonDidTap(School)
         case updateEmail(String)
         case updateEmailType(String)
@@ -33,7 +33,7 @@ final class SignUpInfoReactor: Reactor, Stepper{
         case setStudentKind(StudentKind)
         case setName(String)
         case setGender(Gender)
-        case setBirth(String)
+        case setBirth(Date)
         case setSchool(School)
         case setEmail(String)
         case setEmailType(String)
@@ -43,7 +43,7 @@ final class SignUpInfoReactor: Reactor, Stepper{
         var studentKind: StudentKind = .student
         var name: String = ""
         var gender: Gender?
-        var birth: String = ""
+        var birth: Date = .init()
         var school: School?
         var email: String = ""
         var emailType: String = ""
@@ -116,7 +116,6 @@ private extension SignUpInfoReactor{
     func checkValidation(_ currentState: State) -> Bool {
         guard !currentState.name.isEmpty,
               currentState.gender != nil,
-              !currentState.birth.isEmpty,
               currentState.school != nil,
               !currentState.email.isEmpty,
               !currentState.emailType.isEmpty,
