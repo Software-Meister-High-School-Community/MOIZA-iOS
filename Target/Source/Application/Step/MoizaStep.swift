@@ -25,5 +25,5 @@ enum MoizaStep: Step{
     
     // SignUp
     case signUpInformationIsRequired
-    case signUpLoginSetupIsRequired
+    case signUpLoginSetupIsRequired(Student)
 }

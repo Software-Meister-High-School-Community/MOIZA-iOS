@@ -6,7 +6,7 @@
 //  Copyright © 2022 com.connect. All rights reserved.
 //
 
-enum Gender: String{
+enum Gender: String, Codable{
     case male
     case female
 }

@@ -6,7 +6,7 @@
 //  Copyright © 2022 com.connect. All rights reserved.
 //
 
-enum School:String {
+enum School:String, Codable{
     case gsm = "광주소프트웨어마이스터고등학교"
     case dgsm = "대구소프트웨어마이스터고등학교"
     case dsm = "대덕소프트웨어마이스터고등학교"

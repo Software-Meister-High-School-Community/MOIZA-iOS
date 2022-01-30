@@ -6,7 +6,7 @@
 //  Copyright © 2022 com.connect. All rights reserved.
 //
 
-enum StudentKind: String{
+enum StudentKind: String, Codable{
     case student = "재학생"
     case graduate = "졸업생"
 }
