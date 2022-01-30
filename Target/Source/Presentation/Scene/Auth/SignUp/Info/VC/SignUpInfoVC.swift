@@ -81,9 +81,7 @@ final class SignUpInfoVC: baseVC<SignUpInfoReactor>{
         $0.text = "생년월일 8자리"
         $0.font = Fonts.regular16
     }
-    private let birthTextField = SignUpTextField().then {
-        $0.keyboardType = .numberPad
-    }
+    private let birthTextField = SignUpTextField()
     
     private let schoolContainer = UIView()
     private let schoolLabel = UILabel().then {
@@ -140,6 +138,12 @@ final class SignUpInfoVC: baseVC<SignUpInfoReactor>{
     }
     private let nextButton = NextButton(title: "다음 단계")
     
+    private let datePicker = UIDatePicker().then {
+        if #available(iOS 13.4, *) {
+            $0.preferredDatePickerStyle = .automatic
+        }
+        $0.datePickerMode = .date
+    }
     // MARK: - Lifecycle
     override func viewDidAppear(_ animated: Bool) {
         progressBar.currentIndex = 1
@@ -147,6 +151,7 @@ final class SignUpInfoVC: baseVC<SignUpInfoReactor>{
     
     // MARK: - UI
     override func setUp() {
+        birthTextField.inputView = datePicker
         bind(reactor: reactor)
         progressBar.delegate = self
         genderCollectionView.rx.setDelegate(self).disposed(by: disposeBag)
