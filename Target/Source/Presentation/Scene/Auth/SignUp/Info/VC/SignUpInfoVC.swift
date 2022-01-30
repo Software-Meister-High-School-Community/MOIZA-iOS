@@ -7,6 +7,7 @@
 //
 
 import FlexibleSteppedProgressBar
+import SwiftDate
 import Hero
 import PinLayout
 import Then
@@ -88,11 +89,10 @@ final class SignUpInfoVC: baseVC<SignUpInfoReactor>{
         $0.text = "학교 선택"
         $0.font = Fonts.regular16
     }
-    private let schoolTableView = UITableView().then {
-        $0.register(SchoolCell.self, forCellReuseIdentifier: SchoolCell.reusableID)
-        $0.rowHeight = 50
-        $0.isScrollEnabled = false
-    }
+    private let schoolTextField = SignUpTextField()
+    
+    private let schoolPicker = UIPickerView()
+    private let schoolData = [.none, School.gsm, .dgsm, .dsm, .mirim, .bsm]
     
     private let emailContainer = UIView()
     private let emailLabel = UILabel().then {
@@ -141,6 +141,7 @@ final class SignUpInfoVC: baseVC<SignUpInfoReactor>{
     private let datePicker = UIDatePicker().then {
         $0.preferredDatePickerStyle = .wheels
         $0.datePickerMode = .date
+        $0.locale = Locale(identifier: "Ko_kr")
     }
     // MARK: - Lifecycle
     override func viewDidAppear(_ animated: Bool) {
@@ -150,6 +151,7 @@ final class SignUpInfoVC: baseVC<SignUpInfoReactor>{
     // MARK: - UI
     override func setUp() {
         birthTextField.inputView = datePicker
+        schoolTextField.inputView = schoolPicker
         bind(reactor: reactor)
         progressBar.delegate = self
         genderCollectionView.rx.setDelegate(self).disposed(by: disposeBag)
@@ -166,7 +168,7 @@ final class SignUpInfoVC: baseVC<SignUpInfoReactor>{
         divisionContainer.pin.below(of: titleLabel, aligned: .left).height(120).width(of: titleLabel).marginTop(Metric.margin)
         nameContainer.pin.below(of: divisionContainer, aligned: .left).width(100%).height(140).marginTop(Metric.margin)
         birthContainer.pin.below(of: nameContainer, aligned: .left).height(140).width(of: titleLabel).marginTop(Metric.margin)
-        schoolContainer.pin.below(of: birthContainer, aligned: .left).height(340).width(of: titleLabel).marginTop(Metric.margin)
+        schoolContainer.pin.below(of: birthContainer, aligned: .left).height(140).width(of: titleLabel).marginTop(Metric.margin)
         emailContainer.pin.below(of: schoolContainer, aligned: .left).height(140).width(of: titleLabel).marginTop(Metric.margin)
         authContainer.pin.below(of: emailContainer, aligned: .left).height(140).width(of: titleLabel).marginTop(Metric.margin)
         nextButton.pin.below(of: authContainer, aligned: .right).width(88).height(36).marginTop(50)
@@ -197,7 +199,7 @@ final class SignUpInfoVC: baseVC<SignUpInfoReactor>{
         }
         schoolContainer.flex.define { flex in
             flex.addItem(schoolLabel).height(Metric.height).width(100%)
-            flex.addItem(schoolTableView).height(250).width(100%)
+            flex.addItem(schoolTextField).height(Metric.height).width(100%)
         }
         emailContainer.flex.define { flex in
             flex.addItem(emailLabel).height(Metric.height).width(100%)
@@ -229,22 +231,17 @@ final class SignUpInfoVC: baseVC<SignUpInfoReactor>{
             return cell
         }
         
-        let schoolDS = RxTableViewSectionedReloadDataSource<SchoolSection>{ _, tv, ip, item in
-            guard let cell = tv.dequeueReusableCell(withIdentifier: SchoolCell.reusableID, for: ip) as? SchoolCell else { return .init() }
-            cell.model = item
-            return cell
-        }
         
         Observable.just([Gender.male, Gender.female])
             .map { [GenderSection.init(header: "", items: $0)] }
             .bind(to: genderCollectionView.rx.items(dataSource: genDS))
             .disposed(by: disposeBag)
         
-        Observable.just([School.gsm, .dgsm, .dsm, .mirim, .bsm])
-            .map { [SchoolSection.init(header: "", items: $0)] }
-            .bind(to: schoolTableView.rx.items(dataSource: schoolDS))
+        Observable.just(self.schoolData)
+            .bind(to: schoolPicker.rx.itemTitles) { _, item in
+                return "\(item.rawValue)"
+            }
             .disposed(by: disposeBag)
-        
         
     }
     override func configureNavigation() {
@@ -256,27 +253,6 @@ final class SignUpInfoVC: baseVC<SignUpInfoReactor>{
         
     }
     override func bindView(reactor: SignUpInfoReactor) {
-        schoolTableView.rx.itemSelected
-            .asObservable()
-            .withUnretained(self)
-            .subscribe(onNext: { owner, item in
-                (owner.schoolTableView.cellForRow(at: item) as? SchoolCell)?.selectItem()
-            })
-            .disposed(by: disposeBag)
-        
-        schoolTableView.rx.itemDeselected
-            .asObservable()
-            .withUnretained(self)
-            .subscribe(onNext: { owner, item in
-                (owner.schoolTableView.cellForRow(at: item) as? SchoolCell)?.deselectItem()
-            })
-            .disposed(by: disposeBag)
-        
-        schoolTableView.rx.modelSelected(School.self)
-            .map(Reactor.Action.schoolButtonDidTap)
-            .bind(to: reactor.action)
-            .disposed(by: disposeBag)
-        
         genderCollectionView.rx.modelSelected(Gender.self)
             .map(Reactor.Action.genderButtonDidTap)
             .bind(to: reactor.action)
@@ -299,7 +275,15 @@ final class SignUpInfoVC: baseVC<SignUpInfoReactor>{
             .disposed(by: disposeBag)
         
         datePicker.rx.controlEvent(.valueChanged)
+            .map{ self.datePicker.date }
             .map(Reactor.Action.updateBirth)
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
+        schoolPicker.rx.itemSelected
+            .map(\.row)
+            .map { self.schoolData[$0] }
+            .map(Reactor.Action.updateSchool)
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
         
@@ -322,7 +306,7 @@ final class SignUpInfoVC: baseVC<SignUpInfoReactor>{
             .disposed(by: disposeBag)
     }
     override func bindState(reactor: SignUpInfoReactor) {
-        let sharedState = reactor.state.share(replay: 6).observe(on: MainScheduler.asyncInstance)
+        let sharedState = reactor.state.share(replay: 7).observe(on: MainScheduler.asyncInstance)
         
         sharedState
             .map(\.studentKind)
@@ -336,7 +320,7 @@ final class SignUpInfoVC: baseVC<SignUpInfoReactor>{
         
         sharedState
             .map(\.school)
-            .map{ $0?.toDomain() }
+            .map{ $0.toDomain() }
             .bind(to: emailTypeTextField.rx.text)
             .disposed(by: disposeBag)
         
@@ -363,10 +347,14 @@ final class SignUpInfoVC: baseVC<SignUpInfoReactor>{
         
         sharedState
             .map(\.birth)
-            .withUnretained(self)
-            .subscribe(onNext: { owner, item in
-                owner.birthTextField.text = item
-            })
+            .map { $0.toString(.custom("yyyy/MM/dd"))}
+            .bind(to: birthTextField.rx.text)
+            .disposed(by: disposeBag)
+        
+        sharedState
+            .map(\.school)
+            .map(\.rawValue)
+            .bind(to: schoolTextField.rx.text)
             .disposed(by: disposeBag)
     }
 }

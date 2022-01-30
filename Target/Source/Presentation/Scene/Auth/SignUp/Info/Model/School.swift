@@ -12,6 +12,7 @@ enum School:String {
     case dsm = "대덕소프트웨어마이스터고등학교"
     case mirim = "미림마이스터고등학교"
     case bsm = "부산소프트웨어마이스터고등학교"
+    case none = "선택 없음"
 }
 
 extension School{
@@ -27,6 +28,8 @@ extension School{
             return "e-mirim.hs.kr"
         case .bsm:
             return "bssm.hs.kr"
+        case .none:
+            return ""
         }
     }
 }

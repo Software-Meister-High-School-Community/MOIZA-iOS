@@ -23,7 +23,7 @@ final class SignUpInfoReactor: Reactor, Stepper{
         case updateName(String)
         case genderButtonDidTap(Gender)
         case updateBirth(Date)
-        case schoolButtonDidTap(School)
+        case updateSchool(School)
         case updateEmail(String)
         case updateEmailType(String)
         case authRequestButtonDidTap
@@ -44,7 +44,7 @@ final class SignUpInfoReactor: Reactor, Stepper{
         var name: String = ""
         var gender: Gender?
         var birth: Date = .init()
-        var school: School?
+        var school: School = .none
         var email: String = ""
         var emailType: String = ""
         var authCode: String = ""
@@ -68,7 +68,7 @@ extension SignUpInfoReactor{
             return .just(.setGender(gender))
         case let .updateBirth(birth):
             return .just(.setBirth(birth))
-        case let .schoolButtonDidTap(sch):
+        case let .updateSchool(sch):
             return .just(.setSchool(sch))
         case let .updateEmail(email):
             return .just(.setEmail(email))
@@ -116,7 +116,7 @@ private extension SignUpInfoReactor{
     func checkValidation(_ currentState: State) -> Bool {
         guard !currentState.name.isEmpty,
               currentState.gender != nil,
-              currentState.school != nil,
+              currentState.school != .none,
               !currentState.email.isEmpty,
               !currentState.emailType.isEmpty,
               currentState.authCodeValidation else {
