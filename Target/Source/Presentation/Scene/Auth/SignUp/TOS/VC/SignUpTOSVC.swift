@@ -16,12 +16,7 @@ import RxViewController
 
 final class SignUpTOSVC: baseVC<SignUpTOSReactor>{
     // MARK: - Properties
-    private let progressBar = FlexibleSteppedProgressBar().then {
-        $0.numberOfPoints = 3
-        $0.currentSelectedCenterColor = MOIZAAsset.moizaPrimaryBlue.color
-        $0.selectedOuterCircleStrokeColor = .clear
-        $0.hero.id = "progress"
-    }
+    private let progressBar = SignUpProgress()
     private let titleLabel = SubTitleLabel(title: "약관동의")
     private let descriptionLabel = UILabel().then {
         $0.font = UIFont(font: MOIZAFontFamily.Roboto.regular, size: 14)
@@ -34,16 +29,7 @@ final class SignUpTOSVC: baseVC<SignUpTOSReactor>{
         $0.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         $0.layer.cornerRadius = 20
     }
-    private let allAgreeButton = M13Checkbox().then {
-        $0.markType = .radio
-        $0.boxType = .circle
-        $0.tintColor = MOIZAAsset.moizaPrimaryYellow.color
-        $0.secondaryCheckmarkTintColor = .white
-        $0.checkmarkLineWidth = 4
-        $0.boxLineWidth = 1
-        $0.secondaryTintColor = MOIZAAsset.moizaGray3.color
-        $0.stateChangeAnimation = .bounce(.fill)
-    }
+    private let allAgreeButton = MoizaRadioButton()
     private let allAgreeLabel = UILabel().then {
         $0.font = UIFont(font: MOIZAFontFamily.Roboto.regular, size: 16)
         $0.text = "전체 약관 동의"
@@ -84,7 +70,8 @@ final class SignUpTOSVC: baseVC<SignUpTOSReactor>{
     }
     override func setLayout() {
         progressBar.snp.makeConstraints {
-            $0.top.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(12)
+            $0.top.equalTo(view.safeAreaLayoutGuide).inset(12)
+            $0.leading.trailing.equalToSuperview().inset(20)
             $0.height.equalTo(10)
         }
         titleLabel.snp.makeConstraints {

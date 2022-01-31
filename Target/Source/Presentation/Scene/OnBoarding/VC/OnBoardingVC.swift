@@ -9,6 +9,8 @@
 import UIKit
 import RxCocoa
 import Hero
+import PinLayout
+import FlexLayout
 
 final class OnBoardingVC: baseVC<OnBoardingReactor>{
     // MARK: - Properties
@@ -23,32 +25,21 @@ final class OnBoardingVC: baseVC<OnBoardingReactor>{
         $0.layer.borderWidth = 1
         $0.layer.borderColor = UIColor.black.cgColor
     }
-    private let mainStack = UIStackView().then {
-        $0.axis = .vertical
-        $0.spacing = 8
-    }
+    private let mainContainer = UIView()
     
     // MARK: - UI
     override func addView() {
-        mainStack.addArrangeSubviews(signUpButton, signInButton)
-        view.addSubViews(mainStack, logoImageView)
+        
+        view.addSubViews(mainContainer, logoImageView)
     }
     override func setLayout() {
-        logoImageView.snp.makeConstraints {
-            $0.leading.trailing.equalToSuperview().inset(bound.width*0.252)
-            $0.top.equalToSuperview().offset(bound.height*0.399)
-            $0.bottom.equalToSuperview().offset(-bound.height*0.5531)
+        logoImageView.pin.top(39%).horizontally(25%).bottom(55%)
+        mainContainer.pin.top(80%).horizontally(16).bottom(view.pin.safeArea.bottom - 10)
+        mainContainer.flex.define { flex in
+            flex.addItem(signUpButton).width(100%).height(50)
+            flex.addItem(signInButton).width(100%).height(50).marginTop(8)
         }
-        signUpButton.snp.makeConstraints {
-            $0.height.equalTo(50)
-        }
-        signInButton.snp.makeConstraints {
-            $0.height.equalTo(50)
-        }
-        mainStack.snp.makeConstraints {
-            $0.leading.trailing.equalToSuperview().inset(16)
-            $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).inset(10)
-        }
+        mainContainer.flex.layout()
     }
     override func configureVC() {
         

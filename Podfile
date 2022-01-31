@@ -26,6 +26,8 @@ target 'MOIZA' do
   pod 'M13Checkbox', '~> 3.4.0'
   pod 'PinLayout', '~> 1.10.0'
   pod 'FlexLayout', '~> 1.3.23'
+  pod 'SwiftDate', '~> 6.3.1'
+  pod 'RxGesture', '~> 4.0.3'
 
   # Network
   pod 'Moya/RxSwift', '~> 15.0.0'

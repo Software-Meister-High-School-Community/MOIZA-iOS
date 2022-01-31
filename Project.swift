@@ -12,7 +12,7 @@ let project = Project(
             platform: .iOS,
             product: .app,
             bundleId: "\(orginazationIden).\(projectName)",
-            deploymentTarget: .iOS(targetVersion: "13.0", devices: [.iphone, .ipad]),
+            deploymentTarget: .iOS(targetVersion: "13.5", devices: [.iphone, .ipad]),
             infoPlist: .file(path: Path("Target/Support/Info.plist")),
             sources: ["Target/Source/**"],
             resources: ["Target/Resource/**"]
@@ -22,7 +22,7 @@ let project = Project(
             platform: .iOS,
             product: .unitTests,
             bundleId: "\(orginazationIden).\(projectName)Test",
-            deploymentTarget: .iOS(targetVersion: "13.0", devices: [.iphone, .ipad]),
+            deploymentTarget: .iOS(targetVersion: "13.5", devices: [.iphone, .ipad]),
             infoPlist: .default,
             sources: ["TargetTest/Tests/**"],
             dependencies: [
@@ -34,7 +34,7 @@ let project = Project(
             platform: .iOS,
             product: .uiTests,
             bundleId: "\(orginazationIden).\(projectName)UITest",
-            deploymentTarget: .iOS(targetVersion: "13.0", devices: [.iphone, .ipad]),
+            deploymentTarget: .iOS(targetVersion: "13.5", devices: [.iphone, .ipad]),
             infoPlist: .default,
             sources: ["TargetUITest/Tests/**"],
             dependencies: [
