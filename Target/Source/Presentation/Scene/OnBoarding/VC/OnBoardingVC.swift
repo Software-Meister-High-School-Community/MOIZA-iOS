@@ -34,10 +34,11 @@ final class OnBoardingVC: baseVC<OnBoardingReactor>{
     }
     override func setLayout() {
         logoImageView.pin.top(39%).horizontally(25%).bottom(55%)
-        mainContainer.pin.top(80%).horizontally(16).bottom(view.pin.safeArea.bottom - 10)
-        mainContainer.flex.define { flex in
-            flex.addItem(signUpButton).width(100%).height(50)
-            flex.addItem(signInButton).width(100%).height(50).marginTop(8)
+        mainContainer.pin.bottom(view.pin.safeArea.bottom + 10).horizontally(16).height(108)
+        
+        mainContainer.flex.direction(.columnReverse).define { flex in
+            flex.addItem(signInButton).width(100%).height(50)
+            flex.addItem(signUpButton).width(100%).height(50).marginBottom(8)
         }
         mainContainer.flex.layout()
     }
