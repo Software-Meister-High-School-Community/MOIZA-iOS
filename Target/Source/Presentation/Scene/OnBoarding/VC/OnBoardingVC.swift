@@ -29,7 +29,6 @@ final class OnBoardingVC: baseVC<OnBoardingReactor>{
     
     // MARK: - UI
     override func addView() {
-        
         view.addSubViews(mainContainer, logoImageView)
     }
     override func setLayout() {
