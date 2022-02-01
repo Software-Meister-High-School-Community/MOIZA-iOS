@@ -27,6 +27,7 @@ extension Container{
         autoregister(OnBoardingReactor.self, initializer: OnBoardingReactor.init)
         autoregister(SignUpTOSReactor.self, initializer: SignUpTOSReactor.init)
         autoregister(SignUpInfoReactor.self, initializer: SignUpInfoReactor.init)
+        autoregister(SignUpSetUpReactor.self, initializer: SignUpSetUpReactor.init)
     }
     private func registerStepper(){
         autoregister(OnBoardingStepper.self, initializer: OnBoardingStepper.init)

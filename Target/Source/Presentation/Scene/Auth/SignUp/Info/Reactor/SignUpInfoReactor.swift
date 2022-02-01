@@ -28,6 +28,7 @@ final class SignUpInfoReactor: Reactor, Stepper{
         case updateEmailType(String)
         case authRequestButtonDidTap
         case updateAuthCode(String)
+        case nextButtonDidTap
     }
     enum Mutation{
         case setStudentKind(StudentKind)
@@ -78,6 +79,8 @@ extension SignUpInfoReactor{
             return .empty()
         case let .updateAuthCode(code):
             return .just(.setAuthCode(code))
+        case .nextButtonDidTap:
+            return navigateToSignUpLoginSetup()
         }
     }
 }
@@ -124,5 +127,19 @@ private extension SignUpInfoReactor{
         }
         
         return true
+    }
+    
+    func navigateToSignUpLoginSetup() -> Observable<Mutation> {
+        steps.accept(MoizaStep.signUpLoginSetupIsRequired(
+            .init(
+                kind: currentState.studentKind,
+                name: currentState.name,
+                gender: currentState.gender ?? .male,
+                birth: currentState.birth,
+                school: currentState.school,
+                email: "\(currentState.email)@\(currentState.emailType)"
+            )
+        ))
+        return .empty()
     }
 }

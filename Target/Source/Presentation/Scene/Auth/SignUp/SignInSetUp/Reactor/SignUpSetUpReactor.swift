@@ -19,10 +19,13 @@ final class SignUpSetUpReactor: Reactor, Stepper{
     
     // MARK: - Reactor
     enum Action{
+        case `init`(Student)
     }
     enum Mutation{
+        case setStudent(Student)
     }
     struct State{
+        var student: Student = .init(kind: .student, name: "", gender: .male, birth: .init(), school: .none, email: "")
     }
     
     var initialState: State = State()
@@ -33,8 +36,8 @@ final class SignUpSetUpReactor: Reactor, Stepper{
 extension SignUpSetUpReactor{
     func mutate(action: Action) -> Observable<Mutation> {
         switch action{
-        default:
-            return .empty()
+        case let .`init`(student):
+            return .just(.setStudent(student))
         }
     }
 }
@@ -44,7 +47,8 @@ extension SignUpSetUpReactor{
     func reduce(state: State, mutation: Mutation) -> State {
         var newState = state
         switch mutation {
-            
+        case let .setStudent(student):
+            newState.student = student
         }
         return newState
     }

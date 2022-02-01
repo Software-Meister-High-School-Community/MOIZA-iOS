@@ -44,9 +44,11 @@ final class OnBoardingFlow: Flow{
         case .onBoardingIsRequired:
             return coordinateToOnBoarding()
         case .signUpIsRequired:
-            return coordinateToSignUpTOS()
+            return navigateToSignUpTOS()
         case .signUpInformationIsRequired:
-            return coordinateToSignUpInfo()
+            return navigateToSignUpInfo()
+        case let .signUpLoginSetupIsRequired(student):
+            return navigateToSignUpSetUp(student: student)
         default:
             return .none
         }
@@ -59,13 +61,18 @@ private extension OnBoardingFlow{
         self.rootVC.setViewControllers([vc], animated: true)
         return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: vc.reactor))
     }
-    func coordinateToSignUpTOS() -> FlowContributors{
+    func navigateToSignUpTOS() -> FlowContributors{
         let vc = SignUpTOSVC()
         self.rootVC.pushViewController(vc, animated: true)
         return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: vc.reactor))
     }
-    func coordinateToSignUpInfo() -> FlowContributors{
+    func navigateToSignUpInfo() -> FlowContributors{
         let vc = SignUpInfoVC()
+        self.rootVC.pushViewController(vc, animated: true)
+        return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: vc.reactor))
+    }
+    func navigateToSignUpSetUp(student: Student) -> FlowContributors{
+        let vc = SignUpSetUpVC(student: student)
         self.rootVC.pushViewController(vc, animated: true)
         return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: vc.reactor))
     }

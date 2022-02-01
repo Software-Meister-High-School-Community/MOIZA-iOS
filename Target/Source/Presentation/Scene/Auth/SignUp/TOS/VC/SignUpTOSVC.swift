@@ -78,7 +78,7 @@ final class SignUpTOSVC: baseVC<SignUpTOSReactor>{
         agreeContainer.pin.top(20).horizontally(20).height(30).width(100%)
         separatorView.pin.below(of: agreeContainer).height(1).horizontally(20).marginTop(5)
         continueButton.pin.bottom(12%).horizontally(20).height(52)
-        tosTableView.pin.below(of: separatorView).marginTop(5).horizontally(20).height(100).bottomCenter(to: continueButton.anchor.topCenter)
+        tosTableView.pin.below(of: separatorView).above(of: continueButton).marginTop(5).horizontally(20).height(100)
         
         agreeContainer.flex.direction(.row).define { flex in
             flex.addItem(allAgreeButton).width(24).height(24)

@@ -146,6 +146,7 @@ final class SignUpInfoVC: baseVC<SignUpInfoReactor>{
     // MARK: - Lifecycle
     override func viewDidAppear(_ animated: Bool) {
         progressBar.currentIndex = 1
+        nextButton.hero.id = "progress"
     }
     
     // MARK: - UI
@@ -246,6 +247,10 @@ final class SignUpInfoVC: baseVC<SignUpInfoReactor>{
     }
     override func configureNavigation() {
         self.navigationItem.configAuthNavigation(title: "회원가입")
+        
+        let back = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
+        back.tintColor = .black
+        self.navigationItem.backBarButtonItem = back
     }
     
     // MARK: - Reactor
@@ -302,6 +307,11 @@ final class SignUpInfoVC: baseVC<SignUpInfoReactor>{
         authCodeTextField.rx.text
             .orEmpty
             .map(Reactor.Action.updateAuthCode)
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
+        nextButton.rx.tap
+            .map{ Reactor.Action.nextButtonDidTap }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
     }
