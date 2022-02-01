@@ -13,6 +13,8 @@ import M13Checkbox
 import RxDataSources
 import RxSwift
 import RxViewController
+import PinLayout
+import FlexLayout
 
 final class SignUpTOSVC: baseVC<SignUpTOSReactor>{
     // MARK: - Properties
@@ -34,6 +36,7 @@ final class SignUpTOSVC: baseVC<SignUpTOSReactor>{
         $0.font = UIFont(font: MOIZAFontFamily.Roboto.regular, size: 16)
         $0.text = "전체 약관 동의"
     }
+    private let agreeContainer = UIView()
     private let agreeStack = UIStackView().then {
         $0.axis = .horizontal
         $0.spacing = 8
@@ -65,50 +68,24 @@ final class SignUpTOSVC: baseVC<SignUpTOSReactor>{
     }
     override func addView() {
         view.addSubViews(progressBar, titleLabel, descriptionLabel, subView)
-        agreeStack.addArrangeSubviews(allAgreeButton, allAgreeLabel)
-        subView.addSubViews(agreeStack, separatorView, tosTableView, continueButton)
+        subView.addSubViews(separatorView, tosTableView, continueButton, agreeContainer)
     }
     override func setLayout() {
-        progressBar.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide).inset(12)
-            $0.leading.trailing.equalToSuperview().inset(20)
-            $0.height.equalTo(10)
+        progressBar.pin.top(view.pin.safeArea.top + 12).horizontally(20).height(10)
+        titleLabel.pin.below(of: progressBar, aligned: .left).pinEdges().marginTop(30).width(of: progressBar).sizeToFit(.width)
+        descriptionLabel.pin.below(of: titleLabel, aligned: .left).marginTop(30).width(of: progressBar).sizeToFit(.width)
+        subView.pin.horizontally(view.pin.safeArea).bottom().height(50.86%)
+        agreeContainer.pin.top(20).horizontally(20).height(30).width(100%)
+        separatorView.pin.below(of: agreeContainer).height(1).horizontally(20).marginTop(5)
+        continueButton.pin.bottom(12%).horizontally(20).height(52)
+        tosTableView.pin.below(of: separatorView).marginTop(5).horizontally(20).height(100).bottomCenter(to: continueButton.anchor.topCenter)
+        
+        agreeContainer.flex.direction(.row).define { flex in
+            flex.addItem(allAgreeButton).width(24).height(24)
+            flex.addItem(allAgreeLabel).height(24).width(70%).marginLeft(8)
         }
-        titleLabel.snp.makeConstraints {
-            $0.leading.equalToSuperview().inset(18)
-            $0.top.equalTo(progressBar.snp.bottom).offset(30)
-        }
-        descriptionLabel.snp.makeConstraints {
-            $0.leading.equalTo(titleLabel)
-            $0.top.equalTo(titleLabel.snp.bottom).offset(20)
-        }
-        subView.snp.makeConstraints {
-            $0.height.equalTo(bound.height*0.5086)
-            $0.leading.trailing.equalTo(view.safeAreaLayoutGuide)
-            $0.bottom.equalToSuperview()
-        }
-        allAgreeButton.snp.makeConstraints {
-            $0.width.height.equalTo(24)
-        }
-        agreeStack.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(20)
-            $0.leading.equalToSuperview().inset(10)
-        }
-        separatorView.snp.makeConstraints {
-            $0.height.equalTo(1)
-            $0.top.equalTo(agreeStack.snp.bottom).offset(10)
-            $0.leading.trailing.equalToSuperview().inset(16)
-        }
-        continueButton.snp.makeConstraints {
-            $0.leading.trailing.equalToSuperview().inset(20)
-            $0.bottom.equalToSuperview().inset(bound.height*0.1173)
-            $0.height.equalTo(52)
-        }
-        tosTableView.snp.makeConstraints {
-            $0.top.equalTo(separatorView.snp.bottom).offset(10)
-            $0.leading.trailing.equalToSuperview()
-            $0.bottom.equalTo(continueButton.snp.top)
-        }
+        
+        agreeContainer.flex.layout()
     }
     override func configureVC() {
     }
