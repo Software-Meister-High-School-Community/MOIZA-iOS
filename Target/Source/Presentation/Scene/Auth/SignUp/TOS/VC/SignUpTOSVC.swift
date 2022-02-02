@@ -37,10 +37,6 @@ final class SignUpTOSVC: baseVC<SignUpTOSReactor>{
         $0.text = "전체 약관 동의"
     }
     private let agreeContainer = UIView()
-    private let agreeStack = UIStackView().then {
-        $0.axis = .horizontal
-        $0.spacing = 8
-    }
     private let separatorView = UIView().then {
         $0.backgroundColor = MOIZAAsset.moizaGray3.color
     }

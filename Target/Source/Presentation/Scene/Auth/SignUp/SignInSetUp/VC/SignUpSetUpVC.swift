@@ -10,12 +10,18 @@ import RxSwift
 import RxCocoa
 import PinLayout
 import FlexibleSteppedProgressBar
+import UIKit
 
 final class SignUpSetUpVC: baseVC<SignUpSetUpReactor>{
     // MARK: - Properties
     private let progressBar = SignUpProgress().then {
         $0.currentIndex = 1
     }
+    private let titleLabel = SubTitleLabel(title: "로그인 설정")
+    private let idContainer = UIView()
+    private let idLabel = UILabel()
+    private let idCheckButton = UIButton()
+    
     
     // MARK: - Init
     init(student: Student) {
@@ -41,10 +47,11 @@ final class SignUpSetUpVC: baseVC<SignUpSetUpReactor>{
         progressBar.delegate = self
     }
     override func addView() {
-        view.addSubViews(progressBar)
+        view.addSubViews(progressBar, titleLabel)
     }
     override func setLayout() {
         progressBar.pin.top(view.pin.safeArea.top + 12).horizontally(20).height(10)
+        titleLabel.pin.below(of: progressBar, aligned: .left).pinEdges().marginTop(30).width(of: progressBar).sizeToFit(.width)
     }
     override func configureNavigation() {
         self.navigationItem.configAuthNavigation(title: "회원가입")

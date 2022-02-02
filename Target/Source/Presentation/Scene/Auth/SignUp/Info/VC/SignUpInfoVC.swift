@@ -41,10 +41,7 @@ final class SignUpInfoVC: baseVC<SignUpInfoReactor>{
     private let titleLabel = SubTitleLabel(title: "정보 입력")
     
     private let divisionContainer = UIView()
-    private let divisionLabel = UILabel().then {
-        $0.text = "구분"
-        $0.font = Fonts.regular16
-    }
+    private let divisionLabel = SignUpCategoryLabel(text: "구분")
     private let studentRadio = MoizaRadioButton().then {
         $0.checkState = .checked
     }
@@ -59,10 +56,7 @@ final class SignUpInfoVC: baseVC<SignUpInfoReactor>{
     }
     
     private let nameContainer = UIView()
-    private let nameLabel = UILabel().then {
-        $0.text = "이름"
-        $0.font = Fonts.regular16
-    }
+    private let nameLabel = SignUpCategoryLabel(text: "이름")
     private let nameTextField = SignUpTextField()
     private let genderCollectionView = UICollectionView(frame: .zero, collectionViewLayout: .init()).then {
         let layout = UICollectionViewFlowLayout()
@@ -78,36 +72,25 @@ final class SignUpInfoVC: baseVC<SignUpInfoReactor>{
     }
     
     private let birthContainer = UIView()
-    private let birthLabel = UILabel().then {
-        $0.text = "생년월일 8자리"
-        $0.font = Fonts.regular16
-    }
+    private let birthLabel = SignUpCategoryLabel(text: "생년월일 8자리")
     private let birthTextField = SignUpTextField()
     
     private let schoolContainer = UIView()
-    private let schoolLabel = UILabel().then {
-        $0.text = "학교 선택"
-        $0.font = Fonts.regular16
-    }
+    private let schoolLabel = SignUpCategoryLabel(text: "학교 선택")
     private let schoolTextField = SignUpTextField()
     
     private let schoolPicker = UIPickerView()
     private let schoolData = [.none, School.gsm, .dgsm, .dsm, .mirim, .bsm]
     
     private let emailContainer = UIView()
-    private let emailLabel = UILabel().then {
-        $0.font = Fonts.regular16
-        $0.text = "학교 이메일"
-    }
+    private let emailLabel = SignUpCategoryLabel(text: "학교 이메일")
     private let emailTextField = SignUpTextField()
     private let emailMiddleLabel = UILabel().then {
         $0.text = "@"
         $0.font = Fonts.regular14
         $0.textColor = MOIZAAsset.moizaGray5.color
     }
-    private let emailTypeTextField = SignUpTextField().then {
-        $0.font = Fonts.regular14
-    }
+    private let emailTypeTextField = SignUpTextField()
     private let authRequestButton = UIButton().then {
         $0.setTitle("인증 요청", for: .normal)
         $0.setTitleColor(.black, for: .normal)
@@ -127,10 +110,7 @@ final class SignUpInfoVC: baseVC<SignUpInfoReactor>{
     }
     
     private let authContainer = UIView()
-    private let authCodeLabel = UILabel().then {
-        $0.text = "인증번호"
-        $0.font = Fonts.regular16
-    }
+    private let authCodeLabel = SignUpCategoryLabel(text: "인증번호")
     private let authCodeTextField = SignUpTextField()
     private let authCodeRetryLabel = UILabel().then {
         $0.font = UIFont(font: MOIZAFontFamily.Roboto.regular, size: 12)
@@ -166,22 +146,22 @@ final class SignUpInfoVC: baseVC<SignUpInfoReactor>{
         scrollView.contentSize = .init(width: bound.width, height: 1200)
         progressBar.pin.top(12).horizontally(20).height(10)
         titleLabel.pin.below(of: progressBar, aligned: .left).pinEdges().marginTop(30).width(of: progressBar).sizeToFit(.width)
-        divisionContainer.pin.below(of: titleLabel, aligned: .left).height(120).width(of: titleLabel).marginTop(Metric.margin)
-        nameContainer.pin.below(of: divisionContainer, aligned: .left).width(100%).height(140).marginTop(Metric.margin)
-        birthContainer.pin.below(of: nameContainer, aligned: .left).height(140).width(of: titleLabel).marginTop(Metric.margin)
-        schoolContainer.pin.below(of: birthContainer, aligned: .left).height(140).width(of: titleLabel).marginTop(Metric.margin)
-        emailContainer.pin.below(of: schoolContainer, aligned: .left).height(140).width(of: titleLabel).marginTop(Metric.margin)
-        authContainer.pin.below(of: emailContainer, aligned: .left).height(140).width(of: titleLabel).marginTop(Metric.margin)
+        divisionContainer.pin.below(of: titleLabel, aligned: .left).pinEdges().height(120).width(of: titleLabel).marginTop(Metric.margin)
+        nameContainer.pin.below(of: divisionContainer, aligned: .left).height(120).width(of: titleLabel).marginTop(Metric.margin)
+        birthContainer.pin.below(of: nameContainer, aligned: .left).height(120).width(of: titleLabel).marginTop(Metric.margin)
+        schoolContainer.pin.below(of: birthContainer, aligned: .left).height(120).width(of: titleLabel).marginTop(Metric.margin)
+        emailContainer.pin.below(of: schoolContainer, aligned: .left).height(120).width(of: titleLabel).marginTop(Metric.margin)
+        authContainer.pin.below(of: emailContainer, aligned: .left).height(120).width(of: titleLabel).marginTop(Metric.margin)
         nextButton.pin.below(of: authContainer, aligned: .right).width(88).height(36).marginTop(Metric.margin)
         
         divisionContainer.flex.define { flex in
             flex.addItem(divisionLabel).height(Metric.labelHeight).width(100%)
             flex.addItem().top(15).horizontally(0).direction(.row).define { flex in
-                flex.addItem().direction(.row).width(50%).define { flex in
+                flex.addItem().direction(.row).shrink(1).define { flex in
                     flex.addItem(studentRadio).width(24).height(24)
                     flex.addItem(studentLabel).left(10).width(70%).height(24)
                 }
-                flex.addItem().direction(.row).width(50%).define { flex in
+                flex.addItem().direction(.row).shrink(1).define { flex in
                     flex.addItem(graduateRadio).width(24).height(24)
                     flex.addItem(graduateLabel).left(10).width(70%).height(24)
                 }
@@ -189,7 +169,7 @@ final class SignUpInfoVC: baseVC<SignUpInfoReactor>{
         }
         nameContainer.flex.define { flex in
             flex.addItem(nameLabel).height(Metric.height).width(100%)
-            flex.addItem().horizontally(0).direction(.row).define { flex in
+            flex.addItem().horizontally(0).height(44).direction(.row).define { flex in
                 flex.addItem(nameTextField).width(65%).height(Metric.height)
                 flex.addItem(genderCollectionView).width(88).height(Metric.height).left(10)
             }
@@ -218,12 +198,14 @@ final class SignUpInfoVC: baseVC<SignUpInfoReactor>{
             flex.addItem(authCodeRetryLabel).width(100%).height(Metric.labelHeight)
         }
         
-        authContainer.flex.layout()
-        emailContainer.flex.layout()
-        schoolContainer.flex.layout()
-        birthContainer.flex.layout()
-        nameContainer.flex.layout()
+        
+        
         divisionContainer.flex.layout()
+        nameContainer.flex.layout(mode: .adjustHeight)
+        birthContainer.flex.layout()
+        schoolContainer.flex.layout()
+        emailContainer.flex.layout()
+        authContainer.flex.layout()
     }
     override func configureVC() {
         let genDS = RxCollectionViewSectionedReloadDataSource<GenderSection>{ _, tv, ip, item in
@@ -316,7 +298,7 @@ final class SignUpInfoVC: baseVC<SignUpInfoReactor>{
             .disposed(by: disposeBag)
     }
     override func bindState(reactor: SignUpInfoReactor) {
-        let sharedState = reactor.state.share(replay: 7).observe(on: MainScheduler.asyncInstance)
+        let sharedState = reactor.state.share(replay: 4).observe(on: MainScheduler.asyncInstance)
         
         sharedState
             .map(\.studentKind)
@@ -325,25 +307,19 @@ final class SignUpInfoVC: baseVC<SignUpInfoReactor>{
             .subscribe(onNext: { owner, item in
                 owner.studentRadio.checkState = item ? .checked : .unchecked
                 owner.graduateRadio.checkState = item ? .unchecked : .checked
+                owner.emailTypeTextField.isEnabled = !item
+                owner.emailHelperLabel.isHidden = item
+                owner.emailLabel.text = item ? "학교 이메일" : "이메일"
             })
             .disposed(by: disposeBag)
         
         sharedState
             .map(\.school)
-            .map{ $0.toDomain() }
-            .bind(to: emailTypeTextField.rx.text)
-            .disposed(by: disposeBag)
-        
-        sharedState
-            .map(\.studentKind)
-            .map { !($0 == .student) }
-            .bind(to: emailTypeTextField.rx.isEnabled)
-            .disposed(by: disposeBag)
-        
-        sharedState
-            .map(\.studentKind)
-            .map { $0 == .student }
-            .bind(to: emailHelperLabel.rx.isHidden)
+            .withUnretained(self)
+            .subscribe(onNext: { owner, item in
+                owner.emailTypeTextField.text = item.toDomain()
+                owner.schoolTextField.text = item.rawValue
+            })
             .disposed(by: disposeBag)
         
         sharedState
@@ -359,12 +335,6 @@ final class SignUpInfoVC: baseVC<SignUpInfoReactor>{
             .map(\.birth)
             .map { $0.toString(.custom("yyyy/MM/dd"))}
             .bind(to: birthTextField.rx.text)
-            .disposed(by: disposeBag)
-        
-        sharedState
-            .map(\.school)
-            .map(\.rawValue)
-            .bind(to: schoolTextField.rx.text)
             .disposed(by: disposeBag)
     }
 }
