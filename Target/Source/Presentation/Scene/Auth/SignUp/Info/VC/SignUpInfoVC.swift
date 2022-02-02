@@ -26,15 +26,16 @@ final class SignUpInfoVC: baseVC<SignUpInfoReactor>{
     }
     
     enum Metric {
-        static let margin: CGFloat = 12
+        static let margin: CGFloat = 40
         static let height: CGFloat = 44
-        static let labelHeight: CGFloat = 30
+        static let labelHeight: CGFloat = 40
     }
     
     // MARK: - Properties
     private let scrollView = UIScrollView().then {
         $0.showsVerticalScrollIndicator = false
     }
+    private let rootContainer = UIView()
     private let progressBar = SignUpProgress().then {
         $0.currentIndex = 0
     }
@@ -97,6 +98,7 @@ final class SignUpInfoVC: baseVC<SignUpInfoReactor>{
         $0.titleLabel?.font = UIFont(font: MOIZAFontFamily.Roboto.medium, size: 14)
         $0.titleLabel?.textAlignment = .center
         $0.backgroundColor = MOIZAAsset.moizaGray2.color
+        $0.isEnabled = false
         $0.layer.cornerRadius = 5
         $0.layer.borderWidth = 1
         $0.layer.borderColor = MOIZAAsset.moizaGray4.color.cgColor
@@ -115,6 +117,7 @@ final class SignUpInfoVC: baseVC<SignUpInfoReactor>{
     private let authCodeRetryLabel = UILabel().then {
         $0.font = UIFont(font: MOIZAFontFamily.Roboto.regular, size: 12)
         $0.textColor = MOIZAAsset.moizaTheme.color
+        $0.text = "ASd"
     }
     private let nextButton = NextButton(title: "다음 단계")
     
@@ -138,74 +141,71 @@ final class SignUpInfoVC: baseVC<SignUpInfoReactor>{
         genderCollectionView.rx.setDelegate(self).disposed(by: disposeBag)
     }
     override func addView() {
-        scrollView.addSubViews(progressBar, titleLabel, divisionContainer, nameContainer, birthContainer, schoolContainer, emailContainer, authContainer, nextButton)
+        scrollView.addSubViews(rootContainer)
         view.addSubViews(scrollView)
     }
+    override func setLayoutSubViews() {
+        scrollView.pin.all()
+        rootContainer.pin.top().right().left().height(1000)
+        rootContainer.flex.layout()
+        scrollView.contentSize = .init(width: bound.width, height: 1000)
+    }
     override func setLayout() {
-        scrollView.pin.all(view.safeAreaInsets)
-        scrollView.contentSize = .init(width: bound.width, height: 1200)
-        progressBar.pin.top(12).horizontally(20).height(10)
-        titleLabel.pin.below(of: progressBar, aligned: .left).pinEdges().marginTop(30).width(of: progressBar).sizeToFit(.width)
-        divisionContainer.pin.below(of: titleLabel, aligned: .left).pinEdges().height(120).width(of: titleLabel).marginTop(Metric.margin)
-        nameContainer.pin.below(of: divisionContainer, aligned: .left).height(120).width(of: titleLabel).marginTop(Metric.margin)
-        birthContainer.pin.below(of: nameContainer, aligned: .left).height(120).width(of: titleLabel).marginTop(Metric.margin)
-        schoolContainer.pin.below(of: birthContainer, aligned: .left).height(120).width(of: titleLabel).marginTop(Metric.margin)
-        emailContainer.pin.below(of: schoolContainer, aligned: .left).height(120).width(of: titleLabel).marginTop(Metric.margin)
-        authContainer.pin.below(of: emailContainer, aligned: .left).height(120).width(of: titleLabel).marginTop(Metric.margin)
-        nextButton.pin.below(of: authContainer, aligned: .right).width(88).height(36).marginTop(Metric.margin)
-        
-        divisionContainer.flex.define { flex in
-            flex.addItem(divisionLabel).height(Metric.labelHeight).width(100%)
-            flex.addItem().top(15).horizontally(0).direction(.row).define { flex in
-                flex.addItem().direction(.row).shrink(1).define { flex in
-                    flex.addItem(studentRadio).width(24).height(24)
-                    flex.addItem(studentLabel).left(10).width(70%).height(24)
-                }
-                flex.addItem().direction(.row).shrink(1).define { flex in
-                    flex.addItem(graduateRadio).width(24).height(24)
-                    flex.addItem(graduateLabel).left(10).width(70%).height(24)
+        rootContainer.flex.marginHorizontal(20).define { flex in
+            flex.addItem(progressBar).height(10).top(12)
+            flex.addItem(titleLabel).height(Metric.labelHeight).marginTop(40)
+            // MARK: Division
+            flex.addItem().top(Metric.margin * 1).define { flex in
+                flex.addItem(divisionLabel).height(Metric.labelHeight).width(100%)
+                flex.addItem().horizontally(0).direction(.row).define { flex in
+                    flex.addItem().direction(.row).shrink(1).define { flex in
+                        flex.addItem(studentRadio).width(24).height(24)
+                        flex.addItem(studentLabel).left(10).width(70%).height(24)
+                    }
+                    flex.addItem().top(5).direction(.row).shrink(1).define { flex in
+                        flex.addItem(graduateRadio).width(24).height(24)
+                        flex.addItem(graduateLabel).left(10).width(70%).height(24)
+                    }
                 }
             }
-        }
-        nameContainer.flex.define { flex in
-            flex.addItem(nameLabel).height(Metric.height).width(100%)
-            flex.addItem().horizontally(0).height(44).direction(.row).define { flex in
-                flex.addItem(nameTextField).width(65%).height(Metric.height)
-                flex.addItem(genderCollectionView).width(88).height(Metric.height).left(10)
+            // MARK: Name
+            flex.addItem().top(Metric.margin * 2).define { flex in
+                flex.addItem(nameLabel).height(Metric.labelHeight).width(100%)
+                flex.addItem().horizontally(0).height(44).direction(.row).define { flex in
+                    flex.addItem(nameTextField).width(65%).height(Metric.height)
+                    flex.addItem(genderCollectionView).width(88).height(Metric.height).left(10)
+                }
             }
-        }
-        birthContainer.flex.define { flex in
-            flex.addItem(birthLabel).height(Metric.height).width(100%)
-            flex.addItem(birthTextField).width(100%).height(Metric.height)
-        }
-        schoolContainer.flex.define { flex in
-            flex.addItem(schoolLabel).height(Metric.height).width(100%)
-            flex.addItem(schoolTextField).height(Metric.height).width(100%)
-        }
-        emailContainer.flex.define { flex in
-            flex.addItem(emailLabel).height(Metric.height).width(100%)
-            flex.addItem().direction(.row).width(100%).height(Metric.height).define { flex in
-                flex.addItem(emailTextField).width(40%).height(Metric.height)
-                flex.addItem(emailMiddleLabel).height(Metric.height).width(14).marginLeft(5)
-                flex.addItem(emailTypeTextField).height(Metric.height).width(25%).marginLeft(5)
-                flex.addItem(authRequestButton).height(Metric.height).width(23%).marginLeft(5)
+            // MARK: Birth
+            flex.addItem().top(Metric.margin * 3).define { flex in
+                flex.addItem(birthLabel).height(Metric.labelHeight).width(100%)
+                flex.addItem(birthTextField).width(100%).height(Metric.height)
             }
-            flex.addItem(emailHelperLabel).top(10).width(100%).minHeight(0).maxHeight(Metric.height)
+            // MARK: School
+            flex.addItem().top(Metric.margin * 4).define { flex in
+                flex.addItem(schoolLabel).height(Metric.labelHeight).width(100%)
+                flex.addItem(schoolTextField).height(Metric.height).width(100%)
+            }
+            // MARK: Email
+            flex.addItem().top(Metric.margin * 5).define { flex in
+                flex.addItem(emailLabel).height(Metric.labelHeight).width(100%)
+                flex.addItem().direction(.row).width(100%).height(Metric.height).define { flex in
+                    flex.addItem(emailTextField).width(40%).height(Metric.height)
+                    flex.addItem(emailMiddleLabel).height(Metric.height).width(14).marginLeft(5)
+                    flex.addItem(emailTypeTextField).height(Metric.height).width(25%).marginLeft(5)
+                    flex.addItem(authRequestButton).height(Metric.height).width(23%).marginLeft(5)
+                }
+                flex.addItem(emailHelperLabel).top(10).width(100%).minHeight(0).maxHeight(Metric.height)
+            }
+            // MARK: AuthCode
+            flex.addItem().top(Metric.margin * 6).define { flex in
+                flex.addItem(authCodeLabel).height(Metric.labelHeight).width(100%)
+                flex.addItem(authCodeTextField).height(Metric.labelHeight).width(100%)
+                flex.addItem(authCodeRetryLabel).height(Metric.labelHeight).width(100%)
+            }
+            // MARK: Next
+            flex.addItem(nextButton).top(Metric.margin * 7).width(88).height(36).right(0).alignSelf(.end)
         }
-        authContainer.flex.define { flex in
-            flex.addItem(authCodeLabel).height(Metric.height).width(100%)
-            flex.addItem(authCodeTextField).width(100%).height(Metric.height)
-            flex.addItem(authCodeRetryLabel).width(100%).height(Metric.labelHeight)
-        }
-        
-        
-        
-        divisionContainer.flex.layout()
-        nameContainer.flex.layout(mode: .adjustHeight)
-        birthContainer.flex.layout()
-        schoolContainer.flex.layout()
-        emailContainer.flex.layout()
-        authContainer.flex.layout()
     }
     override func configureVC() {
         let genDS = RxCollectionViewSectionedReloadDataSource<GenderSection>{ _, tv, ip, item in

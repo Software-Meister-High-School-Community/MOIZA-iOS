@@ -31,7 +31,7 @@ final class OnBoardingVC: baseVC<OnBoardingReactor>{
     override func addView() {
         view.addSubViews(mainContainer, logoImageView)
     }
-    override func setLayout() {
+    override func setLayoutSubViews() {
         logoImageView.pin.top(39%).horizontally(25%).bottom(55%)
         mainContainer.pin.bottom(view.pin.safeArea.bottom + 10).horizontally(16).height(108)
         
@@ -40,9 +40,6 @@ final class OnBoardingVC: baseVC<OnBoardingReactor>{
             flex.addItem(signUpButton).width(100%).height(50).marginBottom(8)
         }
         mainContainer.flex.layout()
-    }
-    override func configureVC() {
-        
     }
     
     // MARK: - Reactor

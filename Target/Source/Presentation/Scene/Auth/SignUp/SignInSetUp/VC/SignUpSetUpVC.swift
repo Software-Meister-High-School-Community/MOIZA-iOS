@@ -49,9 +49,12 @@ final class SignUpSetUpVC: baseVC<SignUpSetUpReactor>{
     override func addView() {
         view.addSubViews(progressBar, titleLabel)
     }
-    override func setLayout() {
+    override func setLayoutSubViews() {
         progressBar.pin.top(view.pin.safeArea.top + 12).horizontally(20).height(10)
         titleLabel.pin.below(of: progressBar, aligned: .left).pinEdges().marginTop(30).width(of: progressBar).sizeToFit(.width)
+    }
+    override func setLayout() {
+        
     }
     override func configureNavigation() {
         self.navigationItem.configAuthNavigation(title: "회원가입")
