@@ -18,12 +18,12 @@ final class OnBoardingVC: baseVC<OnBoardingReactor>{
         $0.image = MOIZAAsset.moizaLogo.image
         $0.contentMode = .scaleAspectFit
     }
-    private let signUpButton = OnBoardingButton(text: "회원가입", foregroundColor: .white, backgroundColor: MOIZAAsset.moizaPrimaryBlue.color).then {
+    private let signUpButton = OnBoardingButton(text: "회원가입", foregroundColor: MOIZAAsset.moizaGray1.color, backgroundColor: MOIZAAsset.moizaPrimaryBlue.color).then {
         $0.hero.id = "progress"
     }
-    private let signInButton = OnBoardingButton(text: "로그인", foregroundColor: .black, backgroundColor: .white).then {
+    private let signInButton = OnBoardingButton(text: "로그인", foregroundColor: MOIZAAsset.moizaGray6.color, backgroundColor: MOIZAAsset.moizaGray1.color).then {
         $0.layer.borderWidth = 1
-        $0.layer.borderColor = UIColor.black.cgColor
+        $0.layer.borderColor = MOIZAAsset.moizaGray6.color.cgColor
     }
     private let mainContainer = UIView()
     
@@ -41,6 +41,9 @@ final class OnBoardingVC: baseVC<OnBoardingReactor>{
         }
         mainContainer.flex.layout()
     }
+    override func configureVC() {
+        view.backgroundColor = MOIZAAsset.moizaGray1.color
+    }
     
     // MARK: - Reactor
     override func bindView(reactor: OnBoardingReactor) {
@@ -48,7 +51,7 @@ final class OnBoardingVC: baseVC<OnBoardingReactor>{
             .withUnretained(self)
             .do(onNext: { owner, item in
                 let back = UIBarButtonItem(title: "", style: .plain, target: owner, action: nil)
-                back.tintColor = .black
+                back.tintColor = MOIZAAsset.moizaGray6.color
                 owner.navigationItem.backBarButtonItem = back
             })
             .map { _ in Reactor.Action.signUpButtonDidTap }

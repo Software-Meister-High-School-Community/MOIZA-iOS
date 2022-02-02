@@ -54,7 +54,7 @@ final class SignUpTOSVC: baseVC<SignUpTOSReactor>{
         $0.layer.cornerRadius = 5
         $0.layer.borderColor = MOIZAAsset.moizaGray3.color.cgColor
         $0.layer.borderWidth = 1
-        $0.backgroundColor = .white
+        $0.backgroundColor = MOIZAAsset.moizaGray1.color
     }
     
     // MARK: - UI
@@ -84,12 +84,13 @@ final class SignUpTOSVC: baseVC<SignUpTOSReactor>{
         agreeContainer.flex.layout()
     }
     override func configureVC() {
+        view.backgroundColor = MOIZAAsset.moizaGray1.color
     }
     override func configureNavigation() {
         self.navigationItem.configAuthNavigation(title: "회원가입")
         
         let back = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
-        back.tintColor = .black
+        back.tintColor = MOIZAAsset.moizaGray6.color
         self.navigationItem.backBarButtonItem = back
     }
     
@@ -122,7 +123,7 @@ final class SignUpTOSVC: baseVC<SignUpTOSReactor>{
             .withUnretained(self)
             .subscribe(onNext: { owner, item in
                 owner.continueButton.isEnabled = item
-                owner.continueButton.setTitleColor(item ? UIColor.black : MOIZAAsset.moizaGray3.color, for: .normal)
+                owner.continueButton.setTitleColor(item ? MOIZAAsset.moizaGray6.color : MOIZAAsset.moizaGray3.color, for: .normal)
             })
             .disposed(by: disposeBag)
     }

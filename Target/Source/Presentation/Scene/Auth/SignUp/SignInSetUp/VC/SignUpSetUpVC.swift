@@ -58,6 +58,7 @@ final class SignUpSetUpVC: baseVC<SignUpSetUpReactor>{
     }
     override func configureNavigation() {
         self.navigationItem.configAuthNavigation(title: "회원가입")
+        view.backgroundColor = MOIZAAsset.moizaGray1.color
     }
 }
 

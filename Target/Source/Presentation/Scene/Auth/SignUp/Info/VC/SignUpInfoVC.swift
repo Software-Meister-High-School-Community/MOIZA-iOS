@@ -74,11 +74,15 @@ final class SignUpInfoVC: baseVC<SignUpInfoReactor>{
     
     private let birthContainer = UIView()
     private let birthLabel = SignUpCategoryLabel(text: "생년월일 8자리")
-    private let birthTextField = SignUpTextField()
+    private let birthTextField = SignUpTextField().then {
+        $0.tintColor = .clear
+    }
     
     private let schoolContainer = UIView()
     private let schoolLabel = SignUpCategoryLabel(text: "학교 선택")
-    private let schoolTextField = SignUpTextField()
+    private let schoolTextField = SignUpTextField().then {
+        $0.tintColor = .clear
+    }
     
     private let schoolPicker = UIPickerView()
     private let schoolData = [.none, School.gsm, .dgsm, .dsm, .mirim, .bsm]
@@ -94,11 +98,10 @@ final class SignUpInfoVC: baseVC<SignUpInfoReactor>{
     private let emailTypeTextField = SignUpTextField()
     private let authRequestButton = UIButton().then {
         $0.setTitle("인증 요청", for: .normal)
-        $0.setTitleColor(.black, for: .normal)
+        $0.setTitleColor(MOIZAAsset.moizaGray6.color, for: .normal)
         $0.titleLabel?.font = UIFont(font: MOIZAFontFamily.Roboto.medium, size: 14)
         $0.titleLabel?.textAlignment = .center
         $0.backgroundColor = MOIZAAsset.moizaGray2.color
-        $0.isEnabled = false
         $0.layer.cornerRadius = 5
         $0.layer.borderWidth = 1
         $0.layer.borderColor = MOIZAAsset.moizaGray4.color.cgColor
@@ -111,7 +114,6 @@ final class SignUpInfoVC: baseVC<SignUpInfoReactor>{
         $0.textColor = MOIZAAsset.moizaGray4.color
     }
     
-    private let authContainer = UIView()
     private let authCodeLabel = SignUpCategoryLabel(text: "인증번호")
     private let authCodeTextField = SignUpTextField()
     private let authCodeRetryLabel = UILabel().then {
@@ -208,6 +210,8 @@ final class SignUpInfoVC: baseVC<SignUpInfoReactor>{
         }
     }
     override func configureVC() {
+        scrollView.backgroundColor = MOIZAAsset.moizaGray1.color
+        
         let genDS = RxCollectionViewSectionedReloadDataSource<GenderSection>{ _, tv, ip, item in
             guard let cell = tv.dequeueReusableCell(withReuseIdentifier: GenderCell.reusableID, for: ip) as? GenderCell else { return .init() }
             cell.model = item
@@ -231,7 +235,7 @@ final class SignUpInfoVC: baseVC<SignUpInfoReactor>{
         self.navigationItem.configAuthNavigation(title: "회원가입")
         
         let back = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
-        back.tintColor = .black
+        back.tintColor = MOIZAAsset.moizaGray6.color
         self.navigationItem.backBarButtonItem = back
     }
     

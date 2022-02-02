@@ -22,7 +22,7 @@ final class TOSCell: baseTableViewCell<TOSModel>{
         $0.markType = .radio
         $0.boxType = .circle
         $0.tintColor = MOIZAAsset.moizaPrimaryYellow.color
-        $0.secondaryCheckmarkTintColor = .white
+        $0.secondaryCheckmarkTintColor = MOIZAAsset.moizaGray1.color
         $0.checkmarkLineWidth = 4
         $0.boxLineWidth = 1
         $0.secondaryTintColor = MOIZAAsset.moizaGray3.color
