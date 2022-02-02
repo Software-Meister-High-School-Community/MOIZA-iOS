@@ -66,7 +66,7 @@ final class SignUpTOSVC: baseVC<SignUpTOSReactor>{
         view.addSubViews(progressBar, titleLabel, descriptionLabel, subView)
         subView.addSubViews(separatorView, tosTableView, continueButton, agreeContainer)
     }
-    override func setLayout() {
+    override func setLayoutSubViews() {
         progressBar.pin.top(view.pin.safeArea.top + 12).horizontally(20).height(10)
         titleLabel.pin.below(of: progressBar, aligned: .left).pinEdges().marginTop(30).width(of: progressBar).sizeToFit(.width)
         descriptionLabel.pin.below(of: titleLabel, aligned: .left).marginTop(30).width(of: progressBar).sizeToFit(.width)
