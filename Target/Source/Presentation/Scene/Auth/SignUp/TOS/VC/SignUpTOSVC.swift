@@ -96,21 +96,21 @@ final class SignUpTOSVC: baseVC<SignUpTOSReactor>{
     
     // MARK: - Reactor
     override func bindState(reactor: SignUpTOSReactor) {
-        let shardState = reactor.state.share(replay: 4)
-        
-        let tosDS = RxTableViewSectionedReloadDataSource<TOSSection>{ _, tv, ip, item in
+        let shardState = reactor.state.share(replay: 3)
+
+        let tosDS = RxTableViewSectionedReloadDataSource<TOSSection>{ [weak self] _, tv, ip, item in
             guard let cell = tv.dequeueReusableCell(withIdentifier: TOSCell.reusableID, for: ip) as? TOSCell else { return .init() }
             cell.model = item
             cell.delegate = self
             return cell
         }
-        
+
         shardState
             .map(\.tos)
             .map { [TOSSection.init(header: "", items: $0)] }
             .bind(to: tosTableView.rx.items(dataSource: tosDS))
             .disposed(by: disposeBag)
-            
+
         shardState
             .map(\.tos)
             .map { $0.filter{ $0.isOn != true } }
@@ -127,7 +127,7 @@ final class SignUpTOSVC: baseVC<SignUpTOSReactor>{
             })
             .disposed(by: disposeBag)
     }
-    
+
     override func bindAction(reactor: SignUpTOSReactor) {
         self.rx.viewDidAppear
             .map { _ in Reactor.Action.viewDidAppear }
@@ -136,11 +136,12 @@ final class SignUpTOSVC: baseVC<SignUpTOSReactor>{
     }
     override func bindView(reactor: SignUpTOSReactor) {
         allAgreeButton.rx.controlEvent(.valueChanged)
-            .map { self.allAgreeButton.checkState == .checked }
+            .withUnretained(self)
+            .map { $0.0.allAgreeButton.checkState == .checked }
             .map { Reactor.Action.allAgreeButtonDidTap(isOn: $0) }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
-        
+
         continueButton.rx.tap
             .map { _ in Reactor.Action.continueButtonDidTap }
             .bind(to: reactor.action)
