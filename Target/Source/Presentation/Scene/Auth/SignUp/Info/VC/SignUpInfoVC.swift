@@ -234,9 +234,7 @@ final class SignUpInfoVC: baseVC<SignUpInfoReactor>{
     override func configureNavigation() {
         self.navigationItem.configAuthNavigation(title: "회원가입")
         
-        let back = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
-        back.tintColor = MOIZAAsset.moizaGray6.color
-        self.navigationItem.backBarButtonItem = back
+        self.navigationItem.configBack()
     }
     
     // MARK: - Reactor
@@ -266,14 +264,16 @@ final class SignUpInfoVC: baseVC<SignUpInfoReactor>{
             .disposed(by: disposeBag)
         
         datePicker.rx.controlEvent(.valueChanged)
-            .map{ self.datePicker.date }
+            .withUnretained(self)
+            .map{ $0.0.datePicker.date }
             .map(Reactor.Action.updateBirth)
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
         
         schoolPicker.rx.itemSelected
             .map(\.row)
-            .map { self.schoolData[$0] }
+            .withUnretained(self)
+            .map { $0.0.schoolData[$0.1] }
             .map(Reactor.Action.updateSchool)
             .bind(to: reactor.action)
             .disposed(by: disposeBag)

@@ -89,9 +89,7 @@ final class SignUpTOSVC: baseVC<SignUpTOSReactor>{
     override func configureNavigation() {
         self.navigationItem.configAuthNavigation(title: "회원가입")
         
-        let back = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
-        back.tintColor = MOIZAAsset.moizaGray6.color
-        self.navigationItem.backBarButtonItem = back
+        self.navigationItem.configBack()
     }
     
     // MARK: - Reactor

@@ -44,16 +44,14 @@ final class OnBoardingVC: baseVC<OnBoardingReactor>{
     override func configureVC() {
         view.backgroundColor = MOIZAAsset.moizaGray1.color
     }
+    override func configureNavigation() {
+        self.navigationItem.configBack()
+        
+    }
     
     // MARK: - Reactor
     override func bindView(reactor: OnBoardingReactor) {
         signUpButton.rx.tap
-            .withUnretained(self)
-            .do(onNext: { owner, item in
-                let back = UIBarButtonItem(title: "", style: .plain, target: owner, action: nil)
-                back.tintColor = MOIZAAsset.moizaGray6.color
-                owner.navigationItem.backBarButtonItem = back
-            })
             .map { _ in Reactor.Action.signUpButtonDidTap }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
