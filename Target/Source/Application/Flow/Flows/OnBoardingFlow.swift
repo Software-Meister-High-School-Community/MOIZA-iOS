@@ -72,8 +72,8 @@ private extension OnBoardingFlow{
         return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: vc.reactor ?? .init()))
     }
     func navigateToSignUpSetUp(student: Student) -> FlowContributors{
-        @Inject var reactor: SignUpSetUpReactor
-        let vc = SignUpSetUpVC(reactor: reactor, student: student)
+        let reactor = SignUpSetUpReactor(student: student)
+        let vc = SignUpSetUpVC(reactor: reactor)
         self.rootVC.pushViewController(vc, animated: true)
         return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: reactor))
     }

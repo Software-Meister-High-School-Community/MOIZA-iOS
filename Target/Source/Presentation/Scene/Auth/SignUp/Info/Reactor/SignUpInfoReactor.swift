@@ -116,13 +116,13 @@ extension SignUpInfoReactor{
 
 // MARK: - Method
 private extension SignUpInfoReactor{
-    func checkValidation(_ currentState: State) -> Bool {
-        guard !currentState.name.isEmpty,
-              currentState.gender != nil,
-              currentState.school != .none,
-              !currentState.email.isEmpty,
-              !currentState.emailType.isEmpty,
-              currentState.authCodeValidation else {
+    func checkValidation(_ state: State) -> Bool {
+        guard !state.name.isEmpty,
+              state.gender != nil,
+              state.school != .none,
+              !state.email.isEmpty,
+              !state.emailType.isEmpty,
+              state.authCodeValidation else {
             return false
         }
         

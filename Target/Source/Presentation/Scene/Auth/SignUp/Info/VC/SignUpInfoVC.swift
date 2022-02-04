@@ -28,7 +28,7 @@ final class SignUpInfoVC: baseVC<SignUpInfoReactor>{
     }
     
     enum Metric {
-        static let margin: CGFloat = 40
+        static let spacingMargin: CGFloat = 40
         static let height: CGFloat = 44
         static let labelHeight: CGFloat = 40
     }
@@ -144,16 +144,16 @@ final class SignUpInfoVC: baseVC<SignUpInfoReactor>{
     }
     override func setLayoutSubViews() {
         scrollView.pin.all()
-        rootContainer.pin.top().right().left().height(1000)
+        rootContainer.pin.top().right().left().height(bound.height*1.5)
         rootContainer.flex.layout()
-        scrollView.contentSize = .init(width: bound.width, height: 1000)
+        scrollView.contentSize = .init(width: bound.width, height: bound.height*1.5)
     }
     override func setLayout() {
         rootContainer.flex.marginHorizontal(20).define { flex in
             flex.addItem(progressBar).height(10).top(12)
             flex.addItem(titleLabel).height(Metric.labelHeight).marginTop(40)
             // MARK: Division
-            flex.addItem().top(Metric.margin * 1).define { flex in
+            flex.addItem().top(Metric.spacingMargin * 1).define { flex in
                 flex.addItem(divisionLabel).height(Metric.labelHeight).width(100%)
                 flex.addItem().horizontally(0).direction(.row).define { flex in
                     flex.addItem().direction(.row).shrink(1).define { flex in
@@ -167,7 +167,7 @@ final class SignUpInfoVC: baseVC<SignUpInfoReactor>{
                 }
             }
             // MARK: Name
-            flex.addItem().top(Metric.margin * 2).define { flex in
+            flex.addItem().top(Metric.spacingMargin * 2).define { flex in
                 flex.addItem(nameLabel).height(Metric.labelHeight).width(100%)
                 flex.addItem().horizontally(0).height(44).direction(.row).define { flex in
                     flex.addItem(nameTextField).width(65%).height(Metric.height)
@@ -175,17 +175,17 @@ final class SignUpInfoVC: baseVC<SignUpInfoReactor>{
                 }
             }
             // MARK: Birth
-            flex.addItem().top(Metric.margin * 3).define { flex in
+            flex.addItem().top(Metric.spacingMargin * 3).define { flex in
                 flex.addItem(birthLabel).height(Metric.labelHeight).width(100%)
                 flex.addItem(birthTextField).width(100%).height(Metric.height)
             }
             // MARK: School
-            flex.addItem().top(Metric.margin * 4).define { flex in
+            flex.addItem().top(Metric.spacingMargin * 4).define { flex in
                 flex.addItem(schoolLabel).height(Metric.labelHeight).width(100%)
                 flex.addItem(schoolTextField).height(Metric.height).width(100%)
             }
             // MARK: Email
-            flex.addItem().top(Metric.margin * 5).define { flex in
+            flex.addItem().top(Metric.spacingMargin * 5).define { flex in
                 flex.addItem(emailLabel).height(Metric.labelHeight).width(100%)
                 flex.addItem().direction(.row).width(100%).height(Metric.height).define { flex in
                     flex.addItem(emailTextField).width(40%).height(Metric.height)
@@ -196,13 +196,13 @@ final class SignUpInfoVC: baseVC<SignUpInfoReactor>{
                 flex.addItem(emailHelperLabel).top(10).width(100%).minHeight(0).maxHeight(Metric.height)
             }
             // MARK: AuthCode
-            flex.addItem().top(Metric.margin * 6).define { flex in
+            flex.addItem().top(Metric.spacingMargin * 6).define { flex in
                 flex.addItem(authCodeLabel).height(Metric.labelHeight).width(100%)
                 flex.addItem(authCodeTextField).height(Metric.labelHeight).width(100%)
                 flex.addItem(authCodeRetryLabel).height(Metric.labelHeight).width(100%)
             }
             // MARK: Next
-            flex.addItem(nextButton).top(Metric.margin * 7).width(88).height(36).right(0).alignSelf(.end)
+            flex.addItem(nextButton).top(Metric.spacingMargin * 7).width(88).height(36).right(0).alignSelf(.end)
         }
     }
     override func configureVC() {
@@ -240,7 +240,7 @@ final class SignUpInfoVC: baseVC<SignUpInfoReactor>{
                 guard let self = self else { return }
                 let height = kbHeight > 0 ? -kbHeight + self.view.safeAreaInsets.bottom : 0
                 UIView.animate(withDuration: 0) {
-                    self.scrollView.pin.bottom(-height)
+                    self.scrollView.pin.bottom(-height/3)
                 }
             })
             .disposed(by: disposeBag)
