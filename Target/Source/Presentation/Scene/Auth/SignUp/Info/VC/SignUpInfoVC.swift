@@ -12,11 +12,13 @@ import Hero
 import PinLayout
 import Then
 import UIKit
+import SnapKit
 import FlexLayout
 import M13Checkbox
 import RxCocoa
 import RxDataSources
 import RxSwift
+import RxKeyboard
 
 final class SignUpInfoVC: baseVC<SignUpInfoReactor>{
     // MARK: - Metric
@@ -233,7 +235,15 @@ final class SignUpInfoVC: baseVC<SignUpInfoReactor>{
     
     // MARK: - Reactor
     override func bindAction(reactor: SignUpInfoReactor) {
-        
+        RxKeyboard.instance.visibleHeight
+            .drive(onNext: { [weak self] kbHeight in
+                guard let self = self else { return }
+                let height = kbHeight > 0 ? -kbHeight + self.view.safeAreaInsets.bottom : 0
+                UIView.animate(withDuration: 0) {
+                    self.scrollView.pin.bottom(-height)
+                }
+            })
+            .disposed(by: disposeBag)
     }
     override func bindView(reactor: SignUpInfoReactor) {
         genderCollectionView.rx.modelSelected(Gender.self)
