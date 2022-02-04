@@ -41,7 +41,6 @@ final class SignUpInfoVC: baseVC<SignUpInfoReactor>{
     }
     private let titleLabel = SubTitleLabel(title: "정보 입력")
     
-    private let divisionContainer = UIView()
     private let divisionLabel = SignUpCategoryLabel(text: "구분")
     private let studentRadio = MoizaRadioButton().then {
         $0.checkState = .checked
@@ -56,7 +55,6 @@ final class SignUpInfoVC: baseVC<SignUpInfoReactor>{
         $0.font = Fonts.regular14
     }
     
-    private let nameContainer = UIView()
     private let nameLabel = SignUpCategoryLabel(text: "이름")
     private let nameTextField = SignUpTextField()
     private let genderCollectionView = UICollectionView(frame: .zero, collectionViewLayout: .init()).then {
@@ -72,13 +70,11 @@ final class SignUpInfoVC: baseVC<SignUpInfoReactor>{
         $0.allowsMultipleSelection = false
     }
     
-    private let birthContainer = UIView()
     private let birthLabel = SignUpCategoryLabel(text: "생년월일 8자리")
     private let birthTextField = SignUpTextField().then {
         $0.tintColor = .clear
     }
     
-    private let schoolContainer = UIView()
     private let schoolLabel = SignUpCategoryLabel(text: "학교 선택")
     private let schoolTextField = SignUpTextField().then {
         $0.tintColor = .clear
@@ -87,7 +83,6 @@ final class SignUpInfoVC: baseVC<SignUpInfoReactor>{
     private let schoolPicker = UIPickerView()
     private let schoolData = [.none, School.gsm, .dgsm, .dsm, .mirim, .bsm]
     
-    private let emailContainer = UIView()
     private let emailLabel = SignUpCategoryLabel(text: "학교 이메일")
     private let emailTextField = SignUpTextField()
     private let emailMiddleLabel = UILabel().then {
@@ -138,7 +133,6 @@ final class SignUpInfoVC: baseVC<SignUpInfoReactor>{
     override func setUp() {
         birthTextField.inputView = datePicker
         schoolTextField.inputView = schoolPicker
-        bind(reactor: reactor)
         progressBar.delegate = self
         genderCollectionView.rx.setDelegate(self).disposed(by: disposeBag)
     }

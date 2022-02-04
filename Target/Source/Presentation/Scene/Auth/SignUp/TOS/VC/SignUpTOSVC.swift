@@ -57,9 +57,13 @@ final class SignUpTOSVC: baseVC<SignUpTOSReactor>{
         $0.backgroundColor = MOIZAAsset.moizaGray1.color
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        allAgreeButton.checkState = .unchecked
+    }
+    
     // MARK: - UI
     override func setUp() {
-        bind(reactor: reactor)
         progressBar.delegate = self
     }
     override func addView() {
@@ -156,6 +160,7 @@ extension SignUpTOSVC: FlexibleSteppedProgressBarDelegate{
 
 extension SignUpTOSVC: TOSCellDelegate{
     func checkButtonDidTap(isOn: Bool, type: TOSType) {
+        guard let reactor = reactor else { return }
         Observable.just(type)
             .map(Reactor.Action.checkBoxDidTap)
             .bind(to: reactor.action)

@@ -59,21 +59,22 @@ final class OnBoardingFlow: Flow{
 private extension OnBoardingFlow{
     func coordinateToOnBoarding() -> FlowContributors{
         self.rootVC.setViewControllers([vc], animated: true)
-        return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: vc.reactor))
+        return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: vc.reactor ?? .init()))
     }
     func navigateToSignUpTOS() -> FlowContributors{
-        let vc = SignUpTOSVC()
+        @Inject var vc: SignUpTOSVC
         self.rootVC.pushViewController(vc, animated: true)
-        return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: vc.reactor))
+        return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: vc.reactor ?? .init()))
     }
     func navigateToSignUpInfo() -> FlowContributors{
-        let vc = SignUpInfoVC()
+        @Inject var vc: SignUpInfoVC
         self.rootVC.pushViewController(vc, animated: true)
-        return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: vc.reactor))
+        return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: vc.reactor ?? .init()))
     }
     func navigateToSignUpSetUp(student: Student) -> FlowContributors{
-        let vc = SignUpSetUpVC(student: student)
+        @Inject var reactor: SignUpSetUpReactor
+        let vc = SignUpSetUpVC(reactor: reactor, student: student)
         self.rootVC.pushViewController(vc, animated: true)
-        return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: vc.reactor))
+        return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: reactor))
     }
 }

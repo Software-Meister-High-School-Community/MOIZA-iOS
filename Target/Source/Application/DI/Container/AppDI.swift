@@ -21,7 +21,16 @@ extension Container{
     
     // MARK: - View
     private func registerVC(){
-        autoregister(OnBoardingVC.self, initializer: OnBoardingVC.init)
+        register(OnBoardingVC.self) { r in
+            return OnBoardingVC(reactor: r.resolve(OnBoardingReactor.self))
+        }
+        register(SignUpTOSVC.self) { r in
+            return SignUpTOSVC(reactor: r.resolve(SignUpTOSReactor.self))
+        }
+        register(SignUpInfoVC.self) { r in
+            return SignUpInfoVC(reactor: r.resolve(SignUpInfoReactor.self))
+        }
+        
     }
     private func registerReactor(){
         autoregister(OnBoardingReactor.self, initializer: OnBoardingReactor.init)

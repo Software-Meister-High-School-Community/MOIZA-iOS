@@ -11,21 +11,22 @@ import RxCocoa
 import PinLayout
 import FlexibleSteppedProgressBar
 import UIKit
+import FlexLayout
 
 final class SignUpSetUpVC: baseVC<SignUpSetUpReactor>{
     // MARK: - Properties
     private let progressBar = SignUpProgress().then {
         $0.currentIndex = 1
     }
+    private let rootContainer = UIView()
     private let titleLabel = SubTitleLabel(title: "로그인 설정")
-    private let idContainer = UIView()
     private let idLabel = UILabel()
     private let idCheckButton = UIButton()
     
     
     // MARK: - Init
-    init(student: Student) {
-        super.init()
+    init(reactor: Reactor, student: Student) {
+        super.init(reactor: reactor)
         Observable.just(student)
             .map(Reactor.Action.`init`)
             .bind(to: reactor.action)
@@ -47,14 +48,15 @@ final class SignUpSetUpVC: baseVC<SignUpSetUpReactor>{
         progressBar.delegate = self
     }
     override func addView() {
-        view.addSubViews(progressBar, titleLabel)
+        view.addSubViews(rootContainer)
     }
     override func setLayoutSubViews() {
-        progressBar.pin.top(view.pin.safeArea.top + 12).horizontally(20).height(10)
-        titleLabel.pin.below(of: progressBar, aligned: .left).pinEdges().marginTop(30).width(of: progressBar).sizeToFit(.width)
-    }
-    override func setLayout() {
+        rootContainer.pin.all(view.safeAreaInsets)
+        rootContainer.flex.marginHorizontal(20).define { flex in
+            flex.addItem(progressBar).top(12).height(10)
+        }
         
+        rootContainer.flex.layout()
     }
     override func configureNavigation() {
         self.navigationItem.configAuthNavigation(title: "회원가입")
