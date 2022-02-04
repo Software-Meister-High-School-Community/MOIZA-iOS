@@ -139,7 +139,6 @@ private extension SignUpSetUpReactor{
         let pattern = "^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[~!@#\\$%\\^&\\*])[\\w~!@#\\$%\\^&\\*]{8,16}$"
         let regex = try? NSRegularExpression(pattern: pattern, options: [])
         if let _ = regex?.firstMatch(in: pwd, options: [], range: .init(location: 0, length: pwd.count)) {
-            print(pwd)
             return true
         }
         return false
