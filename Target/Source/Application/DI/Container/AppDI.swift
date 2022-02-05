@@ -30,13 +30,16 @@ extension Container{
         register(SignUpInfoVC.self) { r in
             return SignUpInfoVC(reactor: r.resolve(SignUpInfoReactor.self))
         }
-        
+        register(SignUpSuccessVC.self) { r in
+            return SignUpSuccessVC(reactor: r.resolve(SignUpSuccessReactor.self))
+        }
     }
     private func registerReactor(){
         autoregister(OnBoardingReactor.self, initializer: OnBoardingReactor.init)
         autoregister(SignUpTOSReactor.self, initializer: SignUpTOSReactor.init)
         autoregister(SignUpInfoReactor.self, initializer: SignUpInfoReactor.init)
         autoregister(SignUpSetUpReactor.self, initializer: SignUpSetUpReactor.init)
+        autoregister(SignUpSuccessReactor.self, initializer: SignUpSuccessReactor.init)
     }
     private func registerStepper(){
         autoregister(OnBoardingStepper.self, initializer: OnBoardingStepper.init)
