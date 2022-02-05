@@ -43,7 +43,7 @@ final class SignUpSuccessVC: baseVC<SignUpSuccessReactor> {
         rootContainer.flex.alignItems(.center).define { flex in
             flex.addItem(checkMarkImageView).marginTop(15%).width(56).height(56)
             flex.addItem(successLabel).marginTop(5).width(100%)
-            flex.addItem(signInButton).top(15%).width(88).height(36)
+            flex.addItem(signInButton).top(12%).width(88).height(36)
         }
     }
     override func configureNavigation() {
