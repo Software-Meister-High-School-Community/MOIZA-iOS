@@ -81,7 +81,7 @@ extension SignUpSetUpReactor{
             return checkIdExist()
         case .nextButtonDidTap:
             // TODO: api
-            return .empty()
+            return nextButtonDidTap()
         case .pwdVisibleButtonDidTap:
             return .just(.setPwdVisible(!currentState.pwdVisible))
         case .pwdCheckVisibleButtonDidTap:
@@ -123,6 +123,14 @@ private extension SignUpSetUpReactor{
     func checkIdExist() -> Observable<Mutation>{
         // TODO: api
         return .just(.setIdExist(false))
+    }
+    func nextButtonDidTap() -> Observable<Mutation> {
+        if currentState.student.kind == .student {
+            steps.accept(MoizaStep.signUpSuccessIsRequired)
+        } else if currentState.student.kind == .graduate {
+            // TODO: 졸업생인증
+        } 
+        return .empty()
     }
     func checkValidation(_ state: State) -> Bool{
         guard !state.id.isEmpty,

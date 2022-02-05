@@ -77,7 +77,9 @@ final class SignUpSetUpVC: baseVC<SignUpSetUpReactor>{
         $0.isHidden = true
     }
     
-    private let nextButton = NextButton(title: "다음 단계")
+    private let nextButton = NextButton(title: "다음 단계").then {
+        $0.hero.id = "next"
+    }
     
     // MARK: - Lifecycle
     override func viewDidAppear(_ animated: Bool) {
@@ -133,6 +135,7 @@ final class SignUpSetUpVC: baseVC<SignUpSetUpReactor>{
     }
     override func configureNavigation() {
         self.navigationItem.configAuthNavigation(title: "회원가입")
+        self.navigationItem.configBack()
         view.backgroundColor = MOIZAAsset.moizaGray1.color
     }
     
@@ -179,6 +182,11 @@ final class SignUpSetUpVC: baseVC<SignUpSetUpReactor>{
         
         pwdCheckVisibleButton.rx.tap
             .map { Reactor.Action.pwdCheckVisibleButtonDidTap }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
+        nextButton.rx.tap
+            .map { Reactor.Action.nextButtonDidTap }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
     }

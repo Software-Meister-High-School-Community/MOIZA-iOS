@@ -49,6 +49,10 @@ final class OnBoardingFlow: Flow{
             return navigateToSignUpInfo()
         case let .signUpLoginSetupIsRequired(student):
             return navigateToSignUpSetUp(student: student)
+        case .signUpSuccessIsRequired:
+            return navigateToSignUpSuccess()
+        case .signUpIsCompleted:
+            return navigateToRoot()
         default:
             return .none
         }
@@ -76,5 +80,14 @@ private extension OnBoardingFlow{
         let vc = SignUpSetUpVC(reactor: reactor)
         self.rootVC.pushViewController(vc, animated: true)
         return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: reactor))
+    }
+    func navigateToSignUpSuccess() -> FlowContributors {
+        @Inject var vc: SignUpSuccessVC
+        self.rootVC.pushViewController(vc, animated: true)
+        return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: vc.reactor ?? .init()))
+    }
+    func navigateToRoot() -> FlowContributors {
+        self.rootVC.popToRootViewController(animated: true)
+        return .none
     }
 }
