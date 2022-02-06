@@ -30,6 +30,14 @@ public enum MOIZAAsset {
   public static let moizaGray5 = MOIZAColors(name: "MOIZA_Gray5")
   public static let moizaGray6 = MOIZAColors(name: "MOIZA_Gray6")
   public static let moizaSymbol = MOIZAImages(name: "MOIZA_Symbol")
+  public static let moizaAlarm = MOIZAImages(name: "MOIZA_Alarm")
+  public static let moizaAlarmFill = MOIZAImages(name: "MOIZA_Alarm_Fill")
+  public static let moizaHome = MOIZAImages(name: "MOIZA_Home")
+  public static let moizaHomeFill = MOIZAImages(name: "MOIZA_Home_Fill")
+  public static let moizaPerson = MOIZAImages(name: "MOIZA_Person")
+  public static let moizaPersonFill = MOIZAImages(name: "MOIZA_Person_Fill")
+  public static let moizaPost = MOIZAImages(name: "MOIZA_Post")
+  public static let moizaPostFill = MOIZAImages(name: "MOIZA_Post_Fill")
   public static let moizaLogo = MOIZAImages(name: "MOIZA_Logo")
 }
 // swiftlint:enable identifier_name line_length nesting type_body_length type_name
