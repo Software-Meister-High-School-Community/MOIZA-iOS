@@ -1,3 +1,6 @@
+import XCTest
+@testable import MOIZA
+
 class TargetUITests: XCTestCase {
 
     override func setUpWithError() throws {
