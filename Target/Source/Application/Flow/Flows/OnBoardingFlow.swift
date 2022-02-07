@@ -16,6 +16,7 @@ struct OnBoardingStepper: Stepper{
     
     var initialStep: Step{
         return MoizaStep.onBoardingIsRequired
+        
     }
 }
 
@@ -46,6 +47,8 @@ final class OnBoardingFlow: Flow{
             return coordinateToSignUpTOS()
         case .signUpInformationIsRequired:
             return coordinateToSignUpInfo()
+        case .signInIsRequired:
+            
         default:
             return .none
         }
@@ -67,5 +70,9 @@ private extension OnBoardingFlow{
         let vc = SignUpInfoVC()
         self.rootVC.pushViewController(vc, animated: true)
         return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: vc.reactor))
+    }
+    func navigateToSignIn() -> FlowContributors{
+        let vc = SignInVC()
+        
     }
 }
