@@ -54,9 +54,8 @@ final class OnBoardingFlow: Flow{
             return navigateToSignUpSuccess()
         case .signUpIsCompleted:
             return navigateToRoot()
-            return coordinateToSignUpInfo()
         case .signInIsRequired:
-            
+            return navigateToSignIn()
         default:
             return .none
         }
@@ -76,6 +75,26 @@ private extension OnBoardingFlow{
     }
     func navigateToSignUpInfo() -> FlowContributors{
         @Inject var vc: SignUpInfoVC
+        self.rootVC.pushViewController(vc, animated: true)
+        return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: vc.reactor ?? .init()))
+    }
+    func navigateToSignUpSetUp(student: Student) -> FlowContributors{
+        let reactor = SignUpSetUpReactor(student: student)
+        let vc = SignUpSetUpVC(reactor: reactor)
+        self.rootVC.pushViewController(vc, animated: true)
+        return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: reactor))
+    }
+    func navigateToSignUpSuccess() -> FlowContributors {
+        @Inject var vc: SignUpSuccessVC
+        self.rootVC.pushViewController(vc, animated: true)
+        return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: vc.reactor ?? .init()))
+    }
+    func navigateToRoot() -> FlowContributors {
+        self.rootVC.popToRootViewController(animated: true)
+        return .none
+    }
+    func navigateToSignIn() -> FlowContributors{
+        @Inject var vc: SignInVC
         self.rootVC.pushViewController(vc, animated: true)
         return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: vc.reactor ?? .init()))
     }
