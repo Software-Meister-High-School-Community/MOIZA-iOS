@@ -10,6 +10,7 @@ import RxFlow
 import RxRelay
 import Hero
 import Then
+import ReactorKit
 
 struct OnBoardingStepper: Stepper{
     let steps: PublishRelay<Step> = .init()
@@ -44,8 +45,15 @@ final class OnBoardingFlow: Flow{
         case .onBoardingIsRequired:
             return coordinateToOnBoarding()
         case .signUpIsRequired:
-            return coordinateToSignUpTOS()
+            return navigateToSignUpTOS()
         case .signUpInformationIsRequired:
+            return navigateToSignUpInfo()
+        case let .signUpLoginSetupIsRequired(student):
+            return navigateToSignUpSetUp(student: student)
+        case .signUpSuccessIsRequired:
+            return navigateToSignUpSuccess()
+        case .signUpIsCompleted:
+            return navigateToRoot()
             return coordinateToSignUpInfo()
         case .signInIsRequired:
             
@@ -59,20 +67,16 @@ final class OnBoardingFlow: Flow{
 private extension OnBoardingFlow{
     func coordinateToOnBoarding() -> FlowContributors{
         self.rootVC.setViewControllers([vc], animated: true)
-        return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: vc.reactor))
+        return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: vc.reactor ?? .init()))
     }
-    func coordinateToSignUpTOS() -> FlowContributors{
-        let vc = SignUpTOSVC()
+    func navigateToSignUpTOS() -> FlowContributors{
+        @Inject var vc: SignUpTOSVC
         self.rootVC.pushViewController(vc, animated: true)
-        return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: vc.reactor))
+        return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: vc.reactor ?? .init()))
     }
-    func coordinateToSignUpInfo() -> FlowContributors{
-        let vc = SignUpInfoVC()
+    func navigateToSignUpInfo() -> FlowContributors{
+        @Inject var vc: SignUpInfoVC
         self.rootVC.pushViewController(vc, animated: true)
-        return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: vc.reactor))
-    }
-    func navigateToSignIn() -> FlowContributors{
-        let vc = SignInVC()
-        
+        return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: vc.reactor ?? .init()))
     }
 }

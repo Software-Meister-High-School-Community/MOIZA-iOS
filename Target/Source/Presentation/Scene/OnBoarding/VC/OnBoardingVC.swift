@@ -9,6 +9,8 @@
 import UIKit
 import RxCocoa
 import Hero
+import PinLayout
+import FlexLayout
 
 final class OnBoardingVC: baseVC<OnBoardingReactor>{
     // MARK: - Properties
@@ -16,53 +18,40 @@ final class OnBoardingVC: baseVC<OnBoardingReactor>{
         $0.image = MOIZAAsset.moizaLogo.image
         $0.contentMode = .scaleAspectFit
     }
-    private let signUpButton = OnBoardingButton(text: "회원가입", foregroundColor: .white, backgroundColor: MOIZAAsset.moizaPrimaryBlue.color).then {
+    private let signUpButton = OnBoardingButton(text: "회원가입", foregroundColor: MOIZAAsset.moizaGray1.color, backgroundColor: MOIZAAsset.moizaPrimaryBlue.color).then {
         $0.hero.id = "progress"
     }
-    private let signInButton = OnBoardingButton(text: "로그인", foregroundColor: .black, backgroundColor: .white).then {
+    private let signInButton = OnBoardingButton(text: "로그인", foregroundColor: MOIZAAsset.moizaGray6.color, backgroundColor: MOIZAAsset.moizaGray1.color).then {
         $0.layer.borderWidth = 1
-        $0.layer.borderColor = UIColor.black.cgColor
+        $0.layer.borderColor = MOIZAAsset.moizaGray6.color.cgColor
     }
-    private let mainStack = UIStackView().then {
-        $0.axis = .vertical
-        $0.spacing = 8
-    }
+    private let mainContainer = UIView()
     
     // MARK: - UI
     override func addView() {
-        mainStack.addArrangeSubviews(signUpButton, signInButton)
-        view.addSubViews(mainStack, logoImageView)
+        view.addSubViews(mainContainer, logoImageView)
     }
-    override func setLayout() {
-        logoImageView.snp.makeConstraints {
-            $0.leading.trailing.equalToSuperview().inset(bound.width*0.252)
-            $0.top.equalToSuperview().offset(bound.height*0.399)
-            $0.bottom.equalToSuperview().offset(-bound.height*0.5531)
+    override func setLayoutSubViews() {
+        logoImageView.pin.top(39%).horizontally(25%).bottom(55%)
+        mainContainer.pin.bottom(view.pin.safeArea.bottom + 10).horizontally(16).height(108)
+        
+        mainContainer.flex.direction(.columnReverse).define { flex in
+            flex.addItem(signInButton).width(100%).height(50)
+            flex.addItem(signUpButton).width(100%).height(50).marginBottom(8)
         }
-        signUpButton.snp.makeConstraints {
-            $0.height.equalTo(50)
-        }
-        signInButton.snp.makeConstraints {
-            $0.height.equalTo(50)
-        }
-        mainStack.snp.makeConstraints {
-            $0.leading.trailing.equalToSuperview().inset(16)
-            $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).inset(10)
-        }
+        mainContainer.flex.layout()
     }
     override func configureVC() {
+        view.backgroundColor = MOIZAAsset.moizaGray1.color
+    }
+    override func configureNavigation() {
+        self.navigationItem.configBack()
         
     }
     
     // MARK: - Reactor
     override func bindView(reactor: OnBoardingReactor) {
         signUpButton.rx.tap
-            .withUnretained(self)
-            .do(onNext: { owner, item in
-                let back = UIBarButtonItem(title: "", style: .plain, target: owner, action: nil)
-                back.tintColor = .black
-                owner.navigationItem.backBarButtonItem = back
-            })
             .map { _ in Reactor.Action.signUpButtonDidTap }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
