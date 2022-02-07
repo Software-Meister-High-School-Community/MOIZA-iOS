@@ -1,4 +1,5 @@
 import XCTest
+@testable import MOIZA
 
 class TargetTests: XCTestCase {
 

@@ -14,6 +14,7 @@ final class SignUpProgress: FlexibleSteppedProgressBar{
         super.init(frame: .zero)
         self.numberOfPoints = 3
         self.lineHeight = 1.5
+        self.viewBackgroundColor = .clear
         self.currentSelectedCenterColor = MOIZAAsset.moizaPrimaryBlue.color
         self.selectedBackgoundColor = MOIZAAsset.moizaPrimaryBlue.color
         self.selectedOuterCircleStrokeColor = .clear

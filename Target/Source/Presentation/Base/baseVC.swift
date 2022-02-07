@@ -18,24 +18,21 @@ class baseVC<T: Reactor>: UIViewController{
     @available(*, unavailable)
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        view.backgroundColor = MOIZAAsset.moizaGray1.color
         self.hero.isEnabled = true
         setUp()
         addView()
+        setLayout()
         configureVC()
         configureNavigation()
         hideKeyboardWhenTappedAround()
     }
     
     override func viewDidLayoutSubviews() {
-        setLayout()
+        setLayoutSubViews()
     }
     
-    @Inject var reactor: T
-    
-    init() { super.init(nibName: nil, bundle: nil) }
-    
-    init(reactor: T){
+    init(reactor: T?){
         super.init(nibName: nil, bundle: nil)
         self.reactor = reactor
     }
@@ -51,6 +48,7 @@ class baseVC<T: Reactor>: UIViewController{
     func setUp(){}
     func addView(){}
     func setLayout(){}
+    func setLayoutSubViews(){}
     func configureVC(){}
     func configureNavigation(){}
     

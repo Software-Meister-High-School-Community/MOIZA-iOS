@@ -13,6 +13,8 @@ import M13Checkbox
 import RxDataSources
 import RxSwift
 import RxViewController
+import PinLayout
+import FlexLayout
 
 final class SignUpTOSVC: baseVC<SignUpTOSReactor>{
     // MARK: - Properties
@@ -34,10 +36,7 @@ final class SignUpTOSVC: baseVC<SignUpTOSReactor>{
         $0.font = UIFont(font: MOIZAFontFamily.Roboto.regular, size: 16)
         $0.text = "전체 약관 동의"
     }
-    private let agreeStack = UIStackView().then {
-        $0.axis = .horizontal
-        $0.spacing = 8
-    }
+    private let agreeContainer = UIView()
     private let separatorView = UIView().then {
         $0.backgroundColor = MOIZAAsset.moizaGray3.color
     }
@@ -55,88 +54,65 @@ final class SignUpTOSVC: baseVC<SignUpTOSReactor>{
         $0.layer.cornerRadius = 5
         $0.layer.borderColor = MOIZAAsset.moizaGray3.color.cgColor
         $0.layer.borderWidth = 1
-        $0.backgroundColor = .white
+        $0.backgroundColor = MOIZAAsset.moizaGray1.color
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        allAgreeButton.checkState = .unchecked
     }
     
     // MARK: - UI
     override func setUp() {
-        bind(reactor: reactor)
         progressBar.delegate = self
     }
     override func addView() {
         view.addSubViews(progressBar, titleLabel, descriptionLabel, subView)
-        agreeStack.addArrangeSubviews(allAgreeButton, allAgreeLabel)
-        subView.addSubViews(agreeStack, separatorView, tosTableView, continueButton)
+        subView.addSubViews(separatorView, tosTableView, continueButton, agreeContainer)
     }
-    override func setLayout() {
-        progressBar.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide).inset(12)
-            $0.leading.trailing.equalToSuperview().inset(20)
-            $0.height.equalTo(10)
+    override func setLayoutSubViews() {
+        progressBar.pin.top(view.pin.safeArea.top + 12).horizontally(20).height(10)
+        titleLabel.pin.below(of: progressBar, aligned: .left).pinEdges().marginTop(30).width(of: progressBar).sizeToFit(.width)
+        descriptionLabel.pin.below(of: titleLabel, aligned: .left).marginTop(30).width(of: progressBar).sizeToFit(.width)
+        subView.pin.horizontally(view.pin.safeArea).bottom().height(50.86%)
+        agreeContainer.pin.top(20).horizontally(20).height(30).width(100%)
+        separatorView.pin.below(of: agreeContainer).height(1).horizontally(20).marginTop(5)
+        continueButton.pin.bottom(12%).horizontally(20).height(52)
+        tosTableView.pin.below(of: separatorView).above(of: continueButton).marginTop(5).horizontally(20).height(100)
+        
+        agreeContainer.flex.direction(.row).define { flex in
+            flex.addItem(allAgreeButton).width(24).height(24)
+            flex.addItem(allAgreeLabel).height(24).width(70%).marginLeft(8)
         }
-        titleLabel.snp.makeConstraints {
-            $0.leading.equalToSuperview().inset(18)
-            $0.top.equalTo(progressBar.snp.bottom).offset(30)
-        }
-        descriptionLabel.snp.makeConstraints {
-            $0.leading.equalTo(titleLabel)
-            $0.top.equalTo(titleLabel.snp.bottom).offset(20)
-        }
-        subView.snp.makeConstraints {
-            $0.height.equalTo(bound.height*0.5086)
-            $0.leading.trailing.equalTo(view.safeAreaLayoutGuide)
-            $0.bottom.equalToSuperview()
-        }
-        allAgreeButton.snp.makeConstraints {
-            $0.width.height.equalTo(24)
-        }
-        agreeStack.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(20)
-            $0.leading.equalToSuperview().inset(10)
-        }
-        separatorView.snp.makeConstraints {
-            $0.height.equalTo(1)
-            $0.top.equalTo(agreeStack.snp.bottom).offset(10)
-            $0.leading.trailing.equalToSuperview().inset(16)
-        }
-        continueButton.snp.makeConstraints {
-            $0.leading.trailing.equalToSuperview().inset(20)
-            $0.bottom.equalToSuperview().inset(bound.height*0.1173)
-            $0.height.equalTo(52)
-        }
-        tosTableView.snp.makeConstraints {
-            $0.top.equalTo(separatorView.snp.bottom).offset(10)
-            $0.leading.trailing.equalToSuperview()
-            $0.bottom.equalTo(continueButton.snp.top)
-        }
+        
+        agreeContainer.flex.layout()
     }
     override func configureVC() {
+        view.backgroundColor = MOIZAAsset.moizaGray1.color
     }
     override func configureNavigation() {
         self.navigationItem.configAuthNavigation(title: "회원가입")
         
-        let back = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
-        back.tintColor = .black
-        self.navigationItem.backBarButtonItem = back
+        self.navigationItem.configBack()
     }
     
     // MARK: - Reactor
     override func bindState(reactor: SignUpTOSReactor) {
-        let shardState = reactor.state.share(replay: 4)
-        
-        let tosDS = RxTableViewSectionedReloadDataSource<TOSSection>{ _, tv, ip, item in
+        let shardState = reactor.state.share(replay: 3)
+
+        let tosDS = RxTableViewSectionedReloadDataSource<TOSSection>{ [weak self] _, tv, ip, item in
             guard let cell = tv.dequeueReusableCell(withIdentifier: TOSCell.reusableID, for: ip) as? TOSCell else { return .init() }
             cell.model = item
             cell.delegate = self
             return cell
         }
-        
+
         shardState
             .map(\.tos)
             .map { [TOSSection.init(header: "", items: $0)] }
             .bind(to: tosTableView.rx.items(dataSource: tosDS))
             .disposed(by: disposeBag)
-            
+
         shardState
             .map(\.tos)
             .map { $0.filter{ $0.isOn != true } }
@@ -149,11 +125,11 @@ final class SignUpTOSVC: baseVC<SignUpTOSReactor>{
             .withUnretained(self)
             .subscribe(onNext: { owner, item in
                 owner.continueButton.isEnabled = item
-                owner.continueButton.setTitleColor(item ? UIColor.black : MOIZAAsset.moizaGray3.color, for: .normal)
+                owner.continueButton.setTitleColor(item ? MOIZAAsset.moizaGray6.color : MOIZAAsset.moizaGray3.color, for: .normal)
             })
             .disposed(by: disposeBag)
     }
-    
+
     override func bindAction(reactor: SignUpTOSReactor) {
         self.rx.viewDidAppear
             .map { _ in Reactor.Action.viewDidAppear }
@@ -162,11 +138,12 @@ final class SignUpTOSVC: baseVC<SignUpTOSReactor>{
     }
     override func bindView(reactor: SignUpTOSReactor) {
         allAgreeButton.rx.controlEvent(.valueChanged)
-            .map { self.allAgreeButton.checkState == .checked }
+            .withUnretained(self)
+            .map { $0.0.allAgreeButton.checkState == .checked }
             .map { Reactor.Action.allAgreeButtonDidTap(isOn: $0) }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
-        
+
         continueButton.rx.tap
             .map { _ in Reactor.Action.continueButtonDidTap }
             .bind(to: reactor.action)
@@ -183,6 +160,7 @@ extension SignUpTOSVC: FlexibleSteppedProgressBarDelegate{
 
 extension SignUpTOSVC: TOSCellDelegate{
     func checkButtonDidTap(isOn: Bool, type: TOSType) {
+        guard let reactor = reactor else { return }
         Observable.just(type)
             .map(Reactor.Action.checkBoxDidTap)
             .bind(to: reactor.action)

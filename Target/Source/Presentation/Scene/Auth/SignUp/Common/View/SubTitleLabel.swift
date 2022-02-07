@@ -25,6 +25,6 @@ final class SubTitleLabel: UILabel{
 private extension SubTitleLabel{
     func configureView(){
         self.font = UIFont(font: MOIZAFontFamily.Roboto.bold, size: 20)
-        self.textColor = .black
+        self.textColor = MOIZAAsset.moizaGray6.color
     }
 }

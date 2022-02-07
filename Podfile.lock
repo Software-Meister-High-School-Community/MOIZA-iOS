@@ -27,6 +27,9 @@ PODS:
   - RxGesture (4.0.3):
     - RxCocoa (~> 6.0)
     - RxSwift (~> 6.0)
+  - RxKeyboard (2.0.0):
+    - RxCocoa (~> 6.0)
+    - RxSwift (~> 6.0)
   - RxRelay (6.2.0):
     - RxSwift (= 6.2.0)
   - RxSwift (6.2.0)
@@ -53,6 +56,7 @@ DEPENDENCIES:
   - RxDataSources (~> 5.0.0)
   - RxFlow (~> 2.12.4)
   - RxGesture (~> 4.0.3)
+  - RxKeyboard (~> 2.0.0)
   - RxSwift (~> 6.2.0)
   - RxViewController (~> 2.0.0)
   - SnapKit (~> 5.0.1)
@@ -76,6 +80,7 @@ SPEC REPOS:
     - RxDataSources
     - RxFlow
     - RxGesture
+    - RxKeyboard
     - RxRelay
     - RxSwift
     - RxViewController
@@ -100,6 +105,7 @@ SPEC CHECKSUMS:
   RxDataSources: aa47cc1ed6c500fa0dfecac5c979b723542d79cf
   RxFlow: 03a73c83fb8f183107074b40ab2544c668583f73
   RxGesture: abadd243fc36db74df43dfc893829ddde94f1a3d
+  RxKeyboard: 4f5863f43b4ff0cbb2a20b94688d6b80c8a43c14
   RxRelay: e72dbfd157807478401ef1982e1c61c945c94b2f
   RxSwift: d356ab7bee873611322f134c5f9ef379fa183d8f
   RxViewController: 56486fa0afd629a1d6b5ba077f3b8cd9dc31b5d2
@@ -110,6 +116,6 @@ SPEC CHECKSUMS:
   Then: acfe0be7e98221c6204e12f8161459606d5d822d
   WeakMapTable: 05c694ce8439a7a9ebabb56187287a63c57673d6
 
-PODFILE CHECKSUM: b8c0b48ae336f2cc371d87973c1cb63ac6771e45
+PODFILE CHECKSUM: d3f01999a8c4b25e91b29284aff680829404790c
 
 COCOAPODS: 1.11.2

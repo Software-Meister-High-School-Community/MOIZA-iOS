@@ -14,7 +14,7 @@ final class MoizaRadioButton: M13Checkbox{
         self.markType = .radio
         self.boxType = .circle
         self.tintColor = MOIZAAsset.moizaPrimaryYellow.color
-        self.secondaryCheckmarkTintColor = .white
+        self.secondaryCheckmarkTintColor = MOIZAAsset.moizaGray1.color
         self.checkmarkLineWidth = 4.5
         self.boxLineWidth = 1
         self.secondaryTintColor = MOIZAAsset.moizaGray3.color

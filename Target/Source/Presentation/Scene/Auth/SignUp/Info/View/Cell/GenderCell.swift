@@ -15,13 +15,13 @@ final class GenderCell: baseCollectionViewCell<Gender>{
     // MARK: - Properties
     private let titleLabel = UILabel().then {
         $0.font = UIFont(font: MOIZAFontFamily.Roboto.regular, size: 16)
-        $0.textColor = .black
+        $0.textColor = MOIZAAsset.moizaGray6.color
         $0.textAlignment = .center
     }
     
     override var isSelected: Bool{
         didSet {
-            self.backgroundColor = isSelected ? MOIZAAsset.moizaPrimaryYellow.color : .white
+            self.backgroundColor = isSelected ? MOIZAAsset.moizaPrimaryYellow.color : MOIZAAsset.moizaGray1.color
         }
     }
     

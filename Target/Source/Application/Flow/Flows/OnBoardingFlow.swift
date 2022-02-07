@@ -44,9 +44,15 @@ final class OnBoardingFlow: Flow{
         case .onBoardingIsRequired:
             return coordinateToOnBoarding()
         case .signUpIsRequired:
-            return coordinateToSignUpTOS()
+            return navigateToSignUpTOS()
         case .signUpInformationIsRequired:
-            return coordinateToSignUpInfo()
+            return navigateToSignUpInfo()
+        case let .signUpLoginSetupIsRequired(student):
+            return navigateToSignUpSetUp(student: student)
+        case .signUpSuccessIsRequired:
+            return navigateToSignUpSuccess()
+        case .signUpIsCompleted:
+            return navigateToRoot()
         default:
             return .none
         }
@@ -57,16 +63,31 @@ final class OnBoardingFlow: Flow{
 private extension OnBoardingFlow{
     func coordinateToOnBoarding() -> FlowContributors{
         self.rootVC.setViewControllers([vc], animated: true)
-        return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: vc.reactor))
+        return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: vc.reactor ?? .init()))
     }
-    func coordinateToSignUpTOS() -> FlowContributors{
-        let vc = SignUpTOSVC()
+    func navigateToSignUpTOS() -> FlowContributors{
+        @Inject var vc: SignUpTOSVC
         self.rootVC.pushViewController(vc, animated: true)
-        return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: vc.reactor))
+        return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: vc.reactor ?? .init()))
     }
-    func coordinateToSignUpInfo() -> FlowContributors{
-        let vc = SignUpInfoVC()
+    func navigateToSignUpInfo() -> FlowContributors{
+        @Inject var vc: SignUpInfoVC
         self.rootVC.pushViewController(vc, animated: true)
-        return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: vc.reactor))
+        return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: vc.reactor ?? .init()))
+    }
+    func navigateToSignUpSetUp(student: Student) -> FlowContributors{
+        let reactor = SignUpSetUpReactor(student: student)
+        let vc = SignUpSetUpVC(reactor: reactor)
+        self.rootVC.pushViewController(vc, animated: true)
+        return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: reactor))
+    }
+    func navigateToSignUpSuccess() -> FlowContributors {
+        @Inject var vc: SignUpSuccessVC
+        self.rootVC.pushViewController(vc, animated: true)
+        return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: vc.reactor ?? .init()))
+    }
+    func navigateToRoot() -> FlowContributors {
+        self.rootVC.popToRootViewController(animated: true)
+        return .none
     }
 }
