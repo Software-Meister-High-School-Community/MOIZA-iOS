@@ -19,14 +19,11 @@ final class GraduateAuthReactor: Reactor, Stepper {
     
     // MARK: - Reactor
     enum Action {
-        
+        case nextButtonDidTap
+        case signInButtonDidTap
     }
-    enum Mutation {
-        
-    }
-    struct State {
-        
-    }
+    enum Mutation {}
+    struct State {}
     let initialState: State
     
     // MARK: - Init
@@ -40,26 +37,12 @@ final class GraduateAuthReactor: Reactor, Stepper {
 extension GraduateAuthReactor {
     func mutate(action: Action) -> Observable<Mutation> {
         switch action {
-            
+        case .nextButtonDidTap:
+            steps.accept(MoizaStep.signUpGraduateAuthFileIsRequired)
+            return .empty()
+        case .signInButtonDidTap:
+            steps.accept(MoizaStep.signUpIsCompleted)
+            return .empty()
         }
-        return .empty()
     }
-}
-
-// MARK: - Reduce
-extension GraduateAuthReactor {
-    func reduce(state: State, mutation: Mutation) -> State {
-        var newState = state
-        
-        switch mutation {
-            
-        }
-        
-        return newState
-    }
-}
-
-// MARK: - Method
-private extension GraduateAuthReactor {
-    
 }

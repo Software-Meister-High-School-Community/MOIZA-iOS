@@ -67,7 +67,7 @@ final class GraduateAuthVC: baseVC<GraduateAuthReactor> {
     private let nextButton = OnBoardingButton(text: "졸업생 인증하기",
                                               foregroundColor: MOIZAAsset.moizaGray1.color,
                                               backgroundColor: MOIZAAsset.moizaPrimaryBlue.color)
-    private let signinButton = OnBoardingButton(text: "다음에 인증하고 로그인 하러가기",
+    private let signInButton = OnBoardingButton(text: "다음에 인증하고 로그인 하러가기",
                                                foregroundColor: MOIZAAsset.moizaGray4.color,
                                                backgroundColor: MOIZAAsset.moizaGray1.color).then {
         $0.layer.borderColor = MOIZAAsset.moizaGray4.color.cgColor
@@ -97,11 +97,24 @@ final class GraduateAuthVC: baseVC<GraduateAuthReactor> {
             flex.addItem(firstDescriptionLabel).width(100%).marginTop(60)
             flex.addItem(secondDescriptionLabel).width(100%).marginTop(20)
             flex.addItem(nextButton).width(100%).height(50).marginTop(45)
-            flex.addItem(signinButton).width(100%).height(50).marginTop(8)
+            flex.addItem(signInButton).width(100%).height(50).marginTop(8)
         }
     }
     override func configureNavigation() {
         self.navigationItem.configAuthNavigation(title: "졸업생 인증")
+    }
+    
+    // MARK: - Reactor
+    override func bindView(reactor: GraduateAuthReactor) {
+        nextButton.rx.tap
+            .map { Reactor.Action.nextButtonDidTap }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
+        signInButton.rx.tap
+            .map{ Reactor.Action.signInButtonDidTap }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
     }
 }
 
