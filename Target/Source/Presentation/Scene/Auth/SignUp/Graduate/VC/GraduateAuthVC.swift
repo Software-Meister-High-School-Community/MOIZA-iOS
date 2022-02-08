@@ -67,7 +67,7 @@ final class GraduateAuthVC: baseVC<GraduateAuthReactor> {
     private let nextButton = OnBoardingButton(text: "졸업생 인증하기",
                                               foregroundColor: MOIZAAsset.moizaGray1.color,
                                               backgroundColor: MOIZAAsset.moizaPrimaryBlue.color)
-    private let loginButton = OnBoardingButton(text: "다음에 인증하고 로그인 하러가기",
+    private let signinButton = OnBoardingButton(text: "다음에 인증하고 로그인 하러가기",
                                                foregroundColor: MOIZAAsset.moizaGray4.color,
                                                backgroundColor: MOIZAAsset.moizaGray1.color).then {
         $0.layer.borderColor = MOIZAAsset.moizaGray4.color.cgColor
@@ -97,7 +97,7 @@ final class GraduateAuthVC: baseVC<GraduateAuthReactor> {
             flex.addItem(firstDescriptionLabel).width(100%).marginTop(60)
             flex.addItem(secondDescriptionLabel).width(100%).marginTop(20)
             flex.addItem(nextButton).width(100%).height(50).marginTop(45)
-            flex.addItem(loginButton).width(100%).height(50).marginTop(8)
+            flex.addItem(signinButton).width(100%).height(50).marginTop(8)
         }
     }
     override func configureNavigation() {
