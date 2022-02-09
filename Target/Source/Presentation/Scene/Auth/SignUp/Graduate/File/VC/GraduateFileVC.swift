@@ -162,7 +162,7 @@ private extension GraduateFileVC {
             popOver.sourceRect = CGRect(x: view.bounds.midX, y: view.bounds.midY, width: 0, height: 0)
             popOver.permittedArrowDirections = []
         }
-        self.present(alert, animated: true, completion: nil)
+        present(alert, animated: true, completion: nil)
     }
     func presentToPhotoAlbum() {
         self.imagePicker.sourceType = .photoLibrary
