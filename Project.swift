@@ -28,18 +28,6 @@ let project = Project(
             dependencies: [
                 .target(name: projectName)
             ]
-        ),
-        Target(
-            name: "\(projectName)UITest",
-            platform: .iOS,
-            product: .uiTests,
-            bundleId: "\(orginazationIden).\(projectName)UITest",
-            deploymentTarget: .iOS(targetVersion: "13.5", devices: [.iphone, .ipad]),
-            infoPlist: .default,
-            sources: ["TargetUITest/Tests/**"],
-            dependencies: [
-                .target(name: projectName)
-            ]
         )
     ]
 )
