@@ -20,26 +20,29 @@ final class GraduateFileReactor: Reactor, Stepper {
     
     // MARK: - Reactor
     enum Action {
-        case imageDidSelected(UIImage, String)
+        case imageDidSelected(Data?, String)
         case alert(title: String?, message: String)
         case cancelButtonDidTap
         case requestButtonDidTap
     }
     enum Mutation {
-        case setImage(UIImage?)
+        case setImage(Data?)
         case setFilename(String)
+        case setFileSize(Int?)
     }
     struct State {
-        var selectedImage: UIImage?
+        var selectedData: Data?
         var fileName: String
+        var fileSize: String
     }
     let initialState: State
     
     // MARK: - Init
     init() {
         initialState = State(
-            selectedImage: nil,
-            fileName: ""
+            selectedData: nil,
+            fileName: "",
+            fileSize: ""
         )
     }
     
@@ -52,7 +55,8 @@ extension GraduateFileReactor {
         case let .imageDidSelected(image, file):
             return .concat([
                 .just(.setFilename(file)),
-                .just(.setImage(image))
+                .just(.setImage(image)),
+                .just(.setFileSize(image?.count))
             ])
         case let .alert(title, message):
             steps.accept(MoizaStep.alert(title: title, message: message))
@@ -60,13 +64,13 @@ extension GraduateFileReactor {
         case .cancelButtonDidTap:
             return .concat([
                 .just(.setImage(nil)),
-                .just(.setFilename(""))
+                .just(.setFilename("")),
+                .just(.setFileSize(0))
             ])
         case .requestButtonDidTap:
-            
+            steps.accept(MoizaStep.signUpGraduateAuthSuccessIsRequired)
             return .empty()
         }
-        return .empty()
     }
 }
 
@@ -75,10 +79,12 @@ extension GraduateFileReactor {
     func reduce(state: State, mutation: Mutation) -> State {
         var newState = state
         switch mutation {
-        case let .setImage(image):
-            newState.selectedImage = image
+        case let .setImage(data):
+            newState.selectedData = data
         case let .setFilename(file):
             newState.fileName = file
+        case let .setFileSize(size):
+            newState.fileSize = formatToMB(size: size)
         }
         return newState
     }
@@ -86,5 +92,11 @@ extension GraduateFileReactor {
 
 // MARK: - Method
 private extension GraduateFileReactor {
-    
+    func formatToMB(size: Int?) -> String {
+        guard let size = size else { return "0 MB" }
+        let bcf = ByteCountFormatter()
+        bcf.allowedUnits = [.useMB]
+        let res = bcf.string(fromByteCount: Int64(size))
+        return res
+    }
 }

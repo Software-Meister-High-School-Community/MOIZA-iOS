@@ -38,11 +38,17 @@ final class GraduateFileVC: baseVC<GraduateFileReactor> {
         $0.textColor = MOIZAAsset.moizaGray5.color
         $0.backgroundColor = MOIZAAsset.moizaGray3.color
         $0.font = UIFont(font: MOIZAFontFamily.Roboto.regular, size: 10)
+        $0.textAlignment = .center
+        $0.clipsToBounds = true
+        $0.layer.cornerRadius = 15.5
         $0.flex.display(.none)
     }
     private let cancelButton = UIButton().then {
-        $0.setImage(.init(systemName: "xmark")?.downSample(size: .init(width: 5, height: 5)).tintColor(MOIZAAsset.moizaGray5.color),
+        $0.setImage(.init(systemName: "xmark")?.downSample(size: .init(width: 7, height: 7)).tintColor(MOIZAAsset.moizaGray5.color),
                     for: .normal)
+        $0.titleLabel?.font = UIFont(font: MOIZAFontFamily.Roboto.regular, size: 10)
+        $0.setTitleColor(MOIZAAsset.moizaGray4.color, for: .normal)
+        $0.semanticContentAttribute = .forceRightToLeft
         $0.flex.display(.none)
         $0.backgroundColor = .clear
     }
@@ -80,13 +86,17 @@ final class GraduateFileVC: baseVC<GraduateFileReactor> {
         rootContainer.flex.marginHorizontal(16).define { flex in
             flex.addItem(progressBar).top(12).height(10).marginHorizontal(4)
             flex.addItem(fileAttachLabel).marginTop(70)
-            flex.addItem(attachButton).width(100%).height(28).marginTop(20).define { flex in
+            flex.addItem(attachButton).direction(.row).width(100%).height(28).marginTop(20).define { flex in
                 flex.addItem(fileNameLabel).width(70%).height(100%).left(0)
-                flex.addItem(cancelButton).marginRight(5).size(28)
+                flex.addItem(cancelButton).marginRight(5).height(28).width(30%)
             }
             flex.addItem(descriptionLabel).width(100%).marginTop(20)
             flex.addItem(requestButton).alignSelf(.end).marginTop(45).width(88).height(36)
         }
+    }
+    override func configureNavigation() {
+        self.navigationItem.configAuthNavigation(title: "졸업생 인증")
+        self.navigationItem.configBack()
     }
     
     // MARK: - Reactor
@@ -97,20 +107,61 @@ final class GraduateFileVC: baseVC<GraduateFileReactor> {
                 owner.photoAndCameraAction()
             })
             .disposed(by: disposeBag)
+        
+        cancelButton.rx.tap
+            .map { Reactor.Action.cancelButtonDidTap }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
+        requestButton.rx.tap
+            .map { Reactor.Action.requestButtonDidTap }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+    }
+    override func bindState(reactor: GraduateFileReactor) {
+        let sharedState = reactor.state.share(replay: 3).observe(on: MainScheduler.asyncInstance)
+        
+        sharedState
+            .map(\.fileName)
+            .bind(to: fileNameLabel.rx.text)
+            .disposed(by: disposeBag)
+        
+        sharedState
+            .map(\.fileSize)
+            .asDriver(onErrorJustReturn: "0 MB")
+            .drive(cancelButton.rx.title())
+            .disposed(by: disposeBag)
+        
+        sharedState
+            .map{ $0.selectedData != nil }
+            .withUnretained(self)
+            .subscribe(onNext: { owner, isExist in
+                [owner.fileNameLabel, owner.cancelButton].forEach{ $0.flex.display(isExist ? .flex : .none) }
+                owner.requestButton.backgroundColor = isExist ? MOIZAAsset.moizaPrimaryBlue.color : MOIZAAsset.moizaSecondaryBlue.color
+                owner.requestButton.isEnabled = isExist
+                owner.rootContainer.flex.layout()
+            })
+            .disposed(by: disposeBag)
     }
 }
 
 // MARK: - Method
 private extension GraduateFileVC {
     func photoAndCameraAction() {
-        let alert = UIAlertController(title: "업로드 방식을 선택해주세요.", message: "사진 찍기 또는 앨범에서 선택", preferredStyle: .actionSheet)
+        let alert = UIAlertController(title: "업로드 방식을 선택해주세요.", message: "앨범에서 선택 또는 카메라로 촬영 ", preferredStyle: .actionSheet)
         alert.addAction(.init(title: "앨범", style: .default, handler: { [weak self] _ in
             self?.presentToPhotoAlbum()
         }))
-        alert.addAction(.init(title: "사진 찍기", style: .default, handler: { [weak self] _ in
+        alert.addAction(.init(title: "촬영", style: .default, handler: { [weak self] _ in
             self?.presentToCamera()
         }))
         alert.addAction(.init(title: "취소", style: .cancel, handler: nil))
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            guard let popOver = alert.popoverPresentationController else { return }
+            popOver.sourceView = view
+            popOver.sourceRect = CGRect(x: view.bounds.midX, y: view.bounds.midY, width: 0, height: 0)
+            popOver.permittedArrowDirections = []
+        }
         self.present(alert, animated: true, completion: nil)
     }
     func presentToPhotoAlbum() {
@@ -118,14 +169,15 @@ private extension GraduateFileVC {
         present(imagePicker, animated: true, completion: nil)
     }
     func presentToCamera() {
-        if (UIImagePickerController.isSourceTypeAvailable(.camera)) {
-            self.imagePicker.sourceType = .camera
-            self.imagePicker.mediaTypes = UIImagePickerController.availableMediaTypes(for: .camera) ?? []
-            self.imagePicker.cameraFlashMode = .auto
-            present(imagePicker, animated: true, completion: nil)
-        } else {
+        guard UIImagePickerController.isSourceTypeAvailable(.camera) else {
             self.reactor?.action.onNext(.alert(title: "권한이 없습니다.", message: "카메라를 실행할 수 없습니다!"))
+            return
         }
+        self.imagePicker.sourceType = .camera
+        self.imagePicker.mediaTypes = ["public.movie", "public.image"]
+        self.imagePicker.cameraFlashMode = .auto
+        present(imagePicker, animated: true, completion: nil)
+        
     }
 }
 // MARK: - Extension
@@ -149,10 +201,14 @@ extension GraduateFileVC: UIImagePickerControllerDelegate, UINavigationControlle
         }
         
         if let image = info[.editedImage] as? UIImage {
-            reactor?.action.onNext(.imageDidSelected(image, filename))
+            reactor?.action.onNext(.imageDidSelected(image.jpegData(compressionQuality: 0.9), filename))
         } else if let image = info[.originalImage] as? UIImage {
-            reactor?.action.onNext(.imageDidSelected(image, filename))
+            reactor?.action.onNext(.imageDidSelected(image.jpegData(compressionQuality: 0.9), filename))
+        } else if let media = info[.mediaURL] as? URL {
+            reactor?.action.onNext(.imageDidSelected(try? Data(contentsOf: media), filename))
         }
+        
+        dismiss(animated: true)
     }
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         dismiss(animated: true, completion: nil)
