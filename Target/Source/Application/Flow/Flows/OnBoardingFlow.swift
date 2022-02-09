@@ -44,8 +44,7 @@ final class OnBoardingFlow: Flow{
         case .onBoardingIsRequired:
             return coordinateToOnBoarding()
         case .signUpIsRequired:
-            return navigateToGraduateFile()
-//            return navigateToSignUpTOS()
+            return navigateToSignUpTOS()
         case .signUpInformationIsRequired:
             return navigateToSignUpInfo()
         case let .signUpLoginSetupIsRequired(student):
