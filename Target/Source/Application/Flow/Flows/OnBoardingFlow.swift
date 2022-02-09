@@ -52,7 +52,7 @@ final class OnBoardingFlow: Flow{
             return navigateToSignUpSetUp(student: student)
         case .signUpSuccessIsRequired:
             return navigateToSignUpSuccess()
-        case .signUpIsCompleted:
+        case .signUpIsCompleted, .signUpGraduateAuthIsCompleted:
             return navigateToRoot()
         case .signUpGraduateAuthIsRequired:
             return navigateToGraduateAuth()
@@ -62,6 +62,8 @@ final class OnBoardingFlow: Flow{
             return presentToDismiss()
         case let .alert(title, message):
             return presentToAlert(title: title, message: message)
+        case .signUpGraduateAuthSuccessIsRequired:
+            return navigateToGraduateSuccess()
         default:
             return .none
         }
@@ -117,5 +119,10 @@ private extension OnBoardingFlow{
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         self.rootVC.present(alert, animated: true, completion: nil)
         return .none
+    }
+    func navigateToGraduateSuccess() -> FlowContributors {
+        @Inject var vc: GraduateSuccessVC
+        self.rootVC.pushViewController(vc, animated: true)
+        return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: vc.reactor ?? .init()))
     }
 }
