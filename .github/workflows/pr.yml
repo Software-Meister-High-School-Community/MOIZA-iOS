@@ -1,8 +1,8 @@
-name: Swift
+name: pr
 
 on:
-  push:
-    branches: [ master, develop ]
+  pull_request:
+    branches: [ develop, master ]
 
 jobs:
   build:
