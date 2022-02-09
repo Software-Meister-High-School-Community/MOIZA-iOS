@@ -30,5 +30,6 @@ enum MoizaStep: Step{
     case signUpIsCompleted
     case signUpGraduateAuthIsRequired
     case signUpGraduateAuthFileIsRequired
+    case signUpGraduateAuthSuccessIsRequired
     case signUpGraduateAuthIsCompleted
 }
