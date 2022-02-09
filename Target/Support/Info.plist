@@ -20,6 +20,10 @@
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>졸업생 인증 또는 글을 쓸 때 사진을 카메라로 촬영해 첨부할 때 카메라 권한이 필요합니다.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>졸업생 인증 또는 글을 쓸 때 앨범에서 사진을 가져와 첨부할때 사진 앨범 권한이 필요합니다.</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

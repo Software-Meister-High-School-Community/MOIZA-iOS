@@ -44,7 +44,8 @@ final class OnBoardingFlow: Flow{
         case .onBoardingIsRequired:
             return coordinateToOnBoarding()
         case .signUpIsRequired:
-            return navigateToSignUpTOS()
+            return navigateToGraduateFile()
+//            return navigateToSignUpTOS()
         case .signUpInformationIsRequired:
             return navigateToSignUpInfo()
         case let .signUpLoginSetupIsRequired(student):
@@ -55,6 +56,12 @@ final class OnBoardingFlow: Flow{
             return navigateToRoot()
         case .signUpGraduateAuthIsRequired:
             return navigateToGraduateAuth()
+        case .signUpGraduateAuthFileIsRequired:
+            return navigateToGraduateFile()
+        case .dismiss:
+            return presentToDismiss()
+        case let .alert(title, message):
+            return presentToAlert(title: title, message: message)
         default:
             return .none
         }
@@ -92,9 +99,23 @@ private extension OnBoardingFlow{
         self.rootVC.popToRootViewController(animated: true)
         return .none
     }
+    func presentToDismiss() -> FlowContributors {
+        self.rootVC.dismiss(animated: true, completion: nil)
+        return .none
+    }
     func navigateToGraduateAuth() -> FlowContributors {
         @Inject var vc: GraduateAuthVC
         self.rootVC.pushViewController(vc, animated: true)
         return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: vc.reactor ?? .init()))
+    }
+    func navigateToGraduateFile() -> FlowContributors {
+        @Inject var vc: GraduateFileVC
+        self.rootVC.pushViewController(vc, animated: true)
+        return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: vc.reactor ?? .init()))
+    }
+    func presentToAlert(title: String?, message: String?) -> FlowContributors {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        self.rootVC.present(alert, animated: true, completion: nil)
+        return .none
     }
 }
