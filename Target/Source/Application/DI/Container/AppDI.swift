@@ -45,7 +45,12 @@ extension Container{
         autoregister(OnBoardingStepper.self, initializer: OnBoardingStepper.init)
     }
     private func registerFlow(){
-        
+        autoregister(OnBoardingFlow.self, initializer: OnBoardingFlow.init)
+        autoregister(HomeFlow.self, initializer: HomeFlow.init)
+        autoregister(PostListFlow.self, initializer: PostListFlow.init)
+        autoregister(AlarmFlow.self, initializer: AlarmFlow.init)
+        autoregister(MyPageFlow.self, initializer: MyPageFlow.init)
+        autoregister(MainTabbarFlow.self, initializer: MainTabbarFlow.init)
     }
     
     // MARK: - Data
