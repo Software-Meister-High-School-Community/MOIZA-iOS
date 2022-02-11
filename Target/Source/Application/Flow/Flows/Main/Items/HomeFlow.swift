@@ -6,7 +6,7 @@ struct HomeStepper: Stepper{
     let steps: PublishRelay<Step> = .init()
     
     var initialStep: Step{
-        return MoizaStep.onBoardingIsRequired // TODO: HomeStep
+        return MoizaStep.homeIsRequired
     }
 }
 

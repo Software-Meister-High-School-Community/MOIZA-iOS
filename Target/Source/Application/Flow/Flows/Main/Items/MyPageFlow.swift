@@ -13,7 +13,7 @@ struct MyPageStepper: Stepper{
     let steps: PublishRelay<Step> = .init()
     
     var initialStep: Step{
-        return MoizaStep.onBoardingIsRequired // TODO: MyPageStep
+        return MoizaStep.myPageIsRequired
     }
 }
 

@@ -13,7 +13,7 @@ struct AlarmStepper: Stepper{
     let steps: PublishRelay<Step> = .init()
     
     var initialStep: Step{
-        return MoizaStep.onBoardingIsRequired // TODO: AlarmStep
+        return MoizaStep.alarmIsRequired
     }
 }
 

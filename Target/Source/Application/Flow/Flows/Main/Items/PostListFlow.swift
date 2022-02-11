@@ -13,7 +13,7 @@ struct PostListStepper: Stepper{
     let steps: PublishRelay<Step> = .init()
     
     var initialStep: Step{
-        return MoizaStep.onBoardingIsRequired // TODO: PostListStep
+        return MoizaStep.postListIsRequired
     }
 }
 
