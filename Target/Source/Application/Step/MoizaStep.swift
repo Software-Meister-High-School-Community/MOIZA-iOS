@@ -28,4 +28,40 @@ enum MoizaStep: Step{
     case signUpLoginSetupIsRequired(Student)
     case signUpSuccessIsRequired
     case signUpIsCompleted
+    
+    // Main
+    case mainTabbarIsRequired
+    case homeIsRequired
+    case categoryIsRequired
+    case alarmIsRequired
+    case myPageIsRequired
+    
+    // Common
+    case postDetailIsRequired
+    case postDetailImageListIsRequired
+    
+    // Home
+    
+    // Posts
+    case categoryDropdownIsRequired
+    case searchIsRequired
+    case searchResultIsRequired
+    case searchSortIsRequired
+    case postListIsRequired
+    case postListSortIsRequired
+    case postWriteIsRequired
+    case temporarySavedPostIsRequired
+    case answerIsRequired
+    
+    // Alarm
+    case allNoticeListIsRequired
+    
+    // MyPage
+    case followerIsRequired
+    case followingIsRequired
+    case myPostListSortIsRequired
+    case myPageModifyIsRequired
+    case myPageIntroduceModifyIsRequired
+    case myPageWebsiteAddIsRequired
+    case myPageSettingIsRequired
 }
