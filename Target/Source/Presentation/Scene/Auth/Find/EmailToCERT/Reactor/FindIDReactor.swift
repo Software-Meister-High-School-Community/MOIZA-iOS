@@ -18,7 +18,9 @@ final class FindIDReactor: Reactor, Stepper{
     private let disposeBag = DisposeBag()
     
     // MARK: - Reactor
-    enum Action {}
+    enum Action {
+        case nextButtonDidTap
+    }
     enum Mutation {}
     struct State {}
     
@@ -34,6 +36,17 @@ final class FindIDReactor: Reactor, Stepper{
 // MARK: - Mutate
 extension FindIDReactor {
     func mutate(action: Action) -> Observable<Mutation> {
-        
+        switch action {
+        case .nextButtonDidTap:
+            return navigateToCERT()
+        }
+    }
+}
+
+// MARK: - Method
+private extension FindIDReactor {
+    func navigateToCERT() -> Observable<Mutation> {
+        steps.accept(MoizaStep.certIsRequired)
+        return .empty()
     }
 }
