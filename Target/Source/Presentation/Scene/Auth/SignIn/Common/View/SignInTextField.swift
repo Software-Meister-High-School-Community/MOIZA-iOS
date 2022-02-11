@@ -15,7 +15,7 @@ final class SignInTextField: UITextField{
         self.layer.borderWidth = 1
         self.font = UIFont(font: MOIZAFontFamily.Roboto.regular, size: 16)
         self.layer.borderColor = MOIZAAsset.moizaGray3.color.cgColor
-        self.textColor = MOIZAAsset.moizaGray2.color
+        self.textColor = MOIZAAsset.moizaGray5.color
         self.leftSpace(14)
     }
     required init?(coder: NSCoder) {

@@ -9,7 +9,7 @@
 import UIKit
 
 final class SignInOptionsLabel: UILabel{
-    init(text: String){
+    init(){
         super.init(frame: .zero)
         self.font = UIFont(font: MOIZAFontFamily.Roboto.regular, size: 14)
         self.textColor = MOIZAAsset.moizaGray1.color
