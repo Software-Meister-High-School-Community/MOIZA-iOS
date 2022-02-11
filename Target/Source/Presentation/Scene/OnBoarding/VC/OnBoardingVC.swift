@@ -55,5 +55,9 @@ final class OnBoardingVC: baseVC<OnBoardingReactor>{
             .map { _ in Reactor.Action.signUpButtonDidTap }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
+        signInButton.rx.tap
+            .map { _ in Reactor.Action.signInButtonDidTap }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
     }
 }

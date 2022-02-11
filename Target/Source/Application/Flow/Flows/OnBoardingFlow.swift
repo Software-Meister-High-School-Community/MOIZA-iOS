@@ -41,6 +41,8 @@ final class OnBoardingFlow: Flow{
     func navigate(to step: Step) -> FlowContributors {
         guard let step = step.asMoizaStep else { return .none }
         switch step{
+        case .signInIsRequired:
+            return navigateToFindID()
         case .onBoardingIsRequired:
             return coordinateToOnBoarding()
         case .signUpIsRequired:
@@ -61,6 +63,11 @@ final class OnBoardingFlow: Flow{
 
 // MARK: - Method
 private extension OnBoardingFlow{
+    func navigateToFindID() -> FlowContributors{
+        @Inject var vc: FindIDVC
+        self.rootVC.pushViewController(vc, animated: true)
+        return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: vc.reactor ?? .init()))
+    }
     func coordinateToOnBoarding() -> FlowContributors{
         self.rootVC.setViewControllers([vc], animated: true)
         return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: vc.reactor ?? .init()))

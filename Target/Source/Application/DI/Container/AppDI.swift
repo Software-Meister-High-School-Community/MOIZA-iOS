@@ -33,6 +33,9 @@ extension Container{
         register(SignUpSuccessVC.self) { r in
             return SignUpSuccessVC(reactor: r.resolve(SignUpSuccessReactor.self))
         }
+        register(FindIDVC.self) { r in
+            return FindIDVC(reactor: r.resolve(FindIDReactor.self))
+        }
     }
     private func registerReactor(){
         autoregister(OnBoardingReactor.self, initializer: OnBoardingReactor.init)
@@ -40,6 +43,7 @@ extension Container{
         autoregister(SignUpInfoReactor.self, initializer: SignUpInfoReactor.init)
         autoregister(SignUpSetUpReactor.self, initializer: SignUpSetUpReactor.init)
         autoregister(SignUpSuccessReactor.self, initializer: SignUpSuccessReactor.init)
+        autoregister(FindIDReactor.self, initializer: FindIDReactor.init)
     }
     private func registerStepper(){
         autoregister(OnBoardingStepper.self, initializer: OnBoardingStepper.init)
