@@ -26,4 +26,3 @@ jobs:
     - name: Tests
       run: |
         xcodebuild clean test -workspace MOIZA.xcworkspace -scheme 'MOIZATest' -destination 'platform=iOS Simulator,name=iPhone 11 Pro,OS=latest'
-        xcodebuild clean test -workspace MOIZA.xcworkspace -scheme 'MOIZAUITest' -destination 'platform=iOS Simulator,name=iPhone 11 Pro,OS=latest'
