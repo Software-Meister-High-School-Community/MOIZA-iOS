@@ -27,6 +27,10 @@ final class SignInVC: baseVC<SignInReactor>{
     private let signInIdTextfield = SignInTextField()
     private let signInPwdTextfield = SignInTextField()
     
+    private let pwdVisibleButton = UIButton().then {
+        $0.setImage(UIImage(systemName: "eye.slash")?.tintColor(MOIZAAsset.moizaGray4.color), for: .normal)
+    }
+    
     private let autoLoginButton = MoizaRadioButton()
     private let autoLoginLabel = UILabel().then{
         $0.text = SignInOptions.autoLogin.rawValue
@@ -45,9 +49,24 @@ final class SignInVC: baseVC<SignInReactor>{
         $0.backgroundColor = MOIZAAsset.moizaSecondaryYellow.color
     }
     
-    private let registerLabel = SignInRegisterButton(text: "회원가입")
-    private let findIdLabel = SignInRegisterButton(text: "아이디 찾기")
-    private let findPwdLabel = SignInRegisterButton(text: "비밀번호 찾기")
+    private let registerButton = UIButton().then{
+        $0.setTitle("회원가입", for: .normal)
+        $0.setTitleColor(MOIZAAsset.moizaGray4.color, for: .normal)
+        $0.titleLabel?.font = UIFont(font: MOIZAFontFamily.Roboto.regular, size: 12)
+    }
+    private let findIdButton = UIButton().then{
+        $0.setTitle("아이디 찾기", for: .normal)
+        $0.setTitleColor(MOIZAAsset.moizaGray4.color, for: .normal)
+        $0.titleLabel?.font = UIFont(font: MOIZAFontFamily.Roboto.regular, size: 12)
+    }
+    private let findPwdButton = UIButton().then{
+        $0.setTitle("비밀번호 찾기", for: .normal)
+        $0.setTitleColor(MOIZAAsset.moizaGray4.color, for: .normal)
+        $0.titleLabel?.font = UIFont(font: MOIZAFontFamily.Roboto.regular, size: 12)
+    }
+    
+    private let line = DivisionLine()
+    private let line2 = DivisionLine()
     
     override func configureNavigation() {
         self.navigationItem.setTitle(title: "로그인")
@@ -67,7 +86,10 @@ final class SignInVC: baseVC<SignInReactor>{
             // MARK: - Textfield
             flex.addItem().top(40).direction(.column).define { flex in
                 flex.addItem(signInIdTextfield).height(50).width(100%).marginBottom(12)
-                flex.addItem(signInPwdTextfield).height(50).width(100%)
+                flex.addItem(signInPwdTextfield).height(50).width(100%).direction(.rowReverse).define { flex in
+                    flex.addItem(pwdVisibleButton).width(24).height(24).marginRight(10).marginVertical(12)
+                }
+                
             }
             flex.addItem().horizontally(0).direction(.row).define { flex in
             // MARK: - AutoLogin
@@ -83,6 +105,17 @@ final class SignInVC: baseVC<SignInReactor>{
             }
             // MARK: - LoginButton
             flex.addItem(loginButton).width(100%).height(50).marginTop(35).alignSelf(.center)
+            // MARK: - Addtions
+            
+            flex.addItem().horizontally(65).direction(.row).define { flex in
+                flex.addItem().marginTop(40).direction(.row).shrink(1).define { flex in
+                    flex.addItem(registerButton).width(45).height(14)
+                    flex.addItem(line).marginLeft(18).marginRight(18)
+                    flex.addItem(findIdButton).width(59).height(14)
+                    flex.addItem(line2).marginLeft(18).marginRight(18)
+                    flex.addItem(findPwdButton).width(70).height(14)
+                }
+            }
         }
     }
 }
