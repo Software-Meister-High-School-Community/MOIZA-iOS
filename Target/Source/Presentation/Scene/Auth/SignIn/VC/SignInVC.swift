@@ -36,12 +36,12 @@ final class SignInVC: baseVC<SignInReactor>{
     
     private let autoLoginButton = MoizaRadioButton()
     private let autoLoginLabel = UILabel().then{
-        $0.text = SignInOptions.autoLogin.rawValue
+        $0.text = "자동 로그인"
     }
     
     private let saveIdButton = MoizaRadioButton()
     private let saveIdLabel = UILabel().then{
-        $0.text = SignInOptions.saveID.rawValue
+        $0.text = "아이디 저장"
     }
     
     private let loginButton = UIButton().then{
@@ -168,7 +168,7 @@ final class SignInVC: baseVC<SignInReactor>{
             .disposed(by: disposeBag)
     }
     override func bindState(reactor: SignInReactor) {
-        let sharedState = reactor.state.share(replay: 4).observe(on: MainScheduler.asyncInstance)
+        let sharedState = reactor.state.share(replay: 3).observe(on: MainScheduler.asyncInstance)
         
         sharedState
             
@@ -178,6 +178,16 @@ final class SignInVC: baseVC<SignInReactor>{
                 owner.loginButton.isEnabled = item
                 owner.loginButton.backgroundColor = item ? MOIZAAsset.moizaPrimaryYellow.color : MOIZAAsset.moizaSecondaryYellow.color
             })
+            .disposed(by: disposeBag)
+        
+        sharedState
+            .map(\.passwordVisible)
+            .withUnretained(self)
+            .bind { owner, visible in
+                owner.signInPwdTextfield.isSecureTextEntry = visible
+                owner.pwdVisibleButton.setImage(UIImage(systemName: visible ? "eye" : "eye.slash")?.tintColor(MOIZAAsset.moizaGray4.color),
+                                                     for: .normal)
+            }
             .disposed(by: disposeBag)
     }
 }
