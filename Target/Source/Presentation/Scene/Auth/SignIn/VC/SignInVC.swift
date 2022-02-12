@@ -87,20 +87,20 @@ final class SignInVC: baseVC<SignInReactor>{
             // MARK: - Logo
             flex.addItem(moizaLogoImageView).width(139).height(29).marginTop(30).alignSelf(.center)
             // MARK: - Textfield
-            flex.addItem().top(40).direction(.column).define { flex in
-                flex.addItem(signInIdTextfield).height(50).width(100%).marginBottom(12)
-                flex.addItem(signInPwdTextfield).height(50).width(100%).direction(.rowReverse).define { flex in
+            flex.addItem().marginTop(42).direction(.columnReverse).define { flex in
+                flex.addItem(signInPwdTextfield).height(50).width(100%).marginVertical(12).direction(.rowReverse).define { flex in
                     flex.addItem(pwdVisibleButton).width(24).height(24).marginRight(10).marginVertical(12)
                 }
+                flex.addItem(signInIdTextfield).height(50).width(100%)
             }
             flex.addItem().horizontally(0).direction(.row).define { flex in
             // MARK: - AutoLogin
-                flex.addItem().marginTop(78).direction(.row).shrink(1).define { flex in
+                flex.addItem().marginTop(24).direction(.row).shrink(1).define { flex in
                     flex.addItem(autoLoginButton).width(24).height(24)
                     flex.addItem(autoLoginLabel).left(10).width(70%).height(24)
                 }
             // MARK: - SaveID
-                flex.addItem().marginTop(78).direction(.row).shrink(1).define { flex in
+                flex.addItem().marginTop(24).direction(.row).shrink(1).define { flex in
                     flex.addItem(saveIdButton).width(24).height(24)
                     flex.addItem(saveIdLabel).left(10).width(70%).width(100%)
                 }
@@ -165,6 +165,18 @@ final class SignInVC: baseVC<SignInReactor>{
         findPwdButton.rx.tap
             .map{Reactor.Action.findPwdButtonDidTap}
             .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+    }
+    override func bindState(reactor: SignInReactor) {
+        let sharedState = reactor.state.share(replay: 4).observe(on: MainScheduler.asyncInstance)
+        
+        sharedState
+            .map(\.isSignInValid)
+            .withUnretained(self)
+            .subscribe(onNext: { owner, item in
+                owner.loginButton.isEnabled = item
+                owner.loginButton.backgroundColor = item ? MOIZAAsset.moizaPrimaryYellow.color : MOIZAAsset.moizaSecondaryYellow.color
+            })
             .disposed(by: disposeBag)
     }
 }
