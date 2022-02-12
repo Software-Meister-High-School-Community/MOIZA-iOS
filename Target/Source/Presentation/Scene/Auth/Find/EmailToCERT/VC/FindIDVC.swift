@@ -17,7 +17,7 @@ import RxKeyboard
 import Then
 
 final class FindIDVC: baseVC<FindIDReactor> {
-    // MARK: -Properties
+    // MARK: - Properties
     private let rootContainer = UIView()
     private let titleLabel = UILabel().then {
         $0.font = UIFont(font: MOIZAFontFamily.Roboto.regular, size: 18)
@@ -47,6 +47,13 @@ final class FindIDVC: baseVC<FindIDReactor> {
             // MARK: Next
             flex.addItem(nextButton).top(127).width(88).height(36).alignSelf(.end)
         }
+    }
+    
+    override func bindView(reactor: FindIDReactor) {
+        nextButton.rx.tap
+            .map { _ in Reactor.Action.nextButtonDidTap }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
     }
     override func configureNavigation() {
         self.navigationItem.configAuthNavigation(title: "아이디 찾기")

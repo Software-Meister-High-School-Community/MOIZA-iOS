@@ -36,6 +36,9 @@ extension Container{
         register(FindIDVC.self) { r in
             return FindIDVC(reactor: r.resolve(FindIDReactor.self))
         }
+        register(CertEmailVC.self) { r in
+            return CertEmailVC(reactor: r.resolve(CertEmailReactor.self))
+        }
     }
     private func registerReactor(){
         autoregister(OnBoardingReactor.self, initializer: OnBoardingReactor.init)
@@ -44,6 +47,7 @@ extension Container{
         autoregister(SignUpSetUpReactor.self, initializer: SignUpSetUpReactor.init)
         autoregister(SignUpSuccessReactor.self, initializer: SignUpSuccessReactor.init)
         autoregister(FindIDReactor.self, initializer: FindIDReactor.init)
+        autoregister(CertEmailReactor.self, initializer: CertEmailReactor.init)
     }
     private func registerStepper(){
         autoregister(OnBoardingStepper.self, initializer: OnBoardingStepper.init)

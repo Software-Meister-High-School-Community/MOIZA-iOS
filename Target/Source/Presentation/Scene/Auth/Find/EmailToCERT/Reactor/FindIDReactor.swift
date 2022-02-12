@@ -11,7 +11,7 @@ import ReactorKit
 import RxFlow
 import RxCocoa
 
-final class FindIDReactor: Reactor, Stepper{
+final class FindIDReactor: Reactor, Stepper {
     // MARK: - Properties
     var steps: PublishRelay<Step> = .init()
     
@@ -38,14 +38,14 @@ extension FindIDReactor {
     func mutate(action: Action) -> Observable<Mutation> {
         switch action {
         case .nextButtonDidTap:
-            return navigateToCERT()
+            return nextButtonDidTap()
         }
     }
 }
 
 // MARK: - Method
 private extension FindIDReactor {
-    func navigateToCERT() -> Observable<Mutation> {
+    func nextButtonDidTap() -> Observable<Mutation> {
         steps.accept(MoizaStep.certIsRequired)
         return .empty()
     }
