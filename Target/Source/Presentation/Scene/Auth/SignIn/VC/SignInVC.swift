@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import FlexibleSteppedProgressBar
 import Hero
 import M13Checkbox
 import RxDataSources
@@ -24,8 +23,12 @@ final class SignInVC: baseVC<SignInReactor>{
         $0.backgroundColor = MOIZAAsset.moizaGray1.color
         $0.contentMode = .scaleToFill
     }
-    private let signInIdTextfield = SignInTextField()
-    private let signInPwdTextfield = SignInTextField()
+    private let signInIdTextfield = SignInTextField().then{
+        $0.autocapitalizationType = .none
+    }
+    private let signInPwdTextfield = SignInTextField().then{
+        $0.autocapitalizationType = .none
+    }
     
     private let pwdVisibleButton = UIButton().then {
         $0.setImage(UIImage(systemName: "eye.slash")?.tintColor(MOIZAAsset.moizaGray4.color), for: .normal)
@@ -89,7 +92,6 @@ final class SignInVC: baseVC<SignInReactor>{
                 flex.addItem(signInPwdTextfield).height(50).width(100%).direction(.rowReverse).define { flex in
                     flex.addItem(pwdVisibleButton).width(24).height(24).marginRight(10).marginVertical(12)
                 }
-                
             }
             flex.addItem().horizontally(0).direction(.row).define { flex in
             // MARK: - AutoLogin
@@ -105,8 +107,7 @@ final class SignInVC: baseVC<SignInReactor>{
             }
             // MARK: - LoginButton
             flex.addItem(loginButton).width(100%).height(50).marginTop(35).alignSelf(.center)
-            // MARK: - Addtions
-            
+            // MARK: - Additions
             flex.addItem().horizontally(65).direction(.row).define { flex in
                 flex.addItem().marginTop(40).direction(.row).shrink(1).define { flex in
                     flex.addItem(registerButton).width(45).height(14)
@@ -117,5 +118,53 @@ final class SignInVC: baseVC<SignInReactor>{
                 }
             }
         }
+    }
+    override func bindView(reactor: SignInReactor) {
+        signInIdTextfield.rx.text
+            .orEmpty
+            .map(Reactor.Action.updateId)
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
+        signInPwdTextfield.rx.text
+            .orEmpty
+            .map(Reactor.Action.updatePassword)
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
+        pwdVisibleButton.rx.tap
+            .map{Reactor.Action.pwdVisibleButtonDidTap}
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
+        autoLoginButton.rx.controlEvent(.valueChanged)
+            .map{Reactor.Action.autoLoginButtonDidTap}
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
+        saveIdButton.rx.controlEvent(.valueChanged)
+            .map{Reactor.Action.saveIdButtonDidTap}
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
+        loginButton.rx.tap
+            .map{Reactor.Action.signInButtonDidTap}
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
+        registerButton.rx.tap
+            .map{Reactor.Action.signUpButtonDidTap}
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
+        findIdButton.rx.tap
+            .map{Reactor.Action.findIdButtonDidTap}
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
+        findPwdButton.rx.tap
+            .map{Reactor.Action.findPwdButtonDidTap}
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
     }
 }
