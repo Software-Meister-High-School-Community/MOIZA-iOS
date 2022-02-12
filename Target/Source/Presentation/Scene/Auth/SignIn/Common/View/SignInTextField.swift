@@ -17,6 +17,7 @@ final class SignInTextField: UITextField{
         self.layer.borderColor = MOIZAAsset.moizaGray3.color.cgColor
         self.textColor = MOIZAAsset.moizaGray5.color
         self.leftSpace(14)
+        self.rightSpace(40)
     }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

@@ -16,4 +16,10 @@ extension UITextField{
         leftView = spacer
         leftViewMode = .always
     }
+    func rightSpace(_ space: CGFloat) {
+        let spacer = UIView()
+        spacer.pin.width(space).height(of: self)
+        rightView = spacer
+        rightViewMode = .always
+    }
 }

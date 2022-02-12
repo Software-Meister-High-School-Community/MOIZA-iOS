@@ -87,11 +87,11 @@ final class SignInVC: baseVC<SignInReactor>{
             // MARK: - Logo
             flex.addItem(moizaLogoImageView).width(139).height(29).marginTop(30).alignSelf(.center)
             // MARK: - Textfield
-            flex.addItem().marginTop(42).direction(.columnReverse).define { flex in
-                flex.addItem(signInPwdTextfield).height(50).width(100%).marginVertical(12).direction(.rowReverse).define { flex in
-                    flex.addItem(pwdVisibleButton).width(24).height(24).marginRight(10).marginVertical(12)
-                }
+            flex.addItem().marginTop(42).define { flex in
                 flex.addItem(signInIdTextfield).height(50).width(100%)
+                flex.addItem(signInPwdTextfield).height(50).width(100%).marginVertical(12).direction(.rowReverse).define { flex in
+                    flex.addItem(pwdVisibleButton).width(24).height(24).marginLeft(10).marginRight(10).marginVertical(12)
+                }
             }
             flex.addItem().horizontally(0).direction(.row).define { flex in
             // MARK: - AutoLogin
