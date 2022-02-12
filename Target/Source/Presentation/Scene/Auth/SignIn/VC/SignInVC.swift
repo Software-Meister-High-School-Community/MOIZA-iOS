@@ -171,6 +171,7 @@ final class SignInVC: baseVC<SignInReactor>{
         let sharedState = reactor.state.share(replay: 4).observe(on: MainScheduler.asyncInstance)
         
         sharedState
+            
             .map(\.isSignInValid)
             .withUnretained(self)
             .subscribe(onNext: { owner, item in

@@ -91,7 +91,6 @@ extension SignInReactor{
         switch mutation{
         case let .setId(id):
             newState.id = id
-            newState.isSignInValid = checkValidation(newState)
         case let .setPassword(password):
             newState.password = password
         case let .setIsOnAutoLogin(isOnAutoLogin):
@@ -103,6 +102,7 @@ extension SignInReactor{
         case .setIsSignInInvalid:
             newState.isSignInInvalid = false
         }
+        newState.isSignInValid = checkValidation(newState)
         return newState
     }
 }
@@ -110,7 +110,7 @@ private extension SignInReactor{
     func checkValidation(_ state:State) -> Bool{
         guard !state.id.isEmpty,
               !state.password.isEmpty
-        else{
+        else {
             return false
         }
         return true
