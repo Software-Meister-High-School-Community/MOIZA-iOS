@@ -22,7 +22,7 @@ final class SignInReactor: Reactor, Stepper{
         case pwdVisibleButtonDidTap
         case autoLoginButtonDidTap
         case saveIdButtonDidTap
-        case signInButtonDidTap
+        case logInButtonDidTap
         case signUpButtonDidTap
         case findIdButtonDidTap
         case findPwdButtonDidTap
@@ -72,7 +72,7 @@ extension SignInReactor{
             return Observable.just(.setIsOnAutoLogin(!currentState.isOnAutoLogin))
         case .saveIdButtonDidTap:
             return Observable.just(.setIsOnIdSave(!currentState.isOnIdSave))
-        case .signInButtonDidTap:
+        case .logInButtonDidTap:
             return .empty()
         case .signUpButtonDidTap:
             return .empty()
