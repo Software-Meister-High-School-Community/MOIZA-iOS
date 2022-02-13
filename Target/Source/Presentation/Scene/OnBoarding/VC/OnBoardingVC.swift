@@ -24,6 +24,7 @@ final class OnBoardingVC: baseVC<OnBoardingReactor>{
     private let signInButton = OnBoardingButton(text: "로그인", foregroundColor: MOIZAAsset.moizaGray6.color, backgroundColor: MOIZAAsset.moizaGray1.color).then {
         $0.layer.borderWidth = 1
         $0.layer.borderColor = MOIZAAsset.moizaGray6.color.cgColor
+        $0.hero.id = "logo"
     }
     private let mainContainer = UIView()
     
