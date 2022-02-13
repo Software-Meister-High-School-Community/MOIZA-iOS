@@ -26,12 +26,22 @@ final class CertEmailVC: baseVC<CertEmailReactor> {
     }
     private let emailTextField = SignUpTextField().then {
         $0.placeholder = "인증번호"
+        $0.leftSpace(14)
+        $0.textColor = MOIZAAsset.moizaGray5.color
     }
     private let reCertButton = UIButton().then {
         $0.layer.cornerRadius = 5
         $0.layer.borderWidth = 1
-        $0.titleLabel?.text = "인증번호 재발송"
-        $0.backgroundColor = MOIZAAsset.moizaGray4.color
+        $0.layer.borderColor = MOIZAAsset.moizaGray3.color.cgColor
+        $0.setTitle("인증번호 재발송", for: .normal)
+        $0.setTitleColor(MOIZAAsset.moizaGray5.color, for: .normal)
+        $0.titleLabel?.font = UIFont(font: MOIZAFontFamily.Roboto.regular, size: 14)
+        $0.backgroundColor = MOIZAAsset.moizaGray2.color
+    }
+    private let reCertLabel = UILabel().then {
+        $0.font = UIFont(font: MOIZAFontFamily.Roboto.regular, size: 12)
+        $0.textColor = MOIZAAsset.moizaTheme.color
+        $0.text = "인증번호를 다시 입력해주세요"
     }
     private let nextButton = NextButton(title: "다음 단계")
     // MARK: - UI
@@ -45,10 +55,18 @@ final class CertEmailVC: baseVC<CertEmailReactor> {
     override func setLayout() {
         rootContainer.flex.marginHorizontal(16).define { flex in
             flex.addItem(titleLabel).height(23).marginTop(38)
+            // MARK: CERT
+            flex.addItem().horizontally(0).direction(.row).marginTop(30).define { flex in
+                flex.addItem(emailTextField).height(40).width(67%)
+                flex.addItem(reCertButton).height(40).width(33%).marginLeft(7)
+            }
+            flex.addItem(reCertLabel).top(10).marginLeft(3)
+            // MARK: Next
+            flex.addItem(nextButton).top(117).width(88).height(36).alignSelf(.end)
         }
     }
     override func configureNavigation() {
-        self.navigationItem.configAuthNavigation(title: "아이지 찾기")
+        self.navigationItem.configAuthNavigation(title: "아이디 찾기")
         self.navigationItem.configBack()
     }
 }
