@@ -48,7 +48,6 @@ final class FindIDVC: baseVC<FindIDReactor> {
             flex.addItem(nextButton).top(127).width(88).height(36).alignSelf(.end)
         }
     }
-    
     override func bindView(reactor: FindIDReactor) {
         nextButton.rx.tap
             .map { _ in Reactor.Action.nextButtonDidTap }

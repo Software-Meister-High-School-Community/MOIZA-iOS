@@ -40,7 +40,16 @@ extension CertEmailReactor {
         case .reCertButtonDidTap:
             return .empty()
         case .nextButtonDidTap:
-            return .empty()
+            return .nextButtonDidTap()
         }
+    }
+}
+
+
+// MARK: - Method
+private extension CertEmailReactor {
+    func nextButtonDidTap() -> Observable<Mutation> {
+        steps.accept(MoizaStep.successFindIDRequired)
+        return .empty()
     }
 }

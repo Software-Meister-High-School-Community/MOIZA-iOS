@@ -65,6 +65,16 @@ final class CertEmailVC: baseVC<CertEmailReactor> {
             flex.addItem(nextButton).top(117).width(88).height(36).alignSelf(.end)
         }
     }
+    override func bindView(reactor: CertEmailReactor) {
+        nextButton.rx.tap
+            .map { _ in Reactor.Action.nextButtonDidTap }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        reCertButton.rx.tap
+            .map { _ in Reactor.Action.reCertButtonDidTap }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+    }
     override func configureNavigation() {
         self.navigationItem.configAuthNavigation(title: "아이디 찾기")
         self.navigationItem.configBack()
