@@ -28,6 +28,10 @@ enum MoizaStep: Step{
     case signUpLoginSetupIsRequired(Student)
     case signUpSuccessIsRequired
     case signUpIsCompleted
+    case signUpGraduateAuthIsRequired
+    case signUpGraduateAuthFileIsRequired
+    case signUpGraduateAuthSuccessIsRequired
+    case signUpGraduateAuthIsCompleted
     
     // Main
     case mainTabbarIsRequired

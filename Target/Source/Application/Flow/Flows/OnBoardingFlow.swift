@@ -51,8 +51,18 @@ final class OnBoardingFlow: Flow{
             return navigateToSignUpSetUp(student: student)
         case .signUpSuccessIsRequired:
             return navigateToSignUpSuccess()
-        case .signUpIsCompleted:
+        case .signUpIsCompleted, .signUpGraduateAuthIsCompleted:
             return navigateToRoot()
+        case .signUpGraduateAuthIsRequired:
+            return navigateToGraduateAuth()
+        case .signUpGraduateAuthFileIsRequired:
+            return navigateToGraduateFile()
+        case .dismiss:
+            return presentToDismiss()
+        case let .alert(title, message):
+            return presentToAlert(title: title, message: message)
+        case .signUpGraduateAuthSuccessIsRequired:
+            return navigateToGraduateSuccess()
         default:
             return .none
         }
@@ -89,5 +99,29 @@ private extension OnBoardingFlow{
     func navigateToRoot() -> FlowContributors {
         self.rootVC.popToRootViewController(animated: true)
         return .none
+    }
+    func presentToDismiss() -> FlowContributors {
+        self.rootVC.dismiss(animated: true, completion: nil)
+        return .none
+    }
+    func navigateToGraduateAuth() -> FlowContributors {
+        @Inject var vc: GraduateAuthVC
+        self.rootVC.pushViewController(vc, animated: true)
+        return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: vc.reactor ?? .init()))
+    }
+    func navigateToGraduateFile() -> FlowContributors {
+        @Inject var vc: GraduateFileVC
+        self.rootVC.pushViewController(vc, animated: true)
+        return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: vc.reactor ?? .init()))
+    }
+    func presentToAlert(title: String?, message: String?) -> FlowContributors {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        self.rootVC.present(alert, animated: true, completion: nil)
+        return .none
+    }
+    func navigateToGraduateSuccess() -> FlowContributors {
+        @Inject var vc: GraduateSuccessVC
+        self.rootVC.pushViewController(vc, animated: true)
+        return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: vc.reactor ?? .init()))
     }
 }
