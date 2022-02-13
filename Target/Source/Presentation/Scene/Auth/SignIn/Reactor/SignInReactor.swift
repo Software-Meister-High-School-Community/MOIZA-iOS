@@ -53,7 +53,7 @@ final class SignInReactor: Reactor, Stepper{
             isOnAutoLogin: false,
             isOnIdSave: false,
             isSignInValid: false,
-            passwordVisible: false,
+            passwordVisible: true,
             isSignInInvalid: false)
     }
 }

@@ -17,7 +17,6 @@ struct OnBoardingStepper: Stepper{
     
     var initialStep: Step{
         return MoizaStep.onBoardingIsRequired
-        
     }
 }
 
