@@ -106,6 +106,7 @@ private extension OnBoardingFlow{
         @Inject var vc: SignInVC
         self.rootVC.pushViewController(vc, animated: true)
         return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: vc.reactor ?? .init()))
+    }
     func presentToDismiss() -> FlowContributors {
         self.rootVC.dismiss(animated: true, completion: nil)
         return .none

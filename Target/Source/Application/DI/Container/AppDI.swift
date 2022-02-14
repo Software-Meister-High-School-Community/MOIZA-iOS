@@ -35,6 +35,7 @@ extension Container{
         }
         register(SignInVC.self) { r in
             return SignInVC(reactor: r.resolve(SignInReactor.self))
+        }
         register(GraduateAuthVC.self) { r in
             return GraduateAuthVC(reactor: r.resolve(GraduateAuthReactor.self))
         }
