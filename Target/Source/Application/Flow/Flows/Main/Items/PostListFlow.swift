@@ -13,7 +13,7 @@ struct PostListStepper: Stepper{
     let steps: PublishRelay<Step> = .init()
     
     var initialStep: Step{
-        return MoizaStep.postListIsRequired
+        return MoizaStep.categoryIsRequired
     }
 }
 
@@ -35,7 +35,10 @@ final class PostListFlow: Flow{
     func navigate(to step: Step) -> FlowContributors {
         guard let step = step.asMoizaStep else { return .none }
         switch step{
-            
+        case .categoryIsRequired:
+            return coordinateToCategorySelect()
+        case let .postListIsRequired(category):
+            return coordinateToPostList(category: category)
         default:
             return .none
         }
@@ -44,5 +47,15 @@ final class PostListFlow: Flow{
 
 // MARK: - Method
 private extension PostListFlow{
-    
+    func coordinateToCategorySelect() -> FlowContributors {
+        @Inject var vc: CategoryVC
+        self.rootVC.setViewControllers([vc], animated: true)
+        return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: vc.reactor ?? .init()))
+    }
+    func coordinateToPostList(category: Major) -> FlowContributors {
+        let reactor = PostListReactor(category: category)
+        let vc = PostListVC(reactor: reactor)
+        self.rootVC.setViewControllers([vc], animated: true)
+        return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: reactor))
+    }
 }
