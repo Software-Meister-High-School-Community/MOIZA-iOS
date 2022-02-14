@@ -33,6 +33,9 @@ extension Container{
         register(SignUpSuccessVC.self) { r in
             return SignUpSuccessVC(reactor: r.resolve(SignUpSuccessReactor.self))
         }
+        register(SignInVC.self) { r in
+            return SignInVC(reactor: r.resolve(SignInReactor.self))
+        }
         register(GraduateAuthVC.self) { r in
             return GraduateAuthVC(reactor: r.resolve(GraduateAuthReactor.self))
         }
@@ -49,6 +52,7 @@ extension Container{
         autoregister(SignUpInfoReactor.self, initializer: SignUpInfoReactor.init)
         autoregister(SignUpSetUpReactor.self, initializer: SignUpSetUpReactor.init)
         autoregister(SignUpSuccessReactor.self, initializer: SignUpSuccessReactor.init)
+        autoregister(SignInReactor.self, initializer: SignInReactor.init)
         autoregister(GraduateAuthReactor.self, initializer: GraduateAuthReactor.init)
         autoregister(GraduateFileReactor.self, initializer: GraduateFileReactor.init)
         autoregister(GraduateSuccessReactor.self, initializer: GraduateSuccessReactor.init)

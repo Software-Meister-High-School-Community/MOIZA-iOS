@@ -53,6 +53,8 @@ final class OnBoardingFlow: Flow{
             return navigateToSignUpSuccess()
         case .signUpIsCompleted, .signUpGraduateAuthIsCompleted:
             return navigateToRoot()
+        case .signInIsRequired:
+            return navigateToSignIn()
         case .signUpGraduateAuthIsRequired:
             return navigateToGraduateAuth()
         case .signUpGraduateAuthFileIsRequired:
@@ -99,6 +101,11 @@ private extension OnBoardingFlow{
     func navigateToRoot() -> FlowContributors {
         self.rootVC.popToRootViewController(animated: true)
         return .none
+    }
+    func navigateToSignIn() -> FlowContributors{
+        @Inject var vc: SignInVC
+        self.rootVC.pushViewController(vc, animated: true)
+        return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: vc.reactor ?? .init()))
     }
     func presentToDismiss() -> FlowContributors {
         self.rootVC.dismiss(animated: true, completion: nil)
