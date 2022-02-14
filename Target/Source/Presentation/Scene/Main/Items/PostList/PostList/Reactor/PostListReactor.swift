@@ -25,13 +25,15 @@ final class PostListReactor: Reactor, Stepper {
         
     }
     struct State {
-        
+        var selectedMajor: Major
     }
     let initialState: State
     
     // MARK: - Init
-    init() {
-        initialState = State()
+    init(category major: Major) {
+        initialState = State(
+            selectedMajor: major
+        )
     }
     
 }
