@@ -29,6 +29,7 @@ target 'MOIZA' do
   pod 'PinLayout', '~> 1.10.0'
   pod 'FlexLayout', '~> 1.3.23'
   pod 'SwiftDate', '~> 6.3.1'
+  pod 'IQKeyboardManagerSwift', '~> 6.5.9'
 
   # Network
   pod 'Moya/RxSwift', '~> 15.0.0'
