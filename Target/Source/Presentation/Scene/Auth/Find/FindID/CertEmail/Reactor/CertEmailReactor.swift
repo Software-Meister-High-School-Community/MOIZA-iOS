@@ -40,7 +40,7 @@ extension CertEmailReactor {
         case .reCertButtonDidTap:
             return .empty()
         case .nextButtonDidTap:
-            return .nextButtonDidTap()
+            return nextButtonDidTap()
         }
     }
 }

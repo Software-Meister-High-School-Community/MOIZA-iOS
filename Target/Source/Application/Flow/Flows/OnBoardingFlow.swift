@@ -45,6 +45,8 @@ final class OnBoardingFlow: Flow{
             return navigateToFindID()
         case .certIsRequired:
             return navigateToCert()
+        case .successFindIDRequired:
+            return navigateTpSucFindId()
         case .onBoardingIsRequired:
             return coordinateToOnBoarding()
         case .signUpIsRequired:
@@ -65,6 +67,11 @@ final class OnBoardingFlow: Flow{
 
 // MARK: - Method
 private extension OnBoardingFlow{
+    func navigateTpSucFindId() -> FlowContributors {
+        @Inject var vc: SucFindIDVC
+        self.rootVC.pushViewController(vc, animated: true)
+        return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: vc.reactor ?? .init()))
+    }
     func navigateToCert() -> FlowContributors{
         @Inject var vc: CertEmailVC
         self.rootVC.pushViewController(vc, animated: true)
