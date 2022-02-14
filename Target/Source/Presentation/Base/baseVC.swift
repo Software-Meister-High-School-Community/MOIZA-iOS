@@ -25,7 +25,6 @@ class baseVC<T: Reactor>: UIViewController{
         setLayout()
         configureVC()
         configureNavigation()
-        hideKeyboardWhenTappedAround()
     }
     
     override func viewDidLayoutSubviews() {
