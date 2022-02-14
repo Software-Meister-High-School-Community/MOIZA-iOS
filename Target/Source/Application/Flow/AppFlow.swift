@@ -42,7 +42,6 @@ final class AppFlow: Flow{
     }
     
     // MARK: - Navigate
-    
     func navigate(to step: Step) -> FlowContributors {
         guard let step = step.asMoizaStep else { return .none }
         switch step{
@@ -55,10 +54,9 @@ final class AppFlow: Flow{
 }
 
 // MARK: - Method
-
 private extension AppFlow{
-    private func coordinateToOnBoarding() -> FlowContributors{
-        let flow = OnBoardingFlow()
+    func coordinateToOnBoarding() -> FlowContributors {
+        @Inject var flow: OnBoardingFlow
         
         Flows.use(
             flow,
@@ -67,6 +65,17 @@ private extension AppFlow{
             self.rootWindow.rootViewController = root
         }
         return .one(flowContributor: .contribute(withNextPresentable: flow, withNextStepper: flow.stepper))
+    }
+    func coordinateToMainTabbar() -> FlowContributors {
+        @Inject var flow: MainTabbarFlow
+        Flows.use(
+            flow,
+            when: .created
+        ) { [unowned self] root in
+            self.rootWindow.rootViewController = root
+        }
+        return .one(flowContributor: .contribute(withNextPresentable: flow,
+                                                 withNextStepper: OneStepper(withSingleStep: MoizaStep.onBoardingIsRequired))) // TODO: Main Tabbar Step
     }
 }
 

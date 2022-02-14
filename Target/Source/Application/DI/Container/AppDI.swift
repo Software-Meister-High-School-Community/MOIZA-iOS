@@ -35,6 +35,14 @@ extension Container{
         }
         register(SignInVC.self) { r in
             return SignInVC(reactor: r.resolve(SignInReactor.self))
+        register(GraduateAuthVC.self) { r in
+            return GraduateAuthVC(reactor: r.resolve(GraduateAuthReactor.self))
+        }
+        register(GraduateFileVC.self) { r in
+            return GraduateFileVC(reactor: r.resolve(GraduateFileReactor.self))
+        }
+        register(GraduateSuccessVC.self) { r in
+            return GraduateSuccessVC(reactor: r.resolve(GraduateSuccessReactor.self))
         }
     }
     private func registerReactor(){
@@ -44,12 +52,20 @@ extension Container{
         autoregister(SignUpSetUpReactor.self, initializer: SignUpSetUpReactor.init)
         autoregister(SignUpSuccessReactor.self, initializer: SignUpSuccessReactor.init)
         autoregister(SignInReactor.self, initializer: SignInReactor.init)
+        autoregister(GraduateAuthReactor.self, initializer: GraduateAuthReactor.init)
+        autoregister(GraduateFileReactor.self, initializer: GraduateFileReactor.init)
+        autoregister(GraduateSuccessReactor.self, initializer: GraduateSuccessReactor.init)
     }
     private func registerStepper(){
         autoregister(OnBoardingStepper.self, initializer: OnBoardingStepper.init)
     }
     private func registerFlow(){
-        
+        autoregister(OnBoardingFlow.self, initializer: OnBoardingFlow.init)
+        autoregister(HomeFlow.self, initializer: HomeFlow.init)
+        autoregister(PostListFlow.self, initializer: PostListFlow.init)
+        autoregister(AlarmFlow.self, initializer: AlarmFlow.init)
+        autoregister(MyPageFlow.self, initializer: MyPageFlow.init)
+        autoregister(MainTabbarFlow.self, initializer: MainTabbarFlow.init)
     }
     
     // MARK: - Data

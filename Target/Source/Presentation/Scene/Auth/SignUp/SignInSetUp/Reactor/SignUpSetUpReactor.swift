@@ -128,7 +128,7 @@ private extension SignUpSetUpReactor{
         if currentState.student.kind == .student {
             steps.accept(MoizaStep.signUpSuccessIsRequired)
         } else if currentState.student.kind == .graduate {
-            // TODO: 졸업생인증
+            steps.accept(MoizaStep.signUpGraduateAuthIsRequired)
         } 
         return .empty()
     }
