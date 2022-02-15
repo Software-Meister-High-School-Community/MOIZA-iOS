@@ -23,6 +23,7 @@ final class MyPageFlow: Flow{
         return self.rootVC
     }
     
+    @Inject private var vc: MyPageVC
     @Inject var stepper: MyPageStepper
     private let rootVC = UINavigationController()
     
@@ -44,5 +45,8 @@ final class MyPageFlow: Flow{
 
 // MARK: - Method
 private extension MyPageFlow{
-    
+    func coordinateToMyPage() -> FlowContributors {
+        self.rootVC.setViewControllers([vc], animated: true)
+        return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: vc.reactor ?? .init()))
+    }
 }
