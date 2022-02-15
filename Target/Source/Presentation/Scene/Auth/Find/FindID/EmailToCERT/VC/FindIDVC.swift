@@ -27,6 +27,7 @@ final class FindIDVC: baseVC<FindIDReactor> {
     }
     private let emailTextField = SignUpTextField().then {
         $0.placeholder = "회원가입 시 입력한 이메일 주소"
+        $0.leftSpace(14)
     }
     private let nextButton = NextButton(title: "다음 단계")
     // MARK: - UI
@@ -41,11 +42,9 @@ final class FindIDVC: baseVC<FindIDReactor> {
         rootContainer.flex.marginHorizontal(16).define { flex in
             flex.addItem(titleLabel).height(23).marginTop(38)
             // MARK: CERT
-            flex.addItem().top(30).define { flex in
-                flex.addItem(emailTextField).height(40)
-            }
+            flex.addItem(emailTextField).marginTop(30).height(40)
             // MARK: Next
-            flex.addItem(nextButton).top(127).width(88).height(36).alignSelf(.end)
+            flex.addItem(nextButton).marginTop(127).width(88).height(36).alignSelf(.end)
         }
     }
     override func bindView(reactor: FindIDReactor) {

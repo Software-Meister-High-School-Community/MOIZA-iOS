@@ -60,9 +60,9 @@ final class CertEmailVC: baseVC<CertEmailReactor> {
                 flex.addItem(emailTextField).height(40).width(67%)
                 flex.addItem(reCertButton).height(40).width(33%).marginLeft(7)
             }
-            flex.addItem(reCertLabel).top(10).marginLeft(3)
+            flex.addItem(reCertLabel).marginTop(10).marginLeft(3)
             // MARK: Next
-            flex.addItem(nextButton).top(117).width(88).height(36).alignSelf(.end)
+            flex.addItem(nextButton).marginTop(96).width(88).height(36).alignSelf(.end)
         }
     }
     override func bindView(reactor: CertEmailReactor) {
