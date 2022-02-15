@@ -23,6 +23,7 @@ final class AlarmFlow: Flow{
         return self.rootVC
     }
     
+    @Inject private var vc: AlarmVC
     @Inject var stepper: AlarmStepper
     private let rootVC = UINavigationController()
     
@@ -35,7 +36,8 @@ final class AlarmFlow: Flow{
     func navigate(to step: Step) -> FlowContributors {
         guard let step = step.asMoizaStep else { return .none }
         switch step{
-            
+        case .alarmIsRequired:
+            return coordinateToAlarm()
         default:
             return .none
         }
@@ -44,5 +46,8 @@ final class AlarmFlow: Flow{
 
 // MARK: - Method
 private extension AlarmFlow{
-    
+    func coordinateToAlarm() -> FlowContributors {
+        self.rootVC.setViewControllers([vc], animated: true)
+        return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: vc.reactor ?? .init()))
+    }
 }
