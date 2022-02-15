@@ -18,7 +18,10 @@ final class SucFindIDReactor: Reactor, Stepper {
     private let disposeBag = DisposeBag()
     
     // MARK: - Reactor
-    enum Action {}
+    enum Action {
+        case navToSingInButtonDidTap
+        case findPWButtonDidTap
+    }
     enum Mutation {}
     struct State {}
     
@@ -33,6 +36,24 @@ final class SucFindIDReactor: Reactor, Stepper {
 // MARK: - Mutate
 extension SucFindIDReactor {
     func mutate(action: Action) -> Observable<Mutation> {
-        
+        switch action {
+        case .findPWButtonDidTap:
+            return findPWButtonDidTap()
+        case .navToSingInButtonDidTap:
+            return navToSingInButtonDidTap()
+        }
+    }
+}
+
+
+// MARK: - Method
+private extension SucFindIDReactor {
+    func findPWButtonDidTap() -> Observable<Mutation> {
+        steps.accept(MoizaStep.findingPasswordIsRequired)
+        return .empty()
+    }
+    func navToSingInButtonDidTap() -> Observable<Mutation> {
+        steps.accept(MoizaStep.signInIsRequired)
+        return .empty()
     }
 }

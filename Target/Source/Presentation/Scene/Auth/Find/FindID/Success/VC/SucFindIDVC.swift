@@ -59,6 +59,16 @@ final class SucFindIDVC: baseVC<SucFindIDReactor> {
             }
         }
     }
+    override func bindView(reactor: SucFindIDReactor) {
+        navToSingInButton.rx.tap
+            .map { _ in Reactor.Action.navToSingInButtonDidTap }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        findPWButton.rx.tap
+            .map { _ in Reactor.Action.findPWButtonDidTap }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+    }
     override func configureNavigation() {
         self.navigationItem.configAuthNavigation(title: "아이디 찾기")
         self.navigationItem.configBack()
