@@ -59,6 +59,11 @@ final class OnBoardingFlow: Flow{
             return navigateToSignUpSuccess()
         case .signUpIsCompleted:
             return navigateToRoot()
+        case .findingPasswordIsRequired:
+            return navigateToCheckId()
+        case .sendCertRequired:
+            return navigateToSendCert()
+            
         default:
             return .none
         }
@@ -67,6 +72,16 @@ final class OnBoardingFlow: Flow{
 
 // MARK: - Method
 private extension OnBoardingFlow{
+    func navigateToSendCert() -> FlowContributors {
+        @Inject var vc: SendCertVC
+        self.rootVC.pushViewController(vc, animated: true)
+        return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: vc.reactor ?? .init()))
+    }
+    func navigateToCheckId() -> FlowContributors {
+        @Inject var vc: CheckIDVC
+        self.rootVC.pushViewController(vc, animated: true)
+        return  .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: vc.reactor ?? .init()))
+    }
     func navigateTpSucFindId() -> FlowContributors {
         @Inject var vc: SucFindIDVC
         self.rootVC.pushViewController(vc, animated: true)
