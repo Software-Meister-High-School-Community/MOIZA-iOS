@@ -10,7 +10,6 @@ import Foundation
 import ReactorKit
 import RxFlow
 import RxCocoa
-import UIKit
 
 final class CheckIDReactor: Stepper, Reactor {
     // MARK: - Properties
@@ -22,7 +21,7 @@ final class CheckIDReactor: Stepper, Reactor {
     enum Action {
         case nextButtonDidTap
     }
-    enum Mtation {}
+    enum Mutation {}
     struct State {}
     
     let initialState: State
@@ -35,7 +34,7 @@ final class CheckIDReactor: Stepper, Reactor {
 
 // MARK: - Mutate
 extension CheckIDReactor {
-    func mutate(action: Action) -> Observable<Action> {
+    func mutate(action: Action) -> Observable<Mutation> {
         switch action {
         case .nextButtonDidTap:
             return nextButtonDidTap()

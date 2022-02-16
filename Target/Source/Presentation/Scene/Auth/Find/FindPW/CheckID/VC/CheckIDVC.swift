@@ -16,7 +16,7 @@ import UIKit
 import Hero
 
 final class CheckIDVC: baseVC<CheckIDReactor> {
-    // MARK: Properties
+    // MARK: - Properties
     private let rootContainer = UIView()
     private let titleLabel = UILabel().then {
         $0.font = UIFont(font: MOIZAFontFamily.Roboto.regular, size: 18)
