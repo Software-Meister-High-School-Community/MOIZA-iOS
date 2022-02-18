@@ -30,9 +30,12 @@ target 'MOIZA' do
   pod 'FlexLayout', '~> 1.3.23'
   pod 'SwiftDate', '~> 6.3.1'
   pod 'IQKeyboardManagerSwift', '~> 6.5.9'
+  pod 'Tabman', '~> 2.11.1'
 
   # Network
   pod 'Moya/RxSwift', '~> 15.0.0'
+  pod 'Firebase/Core', '~> 8.12.0'
+  pod 'Firebase/Messaging', '~> 8.12.0'
 
   # Pods for your project
 
