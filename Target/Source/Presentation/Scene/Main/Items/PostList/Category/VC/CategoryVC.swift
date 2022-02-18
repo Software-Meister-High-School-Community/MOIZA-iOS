@@ -24,40 +24,40 @@ final class CategoryVC: baseVC<CategoryReactor> {
         $0.showsVerticalScrollIndicator = true
     }
     private let contentView = UIView()
-    private let frontCategory = CategoryView(major: .frontEnd,
+    private let frontCategory = CategoryButton(major: .frontEnd,
                                              direction: .topRight,
                                              backgroundColor: MOIZAAsset.moizaPrimaryBlue.color,
                                              foregroundColor: .white)
-    private let backCategory = CategoryView(major: .backEnd,
+    private let backCategory = CategoryButton(major: .backEnd,
                                             direction: .bottomLeft,
                                             backgroundColor: MOIZAAsset.moizaGray1.color,
                                             foregroundColor: MOIZAAsset.moizaPrimaryYellow.color)
-    private let designCategory = CategoryView(major: .design,
+    private let designCategory = CategoryButton(major: .design,
                                               direction: .bottomLeft,
                                               backgroundColor: MOIZAAsset.moizaGray1.color,
                                               foregroundColor: MOIZAAsset.moizaPrimaryBlue.color)
-    private let iOSCategory = CategoryView(major: .iOS,
+    private let iOSCategory = CategoryButton(major: .iOS,
                                            direction: .bottomRight,
                                            backgroundColor: MOIZAAsset.moizaPrimaryYellow.color,
                                            foregroundColor: .white)
-    private let aOSCategory = CategoryView(major: .aOS,
+    private let aOSCategory = CategoryButton(major: .aOS,
                                            direction: .topLeft,
                                            backgroundColor: MOIZAAsset.moizaPrimaryBlue.color,
                                            foregroundColor: .white)
     private let logoView = LogoView()
-    private let gameCategory = CategoryView(major: .game,
+    private let gameCategory = CategoryButton(major: .game,
                                             direction: .centerRight,
                                             backgroundColor: MOIZAAsset.moizaGray1.color,
                                             foregroundColor: MOIZAAsset.moizaPrimaryYellow.color)
-    private let securityCategory = CategoryView(major: .security,
+    private let securityCategory = CategoryButton(major: .security,
                                                 direction: .bottomRight,
                                                 backgroundColor: MOIZAAsset.moizaPrimaryBlue.color,
                                                 foregroundColor: .white)
-    private let embededCategory = CategoryView(major: .embeded,
+    private let embededCategory = CategoryButton(major: .embeded,
                                                direction: .bottomLeft,
                                                backgroundColor: MOIZAAsset.moizaGray1.color,
                                                foregroundColor: MOIZAAsset.moizaPrimaryYellow.color)
-    private let aiCategory = CategoryView(major: .ai,
+    private let aiCategory = CategoryButton(major: .ai,
                                           direction: .topRight,
                                           backgroundColor: MOIZAAsset.moizaPrimaryYellow.color,
                                           foregroundColor: .white)

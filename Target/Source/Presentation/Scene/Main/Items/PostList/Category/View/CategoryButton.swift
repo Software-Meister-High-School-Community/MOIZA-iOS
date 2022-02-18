@@ -10,7 +10,7 @@ import UIKit
 import PinLayout
 import Then
 
-final class CategoryView: UIView {
+final class CategoryButton: UIButton {
     // MARK: - Properties
     enum Direction {
         case topLeft
@@ -62,7 +62,7 @@ final class CategoryView: UIView {
     }
 }
 
-private extension CategoryView {
+private extension CategoryButton {
     func addView() {
         addSubViews(majorLabel)
     }
