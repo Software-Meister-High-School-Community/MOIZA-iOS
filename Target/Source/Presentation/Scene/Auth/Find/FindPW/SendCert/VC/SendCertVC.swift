@@ -28,5 +28,35 @@ final class SendCertVC: baseVC<SendCertReactor> {
 """
         $0.font = UIFont(font: MOIZAFontFamily.Roboto.regular, size: 16)
     }
-    
+    private let certTextField = SignUpTextField().then {
+        $0.placeholder = "인증번호"
+        $0.leftSpace(14)
+    }
+    private let nextButton = NextButton(title: "다음 단계")
+    // MARK: - UI
+    override func addView() {
+        view.addSubview(rootContainer)
+    }
+    override func setLayoutSubViews() {
+        rootContainer.pin.all(view.pin.safeArea)
+        rootContainer.flex.layout()
+    }
+    override func setLayout() {
+        rootContainer.flex.define { flex in
+            flex.addItem(descriptionLabel).marginTop(84).alignSelf(.center)
+            flex.addItem(certTextField).marginTop(96).width(95%).alignSelf(.center).height(40)
+            flex.addItem(nextButton).marginTop(70).width(88).height(36).alignSelf(.end)
+            
+        }
+    }
+    override func bindView(reactor: SendCertReactor) {
+        nextButton.rx.tap
+            .map { _ in Reactor.Action.nextButtonDidTap }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+    }
+    override func configureNavigation() {
+        self.navigationItem.configAuthNavigation(title: "비밀번호 찾기")
+        self.navigationItem.configBack()
+    }
 }
