@@ -77,7 +77,7 @@ private extension AppFlow{
             self.rootWindow.rootViewController = root
         }
         return .one(flowContributor: .contribute(withNextPresentable: flow,
-                                                 withNextStepper: OneStepper(withSingleStep: MoizaStep.onBoardingIsRequired))) // TODO: Main Tabbar Step
+                                                 withNextStepper: OneStepper(withSingleStep: MoizaStep.mainTabbarIsRequired)))
     }
 }
 
