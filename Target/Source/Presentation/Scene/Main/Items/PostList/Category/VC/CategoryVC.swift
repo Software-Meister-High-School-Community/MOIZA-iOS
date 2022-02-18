@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import SnapKit
+import PinLayout
 import RxGesture
 
 final class CategoryVC: baseVC<CategoryReactor> {
@@ -67,72 +67,24 @@ final class CategoryVC: baseVC<CategoryReactor> {
     // MARK: - UI
     override func addView() {
         view.addSubViews(scrollView)
-        scrollView.addSubViews(contentView)
-        contentView.addSubViews(frontCategory, backCategory, designCategory, iOSCategory, aOSCategory, logoView, gameCategory, securityCategory, embededCategory, aiCategory)
+        scrollView.addSubViews(frontCategory, backCategory, designCategory, iOSCategory, aOSCategory, logoView, gameCategory, securityCategory, embededCategory, aiCategory)
+    }
+    override func setLayoutSubViews() {
+        scrollView.pin.all(view.pin.safeArea)
+        scrollView.contentSize = .init(width: scrollView.bounds.width, height: scrollView.bounds.height*1.15)
+        frontCategory.pin.topLeft(Metric.padding).size(Metric.defaultLen)
+        backCategory.pin.topRight(Metric.padding).height(Metric.defaultLen).width(Metric.twiceLen)
+        designCategory.pin.below(of: frontCategory, aligned: .left).marginTop(Metric.padding).width(Metric.defaultLen).height(Metric.twiceLen)
+        iOSCategory.pin.below(of: backCategory, aligned: .left).marginTop(Metric.padding).size(Metric.defaultLen)
+        aOSCategory.pin.after(of: iOSCategory, aligned: .top).marginLeft(Metric.padding).size(Metric.defaultLen)
+        logoView.pin.below(of: iOSCategory, aligned: .left).marginTop(Metric.padding).size(Metric.defaultLen)
+        gameCategory.pin.after(of: logoView, aligned: .top).marginLeft(Metric.padding).width(Metric.defaultLen).height(Metric.twiceLen)
+        securityCategory.pin.below(of: designCategory, aligned: .left).marginTop(Metric.padding).width(Metric.twiceLen).height(Metric.defaultLen)
+        embededCategory.pin.below(of: securityCategory, aligned: .left).marginTop(Metric.padding).size(Metric.defaultLen)
+        aiCategory.pin.after(of: embededCategory, aligned: .top).marginLeft(Metric.padding).width(Metric.twiceLen).height(Metric.defaultLen)
     }
     override func setLayout() {
-        scrollView.snp.makeConstraints {
-            $0.edges.equalTo(view.safeAreaLayoutGuide)
-        }
-        contentView.snp.makeConstraints {
-            $0.centerX.top.bottom.equalToSuperview()
-            $0.width.equalTo(scrollView)
-            $0.height.equalTo(bound.height*1.05).priority(.low)
-        }
-        frontCategory.snp.makeConstraints {
-            $0.top.leading.equalToSuperview().offset(Metric.padding)
-            $0.size.equalTo(Metric.defaultLen)
-        }
-        backCategory.snp.makeConstraints {
-            $0.top.trailing.equalToSuperview().inset(Metric.padding)
-            $0.height.equalTo(Metric.defaultLen)
-            $0.width.equalTo(Metric.twiceLen)
-        }
-        designCategory.snp.makeConstraints {
-            $0.top.equalTo(frontCategory.snp.bottom).offset(Metric.betweenSpacing)
-            $0.leading.equalToSuperview().offset(Metric.betweenSpacing)
-            $0.width.equalTo(Metric.defaultLen)
-            $0.height.equalTo(Metric.twiceLen)
-        }
-        iOSCategory.snp.makeConstraints {
-            $0.top.equalTo(designCategory)
-            $0.leading.equalTo(backCategory)
-            $0.size.equalTo(Metric.defaultLen)
-        }
-        aOSCategory.snp.makeConstraints {
-            $0.top.equalTo(iOSCategory)
-            $0.leading.equalTo(iOSCategory.snp.trailing).offset(Metric.betweenSpacing)
-            $0.trailing.equalTo(backCategory)
-            $0.height.equalTo(Metric.defaultLen)
-        }
-        logoView.snp.makeConstraints {
-            $0.top.equalTo(iOSCategory.snp.bottom).offset(Metric.betweenSpacing)
-            $0.leading.equalTo(iOSCategory)
-            $0.size.equalTo(Metric.defaultLen)
-        }
-        gameCategory.snp.makeConstraints {
-            $0.top.equalTo(logoView)
-            $0.trailing.equalTo(aOSCategory)
-            $0.width.equalTo(Metric.defaultLen)
-            $0.height.equalTo(Metric.twiceLen)
-        }
-        securityCategory.snp.makeConstraints {
-            $0.top.equalTo(designCategory.snp.bottom).offset(Metric.betweenSpacing)
-            $0.leading.equalTo(designCategory)
-            $0.width.equalTo(Metric.twiceLen)
-            $0.height.equalTo(Metric.defaultLen)
-        }
-        embededCategory.snp.makeConstraints {
-            $0.top.equalTo(securityCategory.snp.bottom).offset(Metric.betweenSpacing)
-            $0.leading.equalTo(securityCategory)
-            $0.size.equalTo(Metric.defaultLen)
-        }
-        aiCategory.snp.makeConstraints {
-            $0.top.equalTo(embededCategory)
-            $0.trailing.equalTo(gameCategory)
-            $0.width.equalTo(Metric.twiceLen)
-            $0.height.equalTo(Metric.defaultLen)
-        }
+        
         
     }
     override func configureVC() {
