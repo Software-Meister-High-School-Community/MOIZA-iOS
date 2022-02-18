@@ -4,6 +4,7 @@ PODS:
   - FlexibleSteppedProgressBar (0.7.2)
   - FlexLayout (1.3.23)
   - Hero (1.6.1)
+  - IQKeyboardManagerSwift (6.5.9)
   - M13Checkbox (3.4.0)
   - Moya/Core (15.0.0):
     - Alamofire (~> 5.0)
@@ -48,6 +49,7 @@ DEPENDENCIES:
   - FlexibleSteppedProgressBar (~> 0.7.2)
   - FlexLayout (~> 1.3.23)
   - Hero (~> 1.6.1)
+  - IQKeyboardManagerSwift (~> 6.5.9)
   - M13Checkbox (~> 3.4.0)
   - Moya/RxSwift (~> 15.0.0)
   - PinLayout (~> 1.10.0)
@@ -72,6 +74,7 @@ SPEC REPOS:
     - FlexibleSteppedProgressBar
     - FlexLayout
     - Hero
+    - IQKeyboardManagerSwift
     - M13Checkbox
     - Moya
     - PinLayout
@@ -97,6 +100,7 @@ SPEC CHECKSUMS:
   FlexibleSteppedProgressBar: 6a781cfed749bf59c69813a8706aa397c342ab5c
   FlexLayout: 5b44c0538e7eaa2110e3160dfdfb74611676fb91
   Hero: 215865ba3ae41dd9bb08cd6c60a645529c6fc94b
+  IQKeyboardManagerSwift: 6e839c575c4aa1078d58a596e41244e77abe918f
   M13Checkbox: 6f59404540ac98ba83a3d1afac335895a40c6a5d
   Moya: 138f0573e53411fb3dc17016add0b748dfbd78ee
   PinLayout: e50e9a748b632905fca6e67043ea4b05d6c92186
@@ -116,6 +120,6 @@ SPEC CHECKSUMS:
   Then: acfe0be7e98221c6204e12f8161459606d5d822d
   WeakMapTable: 05c694ce8439a7a9ebabb56187287a63c57673d6
 
-PODFILE CHECKSUM: d3f01999a8c4b25e91b29284aff680829404790c
+PODFILE CHECKSUM: 349cf316ebd3a9a64526ead94bbcb510a6f9741d
 
 COCOAPODS: 1.11.2

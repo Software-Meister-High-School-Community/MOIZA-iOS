@@ -51,7 +51,7 @@ enum MoizaStep: Step{
     case searchIsRequired
     case searchResultIsRequired
     case searchSortIsRequired
-    case postListIsRequired
+    case postListIsRequired(category: Major)
     case postListSortIsRequired
     case postWriteIsRequired
     case temporarySavedPostIsRequired

@@ -36,7 +36,8 @@ final class MainTabbarFlow: Flow{
     func navigate(to step: Step) -> FlowContributors {
         guard let step = step.asMoizaStep else { return .none }
         switch step{
-            
+        case .mainTabbarIsRequired:
+            return coordinateToMainTabbar()
         default:
             return .none
         }

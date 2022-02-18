@@ -140,17 +140,6 @@ final class SignUpSetUpVC: baseVC<SignUpSetUpReactor>{
     }
     
     // MARK: - Reactor
-    override func bindAction(reactor: SignUpSetUpReactor) {
-        RxKeyboard.instance.visibleHeight
-            .drive(onNext: { [weak self] kbHeight in
-                guard let self = self else { return }
-                let height = kbHeight > 0 ? -kbHeight + self.view.safeAreaInsets.bottom : 0
-                UIView.animate(withDuration: 0) {
-                    self.scrollView.pin.bottom(-height/3)
-                }
-            })
-            .disposed(by: disposeBag)
-    }
     override func bindView(reactor: SignUpSetUpReactor) {
         idTextField.rx.text
             .orEmpty

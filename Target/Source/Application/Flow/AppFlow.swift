@@ -47,6 +47,8 @@ final class AppFlow: Flow{
         switch step{
         case .onBoardingIsRequired:
             return coordinateToOnBoarding()
+        case .mainTabbarIsRequired:
+            return coordinateToMainTabbar()
         default:
             return .none
         }
@@ -75,7 +77,7 @@ private extension AppFlow{
             self.rootWindow.rootViewController = root
         }
         return .one(flowContributor: .contribute(withNextPresentable: flow,
-                                                 withNextStepper: OneStepper(withSingleStep: MoizaStep.onBoardingIsRequired))) // TODO: Main Tabbar Step
+                                                 withNextStepper: OneStepper(withSingleStep: MoizaStep.mainTabbarIsRequired)))
     }
 }
 
