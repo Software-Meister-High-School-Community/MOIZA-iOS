@@ -8,6 +8,7 @@
 
 import UIKit
 import SnapKit
+import RxGesture
 
 final class CategoryVC: baseVC<CategoryReactor> {
     // MARK: - Metric
@@ -60,6 +61,9 @@ final class CategoryVC: baseVC<CategoryReactor> {
                                           direction: .topRight,
                                           backgroundColor: MOIZAAsset.moizaPrimaryYellow.color,
                                           foregroundColor: .white)
+    private let logoImage = UIBarButtonItem(image: MOIZAAsset.moizaLogo.image.downSample(size: .init(width: 40, height: 40)).withRenderingMode(.alwaysOriginal), style: .plain, target: nil, action: nil)
+    private let searchButton = UIBarButtonItem(image: .init(systemName: "magnifyingglass")?.downSample(size: .init(width: 15, height: 15)).tintColor(MOIZAAsset.moizaGray6.color), style: .plain, target: nil, action: nil)
+    
     // MARK: - UI
     override func addView() {
         view.addSubViews(scrollView)
@@ -133,5 +137,62 @@ final class CategoryVC: baseVC<CategoryReactor> {
     }
     override func configureVC() {
         view.backgroundColor = MOIZAAsset.moizaGray2.color
+    }
+    override func configureNavigation() {
+        self.navigationItem.setLeftBarButtonItems([logoImage], animated: true)
+        self.navigationItem.setRightBarButtonItems([searchButton], animated: true)
+    }
+    
+    // MARK: - Reactor
+    override func bindView(reactor: CategoryReactor) {
+        frontCategory.rx.tap
+            .map { Reactor.Action.categoryButtonDidTap(.frontEnd) }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
+        backCategory.rx.tap
+            .map { Reactor.Action.categoryButtonDidTap(.backEnd) }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
+        designCategory.rx.tap
+            .map { Reactor.Action.categoryButtonDidTap(.design) }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
+        iOSCategory.rx.tap
+            .map { Reactor.Action.categoryButtonDidTap(.iOS) }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
+        aOSCategory.rx.tap
+            .map { Reactor.Action.categoryButtonDidTap(.aOS) }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
+        gameCategory.rx.tap
+            .map { Reactor.Action.categoryButtonDidTap(.game) }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
+        securityCategory.rx.tap
+            .map { Reactor.Action.categoryButtonDidTap(.security) }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
+        embededCategory.rx.tap
+            .map { Reactor.Action.categoryButtonDidTap(.embeded) }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
+        aiCategory.rx.tap
+            .map { Reactor.Action.categoryButtonDidTap(.ai) }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
+        searchButton.rx.tap
+            .map { Reactor.Action.searchButtonDidTap }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
     }
 }
