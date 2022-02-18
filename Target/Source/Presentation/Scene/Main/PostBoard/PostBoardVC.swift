@@ -15,3 +15,6 @@ import RxViewController
 import PinLayout
 import FlexLayout
 
+final class PostBoardVC: baseVC<PostBoardReactor>{
+    
+}
