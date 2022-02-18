@@ -47,6 +47,8 @@ final class AppFlow: Flow{
         switch step{
         case .onBoardingIsRequired:
             return coordinateToOnBoarding()
+        case .mainTabbarIsRequired:
+            return coordinateToMainTabbar()
         default:
             return .none
         }
