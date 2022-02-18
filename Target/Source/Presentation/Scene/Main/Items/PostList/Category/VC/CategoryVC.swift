@@ -7,22 +7,22 @@
 //
 
 import UIKit
-import PinLayout
-import FlexLayout
+import SnapKit
 
 final class CategoryVC: baseVC<CategoryReactor> {
     // MARK: - Metric
     enum Metric {
-        static let spacing: CGFloat = 5.5
         static let betweenSpacing: CGFloat = 11
+        static let padding: CGFloat = 15
         static let bound = UIScreen.main.bounds
-        static let defaultLen = (bound.width - 11 - 34)/3
+        static let defaultLen = (bound.width - 22 - padding * 2)/3
+        static let twiceLen = defaultLen * 2 + betweenSpacing
     }
     // MARK: - Properties
     private let scrollView = UIScrollView().then {
-        $0.showsVerticalScrollIndicator = false
+        $0.showsVerticalScrollIndicator = true
     }
-    private let rootContainer = UIView()
+    private let contentView = UIView()
     private let frontCategory = CategoryView(major: .frontEnd,
                                              direction: .topRight,
                                              backgroundColor: MOIZAAsset.moizaPrimaryBlue.color,
@@ -43,10 +43,10 @@ final class CategoryVC: baseVC<CategoryReactor> {
                                            direction: .topLeft,
                                            backgroundColor: MOIZAAsset.moizaPrimaryBlue.color,
                                            foregroundColor: .white)
-    private let logoView = IconCategoryView()
+    private let logoView = LogoView()
     private let gameCategory = CategoryView(major: .game,
                                             direction: .centerRight,
-                                            backgroundColor: MOIZAAsset.moizaGray6.color,
+                                            backgroundColor: MOIZAAsset.moizaGray1.color,
                                             foregroundColor: MOIZAAsset.moizaPrimaryYellow.color)
     private let securityCategory = CategoryView(major: .security,
                                                 direction: .bottomRight,
@@ -54,7 +54,7 @@ final class CategoryVC: baseVC<CategoryReactor> {
                                                 foregroundColor: .white)
     private let embededCategory = CategoryView(major: .embeded,
                                                direction: .bottomLeft,
-                                               backgroundColor: MOIZAAsset.moizaGray6.color,
+                                               backgroundColor: MOIZAAsset.moizaGray1.color,
                                                foregroundColor: MOIZAAsset.moizaPrimaryYellow.color)
     private let aiCategory = CategoryView(major: .ai,
                                           direction: .topRight,
@@ -62,28 +62,74 @@ final class CategoryVC: baseVC<CategoryReactor> {
                                           foregroundColor: .white)
     // MARK: - UI
     override func addView() {
-        scrollView.addSubViews(rootContainer)
         view.addSubViews(scrollView)
-    }
-    override func setLayoutSubViews() {
-        scrollView.pin.all()
-        rootContainer.pin.top().pinEdges().horizontally(17)
-        rootContainer.flex.layout(mode: .adjustHeight)
-        scrollView.contentSize = rootContainer.frame.size
+        scrollView.addSubViews(contentView)
+        contentView.addSubViews(frontCategory, backCategory, designCategory, iOSCategory, aOSCategory, logoView, gameCategory, securityCategory, embededCategory, aiCategory)
     }
     override func setLayout() {
-        rootContainer.flex.wrap(.wrap).direction(.row).justifyContent(.spaceBetween).define { flex in
-            flex.addItem(frontCategory).size(Metric.defaultLen)
-            flex.addItem(backCategory).height(Metric.defaultLen).width(Metric.defaultLen * 2 + Metric.betweenSpacing)
-            flex.addItem(designCategory).height(Metric.defaultLen + Metric.defaultLen * 2 + Metric.betweenSpacing)
-            flex.addItem(iOSCategory).size(Metric.defaultLen)
-            flex.addItem(aOSCategory).size(Metric.defaultLen)
-            flex.addItem(logoView).size(Metric.defaultLen)
-            flex.addItem(gameCategory).width(Metric.defaultLen).height(Metric.defaultLen * 2 + Metric.betweenSpacing)
-            flex.addItem(securityCategory).width(Metric.defaultLen * 2 + Metric.betweenSpacing).height(Metric.defaultLen)
-            flex.addItem(embededCategory).size(Metric.defaultLen)
-            flex.addItem(aiCategory).width(Metric.defaultLen * 2 + Metric.betweenSpacing).height(Metric.defaultLen)
+        scrollView.snp.makeConstraints {
+            $0.edges.equalTo(view.safeAreaLayoutGuide)
         }
+        contentView.snp.makeConstraints {
+            $0.centerX.top.bottom.equalToSuperview()
+            $0.width.equalTo(scrollView)
+            $0.height.equalTo(bound.height*1.05).priority(.low)
+        }
+        frontCategory.snp.makeConstraints {
+            $0.top.leading.equalToSuperview().offset(Metric.padding)
+            $0.size.equalTo(Metric.defaultLen)
+        }
+        backCategory.snp.makeConstraints {
+            $0.top.trailing.equalToSuperview().inset(Metric.padding)
+            $0.height.equalTo(Metric.defaultLen)
+            $0.width.equalTo(Metric.twiceLen)
+        }
+        designCategory.snp.makeConstraints {
+            $0.top.equalTo(frontCategory.snp.bottom).offset(Metric.betweenSpacing)
+            $0.leading.equalToSuperview().offset(Metric.betweenSpacing)
+            $0.width.equalTo(Metric.defaultLen)
+            $0.height.equalTo(Metric.twiceLen)
+        }
+        iOSCategory.snp.makeConstraints {
+            $0.top.equalTo(designCategory)
+            $0.leading.equalTo(backCategory)
+            $0.size.equalTo(Metric.defaultLen)
+        }
+        aOSCategory.snp.makeConstraints {
+            $0.top.equalTo(iOSCategory)
+            $0.leading.equalTo(iOSCategory.snp.trailing).offset(Metric.betweenSpacing)
+            $0.trailing.equalTo(backCategory)
+            $0.height.equalTo(Metric.defaultLen)
+        }
+        logoView.snp.makeConstraints {
+            $0.top.equalTo(iOSCategory.snp.bottom).offset(Metric.betweenSpacing)
+            $0.leading.equalTo(iOSCategory)
+            $0.size.equalTo(Metric.defaultLen)
+        }
+        gameCategory.snp.makeConstraints {
+            $0.top.equalTo(logoView)
+            $0.trailing.equalTo(aOSCategory)
+            $0.width.equalTo(Metric.defaultLen)
+            $0.height.equalTo(Metric.twiceLen)
+        }
+        securityCategory.snp.makeConstraints {
+            $0.top.equalTo(designCategory.snp.bottom).offset(Metric.betweenSpacing)
+            $0.leading.equalTo(designCategory)
+            $0.width.equalTo(Metric.twiceLen)
+            $0.height.equalTo(Metric.defaultLen)
+        }
+        embededCategory.snp.makeConstraints {
+            $0.top.equalTo(securityCategory.snp.bottom).offset(Metric.betweenSpacing)
+            $0.leading.equalTo(securityCategory)
+            $0.size.equalTo(Metric.defaultLen)
+        }
+        aiCategory.snp.makeConstraints {
+            $0.top.equalTo(embededCategory)
+            $0.trailing.equalTo(gameCategory)
+            $0.width.equalTo(Metric.twiceLen)
+            $0.height.equalTo(Metric.defaultLen)
+        }
+        
     }
     override func configureVC() {
         view.backgroundColor = MOIZAAsset.moizaGray2.color

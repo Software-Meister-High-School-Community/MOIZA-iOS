@@ -1,5 +1,5 @@
 //
-//  IconCategoryView.swift
+//  LogoView.swift
 //  MOIZA
 //
 //  Created by 최형우 on 2022/02/18.
@@ -10,20 +10,20 @@ import UIKit
 import PinLayout
 import Then
 
-final class IconCategoryView: UIView {
+final class LogoView: UIView {
     // MARK: - Properties
-    private let logoImageView = UIImageView().then {
-        $0.image = MOIZAAsset.moizaLogo.image.withRenderingMode(.alwaysOriginal).downSample(size: .init(width: 52, height: 39))
+    private let icon = UIImageView().then {
+        $0.image = MOIZAAsset.moizaSymbol.image.withRenderingMode(.alwaysOriginal)
     }
     
-    override func layoutSubviews() {
-        logoImageView.pin.center()
-    }
     // MARK: - Init
+    override func layoutSubviews() {
+        icon.pin.center().width(50%).height(36.7%)
+    }
     init() {
         super.init(frame: .zero)
-        addSubViews(logoImageView)
-        self.backgroundColor = .clear
+        addSubViews(icon)
+        
     }
     
     required init?(coder: NSCoder) {

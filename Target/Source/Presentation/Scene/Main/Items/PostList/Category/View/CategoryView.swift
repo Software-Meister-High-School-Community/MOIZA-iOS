@@ -29,7 +29,7 @@ final class CategoryView: UIView {
     override func layoutSubviews() {
         switch direction {
         case .topLeft:
-            majorLabel.pin.topRight(10)
+            majorLabel.pin.topLeft(10)
         case .topRight:
             majorLabel.pin.topRight(10)
         case .bottomLeft:
@@ -39,7 +39,7 @@ final class CategoryView: UIView {
         case .centerRight:
             majorLabel.pin.centerRight(10)
         }
-        
+        majorLabel.pin.sizeToFit()
     }
     // MARK: - Init
     init(
@@ -70,6 +70,7 @@ private extension CategoryView {
         self.layer.cornerRadius = 5
         if major == .frontEnd {
             majorLabel.text = "Front\n-End"
+            majorLabel.textAlignment = .right
         } else {
             majorLabel.text = major.rawValue
         }
