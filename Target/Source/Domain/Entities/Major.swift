@@ -6,14 +6,14 @@
 //  Copyright © 2022 com.connect. All rights reserved.
 //
 
-enum Major {
-    case frontEnd
-    case backEnd
-    case iOS
-    case aOS
-    case game
-    case ai
-    case security
-    case embeded
-    case design
+enum Major: String {
+    case frontEnd = "Front-End"
+    case backEnd = "Back-End"
+    case iOS = "iOS"
+    case aOS = "aOS"
+    case game = "Game"
+    case ai = "AI"
+    case security = "Security"
+    case embeded = "Embeded"
+    case design = "Design"
 }

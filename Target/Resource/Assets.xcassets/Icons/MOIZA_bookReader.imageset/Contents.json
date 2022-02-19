@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "MOIZA-Symbol.svg",
+      "filename" : "Icon awesome-book-reader.svg",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "MOIZA-Symbol-1.svg",
+      "filename" : "Icon awesome-book-reader-1.svg",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "MOIZA-Symbol-2.svg",
+      "filename" : "Icon awesome-book-reader-2.svg",
       "idiom" : "universal",
       "scale" : "3x"
     }
