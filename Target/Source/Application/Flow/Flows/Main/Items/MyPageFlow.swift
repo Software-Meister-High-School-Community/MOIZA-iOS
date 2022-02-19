@@ -1,10 +1,3 @@
-//
-//  MyPageFlow.swift
-//  MOIZA
-//
-//  Created by 최형우 on 2022/02/10.
-//  Copyright © 2022 com.connect. All rights reserved.
-//
 
 import RxFlow
 import RxRelay
@@ -36,7 +29,8 @@ final class MyPageFlow: Flow{
     func navigate(to step: Step) -> FlowContributors {
         guard let step = step.asMoizaStep else { return .none }
         switch step{
-            
+        case .myPageIsRequired:
+            return coordinateToMyPage()
         default:
             return .none
         }

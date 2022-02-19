@@ -40,7 +40,7 @@ final class PostBoardReactor: Reactor,Stepper{
     struct State{
         var title: String = ""
         var content: String = ""
-        var imgae: String?
+        var image: String?
         var isLoading: Bool = false
         var postType: PostType = .question
         var privacySetting: PrivacySetting = .everyone
@@ -85,7 +85,7 @@ extension PostBoardReactor{
         case let .setContent(content):
             newState.content = content
         case let .setImage(image):
-            newState.imgae = image
+            newState.image = image
         case let .setLoading(isLoading):
             newState.isLoading = isLoading
         case let .setPostType(postType):

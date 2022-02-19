@@ -8,4 +8,6 @@
 
 final class MyPageVC: baseVC<MyPageReactor> {
     
+    private let logoView = MOIZAAsset.moizaLogo.image
+    
 }

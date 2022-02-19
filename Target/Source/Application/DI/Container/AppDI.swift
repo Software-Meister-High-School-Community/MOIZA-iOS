@@ -45,10 +45,7 @@ extension Container{
         register(GraduateSuccessVC.self) { r in
             return GraduateSuccessVC(reactor: r.resolve(GraduateSuccessReactor.self))
         }
-<<<<<<< HEAD
-        register(PostBoardVC.self) { r in
-            return PostBoardVC(reactor: r.resolve(PostBoardReactor.self))
-=======
+        
         register(AlarmVC.self) { r in
             return AlarmVC(reactor: r.resolve(AlarmReactor.self))
         }
@@ -60,7 +57,10 @@ extension Container{
         }
         register(CategoryVC.self) { r in
             return CategoryVC(reactor: r.resolve(CategoryReactor.self))
->>>>>>> 3b5e67b1be2a403e60ff2669a8b7d87528e68582
+        }
+        
+        register(PostBoardVC.self) { r in
+            return PostBoardVC(reactor: r.resolve(PostBoardReactor.self))
         }
     }
     private func registerReactor(){
@@ -73,14 +73,11 @@ extension Container{
         autoregister(GraduateAuthReactor.self, initializer: GraduateAuthReactor.init)
         autoregister(GraduateFileReactor.self, initializer: GraduateFileReactor.init)
         autoregister(GraduateSuccessReactor.self, initializer: GraduateSuccessReactor.init)
-<<<<<<< HEAD
-        autoregister(PostBoardReactor.self, initializer: PostBoardReactor.init)
-=======
         autoregister(AlarmReactor.self, initializer: AlarmReactor.init)
         autoregister(HomeReactor.self, initializer: HomeReactor.init)
         autoregister(MyPageReactor.self, initializer: MyPageReactor.init)
         autoregister(CategoryReactor.self, initializer: CategoryReactor.init)
->>>>>>> 3b5e67b1be2a403e60ff2669a8b7d87528e68582
+        autoregister(PostBoardReactor.self, initializer: PostBoardReactor.init)
     }
     private func registerStepper(){
         autoregister(OnBoardingStepper.self, initializer: OnBoardingStepper.init)

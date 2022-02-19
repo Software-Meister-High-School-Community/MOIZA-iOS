@@ -19,14 +19,25 @@ final class MyPageReactor: Reactor, Stepper {
     
     // MARK: - Reactor
     enum Action {
-        
+        case dotButtonDidTap
+        case followerButtonDidTap
+        case followingButtonDidTap
+        case updatePost(Int)
+        case updateFollower(Int)
+        case updateFollwing(Int)
+        case filterButtonDidTap
     }
     enum Mutation {
-        
+        case setPost(Int)
+        case setFollower(Int)
+        case setFollowing(Int)
     }
     struct State {
-        
+        var post: Int?
+        var follower: Int?
+        var following: Int?
     }
+    
     let initialState: State
     
     // MARK: - Init
@@ -40,9 +51,21 @@ final class MyPageReactor: Reactor, Stepper {
 extension MyPageReactor {
     func mutate(action: Action) -> Observable<Mutation> {
         switch action {
-            
+        case .dotButtonDidTap:
+            return .empty()
+        case .followerButtonDidTap:
+            return .empty()
+        case .followingButtonDidTap:
+            return .empty()
+        case let .updatePost(post):
+            return .just(.setPost(post))
+        case let .updateFollower(follower):
+            return .just(.setFollower(follower))
+        case let .updateFollwing(following):
+            return .just(.setFollowing(following))
+        case .filterButtonDidTap:
+            return .empty()
         }
-        return .empty()
     }
 }
 
@@ -52,9 +75,13 @@ extension MyPageReactor {
         var newState = state
         
         switch mutation {
-            
+        case let .setPost(post):
+            newState.post = post
+        case let .setFollower(follower):
+            newState.follower = follower
+        case let .setFollowing(following):
+            newState.following = following
         }
-        
         return newState
     }
 }
