@@ -65,6 +65,8 @@ final class OnBoardingFlow: Flow{
             return presentToAlert(title: title, message: message)
         case .signUpGraduateAuthSuccessIsRequired:
             return navigateToGraduateSuccess()
+        case .mainTabbarIsRequired:
+            return .end(forwardToParentFlowWithStep: MoizaStep.mainTabbarIsRequired)
         default:
             return .none
         }

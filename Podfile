@@ -1,11 +1,7 @@
 # Uncomment the next line to define a global platform for your project
 # platform :ios, '12.0'
 
-target 'MOIZA' do
-  # Comment the next line if you don't want to use dynamic frameworks
-  use_frameworks!
-  project 'MOIZA' 
-  
+def pods 
   # Rx
   pod 'RxSwift', '~> 6.2.0'
   pod 'RxCocoa', '~> 6.2.0'
@@ -30,10 +26,23 @@ target 'MOIZA' do
   pod 'FlexLayout', '~> 1.3.23'
   pod 'SwiftDate', '~> 6.3.1'
   pod 'IQKeyboardManagerSwift', '~> 6.5.9'
+  pod 'Tabman', '~> 2.11.1'
 
   # Network
   pod 'Moya/RxSwift', '~> 15.0.0'
-
-  # Pods for your project
-
+  pod 'Firebase/Core', '~> 8.12.0'
+  pod 'Firebase/Messaging', '~> 8.12.0'
 end
+
+
+use_frameworks!
+target 'MOIZA' do
+  project 'MOIZA' 
+  pods
+  
+end
+
+target 'MOIZATest' do 
+  pods
+end 
+

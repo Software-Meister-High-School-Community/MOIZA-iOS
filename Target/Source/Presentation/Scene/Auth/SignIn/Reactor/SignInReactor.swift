@@ -73,12 +73,16 @@ extension SignInReactor{
         case .saveIdButtonDidTap:
             return Observable.just(.setIsOnIdSave(!currentState.isOnIdSave))
         case .logInButtonDidTap:
+            steps.accept(MoizaStep.mainTabbarIsRequired)
             return .empty()
         case .signUpButtonDidTap:
+            steps.accept(MoizaStep.signUpIsRequired)
             return .empty()
         case .findIdButtonDidTap:
+            steps.accept(MoizaStep.findingIDIsRequired)
             return .empty()
         case .findPwdButtonDidTap:
+            steps.accept(MoizaStep.findingPasswordIsRequired)
             return .empty()
         }
     }

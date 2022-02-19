@@ -122,13 +122,13 @@ final class SignInVC: baseVC<SignInReactor>{
     }
     override func bindView(reactor: SignInReactor) {
         signInIdTextfield.rx.text
-            .orEmpty
+            .orEmpty.observe(on: MainScheduler.asyncInstance)
             .map(Reactor.Action.updateId)
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
         
         signInPwdTextfield.rx.text
-            .orEmpty
+            .orEmpty.observe(on: MainScheduler.asyncInstance)
             .map(Reactor.Action.updatePassword)
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
