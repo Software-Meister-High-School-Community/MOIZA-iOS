@@ -7,3 +7,40 @@
 //
 
 import Foundation
+import ReactorKit
+import RxFlow
+import RxCocoa
+
+final class ReRegistrationReactor: Reactor, Stepper {
+    // MARK: - Properties
+    var steps: PublishRelay<Step> = .init()
+    
+    private let disposeBag = DisposeBag()
+    
+    // MARK: - Reactor
+    enum Action {}
+    enum Mutation {}
+    struct State {}
+    
+    let initialState: State
+    
+    // MARK: - Init
+    init() {
+        initialState = State()
+    }
+}
+
+// MARK: Mutate
+extension ReRegistrationReactor {
+    func mutate(action: Action) -> Observable<Mutation> {
+//        switch action {
+//        case .nextButtonDidTap:
+            return .empty()
+//        }
+    }
+}
+
+// MARK: - Method
+private extension ReRegistrationReactor {
+    
+}
