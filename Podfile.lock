@@ -114,6 +114,11 @@ PODS:
   - ReactorKit (3.1.0):
     - RxSwift (~> 6.0)
     - WeakMapTable (~> 1.1)
+  - Realm (10.22.0):
+    - Realm/Headers (= 10.22.0)
+  - Realm/Headers (10.22.0)
+  - RealmSwift (10.22.0):
+    - Realm (= 10.22.0)
   - RxCocoa (6.2.0):
     - RxRelay (= 6.2.0)
     - RxSwift (= 6.2.0)
@@ -157,6 +162,7 @@ DEPENDENCIES:
   - Moya/RxSwift (~> 15.0.0)
   - PinLayout (~> 1.10.0)
   - ReactorKit (~> 3.1.0)
+  - RealmSwift (~> 10.22)
   - RxCocoa (~> 6.2.0)
   - RxDataSources (~> 5.0.0)
   - RxFlow (~> 2.12.4)
@@ -195,6 +201,8 @@ SPEC REPOS:
     - PinLayout
     - PromisesObjC
     - ReactorKit
+    - Realm
+    - RealmSwift
     - RxCocoa
     - RxDataSources
     - RxFlow
@@ -234,6 +242,8 @@ SPEC CHECKSUMS:
   PinLayout: e50e9a748b632905fca6e67043ea4b05d6c92186
   PromisesObjC: 68159ce6952d93e17b2dfe273b8c40907db5ba58
   ReactorKit: a06dd2a5c9339287aedf3dc821cfab6347eca106
+  Realm: d9e4e5877095a6722145811f56fe89a531c9659d
+  RealmSwift: e4191b4b957fcfcbed23751ec65eec98f8173ab5
   RxCocoa: 4baf94bb35f2c0ab31bc0cb9f1900155f646ba42
   RxDataSources: aa47cc1ed6c500fa0dfecac5c979b723542d79cf
   RxFlow: 03a73c83fb8f183107074b40ab2544c668583f73
