@@ -19,14 +19,11 @@ final class CategoryReactor: Reactor, Stepper {
     
     // MARK: - Reactor
     enum Action {
-        
+        case categoryButtonDidTap(Major)
+        case searchButtonDidTap
     }
-    enum Mutation {
-        
-    }
-    struct State {
-        
-    }
+    enum Mutation {}
+    struct State {}
     let initialState: State
     
     // MARK: - Init
@@ -40,26 +37,11 @@ final class CategoryReactor: Reactor, Stepper {
 extension CategoryReactor {
     func mutate(action: Action) -> Observable<Mutation> {
         switch action {
-            
+        case let .categoryButtonDidTap(major):
+            steps.accept(MoizaStep.postListIsRequired(category: major))
+        case .searchButtonDidTap:
+            steps.accept(MoizaStep.searchIsRequired)
         }
         return .empty()
     }
-}
-
-// MARK: - Reduce
-extension CategoryReactor {
-    func reduce(state: State, mutation: Mutation) -> State {
-        var newState = state
-        
-        switch mutation {
-            
-        }
-        
-        return newState
-    }
-}
-
-// MARK: - Method
-private extension CategoryReactor {
-    
 }
