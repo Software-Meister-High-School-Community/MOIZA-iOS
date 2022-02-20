@@ -28,7 +28,7 @@ def pods
   pod 'IQKeyboardManagerSwift', '~> 6.5.9'
   pod 'Tabman', '~> 2.11.1'
   pod 'RealmSwift', '~> 10.22'
-  pod 'VHBoomMenuButton/Swift', '~> 2.0.0'
+
 
   # Network
   pod 'Moya/RxSwift', '~> 15.0.0'
