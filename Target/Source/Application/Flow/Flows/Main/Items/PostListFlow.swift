@@ -54,11 +54,6 @@ private extension PostListFlow{
     }
     func coordinateToPostList(category: Major) -> FlowContributors {
         @Inject var vc: PostListTabVC
-        vc.setViewControllers([
-            AllPostVC(reactor: vc.reactor),
-            QuestionPostVC(reactor: vc.reactor),
-            NormalPostVC(reactor: vc.reactor)
-        ])
         self.rootVC.setViewControllers([vc], animated: true)
         return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: vc.reactor ?? .init()))
     }

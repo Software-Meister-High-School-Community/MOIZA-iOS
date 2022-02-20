@@ -60,7 +60,11 @@ extension Container{
         register(PostListTabVC.self) { r in
             let reactor = r.resolve(PostListReactor.self)
             let vc = PostListTabVC(reactor: reactor)
-           
+            vc.setViewControllers([
+                AllPostVC(reactor: vc.reactor),
+                QuestionPostVC(reactor: vc.reactor),
+                NormalPostVC(reactor: vc.reactor)
+            ])
             return vc
         }
     }
