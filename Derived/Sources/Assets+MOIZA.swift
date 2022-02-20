@@ -23,6 +23,12 @@ public enum MOIZAAsset {
   public static let moizaSecondaryBlue = MOIZAColors(name: "MOIZA_Secondary_Blue")
   public static let moizaSecondaryYellow = MOIZAColors(name: "MOIZA_Secondary_Yellow")
   public static let moizaTheme = MOIZAColors(name: "MOIZA_Theme")
+  public static let moizaConstGray1 = MOIZAColors(name: "MOIZA_Const_Gray1")
+  public static let moizaConstGray2 = MOIZAColors(name: "MOIZA_Const_Gray2")
+  public static let moizaConstGray3 = MOIZAColors(name: "MOIZA_Const_Gray3")
+  public static let moizaConstGray4 = MOIZAColors(name: "MOIZA_Const_Gray4")
+  public static let moizaConstGray5 = MOIZAColors(name: "MOIZA_Const_Gray5")
+  public static let moizaConstGray6 = MOIZAColors(name: "MOIZA_Const_Gray6")
   public static let moizaGray1 = MOIZAColors(name: "MOIZA_Gray1")
   public static let moizaGray2 = MOIZAColors(name: "MOIZA_Gray2")
   public static let moizaGray3 = MOIZAColors(name: "MOIZA_Gray3")
@@ -30,6 +36,7 @@ public enum MOIZAAsset {
   public static let moizaGray5 = MOIZAColors(name: "MOIZA_Gray5")
   public static let moizaGray6 = MOIZAColors(name: "MOIZA_Gray6")
   public static let moizaSymbol = MOIZAImages(name: "MOIZA_Symbol")
+  public static let moizaBookReader = MOIZAImages(name: "MOIZA_bookReader")
   public static let moizaAlarm = MOIZAImages(name: "MOIZA_Alarm")
   public static let moizaAlarmFill = MOIZAImages(name: "MOIZA_Alarm_Fill")
   public static let moizaHome = MOIZAImages(name: "MOIZA_Home")
@@ -39,6 +46,8 @@ public enum MOIZAAsset {
   public static let moizaPost = MOIZAImages(name: "MOIZA_Post")
   public static let moizaPostFill = MOIZAImages(name: "MOIZA_Post_Fill")
   public static let moizaLogo = MOIZAImages(name: "MOIZA_Logo")
+  public static let moizaLogoDark = MOIZAImages(name: "MOIZA_Logo_Dark")
+  public static let moizaLogoLight = MOIZAImages(name: "MOIZA_Logo_Light")
 }
 // swiftlint:enable identifier_name line_length nesting type_body_length type_name
 

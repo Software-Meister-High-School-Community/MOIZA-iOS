@@ -26,4 +26,13 @@ extension UINavigationItem{
         back.tintColor = MOIZAAsset.moizaGray6.color
         self.backBarButtonItem = back
     }
+    func configLeftLogo(){
+        let leftLogo = UIBarButtonItem(image: MOIZAAsset.moizaLogo.image.downSample(size: .init(width: 40, height: 40)).withRenderingMode(.alwaysOriginal), style: .plain, target: nil, action: nil)
+        self.leftBarButtonItem = leftLogo
+    }
+    func ellipsis(){
+        let ellipsis = UIBarButtonItem(image: UIImage(systemName: "ellipsis"), style: .plain, target: self, action: nil)
+        ellipsis.tintColor = MOIZAAsset.moizaGray6.color
+        self.rightBarButtonItem = ellipsis
+    }
 }
