@@ -1,5 +1,5 @@
 //
-//  AllPostReactor.swift
+//  PostListReactor.swift
 //  MOIZA
 //
 //  Created by 최형우 on 2022/02/20.
@@ -11,7 +11,7 @@ import RxFlow
 import RxSwift
 import RxRelay
 
-final class AllPostReactor: Reactor, Stepper {
+final class PostListReactor: Reactor, Stepper {
     // MARK: - Properties
     var steps: PublishRelay<Step> = .init()
     
@@ -37,7 +37,7 @@ final class AllPostReactor: Reactor, Stepper {
 }
 
 // MARK: - Mutate
-extension AllPostReactor {
+extension PostListReactor {
     func mutate(action: Action) -> Observable<Mutation> {
         switch action {
             
@@ -47,7 +47,7 @@ extension AllPostReactor {
 }
 
 // MARK: - Reduce
-extension AllPostReactor {
+extension PostListReactor {
     func reduce(state: State, mutation: Mutation) -> State {
         var newState = state
         
@@ -60,6 +60,6 @@ extension AllPostReactor {
 }
 
 // MARK: - Method
-private extension AllPostReactor {
+private extension PostListReactor {
     
 }

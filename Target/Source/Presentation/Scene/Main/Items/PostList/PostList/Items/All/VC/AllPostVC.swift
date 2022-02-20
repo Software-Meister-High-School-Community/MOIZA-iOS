@@ -6,6 +6,8 @@
 //  Copyright © 2022 com.connect. All rights reserved.
 //
 
-final class AllPostVC: baseVC<AllPostReactor> {
-    
+final class AllPostVC: baseVC<PostListReactor> {
+    override func configureVC() {
+        view.backgroundColor = .systemBlue
+    }
 }

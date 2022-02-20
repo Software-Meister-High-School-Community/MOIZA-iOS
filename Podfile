@@ -26,7 +26,7 @@ def pods
   pod 'FlexLayout', '~> 1.3.23'
   pod 'SwiftDate', '~> 6.3.1'
   pod 'IQKeyboardManagerSwift', '~> 6.5.9'
-  pod 'Tabman', '~> 2.11.1'
+  pod 'Tabman'
   pod 'RealmSwift', '~> 10.22'
 
 

@@ -6,6 +6,8 @@
 //  Copyright © 2022 com.connect. All rights reserved.
 //
 
-final class QuestionPostVC: baseVC<QuestionPostReactor> {
-    
+final class QuestionPostVC: baseVC<PostListReactor> {
+    override func configureVC() {
+        view.backgroundColor = .systemGreen
+    }
 }

@@ -6,6 +6,8 @@
 //  Copyright © 2022 com.connect. All rights reserved.
 //
 
-final class NormalPostVC: baseVC<NormalPostReactor> {
-    
+final class NormalPostVC: baseVC<PostListReactor> {
+    override func configureVC() {
+        view.backgroundColor = .systemRed
+    }
 }

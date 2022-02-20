@@ -174,7 +174,7 @@ DEPENDENCIES:
   - SwiftDate (~> 6.3.1)
   - Swinject (~> 2.7)
   - SwinjectAutoregistration (~> 2.7)
-  - Tabman (~> 2.11.1)
+  - Tabman
   - Then (~> 2.7.0)
 
 SPEC REPOS:
@@ -260,6 +260,6 @@ SPEC CHECKSUMS:
   Then: acfe0be7e98221c6204e12f8161459606d5d822d
   WeakMapTable: 05c694ce8439a7a9ebabb56187287a63c57673d6
 
-PODFILE CHECKSUM: b64eccdb287dd5e57ced854a64c7f99e2c803e84
+PODFILE CHECKSUM: 77e289db7e45375a0d38d97662b91c554912eca6
 
 COCOAPODS: 1.11.2
