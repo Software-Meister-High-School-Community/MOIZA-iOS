@@ -28,6 +28,7 @@ def pods
   pod 'IQKeyboardManagerSwift', '~> 6.5.9'
   pod 'Tabman'
   pod 'RealmSwift', '~> 10.22'
+  pod 'ViewAnimator', '~> 3.1.0'
 
   # Network
   pod 'Moya/RxSwift', '~> 15.0.0'
