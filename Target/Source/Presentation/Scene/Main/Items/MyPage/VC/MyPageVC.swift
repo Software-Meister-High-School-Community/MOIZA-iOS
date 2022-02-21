@@ -19,6 +19,11 @@ final class MyPageVC: baseVC<MyPageReactor> {
     private let scrollView = UIScrollView().then {
         $0.showsVerticalScrollIndicator = true
     }
+    
+    private let editProfile = UIAction(title: "프로필 수정",image: UIImage(systemName: "pencil"), handler: {_ in print("프로필 수정")})
+    private let setting = UIAction(title: "설정",image: UIImage(systemName: "gearshape.fill"), handler: {_ in print("설정")})
+    private let cancel = UIAction(title: "취소", attributes: .destructive, handler: { _ in print("취소") })
+
     private let ellipsis = UIBarButtonItem(image: .init(systemName: "ellipsis")?.downSample(size: .init(width: 12, height: 1)).tintColor(MOIZAAsset.moizaGray6.color), style: .plain, target: nil, action: nil)
     
     private let backgroundView = UIView().then{
@@ -130,6 +135,9 @@ final class MyPageVC: baseVC<MyPageReactor> {
     
     override func setUp() {
         view.backgroundColor = MOIZAAsset.moizaGray2.color
+        if #available(iOS 14.0, *) {
+            ellipsis.menu = UIMenu(identifier: nil, options: .displayInline, children: [editProfile,setting,cancel])
+        } else {}
     }
     
     // MARK: - UI
