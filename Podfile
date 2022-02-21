@@ -29,7 +29,6 @@ def pods
   pod 'Tabman'
   pod 'RealmSwift', '~> 10.22'
 
-
   # Network
   pod 'Moya/RxSwift', '~> 15.0.0'
   pod 'Firebase/Core', '~> 8.12.0'

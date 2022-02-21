@@ -149,6 +149,7 @@ PODS:
   - Tabman (2.11.1):
     - Pageboy (~> 3.6.0)
   - Then (2.7.0)
+  - ViewAnimator (3.1.0)
   - WeakMapTable (1.2.0)
 
 DEPENDENCIES:
@@ -176,6 +177,7 @@ DEPENDENCIES:
   - SwinjectAutoregistration (~> 2.7)
   - Tabman
   - Then (~> 2.7.0)
+  - ViewAnimator (~> 3.1.0)
 
 SPEC REPOS:
   trunk:
@@ -217,6 +219,7 @@ SPEC REPOS:
     - SwinjectAutoregistration
     - Tabman
     - Then
+    - ViewAnimator
     - WeakMapTable
 
 SPEC CHECKSUMS:
@@ -258,8 +261,9 @@ SPEC CHECKSUMS:
   SwinjectAutoregistration: e83e362da3ca9c64a68290e89efbc40e378dff12
   Tabman: 792ac76fd1ec95af175c93db880a3c47cabedc91
   Then: acfe0be7e98221c6204e12f8161459606d5d822d
+  ViewAnimator: a9ceed80266e00fd435ec4fb99b2df64d580d0e4
   WeakMapTable: 05c694ce8439a7a9ebabb56187287a63c57673d6
 
-PODFILE CHECKSUM: 77e289db7e45375a0d38d97662b91c554912eca6
+PODFILE CHECKSUM: 2bb33f3878f7e1c23ba56f71dc8a33c4d696b854
 
 COCOAPODS: 1.11.2

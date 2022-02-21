@@ -17,14 +17,14 @@ import UIKit
 final class PostListTabVC: TabmanViewController, ReactorKit.View {
     // MARK: - Properties
     private var viewControllers: [UIViewController] = []
-    private let logoImage = UIBarButtonItem(image: MOIZAAsset.moizaLogo.image.downSample(size: .init(width: 40, height: 40)).withRenderingMode(.alwaysOriginal), style: .plain, target: nil, action: nil).then {
+    private let logoImage = UIBarButtonItem(image: MOIZAAsset.moizaLogo.image.downSample(size: .init(width: 35, height: 35)).withRenderingMode(.alwaysOriginal), style: .plain, target: nil, action: nil).then {
         $0.isEnabled = false
     }
     private let majorButton = UIButton().then {
         $0.setTitle(UserDefaultLocal.shared.major.rawValue, for: .normal)
         $0.titleLabel?.font = UIFont(font: MOIZAFontFamily.Roboto.regular, size: 14)
         $0.setTitleColor(MOIZAAsset.moizaGray6.color, for: .normal)
-        $0.setImage(UIImage(systemName: "arrowtriangle.down.fill")?.tintColor(MOIZAAsset.moizaGray6.color).downSample(size: .init(width: 5, height: 5)), for: .normal)
+        $0.setImage(UIImage(systemName: "arrowtriangle.down.fill")?.tintColor(MOIZAAsset.moizaGray6.color).downSample(size: .init(width: 4, height: 3)), for: .normal)
         $0.layer.borderColor = MOIZAAsset.moizaGray3.color.cgColor
         $0.layer.borderWidth = 1
         $0.layer.cornerRadius = 5
@@ -33,12 +33,13 @@ final class PostListTabVC: TabmanViewController, ReactorKit.View {
             $0.configuration = config
             $0.configuration?.contentInsets = .init(top: 3, leading: 10, bottom: 3, trailing: 10)
             $0.configuration?.imagePlacement = .trailing
+            $0.configuration?.imagePadding = 5
         } else {
             $0.contentEdgeInsets = .init(top: 3, left: 10, bottom: 3, right: 10)
         }
     }
     private lazy var majorBarButton = UIBarButtonItem(customView: majorButton)
-    private let searchButton = UIBarButtonItem(image: .init(systemName: "magnifyingglass")?.downSample(size: .init(width: 15, height: 15)).tintColor(MOIZAAsset.moizaGray6.color), style: .plain, target: nil, action: nil)
+    private let searchButton = UIBarButtonItem(image: .init(systemName: "magnifyingglass")?.downSample(size: .init(width: 10, height: 10)).tintColor(MOIZAAsset.moizaGray6.color), style: .plain, target: nil, action: nil)
     
     var disposeBag: DisposeBag = .init()
     
