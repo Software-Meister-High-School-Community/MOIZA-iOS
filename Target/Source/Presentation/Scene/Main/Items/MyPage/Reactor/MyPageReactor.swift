@@ -25,7 +25,7 @@ final class MyPageReactor: Reactor, Stepper {
         case updatePost(Int)
         case updateFollower(Int)
         case updateFollwing(Int)
-        case filterButtonDidTap
+        case sortButtonDidTap
     }
     enum Mutation {
         case setPost(Int)
@@ -63,7 +63,7 @@ extension MyPageReactor {
             return .just(.setFollower(follower))
         case let .updateFollwing(following):
             return .just(.setFollowing(following))
-        case .filterButtonDidTap:
+        case .sortButtonDidTap:
             return .empty()
         }
     }

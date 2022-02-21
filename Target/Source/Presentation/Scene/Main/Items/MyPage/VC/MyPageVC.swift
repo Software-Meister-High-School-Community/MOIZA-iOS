@@ -71,7 +71,7 @@ final class MyPageVC: baseVC<MyPageReactor> {
     private let postValueLabel = UILabel().then{
         $0.textColor = MOIZAAsset.moizaGray6.color
         $0.font = UIFont(font: MOIZAFontFamily.Roboto.bold, size: 12)
-        $0.text = "512"
+        $0.text = "5123"
     }
     
     private let followerButton = UIButton().then{
@@ -85,7 +85,7 @@ final class MyPageVC: baseVC<MyPageReactor> {
     private let followerValueLabel = UILabel().then{
         $0.textColor = MOIZAAsset.moizaGray6.color
         $0.font = UIFont(font: MOIZAFontFamily.Roboto.bold, size: 12)
-        $0.text = "0"
+        $0.text = "80"
     }
     
     private let followingButton = UIButton().then{
@@ -99,7 +99,28 @@ final class MyPageVC: baseVC<MyPageReactor> {
     private let followingValueLabel = UILabel().then{
         $0.textColor = MOIZAAsset.moizaGray6.color
         $0.font = UIFont(font: MOIZAFontFamily.Roboto.bold, size: 12)
-        $0.text = "0"
+        $0.text = "80"
+    }
+    
+    private let myPostLabel = UILabel().then{
+        $0.textColor = MOIZAAsset.moizaGray6.color
+        $0.font = UIFont(font: MOIZAFontFamily.Roboto.regular, size: 14)
+        $0.text = "나의 게시물"
+    }
+    
+    private let sortButton = UIButton().then{
+        $0.layer.borderWidth = 1
+        $0.layer.borderColor = MOIZAAsset.moizaGray3.color.cgColor
+        $0.layer.cornerRadius = 5
+        $0.setImage(UIImage(named: "MOIZA_Funnel")?.withRenderingMode(.alwaysOriginal).tintColor(MOIZAAsset.moizaGray3.color), for: .normal)
+        $0.setTitle("정렬", for: .normal)
+        $0.imageView?.contentMode = .scaleAspectFit
+        $0.titleLabel?.font = UIFont(font: MOIZAFontFamily.Roboto.regular, size: 12)
+        $0.setTitleColor(MOIZAAsset.moizaGray5.color, for: .normal)
+        $0.contentHorizontalAlignment = .center
+        $0.semanticContentAttribute = .forceLeftToRight
+        $0.imageEdgeInsets = UIEdgeInsets(top: 8, left: 12, bottom: 8, right: 41)
+        $0.titleEdgeInsets = UIEdgeInsets(top: 0, left: 18, bottom: 0, right: 12)
     }
     
     override func configureNavigation() {
@@ -114,7 +135,7 @@ final class MyPageVC: baseVC<MyPageReactor> {
     // MARK: - UI
     override func addView() {
         view.addSubViews(scrollView)
-        scrollView.addSubViews(backgroundView,descriptionView,mainView,profile)
+        scrollView.addSubViews(backgroundView,descriptionView,mainView,profile,myPostLabel,sortButton)
         mainView.addSubViews(mainContainer,profileName,postLabel,postValueLabel,followingButton,followerButton)
         descriptionView.addSubViews(introduceLabel,webSiteLabel,describeContainer)
     }
@@ -128,6 +149,8 @@ final class MyPageVC: baseVC<MyPageReactor> {
         mainContainer.pin.top(15).horizontally(124).height(115).width(234)
         descriptionView.pin.below(of: mainView, aligned: .center).marginTop(11).height(82).width(92%)
         describeContainer.pin.top(20).horizontally(14).height(36).width(315)
+        myPostLabel.pin.below(of: descriptionView, aligned: .start).marginTop(40).height(16).width(68)
+        sortButton.pin.below(of: descriptionView, aligned: .end).marginTop(34).height(28).width(63)
         
         mainContainer.flex.define { flex in
             flex.addItem(profileName)
