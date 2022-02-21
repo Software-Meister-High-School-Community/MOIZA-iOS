@@ -19,10 +19,7 @@ final class MyPageVC: baseVC<MyPageReactor> {
     private let scrollView = UIScrollView().then {
         $0.showsVerticalScrollIndicator = true
     }
-    
-    private let ellipsis = UIButton().then{
-        $0.setImage(UIImage(systemName: "ellipsis"), for: .normal)
-    }
+    private let ellipsis = UIBarButtonItem(image: .init(systemName: "ellipsis")?.downSample(size: .init(width: 12, height: 1)).tintColor(MOIZAAsset.moizaGray6.color), style: .plain, target: nil, action: nil)
     
     private let backgroundView = UIView().then{
         $0.backgroundColor = MOIZAAsset.moizaPrimaryYellow.color
@@ -107,7 +104,7 @@ final class MyPageVC: baseVC<MyPageReactor> {
     
     override func configureNavigation() {
         self.navigationItem.configLeftLogo()
-        self.navigationItem.ellipsis()
+        self.navigationItem.setRightBarButtonItems([ellipsis], animated: true)
     }
     
     override func setUp() {
