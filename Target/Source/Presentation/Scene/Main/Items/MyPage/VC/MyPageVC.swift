@@ -10,9 +10,12 @@ import FlexLayout
 final class MyPageVC: baseVC<MyPageReactor> {
     
     //MARK: - Properties
-    private let mainContainer = UIView().then{
+    private let mainContainer = UIView()
+    
+    private let describeContainer = UIView().then{
         $0.backgroundColor = MOIZAAsset.moizaGray1.color
     }
+    
     private let scrollView = UIScrollView().then {
         $0.showsVerticalScrollIndicator = true
     }
@@ -39,10 +42,12 @@ final class MyPageVC: baseVC<MyPageReactor> {
     private let introduceLabel = UILabel().then{
         $0.font = UIFont(font: MOIZAFontFamily.Roboto.regular, size: 13)
         $0.textColor = MOIZAAsset.moizaGray6.color
+        $0.text = "나는 최형우"
     }
     private let webSiteLabel = UILabel().then{
         $0.font = UIFont(font: MOIZAFontFamily.Roboto.regular, size: 12)
         $0.textColor = MOIZAAsset.moizaPrimaryBlue.color
+        $0.text = "https://www.instagram.com/baekteun/"
     }
     private let profile = UIImageView().then{
         $0.image = UIImage(systemName: "person.crop.circle.fill")
@@ -113,7 +118,8 @@ final class MyPageVC: baseVC<MyPageReactor> {
     override func addView() {
         view.addSubViews(scrollView)
         scrollView.addSubViews(backgroundView,descriptionView,mainView,profile)
-        mainView.addSubViews(mainContainer,profileName,postLabel,postValueLabel)
+        mainView.addSubViews(mainContainer,profileName,postLabel,postValueLabel,followingButton,followerButton)
+        descriptionView.addSubViews(introduceLabel,webSiteLabel,describeContainer)
     }
     
     override func setLayoutSubViews() {
@@ -123,6 +129,8 @@ final class MyPageVC: baseVC<MyPageReactor> {
         profile.pin.horizontally(34).height(84).width(84).top(69)
         mainView.pin.below(of: backgroundView, aligned: .center).height(133).width(92%)
         mainContainer.pin.top(15).horizontally(124).height(115).width(234)
+        descriptionView.pin.below(of: mainView, aligned: .center).marginTop(11).height(82).width(92%)
+        describeContainer.pin.top(20).horizontally(14).height(36).width(315)
         
         mainContainer.flex.define { flex in
             flex.addItem(profileName)
@@ -146,9 +154,16 @@ final class MyPageVC: baseVC<MyPageReactor> {
                 }
             }
         }
+        
+        describeContainer.flex.define { flex in
+            flex.addItem(introduceLabel)
+            flex.addItem(webSiteLabel).marginVertical(8)
+        }
         mainContainer.flex.layout()
+        describeContainer.flex.layout()
     }
     
     override func setLayout() {
+        
     }
 }
