@@ -28,12 +28,15 @@ final class PostListTabVC: TabmanViewController, ReactorKit.View {
         $0.layer.borderColor = MOIZAAsset.moizaGray3.color.cgColor
         $0.layer.borderWidth = 1
         $0.layer.cornerRadius = 5
+        $0.backgroundColor = .clear
         if #available(iOS 15.0, *) {
             var config = UIButton.Configuration.filled()
             $0.configuration = config
             $0.configuration?.contentInsets = .init(top: 3, leading: 10, bottom: 3, trailing: 10)
             $0.configuration?.imagePlacement = .trailing
             $0.configuration?.imagePadding = 5
+            $0.configuration?.cornerStyle = .medium
+            $0.configuration?.baseBackgroundColor = .clear
         } else {
             $0.contentEdgeInsets = .init(top: 3, left: 10, bottom: 3, right: 10)
         }
