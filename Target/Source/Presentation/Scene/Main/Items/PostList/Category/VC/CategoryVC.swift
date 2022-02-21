@@ -8,6 +8,7 @@
 
 import UIKit
 import PinLayout
+import ViewAnimator
 
 final class CategoryVC: baseVC<CategoryReactor> {
     // MARK: - Metric
@@ -63,7 +64,11 @@ final class CategoryVC: baseVC<CategoryReactor> {
     private let searchButton = UIBarButtonItem(image: .init(systemName: "magnifyingglass")?.downSample(size: .init(width: 10, height: 10)).tintColor(MOIZAAsset.moizaGray6.color), style: .plain, target: nil, action: nil)
     
     override func viewDidAppear(_ animated: Bool) {
-        
+        UIView.animate(views: [
+            frontCategory, backCategory, designCategory, iOSCategory, aOSCategory, securityCategory, gameCategory, embededCategory, aiCategory
+        ], animations: [
+            AnimationType.from(direction: .bottom, offset: 30)
+        ], duration: 0.5)
     }
     // MARK: - UI
     override func addView() {
