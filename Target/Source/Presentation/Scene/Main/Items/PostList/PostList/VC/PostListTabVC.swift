@@ -17,20 +17,34 @@ import UIKit
 final class PostListTabVC: TabmanViewController, ReactorKit.View {
     // MARK: - Properties
     private var viewControllers: [UIViewController] = []
-    private let logoImage = UIBarButtonItem(image: MOIZAAsset.moizaLogo.image.downSample(size: .init(width: 40, height: 40)).withRenderingMode(.alwaysOriginal), style: .plain, target: nil, action: nil)
+    private let logoImage = UIBarButtonItem(image: MOIZAAsset.moizaLogo.image.downSample(size: .init(width: 40, height: 40)).withRenderingMode(.alwaysOriginal), style: .plain, target: nil, action: nil).then {
+        $0.isEnabled = false
+    }
     private let majorButton = UIButton().then {
         $0.setTitle(UserDefaultLocal.shared.major.rawValue, for: .normal)
-        $0.setImage(UIImage(systemName: "arrowtriangle.down.fill")?.tintColor(MOIZAAsset.moizaGray6.color).downSample(size: .init(width: 3, height: 3)), for: .normal)
-        $0.semanticContentAttribute = .forceRightToLeft
+        $0.titleLabel?.font = UIFont(font: MOIZAFontFamily.Roboto.regular, size: 14)
+        $0.setTitleColor(MOIZAAsset.moizaGray6.color, for: .normal)
+        $0.setImage(UIImage(systemName: "arrowtriangle.down.fill")?.tintColor(MOIZAAsset.moizaGray6.color).downSample(size: .init(width: 5, height: 5)), for: .normal)
         $0.layer.borderColor = MOIZAAsset.moizaGray3.color.cgColor
         $0.layer.borderWidth = 1
+        $0.layer.cornerRadius = 5
+        if #available(iOS 15.0, *) {
+            var config = UIButton.Configuration.filled()
+            $0.configuration = config
+            $0.configuration?.contentInsets = .init(top: 3, leading: 10, bottom: 3, trailing: 10)
+            $0.configuration?.imagePlacement = .trailing
+        } else {
+            $0.contentEdgeInsets = .init(top: 3, left: 10, bottom: 3, right: 10)
+        }
     }
-    
-    typealias Reactor = PostListReactor
+    private lazy var majorBarButton = UIBarButtonItem(customView: majorButton)
+    private let searchButton = UIBarButtonItem(image: .init(systemName: "magnifyingglass")?.downSample(size: .init(width: 15, height: 15)).tintColor(MOIZAAsset.moizaGray6.color), style: .plain, target: nil, action: nil)
     
     var disposeBag: DisposeBag = .init()
     
     // MARK: - Init
+    typealias Reactor = PostListReactor
+    
     init(reactor: PostListReactor?) {
         super.init(nibName: nil, bundle: nil)
         self.reactor = reactor
@@ -43,7 +57,7 @@ final class PostListTabVC: TabmanViewController, ReactorKit.View {
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        setNavigation()
     }
     // MARK: - Method
     public func setViewControllers(_ vcs: [UIViewController]) {
@@ -72,7 +86,10 @@ final class PostListTabVC: TabmanViewController, ReactorKit.View {
 
 // MARK: - UI
 private extension PostListTabVC {
-    
+    func setNavigation() {
+        self.navigationItem.setLeftBarButtonItems([logoImage, majorBarButton], animated: false)
+        self.navigationItem.setRightBarButton(searchButton, animated: false)
+    }
 }
 // MARK: - Reactor
 extension PostListTabVC {
