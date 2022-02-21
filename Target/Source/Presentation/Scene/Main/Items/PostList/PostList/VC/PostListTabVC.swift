@@ -17,6 +17,14 @@ import UIKit
 final class PostListTabVC: TabmanViewController, ReactorKit.View {
     // MARK: - Properties
     private var viewControllers: [UIViewController] = []
+    private let logoImage = UIBarButtonItem(image: MOIZAAsset.moizaLogo.image.downSample(size: .init(width: 40, height: 40)).withRenderingMode(.alwaysOriginal), style: .plain, target: nil, action: nil)
+    private let majorButton = UIButton().then {
+        $0.setTitle(UserDefaultLocal.shared.major.rawValue, for: .normal)
+        $0.setImage(UIImage(systemName: "arrowtriangle.down.fill")?.tintColor(MOIZAAsset.moizaGray6.color).downSample(size: .init(width: 3, height: 3)), for: .normal)
+        $0.semanticContentAttribute = .forceRightToLeft
+        $0.layer.borderColor = MOIZAAsset.moizaGray3.color.cgColor
+        $0.layer.borderWidth = 1
+    }
     
     typealias Reactor = PostListReactor
     

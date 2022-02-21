@@ -37,8 +37,8 @@ final class PostListFlow: Flow{
         switch step{
         case .categoryIsRequired:
             return coordinateToCategorySelect()
-        case let .postListIsRequired(category):
-            return coordinateToPostList(category: category)
+        case .postListIsRequired:
+            return coordinateToPostList()
         default:
             return .none
         }
@@ -52,7 +52,7 @@ private extension PostListFlow{
         self.rootVC.setViewControllers([vc], animated: true)
         return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: vc.reactor ?? .init()))
     }
-    func coordinateToPostList(category: Major) -> FlowContributors {
+    func coordinateToPostList() -> FlowContributors {
         @Inject var vc: PostListTabVC
         self.rootVC.setViewControllers([vc], animated: true)
         return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: vc.reactor ?? .init()))
