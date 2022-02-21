@@ -36,6 +36,14 @@ final class MyPageVC: baseVC<MyPageReactor> {
         $0.backgroundColor = MOIZAAsset.moizaGray1.color
         $0.layer.cornerRadius = 5
     }
+    private let introduceLabel = UILabel().then{
+        $0.font = UIFont(font: MOIZAFontFamily.Roboto.regular, size: 13)
+        $0.textColor = MOIZAAsset.moizaGray6.color
+    }
+    private let webSiteLabel = UILabel().then{
+        $0.font = UIFont(font: MOIZAFontFamily.Roboto.regular, size: 12)
+        $0.textColor = MOIZAAsset.moizaPrimaryBlue.color
+    }
     private let profile = UIImageView().then{
         $0.image = UIImage(systemName: "person.crop.circle.fill")
         $0.tintColor = MOIZAAsset.moizaGray4.color
@@ -54,10 +62,12 @@ final class MyPageVC: baseVC<MyPageReactor> {
     }
     
     private let postLabel = UILabel().then{
+        $0.textColor = MOIZAAsset.moizaGray6.color
         $0.font = UIFont(font: MOIZAFontFamily.Roboto.regular, size: 12)
         $0.text = "게시물"
     }
     private let postValueLabel = UILabel().then{
+        $0.textColor = MOIZAAsset.moizaGray6.color
         $0.font = UIFont(font: MOIZAFontFamily.Roboto.bold, size: 12)
         $0.text = "512"
     }
@@ -66,10 +76,12 @@ final class MyPageVC: baseVC<MyPageReactor> {
         $0.backgroundColor = MOIZAAsset.moizaGray1.color
     }
     private let followerLabel = UILabel().then{
+        $0.textColor = MOIZAAsset.moizaGray6.color
         $0.font = UIFont(font: MOIZAFontFamily.Roboto.regular, size: 12)
         $0.text = "팔로워"
     }
     private let followerValueLabel = UILabel().then{
+        $0.textColor = MOIZAAsset.moizaGray6.color
         $0.font = UIFont(font: MOIZAFontFamily.Roboto.bold, size: 12)
         $0.text = "0"
     }
@@ -78,10 +90,12 @@ final class MyPageVC: baseVC<MyPageReactor> {
         $0.backgroundColor = MOIZAAsset.moizaGray1.color
     }
     private let followingLabel = UILabel().then{
+        $0.textColor = MOIZAAsset.moizaGray6.color
         $0.font = UIFont(font: MOIZAFontFamily.Roboto.regular, size: 12)
         $0.text = "팔로잉"
     }
     private let followingValueLabel = UILabel().then{
+        $0.textColor = MOIZAAsset.moizaGray6.color
         $0.font = UIFont(font: MOIZAFontFamily.Roboto.bold, size: 12)
         $0.text = "0"
     }
@@ -107,7 +121,7 @@ final class MyPageVC: baseVC<MyPageReactor> {
         scrollView.contentSize = .init(width: scrollView.bounds.width, height: scrollView.bounds.height*1.15)
         backgroundView.pin.horizontally(16).height(99).width(92%)
         profile.pin.horizontally(34).height(84).width(84).top(69)
-        mainView.pin.below(of: backgroundView, aligned: .center).horizontally(16).height(133).width(92%)
+        mainView.pin.below(of: backgroundView, aligned: .center).height(133).width(92%)
         mainContainer.pin.top(15).horizontally(124).height(115).width(234)
         
         mainContainer.flex.define { flex in
