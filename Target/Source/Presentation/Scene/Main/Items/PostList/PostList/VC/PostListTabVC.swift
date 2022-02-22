@@ -23,7 +23,7 @@ final class PostListTabVC: TabmanViewController, ReactorKit.View {
     private let majorButton = UIButton().then {
         $0.setTitle(UserDefaultLocal.shared.major.rawValue, for: .normal)
         $0.titleLabel?.font = UIFont(font: MOIZAFontFamily.Roboto.regular, size: 14)
-        $0.setTitleColor(MOIZAAsset.moizaGray6.color, for: .normal)
+        $0.setTitleColor(MOIZAAsset.moizaGray1.color, for: .normal)
         $0.setImage(UIImage(systemName: "arrowtriangle.down.fill")?.tintColor(MOIZAAsset.moizaGray6.color).downSample(size: .init(width: 4, height: 3)), for: .normal)
         $0.layer.borderColor = MOIZAAsset.moizaGray3.color.cgColor
         $0.layer.borderWidth = 1
@@ -63,6 +63,7 @@ final class PostListTabVC: TabmanViewController, ReactorKit.View {
     override func viewDidLoad() {
         super.viewDidLoad()
         setNavigation()
+        if traitCollection.userInterfaceStyle == .dark { darkConfigure() }
     }
     // MARK: - Method
     public func setViewControllers(_ vcs: [UIViewController]) {
@@ -94,6 +95,14 @@ private extension PostListTabVC {
     func setNavigation() {
         self.navigationItem.setLeftBarButtonItems([logoImage, majorBarButton], animated: false)
         self.navigationItem.setRightBarButton(searchButton, animated: false)
+    }
+    func darkConfigure() {
+        if #available(iOS 15.0, *) {
+            majorButton.configuration?.baseBackgroundColor = MOIZAAsset.moizaDark3.color
+            majorButton.layer.borderColor = UIColor.clear.cgColor
+        } else {
+            majorButton.setBackgroundColor(MOIZAAsset.moizaDark3.color, for: .normal)
+        }
     }
 }
 // MARK: - Reactor
