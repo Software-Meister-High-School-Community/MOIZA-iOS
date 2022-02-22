@@ -16,6 +16,7 @@ class baseTableViewCell<T>: UITableViewCell{
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         addView()
         configureCell()
+        if traitCollection.userInterfaceStyle == .dark { darkConfigure() }
     }
     
     @available(*, unavailable)
@@ -31,5 +32,6 @@ class baseTableViewCell<T>: UITableViewCell{
     var model: T? {
         didSet { if let model = model { bind(model) } }
     }
+    func darkConfigure(){}
     func bind(_ model: T){}
 }
