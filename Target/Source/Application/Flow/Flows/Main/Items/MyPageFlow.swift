@@ -40,6 +40,7 @@ final class MyPageFlow: Flow{
 // MARK: - Method
 private extension MyPageFlow{
     func coordinateToMyPage() -> FlowContributors {
+        @Inject var vc: MyPageVC
         self.rootVC.setViewControllers([vc], animated: true)
         return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: vc.reactor ?? .init()))
     }

@@ -20,7 +20,7 @@ final class MyPageVC: baseVC<MyPageReactor> {
         $0.showsVerticalScrollIndicator = true
     }
     
-    private let editProfile = UIAction(title: "프로필 수정",image: UIImage(systemName: "pencil"), handler: {_ in print("프로필 수정")})
+    private let modifyProfile = UIAction(title: "프로필 수정",image: UIImage(systemName: "pencil"),handler: {_ in print("프로필 설정")})
     private let setting = UIAction(title: "설정",image: UIImage(systemName: "gearshape.fill"), handler: {_ in print("설정")})
     private let cancel = UIAction(title: "취소", attributes: .destructive, handler: { _ in print("취소") })
 
@@ -52,11 +52,9 @@ final class MyPageVC: baseVC<MyPageReactor> {
         $0.text = "https://www.instagram.com/baekteun/"
     }
     private let profile = UIImageView().then{
-        $0.image = UIImage(systemName: "person.crop.circle.fill")
+        $0.image = UIImage(systemName: "person.crop.circle.fill")?.withRenderingMode(.alwaysOriginal)
         $0.tintColor = MOIZAAsset.moizaGray4.color
         $0.contentMode = .scaleAspectFill
-        $0.layer.cornerRadius = 150
-        $0.backgroundColor = MOIZAAsset.moizaGray1.color
     }
     private let profileName = UILabel().then{
         $0.font = UIFont(font: MOIZAFontFamily.Roboto.regular, size: 18)
@@ -136,7 +134,7 @@ final class MyPageVC: baseVC<MyPageReactor> {
     override func setUp() {
         view.backgroundColor = MOIZAAsset.moizaGray2.color
         if #available(iOS 14.0, *) {
-            ellipsis.menu = UIMenu(identifier: nil, options: .displayInline, children: [editProfile,setting,cancel])
+            ellipsis.menu = UIMenu(identifier: nil, options: .displayInline, children: [modifyProfile,setting,cancel])
         } else {}
     }
     
@@ -192,6 +190,23 @@ final class MyPageVC: baseVC<MyPageReactor> {
     }
     
     override func setLayout() {
+        
+    }
+    override func bindView(reactor: MyPageReactor) {
+        sortButton.rx.tap
+            .map { Reactor.Action.sortButtonDidTap }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
+        followerButton.rx.tap
+            .map { Reactor.Action.followerButtonDidTap }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
+        followingButton.rx.tap
+            .map { Reactor.Action.followingButtonDidTap }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
         
     }
 }

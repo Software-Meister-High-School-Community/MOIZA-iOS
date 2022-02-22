@@ -19,13 +19,15 @@ final class MyPageReactor: Reactor, Stepper {
     
     // MARK: - Reactor
     enum Action {
-        case dotButtonDidTap
+        case ellipsisButtonDidTap
         case followerButtonDidTap
         case followingButtonDidTap
         case updatePost(Int)
         case updateFollower(Int)
         case updateFollwing(Int)
         case sortButtonDidTap
+        case modifyButtonDidTap
+        case settingButtonDidTap
     }
     enum Mutation {
         case setPost(Int)
@@ -51,11 +53,13 @@ final class MyPageReactor: Reactor, Stepper {
 extension MyPageReactor {
     func mutate(action: Action) -> Observable<Mutation> {
         switch action {
-        case .dotButtonDidTap:
+        case .ellipsisButtonDidTap:
             return .empty()
         case .followerButtonDidTap:
+            steps.accept(MoizaStep.followerIsRequired)
             return .empty()
         case .followingButtonDidTap:
+            steps.accept(MoizaStep.followingIsRequired)
             return .empty()
         case let .updatePost(post):
             return .just(.setPost(post))
@@ -64,6 +68,13 @@ extension MyPageReactor {
         case let .updateFollwing(following):
             return .just(.setFollowing(following))
         case .sortButtonDidTap:
+            steps.accept(MoizaStep.myPostListSortIsRequired)
+            return .empty()
+        case .modifyButtonDidTap:
+            steps.accept(MoizaStep.myPageModifyIsRequired)
+            return .empty()
+        case .settingButtonDidTap:
+            steps.accept(MoizaStep.myPageSettingIsRequired)
             return .empty()
         }
     }
