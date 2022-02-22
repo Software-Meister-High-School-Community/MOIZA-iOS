@@ -15,6 +15,7 @@ class baseCollectionViewCell<T>: UICollectionViewCell{
     override init(frame: CGRect) {
         super.init(frame: frame)
         addView()
+        setLayout()
         configureCell()
         if traitCollection.userInterfaceStyle == .dark { darkConfigure() }
     }
@@ -23,10 +24,11 @@ class baseCollectionViewCell<T>: UICollectionViewCell{
         fatalError("init(coder:) has not been implemented")
     }
     override func layoutSubviews() {
-        setLayout()
+        setLayoutSubviews()
     }
     func addView(){}
     func setLayout(){}
+    func setLayoutSubviews(){}
     func configureCell(){}
     var model: T? {
         didSet { if let model = model { bind(model) } }
