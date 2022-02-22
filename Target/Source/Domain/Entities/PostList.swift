@@ -1,6 +1,6 @@
 import Foundation
 
-struct Post: Codable {
+struct PostList: Codable {
     let title: String
     let type: PostType
     let commentCount: Int
