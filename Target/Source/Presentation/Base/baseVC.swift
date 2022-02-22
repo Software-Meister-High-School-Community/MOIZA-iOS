@@ -25,6 +25,7 @@ class baseVC<T: Reactor>: UIViewController{
         setLayout()
         configureVC()
         configureNavigation()
+        if traitCollection.userInterfaceStyle == .dark { drakConfigure() }
     }
     
     override func viewDidLayoutSubviews() {
@@ -50,6 +51,7 @@ class baseVC<T: Reactor>: UIViewController{
     func setLayoutSubViews(){}
     func configureVC(){}
     func configureNavigation(){}
+    func drakConfigure(){}
     
     func bindView(reactor: T){}
     func bindAction(reactor: T){}
