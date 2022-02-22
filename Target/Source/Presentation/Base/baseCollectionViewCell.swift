@@ -16,6 +16,7 @@ class baseCollectionViewCell<T>: UICollectionViewCell{
         super.init(frame: frame)
         addView()
         configureCell()
+        if traitCollection.userInterfaceStyle == .dark { darkConfigure() }
     }
     @available(*, unavailable)
     required init?(coder: NSCoder) {
@@ -30,5 +31,6 @@ class baseCollectionViewCell<T>: UICollectionViewCell{
     var model: T? {
         didSet { if let model = model { bind(model) } }
     }
+    func darkConfigure(){}
     func bind(_ model: T){}
 }
