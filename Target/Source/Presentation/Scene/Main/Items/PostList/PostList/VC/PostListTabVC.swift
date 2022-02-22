@@ -27,7 +27,6 @@ final class PostListTabVC: TabmanViewController, ReactorKit.View {
         $0.setImage(UIImage(systemName: "arrowtriangle.down.fill")?.tintColor(MOIZAAsset.moizaGray6.color).downSample(size: .init(width: 4, height: 3)), for: .normal)
         $0.layer.borderColor = MOIZAAsset.moizaGray3.color.cgColor
         $0.layer.borderWidth = 1
-        $0.layer.cornerRadius = 5
         $0.backgroundColor = .clear
         if #available(iOS 15.0, *) {
             var config = UIButton.Configuration.filled()
@@ -39,6 +38,8 @@ final class PostListTabVC: TabmanViewController, ReactorKit.View {
             $0.configuration?.baseBackgroundColor = .clear
         } else {
             $0.contentEdgeInsets = .init(top: 3, left: 10, bottom: 3, right: 10)
+            $0.layer.cornerRadius = 5
+            $0.setBackgroundColor(.clear, for: .normal)
         }
     }
     private lazy var majorBarButton = UIBarButtonItem(customView: majorButton)
