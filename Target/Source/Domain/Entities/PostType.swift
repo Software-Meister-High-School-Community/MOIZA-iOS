@@ -6,7 +6,7 @@
 //  Copyright © 2022 com.connect. All rights reserved.
 //
 
-enum PostType {
+enum PostType: String, Codable {
     case normal
     case question
 }

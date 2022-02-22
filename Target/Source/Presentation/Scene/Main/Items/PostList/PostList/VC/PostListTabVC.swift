@@ -24,7 +24,7 @@ final class PostListTabVC: TabmanViewController, ReactorKit.View {
         $0.setTitle(UserDefaultLocal.shared.major.rawValue, for: .normal)
         $0.titleLabel?.font = UIFont(font: MOIZAFontFamily.Roboto.regular, size: 14)
         $0.setTitleColor(MOIZAAsset.moizaGray1.color, for: .normal)
-        $0.setImage(UIImage(systemName: "arrowtriangle.down.fill")?.tintColor(MOIZAAsset.moizaGray6.color).downSample(size: .init(width: 4, height: 3)), for: .normal)
+        $0.setImage(UIImage(systemName: "arrowtriangle.down.fill")?.tintColor(MOIZAAsset.moizaGray1.color).downSample(size: .init(width: 4, height: 3)), for: .normal)
         $0.layer.borderColor = MOIZAAsset.moizaGray3.color.cgColor
         $0.layer.borderWidth = 1
         $0.backgroundColor = .clear
