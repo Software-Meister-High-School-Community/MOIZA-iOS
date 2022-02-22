@@ -111,10 +111,19 @@ extension PostListTabVC {
         
     }
     private func bindAction(reactor: PostListReactor) {
-        
+        majorButton.rx.tap
+            .map { Reactor.Action.majorButtonDidTap }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
     }
     private func bindState(reactor: PostListReactor) {
+        let sharedState = reactor.state.share(replay: 1).observe(on: MainScheduler.asyncInstance)
         
+        sharedState
+            .map(\.major)
+            .map(\.rawValue)
+            .bind(to: majorButton.rx.title())
+            .disposed(by: disposeBag)
     }
     
     func bind(reactor: PostListReactor) {

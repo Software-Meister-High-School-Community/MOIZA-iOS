@@ -19,19 +19,24 @@ final class PostListReactor: Reactor, Stepper {
     
     // MARK: - Reactor
     enum Action {
-        
+        case viewDidLoad
+        case majorButtonDidTap
     }
     enum Mutation {
         
     }
     struct State {
-        
+        var major: Major
+        var recommendItem: [PostList]
     }
     let initialState: State
     
     // MARK: - Init
     init() {
-        initialState = State()
+        initialState = State(
+            major: UserDefaultLocal.shared.major,
+            recommendItem: []
+        )
     }
     
 }
@@ -40,7 +45,10 @@ final class PostListReactor: Reactor, Stepper {
 extension PostListReactor {
     func mutate(action: Action) -> Observable<Mutation> {
         switch action {
-            
+        case .majorButtonDidTap:
+            return .empty()
+        case .viewDidLoad:
+            return viewDidLoad()
         }
         return .empty()
     }
@@ -61,5 +69,7 @@ extension PostListReactor {
 
 // MARK: - Method
 private extension PostListReactor {
-    
+    func viewDidLoad() -> Observable<Mutation> {
+        return .empty()
+    }
 }
