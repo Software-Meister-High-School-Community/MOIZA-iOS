@@ -61,7 +61,6 @@ final class CategoryVC: baseVC<CategoryReactor> {
                                           backgroundColor: MOIZAAsset.moizaPrimaryYellow.color,
                                           foregroundColor: .white)
     private let logoImage = UIBarButtonItem(image: MOIZAAsset.moizaLogo.image.downSample(size: .init(width: 35, height: 35)).withRenderingMode(.alwaysOriginal), style: .plain, target: nil, action: nil)
-    private let searchButton = UIBarButtonItem(image: .init(systemName: "magnifyingglass")?.downSample(size: .init(width: 10, height: 10)).tintColor(MOIZAAsset.moizaGray6.color), style: .plain, target: nil, action: nil)
     
     override func viewDidAppear(_ animated: Bool) {
         UIView.animate(views: [
@@ -94,7 +93,6 @@ final class CategoryVC: baseVC<CategoryReactor> {
     }
     override func configureNavigation() {
         self.navigationItem.setLeftBarButtonItems([logoImage], animated: true)
-        self.navigationItem.setRightBarButtonItems([searchButton], animated: true)
     }
     
     // MARK: - Reactor
@@ -141,11 +139,6 @@ final class CategoryVC: baseVC<CategoryReactor> {
         
         aiCategory.rx.tap
             .map { Reactor.Action.categoryButtonDidTap(.ai) }
-            .bind(to: reactor.action)
-            .disposed(by: disposeBag)
-        
-        searchButton.rx.tap
-            .map { Reactor.Action.searchButtonDidTap }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
     }
