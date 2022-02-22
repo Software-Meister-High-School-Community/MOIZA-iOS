@@ -94,6 +94,12 @@ final class CategoryVC: baseVC<CategoryReactor> {
     override func configureNavigation() {
         self.navigationItem.setLeftBarButtonItems([logoImage], animated: true)
     }
+    override func darkConfigure() {
+        view.backgroundColor = MOIZAAsset.moizaDark1.color
+        [
+            backCategory, designCategory, gameCategory, embededCategory
+        ].forEach{ $0.backgroundColor = MOIZAAsset.moizaDark2.color }
+    }
     
     // MARK: - Reactor
     override func bindView(reactor: CategoryReactor) {
