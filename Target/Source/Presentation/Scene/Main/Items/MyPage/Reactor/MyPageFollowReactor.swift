@@ -1,5 +1,5 @@
 //
-//  MyPageFollowVC.swift
+//  MyPageFollowReactor.swift
 //  MOIZA
 //
 //  Created by 임준화 on 2022/02/23.
@@ -58,4 +58,3 @@ extension MyPageFollowReactor {
 private extension MyPageFollowReactor {
     
 }
-
