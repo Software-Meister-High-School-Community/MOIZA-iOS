@@ -37,7 +37,7 @@ extension CategoryReactor {
     func mutate(action: Action) -> Observable<Mutation> {
         switch action {
         case let .categoryButtonDidTap(major):
-            UserDefaultLocal.shared.major = major
+            UserDefaultsLocal.shared.major = major
             steps.accept(MoizaStep.postListIsRequired)
         }
         return .empty()
