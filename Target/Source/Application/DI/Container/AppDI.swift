@@ -62,6 +62,9 @@ extension Container{
         register(PostBoardVC.self) { r in
             return PostBoardVC(reactor: r.resolve(PostBoardReactor.self))
         }
+        register(MyPageModalVC.self) { r in
+            return MyPageModalVC(reactor: r.resolve(MyPageModalReactor.self))
+        }
     }
     private func registerReactor(){
         autoregister(OnBoardingReactor.self, initializer: OnBoardingReactor.init)

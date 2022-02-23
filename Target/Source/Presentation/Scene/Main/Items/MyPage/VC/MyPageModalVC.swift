@@ -6,10 +6,11 @@
 //  Copyright © 2022 com.connect. All rights reserved.
 //
 import UIKit
+import RxViewController
 import PanModal
 
-final class MyPageModalVC: UIViewController{
-    override func viewDidLoad() {
+final class MyPageModalVC: baseVC<MyPageModalReactor>{
+    func viewDidLoad() {
         view.backgroundColor = MOIZAAsset.moizaGray1.color
     }
 }
