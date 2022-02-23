@@ -36,7 +36,7 @@ final class PostListReactor: Reactor, Stepper {
     // MARK: - Init
     init() {
         initialState = State(
-            major: UserDefaultLocal.shared.major,
+            major: UserDefaultsLocal.shared.major,
             recommendItem: []
         )
     }
