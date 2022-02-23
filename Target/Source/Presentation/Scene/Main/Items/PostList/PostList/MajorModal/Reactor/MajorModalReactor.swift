@@ -11,14 +11,11 @@ final class MajorModalReactor: Reactor, Stepper {
     
     // MARK: - Reactor
     enum Action {
-        
+        case majorDidTap(Major)
+        case closeButtonDidTap
     }
-    enum Mutation {
-        
-    }
-    struct State {
-        
-    }
+    enum Mutation {}
+    struct State {}
     let initialState: State
     
     // MARK: - Init
@@ -32,26 +29,12 @@ final class MajorModalReactor: Reactor, Stepper {
 extension MajorModalReactor {
     func mutate(action: Action) -> Observable<Mutation> {
         switch action {
-            
+        case let .majorDidTap(major):
+            UserDefaultLocal.shared.major = major
+            steps.accept(MoizaStep.dismiss)
+        case .closeButtonDidTap:
+            steps.accept(MoizaStep.dismiss)
         }
         return .empty()
     }
-}
-
-// MARK: - Reduce
-extension MajorModalReactor {
-    func reduce(state: State, mutation: Mutation) -> State {
-        var newState = state
-        
-        switch mutation {
-            
-        }
-        
-        return newState
-    }
-}
-
-// MARK: - Method
-private extension MajorModalReactor {
-    
 }
