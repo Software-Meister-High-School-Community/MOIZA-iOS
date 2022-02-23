@@ -12,11 +12,9 @@ final class MyPageModalReactor: Reactor, Stepper {
     
     // MARK: - Reactor
     enum Action {
-        case latestOrderButtonDidTap
-        case likeOrderButtonDidTap
-        case oldOrderButtonDidTap
-        case lookUpButtonDidTap
+        case orderButtonDidTap
         case initializationButtonDidTap
+        case applyButtonDidTap
     }
     enum Mutation {
         
@@ -38,15 +36,11 @@ final class MyPageModalReactor: Reactor, Stepper {
 extension MyPageModalReactor {
     func mutate(action: Action) -> Observable<Mutation> {
         switch action {
-        case .latestOrderButtonDidTap:
-            return .empty()
-        case .likeOrderButtonDidTap:
-            return .empty()
-        case .oldOrderButtonDidTap:
-            return .empty()
-        case .lookUpButtonDidTap:
+        case .orderButtonDidTap:
             return .empty()
         case .initializationButtonDidTap:
+            return .empty()
+        case .applyButtonDidTap:
             return .empty()
         }
     }

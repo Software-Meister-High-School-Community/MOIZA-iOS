@@ -20,13 +20,13 @@ extension MyPageModalVC: PanModalPresentable{
         return nil
     }
     var shortFormHeight: PanModalHeight{
-        return .contentHeight(528)
+        return .contentHeight(578)
     }
     var longFormHeight: PanModalHeight {
-        return .maxHeightWithTopInset(400)
+        return .maxHeightWithTopInset(40)
     }
     var panModalBackgroundColor: UIColor{
-        return UIColor.black.withAlphaComponent(0.2)
+        return UIColor.black.withAlphaComponent(0.4)
     }
     var anchorModalToLongForm: Bool {
         return false

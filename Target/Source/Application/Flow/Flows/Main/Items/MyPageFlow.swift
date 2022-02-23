@@ -31,6 +31,8 @@ final class MyPageFlow: Flow{
         switch step{
         case .myPageIsRequired:
             return coordinateToMyPage()
+        case .myPostListSortIsRequired:
+            return navigateToMyPageModal()
         default:
             return .none
         }
@@ -42,6 +44,11 @@ private extension MyPageFlow{
     func coordinateToMyPage() -> FlowContributors {
         @Inject var vc: MyPageVC
         self.rootVC.setViewControllers([vc], animated: true)
+        return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: vc.reactor ?? .init()))
+    }
+    func navigateToMyPageModal() -> FlowContributors {
+        @Inject var vc: MyPageModalVC
+        self.rootVC.presentPanModal(vc)
         return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: vc.reactor ?? .init()))
     }
 }
