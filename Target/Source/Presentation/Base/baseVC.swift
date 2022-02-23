@@ -19,7 +19,6 @@ class baseVC<T: Reactor>: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = MOIZAAsset.moizaGray1.color
-        self.hero.isEnabled = true
         setUp()
         addView()
         setLayout()

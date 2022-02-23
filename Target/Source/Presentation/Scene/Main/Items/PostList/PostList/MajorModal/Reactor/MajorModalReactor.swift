@@ -1,17 +1,9 @@
-//
-//  CategoryReactor.swift
-//  MOIZA
-//
-//  Created by 최형우 on 2022/02/15.
-//  Copyright © 2022 com.connect. All rights reserved.
-//
-
 import ReactorKit
 import RxFlow
 import RxSwift
 import RxRelay
 
-final class CategoryReactor: Reactor, Stepper {
+final class MajorModalReactor: Reactor, Stepper {
     // MARK: - Properties
     var steps: PublishRelay<Step> = .init()
     
@@ -19,7 +11,8 @@ final class CategoryReactor: Reactor, Stepper {
     
     // MARK: - Reactor
     enum Action {
-        case categoryButtonDidTap(Major)
+        case majorDidTap(Major)
+        case closeButtonDidTap
     }
     enum Mutation {}
     struct State {}
@@ -33,12 +26,14 @@ final class CategoryReactor: Reactor, Stepper {
 }
 
 // MARK: - Mutate
-extension CategoryReactor {
+extension MajorModalReactor {
     func mutate(action: Action) -> Observable<Mutation> {
         switch action {
-        case let .categoryButtonDidTap(major):
+        case let .majorDidTap(major):
             UserDefaultLocal.shared.major = major
-            steps.accept(MoizaStep.postListIsRequired)
+            steps.accept(MoizaStep.dismiss)
+        case .closeButtonDidTap:
+            steps.accept(MoizaStep.dismiss)
         }
         return .empty()
     }

@@ -6,7 +6,7 @@
 //  Copyright © 2022 com.connect. All rights reserved.
 //
 
-enum Major: String {
+enum Major: String, CaseIterable {
     case frontEnd = "Front-End"
     case backEnd = "Back-End"
     case iOS = "iOS"

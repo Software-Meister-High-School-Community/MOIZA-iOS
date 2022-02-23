@@ -8,6 +8,8 @@
 
 import RxFlow
 import RxRelay
+import RxSwift
+import PanModal
 
 struct PostListStepper: Stepper{
     let steps: PublishRelay<Step> = .init()
@@ -37,8 +39,12 @@ final class PostListFlow: Flow{
         switch step{
         case .categoryIsRequired:
             return coordinateToCategorySelect()
-        case let .postListIsRequired(category):
-            return coordinateToPostList(category: category)
+        case .postListIsRequired:
+            return coordinateToPostList()
+        case .majorSelectIsRequired:
+            return presentToMajorSelect()
+        case .dismiss:
+            return dismissVC()
         default:
             return .none
         }
@@ -52,10 +58,19 @@ private extension PostListFlow{
         self.rootVC.setViewControllers([vc], animated: true)
         return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: vc.reactor ?? .init()))
     }
-    func coordinateToPostList(category: Major) -> FlowContributors {
-        let reactor = PostListReactor(category: category)
-        let vc = PostListVC(reactor: reactor)
+    func coordinateToPostList() -> FlowContributors {
+        @Inject var vc: PostListTabVC
         self.rootVC.setViewControllers([vc], animated: true)
+        return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: vc.reactor ?? .init()))
+    }
+    func presentToMajorSelect() -> FlowContributors {
+        let reactor = MajorModalReactor()
+        let vc = MajorModalVC(reactor: reactor)
+        self.rootVC.presentPanModal(vc)
         return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: reactor))
+    }
+    func dismissVC() -> FlowContributors {
+        self.rootVC.visibleViewController?.dismiss(animated: true, completion: nil)
+        return .none
     }
 }

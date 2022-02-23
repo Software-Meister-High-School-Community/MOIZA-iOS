@@ -6,7 +6,7 @@
 //  Copyright © 2022 com.connect. All rights reserved.
 //
 
-enum PostType:Codable, CaseIterable {
+enum PostType:String, Codable, CaseIterable {
     case all
     case normal
     case question
