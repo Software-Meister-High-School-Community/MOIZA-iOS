@@ -20,7 +20,6 @@ final class CategoryReactor: Reactor, Stepper {
     // MARK: - Reactor
     enum Action {
         case categoryButtonDidTap(Major)
-        case searchButtonDidTap
     }
     enum Mutation {}
     struct State {}
@@ -38,9 +37,8 @@ extension CategoryReactor {
     func mutate(action: Action) -> Observable<Mutation> {
         switch action {
         case let .categoryButtonDidTap(major):
-            steps.accept(MoizaStep.postListIsRequired(category: major))
-        case .searchButtonDidTap:
-            steps.accept(MoizaStep.searchIsRequired)
+            UserDefaultLocal.shared.major = major
+            steps.accept(MoizaStep.postListIsRequired)
         }
         return .empty()
     }

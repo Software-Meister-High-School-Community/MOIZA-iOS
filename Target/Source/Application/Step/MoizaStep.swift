@@ -8,6 +8,8 @@
 
 import RxFlow
 import ReactorKit
+import RxSwift
+import RxRelay
 
 enum MoizaStep: Step{
     // Global
@@ -41,6 +43,7 @@ enum MoizaStep: Step{
     case myPageIsRequired
     
     // Common
+    case majorSelectIsRequired
     case postDetailIsRequired
     case postDetailImageListIsRequired
     
@@ -51,7 +54,7 @@ enum MoizaStep: Step{
     case searchIsRequired
     case searchResultIsRequired
     case searchSortIsRequired
-    case postListIsRequired(category: Major)
+    case postListIsRequired
     case postListSortIsRequired
     case postWriteIsRequired
     case temporarySavedPostIsRequired

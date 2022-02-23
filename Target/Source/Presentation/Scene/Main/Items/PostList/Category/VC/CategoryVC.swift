@@ -8,7 +8,7 @@
 
 import UIKit
 import PinLayout
-import RxGesture
+import ViewAnimator
 
 final class CategoryVC: baseVC<CategoryReactor> {
     // MARK: - Metric
@@ -23,7 +23,6 @@ final class CategoryVC: baseVC<CategoryReactor> {
     private let scrollView = UIScrollView().then {
         $0.showsVerticalScrollIndicator = true
     }
-    private let contentView = UIView()
     private let frontCategory = CategoryButton(major: .frontEnd,
                                              direction: .topRight,
                                              backgroundColor: MOIZAAsset.moizaPrimaryBlue.color,
@@ -61,9 +60,15 @@ final class CategoryVC: baseVC<CategoryReactor> {
                                           direction: .topRight,
                                           backgroundColor: MOIZAAsset.moizaPrimaryYellow.color,
                                           foregroundColor: .white)
-    private let logoImage = UIBarButtonItem(image: MOIZAAsset.moizaLogo.image.downSample(size: .init(width: 40, height: 40)).withRenderingMode(.alwaysOriginal), style: .plain, target: nil, action: nil)
-    private let searchButton = UIBarButtonItem(image: .init(systemName: "magnifyingglass")?.downSample(size: .init(width: 15, height: 15)).tintColor(MOIZAAsset.moizaGray6.color), style: .plain, target: nil, action: nil)
+    private let logoImage = UIBarButtonItem(image: MOIZAAsset.moizaLogo.image.downSample(size: .init(width: 35, height: 35)).withRenderingMode(.alwaysOriginal), style: .plain, target: nil, action: nil)
     
+    override func viewDidAppear(_ animated: Bool) {
+        UIView.animate(views: [
+            frontCategory, backCategory, designCategory, iOSCategory, aOSCategory, securityCategory, gameCategory, embededCategory, aiCategory
+        ], animations: [
+            AnimationType.from(direction: .bottom, offset: 30)
+        ], duration: 0.5)
+    }
     // MARK: - UI
     override func addView() {
         view.addSubViews(scrollView)
@@ -83,16 +88,17 @@ final class CategoryVC: baseVC<CategoryReactor> {
         embededCategory.pin.below(of: securityCategory, aligned: .left).marginTop(Metric.padding).size(Metric.defaultLen)
         aiCategory.pin.after(of: embededCategory, aligned: .top).marginLeft(Metric.padding).width(Metric.twiceLen).height(Metric.defaultLen)
     }
-    override func setLayout() {
-        
-        
-    }
     override func configureVC() {
         view.backgroundColor = MOIZAAsset.moizaGray2.color
     }
     override func configureNavigation() {
         self.navigationItem.setLeftBarButtonItems([logoImage], animated: true)
-        self.navigationItem.setRightBarButtonItems([searchButton], animated: true)
+    }
+    override func darkConfigure() {
+        view.backgroundColor = MOIZAAsset.moizaDark1.color
+        [
+            backCategory, designCategory, gameCategory, embededCategory
+        ].forEach{ $0.backgroundColor = MOIZAAsset.moizaDark2.color }
     }
     
     // MARK: - Reactor
@@ -139,11 +145,6 @@ final class CategoryVC: baseVC<CategoryReactor> {
         
         aiCategory.rx.tap
             .map { Reactor.Action.categoryButtonDidTap(.ai) }
-            .bind(to: reactor.action)
-            .disposed(by: disposeBag)
-        
-        searchButton.rx.tap
-            .map { Reactor.Action.searchButtonDidTap }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
     }

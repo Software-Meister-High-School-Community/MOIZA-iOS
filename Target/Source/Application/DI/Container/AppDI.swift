@@ -58,12 +58,24 @@ extension Container{
         register(CategoryVC.self) { r in
             return CategoryVC(reactor: r.resolve(CategoryReactor.self))
         }
+<<<<<<< HEAD
         
         register(PostBoardVC.self) { r in
             return PostBoardVC(reactor: r.resolve(PostBoardReactor.self))
         }
         register(MyPageModalVC.self) { r in
             return MyPageModalVC(reactor: r.resolve(MyPageModalReactor.self))
+=======
+        register(PostListTabVC.self) { r in
+            let reactor = r.resolve(PostListReactor.self)
+            let vc = PostListTabVC(reactor: reactor)
+            vc.setViewControllers([
+                AllPostVC(reactor: vc.reactor),
+                QuestionPostVC(reactor: vc.reactor),
+                NormalPostVC(reactor: vc.reactor)
+            ])
+            return vc
+>>>>>>> 0a148cb0728a5c37ed9fff43a0217ddb2e1f4675
         }
     }
     private func registerReactor(){
@@ -80,8 +92,12 @@ extension Container{
         autoregister(HomeReactor.self, initializer: HomeReactor.init)
         autoregister(MyPageReactor.self, initializer: MyPageReactor.init)
         autoregister(CategoryReactor.self, initializer: CategoryReactor.init)
+<<<<<<< HEAD
         autoregister(PostBoardReactor.self, initializer: PostBoardReactor.init)
         autoregister(MyPageModalReactor.self, initializer: MyPageModalReactor.init)
+=======
+        autoregister(PostListReactor.self, initializer: PostListReactor.init)
+>>>>>>> 0a148cb0728a5c37ed9fff43a0217ddb2e1f4675
     }
     private func registerStepper(){
         autoregister(OnBoardingStepper.self, initializer: OnBoardingStepper.init)

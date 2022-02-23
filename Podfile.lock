@@ -115,6 +115,11 @@ PODS:
   - ReactorKit (3.1.0):
     - RxSwift (~> 6.0)
     - WeakMapTable (~> 1.1)
+  - Realm (10.22.0):
+    - Realm/Headers (= 10.22.0)
+  - Realm/Headers (10.22.0)
+  - RealmSwift (10.22.0):
+    - Realm (= 10.22.0)
   - RxCocoa (6.2.0):
     - RxRelay (= 6.2.0)
     - RxSwift (= 6.2.0)
@@ -145,6 +150,7 @@ PODS:
   - Tabman (2.11.1):
     - Pageboy (~> 3.6.0)
   - Then (2.7.0)
+  - ViewAnimator (3.1.0)
   - WeakMapTable (1.2.0)
 
 DEPENDENCIES:
@@ -156,9 +162,14 @@ DEPENDENCIES:
   - IQKeyboardManagerSwift (~> 6.5.9)
   - M13Checkbox (~> 3.4.0)
   - Moya/RxSwift (~> 15.0.0)
+<<<<<<< HEAD
   - PanModal (~> 1.2.6)
+=======
+  - PanModal (~> 1.2.7)
+>>>>>>> 0a148cb0728a5c37ed9fff43a0217ddb2e1f4675
   - PinLayout (~> 1.10.0)
   - ReactorKit (~> 3.1.0)
+  - RealmSwift (~> 10.22)
   - RxCocoa (~> 6.2.0)
   - RxDataSources (~> 5.0.0)
   - RxFlow (~> 2.12.4)
@@ -170,8 +181,9 @@ DEPENDENCIES:
   - SwiftDate (~> 6.3.1)
   - Swinject (~> 2.7)
   - SwinjectAutoregistration (~> 2.7)
-  - Tabman (~> 2.11.1)
+  - Tabman
   - Then (~> 2.7.0)
+  - ViewAnimator (~> 3.1.0)
 
 SPEC REPOS:
   trunk:
@@ -198,6 +210,8 @@ SPEC REPOS:
     - PinLayout
     - PromisesObjC
     - ReactorKit
+    - Realm
+    - RealmSwift
     - RxCocoa
     - RxDataSources
     - RxFlow
@@ -212,6 +226,7 @@ SPEC REPOS:
     - SwinjectAutoregistration
     - Tabman
     - Then
+    - ViewAnimator
     - WeakMapTable
 
 SPEC CHECKSUMS:
@@ -238,6 +253,8 @@ SPEC CHECKSUMS:
   PinLayout: e50e9a748b632905fca6e67043ea4b05d6c92186
   PromisesObjC: 68159ce6952d93e17b2dfe273b8c40907db5ba58
   ReactorKit: a06dd2a5c9339287aedf3dc821cfab6347eca106
+  Realm: d9e4e5877095a6722145811f56fe89a531c9659d
+  RealmSwift: e4191b4b957fcfcbed23751ec65eec98f8173ab5
   RxCocoa: 4baf94bb35f2c0ab31bc0cb9f1900155f646ba42
   RxDataSources: aa47cc1ed6c500fa0dfecac5c979b723542d79cf
   RxFlow: 03a73c83fb8f183107074b40ab2544c668583f73
@@ -252,8 +269,13 @@ SPEC CHECKSUMS:
   SwinjectAutoregistration: e83e362da3ca9c64a68290e89efbc40e378dff12
   Tabman: 792ac76fd1ec95af175c93db880a3c47cabedc91
   Then: acfe0be7e98221c6204e12f8161459606d5d822d
+  ViewAnimator: a9ceed80266e00fd435ec4fb99b2df64d580d0e4
   WeakMapTable: 05c694ce8439a7a9ebabb56187287a63c57673d6
 
+<<<<<<< HEAD
 PODFILE CHECKSUM: 876ef3edc1301cf8a2134f84dbb157f7eef16186
+=======
+PODFILE CHECKSUM: 166995112e74d497cb104272aad6ac9090bda6e8
+>>>>>>> 0a148cb0728a5c37ed9fff43a0217ddb2e1f4675
 
 COCOAPODS: 1.11.2

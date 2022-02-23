@@ -1,17 +1,27 @@
 {
   "images" : [
     {
+<<<<<<< HEAD
       "filename" : "Funnel_filter.png",
+=======
+      "filename" : "Vector.svg",
+>>>>>>> 0a148cb0728a5c37ed9fff43a0217ddb2e1f4675
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+<<<<<<< HEAD
       "filename" : "Funnel_filter-1.png",
+=======
+>>>>>>> 0a148cb0728a5c37ed9fff43a0217ddb2e1f4675
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
+<<<<<<< HEAD
       "filename" : "Funnel_filter-2.png",
+=======
+>>>>>>> 0a148cb0728a5c37ed9fff43a0217ddb2e1f4675
       "idiom" : "universal",
       "scale" : "3x"
     }
