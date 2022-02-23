@@ -21,7 +21,7 @@ final class PostListTabVC: TabmanViewController, ReactorKit.View {
         $0.isEnabled = false
     }
     private let majorButton = UIButton().then {
-        $0.setTitle(UserDefaultLocal.shared.major.rawValue, for: .normal)
+        $0.setTitle(UserDefaultsLocal.shared.major.rawValue, for: .normal)
         $0.titleLabel?.font = UIFont(font: MOIZAFontFamily.Roboto.regular, size: 14)
         $0.setTitleColor(MOIZAAsset.moizaGray6.color, for: .normal)
         $0.setImage(UIImage(systemName: "arrowtriangle.down.fill")?.tintColor(MOIZAAsset.moizaGray6.color).downSample(size: .init(width: 4, height: 3)), for: .normal)
@@ -106,7 +106,7 @@ private extension PostListTabVC {
 // MARK: - Reactor
 extension PostListTabVC {
     private func bindView(reactor: PostListReactor) {
-        UserDefaults.standard.rx.observe(String.self, UserDefaultLocal.forKeys.major)
+        UserDefaults.standard.rx.observe(String.self, UserDefaultsLocal.forKeys.major)
             .compactMap{ $0 }
             .map { Major(rawValue: $0) ?? .frontEnd}
             .map(Reactor.Action.majorDidChange)

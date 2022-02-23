@@ -30,7 +30,7 @@ extension MajorModalReactor {
     func mutate(action: Action) -> Observable<Mutation> {
         switch action {
         case let .majorDidTap(major):
-            UserDefaultLocal.shared.major = major
+            UserDefaultsLocal.shared.major = major
             steps.accept(MoizaStep.dismiss)
         case .closeButtonDidTap:
             steps.accept(MoizaStep.dismiss)

@@ -6,7 +6,7 @@
 //  Copyright © 2022 com.connect. All rights reserved.
 //
 
-enum SortType: Codable, CaseIterable {
+enum SortType: String, Codable, CaseIterable {
     case latest
     case like
     case old
