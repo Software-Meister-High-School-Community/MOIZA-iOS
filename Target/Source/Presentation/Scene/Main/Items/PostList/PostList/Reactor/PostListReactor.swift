@@ -48,13 +48,7 @@ extension PostListReactor {
     func mutate(action: Action) -> Observable<Mutation> {
         switch action {
         case .majorButtonDidTap:
-            let subject = BehaviorSubject<Major>(value: currentState.major)
-            subject
-                .bind { major in
-                    UserDefaultLocal.shared.major = major
-                }
-                .disposed(by: disposeBag)
-            steps.accept(MoizaStep.majorSelectIsRequired(subject))
+            steps.accept(MoizaStep.majorSelectIsRequired)
         case .viewDidLoad:
             return viewDidLoad()
         case let .majorDidChange(major):
