@@ -3,14 +3,17 @@ import FlexLayout
 
 final class RecommendCell: baseCollectionViewCell<PostList> {
     // MARK: - Properties
-    private let iconImageView = UIImageView()
+    private let iconImageView = UIImageView().then {
+        $0.contentMode = .scaleAspectFit
+    }
     private let typeLabel = UILabel().then {
-        $0.textColor = MOIZAAsset.moizaGray6.color
+        $0.textColor = MOIZAAsset.moizaConstGray1.color
         $0.font = UIFont(font: MOIZAFontFamily.Roboto.bold, size: 20)
     }
     private let titleLabel = UILabel().then {
-        $0.textColor = MOIZAAsset.moizaGray6.color
+        $0.textColor = MOIZAAsset.moizaConstGray1.color
         $0.font = UIFont(font: MOIZAFontFamily.Roboto.regular, size: 14)
+        $0.numberOfLines = 0
     }
     
     // MARK: - UI
@@ -20,8 +23,8 @@ final class RecommendCell: baseCollectionViewCell<PostList> {
     override func setLayout() {
         contentView.flex.padding(20).define { flex in
             flex.addItem(iconImageView).size(30).shrink(2)
-            flex.addItem(typeLabel).shrink(1)
-            flex.addItem(titleLabel).shrink(1)
+            flex.addItem(typeLabel).shrink(1).paddingTop(10)
+            flex.addItem(titleLabel).shrink(1).paddingTop(10)
         }
     }
     override func configureCell() {
