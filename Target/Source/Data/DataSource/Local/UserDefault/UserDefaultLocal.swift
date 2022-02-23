@@ -1,7 +1,7 @@
 import Foundation
 
 final class UserDefaultLocal {
-    private enum forKeys {
+    enum forKeys {
         static let major = "major"
     }
     static let shared = UserDefaultLocal()
