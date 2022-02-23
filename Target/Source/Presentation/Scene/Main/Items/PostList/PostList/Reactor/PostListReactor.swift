@@ -21,9 +21,11 @@ final class PostListReactor: Reactor, Stepper {
     enum Action {
         case viewDidLoad
         case majorButtonDidTap
+        case majorDidChange(Major)
     }
     enum Mutation {
-        
+        case setMajor(Major)
+        case setRecommendPostList([PostList])
     }
     struct State {
         var major: Major
@@ -46,9 +48,17 @@ extension PostListReactor {
     func mutate(action: Action) -> Observable<Mutation> {
         switch action {
         case .majorButtonDidTap:
-            return .empty()
+            let subject = BehaviorSubject<Major>(value: currentState.major)
+            subject
+                .bind { major in
+                    UserDefaultLocal.shared.major = major
+                }
+                .disposed(by: disposeBag)
+            steps.accept(MoizaStep.majorSelectIsRequired(subject))
         case .viewDidLoad:
             return viewDidLoad()
+        case let .majorDidChange(major):
+            return .just(.setMajor(major))
         }
         return .empty()
     }
@@ -60,7 +70,10 @@ extension PostListReactor {
         var newState = state
         
         switch mutation {
-            
+        case let .setMajor(major):
+            newState.major = major
+        case let .setRecommendPostList(rec):
+            newState.recommendItem = rec
         }
         
         return newState
@@ -70,6 +83,12 @@ extension PostListReactor {
 // MARK: - Method
 private extension PostListReactor {
     func viewDidLoad() -> Observable<Mutation> {
-        return .empty()
+        let recommend: [PostList] = [
+            .init(title: "앱 아이콘 만드는 법", type: .question, commentCount: 2, likeCount: 3),
+            .init(title: "일러스트에서 아주 그냥 asdfasdfasdf", type: .normal, commentCount: 3, likeCount: 3)
+        ]
+        return .concat([
+            .just(.setRecommendPostList(recommend))
+        ])
     }
 }

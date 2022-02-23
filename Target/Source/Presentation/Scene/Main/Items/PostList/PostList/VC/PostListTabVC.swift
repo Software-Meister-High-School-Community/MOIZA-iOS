@@ -23,22 +23,20 @@ final class PostListTabVC: TabmanViewController, ReactorKit.View {
     private let majorButton = UIButton().then {
         $0.setTitle(UserDefaultLocal.shared.major.rawValue, for: .normal)
         $0.titleLabel?.font = UIFont(font: MOIZAFontFamily.Roboto.regular, size: 14)
-        $0.setTitleColor(MOIZAAsset.moizaGray1.color, for: .normal)
-        $0.setImage(UIImage(systemName: "arrowtriangle.down.fill")?.tintColor(MOIZAAsset.moizaGray1.color).downSample(size: .init(width: 4, height: 3)), for: .normal)
+        $0.setTitleColor(MOIZAAsset.moizaGray6.color, for: .normal)
+        $0.setImage(UIImage(systemName: "arrowtriangle.down.fill")?.tintColor(MOIZAAsset.moizaGray6.color).downSample(size: .init(width: 4, height: 3)), for: .normal)
         $0.layer.borderColor = MOIZAAsset.moizaGray3.color.cgColor
         $0.layer.borderWidth = 1
+        $0.layer.cornerRadius = 5
         $0.backgroundColor = .clear
         if #available(iOS 15.0, *) {
-            var config = UIButton.Configuration.filled()
+            var config = UIButton.Configuration.plain()
             $0.configuration = config
-            $0.configuration?.contentInsets = .init(top: 3, leading: 10, bottom: 3, trailing: 10)
             $0.configuration?.imagePlacement = .trailing
             $0.configuration?.imagePadding = 5
-            $0.configuration?.cornerStyle = .medium
             $0.configuration?.baseBackgroundColor = .clear
         } else {
             $0.contentEdgeInsets = .init(top: 3, left: 10, bottom: 3, right: 10)
-            $0.layer.cornerRadius = 5
             $0.setBackgroundColor(.clear, for: .normal)
         }
     }
@@ -108,7 +106,12 @@ private extension PostListTabVC {
 // MARK: - Reactor
 extension PostListTabVC {
     private func bindView(reactor: PostListReactor) {
-        
+        UserDefaults.standard.rx.observe(String.self, UserDefaultLocal.forKeys.major)
+            .compactMap{ $0 }
+            .map { Major(rawValue: $0) ?? .frontEnd}
+            .map(Reactor.Action.majorDidChange)
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
     }
     private func bindAction(reactor: PostListReactor) {
         majorButton.rx.tap
@@ -122,7 +125,11 @@ extension PostListTabVC {
         sharedState
             .map(\.major)
             .map(\.rawValue)
-            .bind(to: majorButton.rx.title())
+            .withUnretained(self)
+            .bind(onNext: { owner, item in
+                owner.majorButton.setTitle(item, for: .normal)
+                owner.majorButton.sizeToFit()
+            })
             .disposed(by: disposeBag)
     }
     
@@ -136,7 +143,6 @@ extension PostListTabVC {
 // MARK: - Extension
 extension PostListTabVC: PageboyViewControllerDataSource, TMBarDataSource {
     func numberOfViewControllers(in pageboyViewController: PageboyViewController) -> Int {
-        print(viewControllers.count)
         return viewControllers.count
     }
     
@@ -150,16 +156,18 @@ extension PostListTabVC: PageboyViewControllerDataSource, TMBarDataSource {
     
     
     func barItem(for bar: TMBar, at index: Int) -> TMBarItemable {
+        var title = ""
         switch index {
         case 0:
-            return TMBarItem(title: "전체")
+            title = "전체"
         case 1:
-            return TMBarItem(title: "질문")
+            title = "질문"
         case 2:
-            return TMBarItem(title: "일반")
+            title = "일반"
         default:
-            return TMBarItem(title: "Anomaly")
+            title = "Anomaly"
         }
+        return TMBarItem(title: title)
     }
 }
 
