@@ -5,13 +5,11 @@
 //  Created by 임준화 on 2022/02/22.
 //  Copyright © 2022 com.connect. All rights reserved.
 //
-
+import UIKit
 import PanModal
 
 final class MyPageModalVC: UIViewController{
     override func viewDidLoad() {
-        super.viewDidLoad()
-        configureVC()
         view.backgroundColor = MOIZAAsset.moizaGray1.color
     }
 }
@@ -37,8 +35,5 @@ extension MyPageModalVC: PanModalPresentable{
     }
     var isUserInteractionEnabled: Bool {
         return true
-    }
-    func configureVC(){
-        
     }
 }
