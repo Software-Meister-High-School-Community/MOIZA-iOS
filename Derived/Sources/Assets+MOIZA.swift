@@ -28,6 +28,7 @@ public enum MOIZAAsset {
   public static let moizaDark3 = MOIZAColors(name: "MOIZA_Dark3")
   public static let moizaDark4 = MOIZAColors(name: "MOIZA_Dark4")
   public static let moizaDark5 = MOIZAColors(name: "MOIZA_Dark5")
+  public static let moizaDark6 = MOIZAColors(name: "MOIZA_Dark6")
   public static let moizaConstGray1 = MOIZAColors(name: "MOIZA_Const_Gray1")
   public static let moizaConstGray2 = MOIZAColors(name: "MOIZA_Const_Gray2")
   public static let moizaConstGray3 = MOIZAColors(name: "MOIZA_Const_Gray3")
