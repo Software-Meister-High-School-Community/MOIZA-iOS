@@ -5,4 +5,5 @@ struct PostList: Codable {
     let type: PostType
     let commentCount: Int
     let likeCount: Int
+    let liked: Bool
 }
