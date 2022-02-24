@@ -30,7 +30,7 @@ final class PostListTabVC: TabmanViewController, ReactorKit.View {
         $0.layer.cornerRadius = 5
         $0.backgroundColor = .clear
         if #available(iOS 15.0, *) {
-            var config = UIButton.Configuration.plain()
+            var config = UIButton.Configuration.filled()
             $0.configuration = config
             $0.configuration?.imagePlacement = .trailing
             $0.configuration?.imagePadding = 5
@@ -93,11 +93,13 @@ private extension PostListTabVC {
     func setNavigation() {
         self.navigationItem.setLeftBarButtonItems([logoImage, majorBarButton], animated: false)
         self.navigationItem.setRightBarButton(searchButton, animated: false)
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
     }
     func darkConfigure() {
+        majorButton.layer.borderColor = UIColor.clear.cgColor
         if #available(iOS 15.0, *) {
             majorButton.configuration?.baseBackgroundColor = MOIZAAsset.moizaDark3.color
-            majorButton.layer.borderColor = UIColor.clear.cgColor
         } else {
             majorButton.setBackgroundColor(MOIZAAsset.moizaDark3.color, for: .normal)
         }
