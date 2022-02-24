@@ -55,10 +55,11 @@ final class ReRegistrationVC: baseVC<ReRegistrationReactor> {
     private let pwdCheckInvalidLabel = UILabel().then {
         $0.font = UIFont(font: MOIZAFontFamily.Roboto.regular, size: 11)
         $0.text = "비밀번호가 일치하지 않습니다. 다시 한번 입력해주세요."
+        $0.textColor = MOIZAAsset.moizaTheme.color
+        $0.isHidden = true
     }
     private let nextButton = NextButton(title: "다음 단계")
-    $0.textColor = .label
-    $0.isHidden = true
+    
     // MARK: - UI
     override func setUp() {
         view.addSubview(rootContainer )
@@ -68,10 +69,55 @@ final class ReRegistrationVC: baseVC<ReRegistrationReactor> {
         rootContainer.flex.layout()
     }
     override func setLayout() {
-        rootContainer.flex.marginHorizontal(16).define { flex in
-            flex.addItem(titleLabel).marginTop(84)
-            // MARK: NewPwd
-            flex.addItem(newPwdTextField).marginTop(Metric.spacingMargin).width(100%).height(Metric.height)
-        }
+        rootContainer.flex.marginHorizontal(16)
+            .define { flex in
+                flex.addItem(titleLabel)
+                    .marginTop(84)
+                // MARK: NewPwd
+                flex.addItem(newPwdTextField)
+                    .marginTop(Metric.spacingMargin)
+                    .width(100%)
+                    .height(Metric.height)
+                    .define { flex in
+                        flex.addItem(newPwdVisibleButton)
+                            .width(24)
+                            .height(24)
+                            .marginTop(10)
+                            .marginVertical(10)
+                    }
+                flex.addItem(pwdHelperLabel)
+                    .width(100%)
+                    .marginTop(5)
+                // MARK: pwdCheck
+                flex.addItem(pwdCheckTextField)
+                    .marginTop(Metric.spacingMargin)
+                    .width(100%)
+                    .height(Metric.height)
+                    .direction(.rowReverse)
+                    .define { flex in
+                        flex.addItem(pwdCheckVisibleButton)
+                            .width(24)
+                            .height(24)
+                            .marginRight(10)
+                            .marginVertical(10)
+                    }
+                flex.addItem(pwdCheckInvalidLabel)
+                    .width(100%)
+                    .marginTop(5)
+                // MARK: Next
+                flex.addItem(nextButton)
+                    .top(Metric.spacingMargin)
+                    .width(88)
+                    .height(36)
+                    .right(0)
+                    .alignSelf(.end)
+            }
+    }
+    override func bindView(reactor: ReRegistrationReactor) {
+        
+    }
+    override func configureNavigation() {
+        self.navigationItem.configAuthNavigation(title: "비밀번호 찾기")
+        self.navigationItem.configBack()
     }
 }
