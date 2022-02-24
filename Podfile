@@ -26,15 +26,12 @@ def pods
   pod 'FlexLayout', '~> 1.3.23'
   pod 'SwiftDate', '~> 6.3.1'
   pod 'IQKeyboardManagerSwift', '~> 6.5.9'
-<<<<<<< HEAD
   pod 'Tabman', '~> 2.11.1'
   pod 'PanModal', '~> 1.2.6'
-=======
   pod 'Tabman'
   pod 'RealmSwift', '~> 10.22'
   pod 'ViewAnimator', '~> 3.1.0'
   pod 'PanModal', '~> 1.2.7'
->>>>>>> 0a148cb0728a5c37ed9fff43a0217ddb2e1f4675
 
   # Network
   pod 'Moya/RxSwift', '~> 15.0.0'
