@@ -1,5 +1,6 @@
 import UIKit
 import FlexLayout
+import RxSwift
 
 final class RecommendCell: baseCollectionViewCell<PostList> {
     // MARK: - Properties
@@ -16,6 +17,13 @@ final class RecommendCell: baseCollectionViewCell<PostList> {
         $0.numberOfLines = 0
     }
     
+    override func awakeFromNib() {
+        super.awakeFromNib()
+    }
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        model = nil
+    }
     // MARK: - UI
     override func setLayoutSubviews() {
         contentView.flex.layout()
