@@ -12,7 +12,4 @@ extension RecommendSection {
         self = original
         self.items = items
     }
-    var identity: String {
-        return UUID().uuidString
-    }
 }
