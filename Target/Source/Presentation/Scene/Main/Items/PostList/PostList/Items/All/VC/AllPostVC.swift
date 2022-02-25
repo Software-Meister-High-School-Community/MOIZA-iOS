@@ -29,25 +29,7 @@ final class AllPostVC: baseVC<PostListReactor> {
         $0.textColor = MOIZAAsset.moizaGray6.color
         $0.font = UIFont(font: MOIZAFontFamily.Roboto.bold, size: 18)
     }
-    private let sortButton = UIButton().then {
-        $0.setTitle("정렬", for: .normal)
-        $0.setTitleColor(MOIZAAsset.moizaGray5.color, for: .normal)
-        $0.titleLabel?.font = UIFont(font: MOIZAFontFamily.Roboto.regular, size: 12)
-        $0.setImage(MOIZAAsset.moizaFunnel.image.tintColor(MOIZAAsset.moizaConstGray3.color), for: .normal)
-        $0.layer.cornerRadius = 5
-        $0.layer.borderColor = MOIZAAsset.moizaGray3.color.cgColor
-        $0.layer.borderWidth = 1
-        if #available(iOS 15.0, *) {
-            var config = UIButton.Configuration.filled()
-            config.baseBackgroundColor = MOIZAAsset.moizaGray1.color
-            config.contentInsets = .init(top: 7, leading: 15, bottom: 7, trailing: 15)
-            config.imagePadding = 5
-            $0.configuration = config
-        } else {
-            $0.contentEdgeInsets = .init(top: 7, left: 15, bottom: 7, right: 15)
-            $0.setBackgroundColor(MOIZAAsset.moizaGray1.color, for: .normal)
-        }
-    }
+    private let sortButton = SortButton()
     private let postListTableView = UITableView().then {
         $0.register(PostCell.self, forCellReuseIdentifier: PostCell.reusableID)
         $0.rowHeight = 60
@@ -79,13 +61,6 @@ final class AllPostVC: baseVC<PostListReactor> {
     }
     override func darkConfigure() {
         view.backgroundColor = MOIZAAsset.moizaDark1.color
-        sortButton.setTitleColor(MOIZAAsset.moizaDark5.color, for: .normal)
-        sortButton.layer.borderColor = UIColor.clear.cgColor
-        if #available(iOS 15.0, *) {
-            sortButton.configuration?.baseBackgroundColor = MOIZAAsset.moizaDark3.color
-        } else {
-            sortButton.setBackgroundColor(MOIZAAsset.moizaDark3.color, for: .normal)
-        }
     }
     
     // MARK: - Reactor
