@@ -7,3 +7,38 @@
 //
 
 import Foundation
+import ReactorKit
+import RxFlow
+import RxCocoa
+
+final class SucFindPWReactor: Reactor, Stepper {
+    // MARK: - Properties
+    var steps: PublishRelay<Step> = .init()
+    
+    private let disposeBag = DisposeBag()
+
+    // MARK: - Reactor
+    enum Action {}
+    enum MUtation {}
+    struct State {}
+    
+    let initialState: State
+    
+    // MARK: - Init
+    init() {
+        initialState = State()
+    }
+}
+
+// MARK: - Mutate
+extension SucFindPWReactor {
+//    func mutate(action: Action) -> Observable<Mutation> {
+//        switch action {
+//        }
+//    }
+}
+
+// MARK: - Method
+private extension SucFindPWReactor {
+    
+}
