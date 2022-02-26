@@ -37,6 +37,7 @@ final class SortModalVC: baseVC<SortModalReactor> {
         $0.textColor = MOIZAAsset.moizaGray6.color
         $0.font = UIFont(font: MOIZAFontFamily.Roboto.regular, size: 14)
         $0.leftSpace(14)
+        $0.addRightImage(image: .init(systemName: "chevron.down")?.tintColor(MOIZAAsset.moizaConstGray4.color) ?? .init())
     }
     private let separatorSecond = UIView().then {
         $0.backgroundColor = MOIZAAsset.moizaGray3.color
