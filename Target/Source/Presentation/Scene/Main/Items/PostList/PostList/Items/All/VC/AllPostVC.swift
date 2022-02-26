@@ -52,7 +52,7 @@ final class AllPostVC: baseVC<PostListReactor> {
     // MARK: - Reactor
     override func bindAction(reactor: PostListReactor) {
         self.rx.viewDidLoad
-            .map{ Reactor.Action.viewDidLoad }
+            .map { Reactor.Action.viewDidLoad }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
     }
