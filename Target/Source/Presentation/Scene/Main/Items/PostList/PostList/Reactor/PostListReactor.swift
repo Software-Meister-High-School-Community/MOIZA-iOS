@@ -86,33 +86,33 @@ extension PostListReactor {
 private extension PostListReactor {
     func viewWillAppear() -> Observable<Mutation> {
         let recommend: [PostList] = [
-            .init(title: "앱 아이콘 만드는 법", type: .question, commentCount: 2, likeCount: 3, liked: false),
-            .init(title: "일러스트에서 아주 그냥 asdfasdfasdf", type: .normal, commentCount: 3, likeCount: 3, liked: true),
-            .init(title: "앱 아이콘 만드는 법", type: .question, commentCount: 2, likeCount: 3, liked: false),
-            .init(title: "일러스트에서 아주 그냥 asdfasdfasdf", type: .normal, commentCount: 3, likeCount: 3, liked: true),
-            .init(title: "앱 아이콘 만드는 법", type: .question, commentCount: 2, likeCount: 3, liked: false),
-            .init(title: "일러스트에서 아주 그냥 asdfasdfasdf", type: .normal, commentCount: 3, likeCount: 3, liked: true)
+            .init(id: "1", title: "앱 아이콘 만드는 법", type: .question, commentCount: 2, likeCount: 3, liked: false),
+            .init(id: "2", title: "일러스트에서 아주 그냥 asdfasdfasdf", type: .normal, commentCount: 3, likeCount: 3, liked: true),
+            .init(id: "3", title: "앱 아이콘 만드는 법", type: .question, commentCount: 2, likeCount: 3, liked: false),
+            .init(id: "4", title: "일러스트에서 아주 그냥 asdfasdfasdf", type: .normal, commentCount: 3, likeCount: 3, liked: true),
+            .init(id: "5", title: "앱 아이콘 만드는 법", type: .question, commentCount: 2, likeCount: 3, liked: false),
+            .init(id: "6", title: "일러스트에서 아주 그냥 asdfasdfasdf", type: .normal, commentCount: 3, likeCount: 3, liked: true)
         ].filter {
             if UserDefaultsLocal.shared.post == .all { return true }
             return $0.type == UserDefaultsLocal.shared.post
         }
         let posts: [PostList] = [
-            .init(title: "대충제목대충제목대충제목대충제목대충제목", type: .question, commentCount: 13, likeCount: 163, liked: false),
-            .init(title: "ㅁㄴㅇㅇ", type: .normal, commentCount: 2, likeCount: 1, liked: true),
-            .init(title: "ㅁㄴㅇㅇ", type: .normal, commentCount: 2, likeCount: 1, liked: true),
-            .init(title: "ㅁㄴㅇㅇ", type: .normal, commentCount: 2, likeCount: 1, liked: false),
-            .init(title: "대충제목대충제목대충제목대충제목대충제목", type: .question, commentCount: 13, likeCount: 163, liked: false),
-            .init(title: "ㅁㄴㅇㅇ", type: .normal, commentCount: 2, likeCount: 1, liked: true),
-            .init(title: "ㅁㄴㅇㅇ", type: .question, commentCount: 43, likeCount: 1, liked: true),
-            .init(title: "ㅁㄴㅇㅇ", type: .normal, commentCount: 2, likeCount: 1, liked: false),
-            .init(title: "대충제목대충제목대충제목대충제목대충제목", type: .question, commentCount: 13, likeCount: 163, liked: false),
-            .init(title: "ㅁㄴㅇㅇ", type: .normal, commentCount: 2, likeCount: 1, liked: true),
-            .init(title: "ㅁㄴㅇㅇ", type: .normal, commentCount: 2, likeCount: 1, liked: true),
-            .init(title: "ㅁㄴㅇㅇ", type: .normal, commentCount: 2, likeCount: 1, liked: false),
-            .init(title: "대충제목대충제목대충제목대충제목대충제목", type: .question, commentCount: 13, likeCount: 163, liked: false),
-            .init(title: "ㅁㄴㅇㅇ", type: .normal, commentCount: 2, likeCount: 1, liked: true),
-            .init(title: "ㅁㄴㅇㅇ", type: .question, commentCount: 43, likeCount: 1, liked: true),
-            .init(title: "ㅁㄴㅇㅇ", type: .normal, commentCount: 2, likeCount: 1, liked: false)
+            .init(id: "1", title: "대충제목대충제목대충제목대충제목대충제목", type: .question, commentCount: 13, likeCount: 163, liked: false),
+            .init(id: "2", title: "ㅁㄴㅇㅇ", type: .normal, commentCount: 2, likeCount: 1, liked: true),
+            .init(id: "3", title: "ㅁㄴㅇㅇ", type: .normal, commentCount: 2, likeCount: 1, liked: true),
+            .init(id: "4", title: "ㅁㄴㅇㅇ", type: .normal, commentCount: 2, likeCount: 1, liked: false),
+            .init(id: "5", title: "대충제목대충제목대충제목대충제목대충제목", type: .question, commentCount: 13, likeCount: 163, liked: false),
+            .init(id: "6", title: "ㅁㄴㅇㅇ", type: .normal, commentCount: 2, likeCount: 1, liked: true),
+            .init(id: "7", title: "ㅁㄴㅇㅇ", type: .question, commentCount: 43, likeCount: 1, liked: true),
+            .init(id: "8", title: "ㅁㄴㅇㅇ", type: .normal, commentCount: 2, likeCount: 1, liked: false),
+            .init(id: "9", title: "대충제목대충제목대충제목대충제목대충제목", type: .question, commentCount: 13, likeCount: 163, liked: false),
+            .init(id: "10", title: "ㅁㄴㅇㅇ", type: .normal, commentCount: 2, likeCount: 1, liked: true),
+            .init(id: "11", title: "ㅁㄴㅇㅇ", type: .normal, commentCount: 2, likeCount: 1, liked: true),
+            .init(id: "12", title: "ㅁㄴㅇㅇ", type: .normal, commentCount: 2, likeCount: 1, liked: false),
+            .init(id: "13", title: "대충제목대충제목대충제목대충제목대충제목", type: .question, commentCount: 13, likeCount: 163, liked: false),
+            .init(id: "14", title: "ㅁㄴㅇㅇ", type: .normal, commentCount: 2, likeCount: 1, liked: true),
+            .init(id: "15", title: "ㅁㄴㅇㅇ", type: .question, commentCount: 43, likeCount: 1, liked: true),
+            .init(id: "16", title: "ㅁㄴㅇㅇ", type: .normal, commentCount: 2, likeCount: 1, liked: false)
         ].filter {
             if UserDefaultsLocal.shared.post == .all { return true }
             return $0.type == UserDefaultsLocal.shared.post
