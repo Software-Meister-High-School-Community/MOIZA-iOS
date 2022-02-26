@@ -22,6 +22,7 @@ final class PostListReactor: Reactor, Stepper {
         case viewDidLoad
         case majorButtonDidTap
         case majorDidChange(Major)
+        case sortButtonDidTap
     }
     enum Mutation {
         case setMajor(Major)
@@ -53,6 +54,8 @@ extension PostListReactor {
             return viewDidLoad()
         case let .majorDidChange(major):
             return .just(.setMajor(major))
+        case .sortButtonDidTap:
+            steps.accept(MoizaStep.sortIsRequired([.sortType]))
         }
         return .empty()
     }
