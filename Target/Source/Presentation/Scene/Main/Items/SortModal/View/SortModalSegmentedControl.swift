@@ -1,7 +1,7 @@
 import UIKit
 
 protocol SortModalSegmentedControlDelegate: AnyObject {
-    func segmentValueChanged(to index: Int)
+    func segmentValueChanged(to index: Int, sender: SortModalSegmentedControl)
 }
 
 final class SortModalSegmentedControl: UIView {
@@ -10,12 +10,12 @@ final class SortModalSegmentedControl: UIView {
     private var titles: [String] = []
     private var buttons: [UIButton] = []
     
-    var unselectedTextColor: UIColor = .black
-    var selectedTextColor: UIColor = .white
-    var selectedBackgroundColor: UIColor = MOIZAAsset.moizaPrimaryYellow.color
+    var unselectedTextColor: UIColor = MOIZAAsset.moizaConstGray4.color
+    var selectedTextColor: UIColor = MOIZAAsset.moizaConstGray1.color
     var unselectedBackgroundColor: UIColor = .white
+    var selectedBackgroundColor: UIColor = MOIZAAsset.moizaPrimaryYellow.color
     var borderColor: UIColor = .clear
-    public private(set) var selectedIndex: Int = 0
+    var selectedIndex: Int = 0
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -53,11 +53,30 @@ final class SortModalSegmentedControl: UIView {
             button.layer.borderWidth = 1
             button.layer.borderColor = borderColor.cgColor
             button.layer.cornerRadius = 20
+            button.layer.masksToBounds = true
             button.addTarget(self, action: #selector(buttonDidTapped(_:)), for: .touchUpInside)
+            if #available(iOS 15.0, *) {
+                button.configuration = .filled()
+                button.configuration?.contentInsets = .init(top: 10, leading: 0, bottom: 10, trailing: 0)
+                button.configuration?.baseBackgroundColor = unselectedBackgroundColor
+            } else {
+                button.contentEdgeInsets = .init(top: 10, left: 0, bottom: 10, right: 0)
+            }
             self.buttons.append(button)
         }
+        initialState()
     }
-    
+    fileprivate func initialState() {
+        let index = selectedIndex
+        if #available(iOS 15.0, *) {
+            buttons[index].configuration?.baseBackgroundColor = selectedBackgroundColor
+            buttons[index].configuration?.baseForegroundColor = selectedTextColor
+        } else {
+            buttons[index].setBackgroundColor(selectedBackgroundColor, for: .normal)
+        }
+        buttons[index].setTitleColor(selectedTextColor, for: .normal)
+        buttons[index].layer.borderColor = UIColor.clear.cgColor
+    }
     fileprivate func configStack() {
         let stack = UIStackView(arrangedSubviews: buttons)
         stack.axis = .horizontal
@@ -66,25 +85,32 @@ final class SortModalSegmentedControl: UIView {
         stack.spacing = 10
         self.addSubview(stack)
         stack.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            stack.topAnchor.constraint(equalTo: self.topAnchor),
-            stack.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            stack.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-            stack.trailingAnchor.constraint(equalTo: self.trailingAnchor)
-        ])
+        stack.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
     }
     
     @objc private func buttonDidTapped(_ sender: UIButton) {
         buttons.enumerated().forEach{ index, button in
-            button.setTitleColor(unselectedTextColor, for: .normal)
+            if #available(iOS 15.0, *) {
+                button.configuration?.baseBackgroundColor = unselectedBackgroundColor
+                button.configuration?.baseForegroundColor = unselectedTextColor
+            } else {
+                button.setBackgroundColor(unselectedBackgroundColor, for: .normal)
+            }
+            button.titleLabel?.textColor = unselectedTextColor
             button.layer.borderColor = borderColor.cgColor
-            button.setBackgroundColor(unselectedBackgroundColor, for: .normal)
             if button == sender {
+                if #available(iOS 15.0, *) {
+                    button.configuration?.baseBackgroundColor = selectedBackgroundColor
+                    button.configuration?.baseForegroundColor = selectedTextColor
+                } else {
+                    button.setBackgroundColor(selectedBackgroundColor, for: .normal)
+                }
                 button.setTitleColor(selectedTextColor, for: .normal)
                 button.layer.borderColor = UIColor.clear.cgColor
-                button.setBackgroundColor(selectedBackgroundColor, for: .normal)
                 self.selectedIndex = index
-                self.delegate?.segmentValueChanged(to: index)
+                self.delegate?.segmentValueChanged(to: index, sender: self)
             }
         }
     }
