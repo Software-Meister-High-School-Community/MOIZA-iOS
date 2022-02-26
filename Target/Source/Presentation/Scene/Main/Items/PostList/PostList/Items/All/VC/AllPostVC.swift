@@ -30,13 +30,17 @@ final class AllPostVC: baseVC<PostListReactor> {
         $0.font = UIFont(font: MOIZAFontFamily.Roboto.bold, size: 18)
     }
     private let sortButton = SortButton()
-    private let postListTableView = UITableView().then {
+    private let postListTableView = UITableView(frame: .zero, style: .plain).then {
         $0.register(PostCell.self, forCellReuseIdentifier: PostCell.reusableID)
         $0.rowHeight = 60
         $0.separatorStyle = .none
+        $0.backgroundColor = MOIZAAsset.moizaGray2.color
     }
     
     // MARK: - UI
+    override func setUp() {
+        
+    }
     override func addView() {
         view.addSubViews(rootContainer)
     }
