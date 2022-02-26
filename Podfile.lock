@@ -178,8 +178,8 @@ DEPENDENCIES:
   - SwiftDate (~> 6.3.1)
   - Swinject (~> 2.7)
   - SwinjectAutoregistration (~> 2.7)
-  - Tabman
   - Tabman (~> 2.11.1)
+  - Tabman (~> 2.9)
   - Then (~> 2.7.0)
   - ViewAnimator (~> 3.1.0)
 
@@ -270,6 +270,6 @@ SPEC CHECKSUMS:
   ViewAnimator: a9ceed80266e00fd435ec4fb99b2df64d580d0e4
   WeakMapTable: 05c694ce8439a7a9ebabb56187287a63c57673d6
 
-PODFILE CHECKSUM: be744a6b2e46311fe646964734182c462d6764c6
+PODFILE CHECKSUM: 43407c337225307b615a0c7bf92a221b481b1526
 
 COCOAPODS: 1.11.2

@@ -64,6 +64,7 @@ extension Container{
         }
         register(MyPageModalVC.self) { r in
             return MyPageModalVC(reactor: r.resolve(MyPageModalReactor.self))
+        }
         register(PostListTabVC.self) { r in
             let reactor = r.resolve(PostListReactor.self)
             let vc = PostListTabVC(reactor: reactor)
@@ -114,6 +115,5 @@ extension Container{
         
     }
     private func registerUseCases(){
-        
     }
 }
