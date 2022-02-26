@@ -5,6 +5,9 @@ import RxSwift
 
 final class PostCell: baseTableViewCell<PostList> {
     // MARK: - Properties
+    private let view = UIView().then {
+        $0.backgroundColor = .clear
+    }
     private let iconImageView = UIImageView()
     private let titleLabel = UILabel().then {
         $0.textColor = MOIZAAsset.moizaGray6.color
@@ -34,11 +37,15 @@ final class PostCell: baseTableViewCell<PostList> {
         likeCount.imageView?.image = nil
     }
     // MARK: - UI
+    override func addView() {
+        contentView.addSubViews(view)
+    }
     override func setLayoutSubviews() {
-        contentView.flex.layout()
+        view.pin.all()
+        view.flex.layout()
     }
     override func setLayout() {
-        contentView.flex.direction(.row).marginVertical(5).alignItems(.center).define { flex in
+        view.flex.direction(.row).marginVertical(5).alignItems(.center).define { flex in
             flex.addItem(iconImageView).marginLeft(10).size(25)
             flex.addItem(titleLabel).width(52.4%).marginLeft(12)
             flex.addItem().direction(.row).paddingLeft(15).grow(1).define { flex in
@@ -65,11 +72,12 @@ final class PostCell: baseTableViewCell<PostList> {
         }
     }
     override func configureCell() {
-        self.contentView.backgroundColor = MOIZAAsset.moizaConstGray1.color
-        contentView.layer.cornerRadius = 5
+        self.backgroundColor = .clear
+        self.view.backgroundColor = MOIZAAsset.moizaGray1.color
+        view.layer.cornerRadius = 5
         self.selectionStyle = .none
     }
     override func darkConfigure() {
-        self.contentView.backgroundColor = MOIZAAsset.moizaDark2.color
+        self.view.backgroundColor = MOIZAAsset.moizaDark2.color
     }
 }
