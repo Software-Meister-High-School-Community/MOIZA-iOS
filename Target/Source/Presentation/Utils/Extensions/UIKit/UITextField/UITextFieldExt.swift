@@ -22,4 +22,14 @@ extension UITextField{
         rightView = spacer
         rightViewMode = .always
     }
+    func addLeftImage(image: UIImage) {
+        let leftImage = UIImageView(image: image)
+        self.leftView = leftImage
+        self.leftViewMode = .always
+    }
+    func addRightImage(image: UIImage) {
+        let rightImage = UIImageView(image: image)
+        self.rightView = rightImage
+        self.rightViewMode = .always
+    }
 }
