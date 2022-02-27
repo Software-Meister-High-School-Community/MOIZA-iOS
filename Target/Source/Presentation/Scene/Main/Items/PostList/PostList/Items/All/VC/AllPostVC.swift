@@ -1,11 +1,3 @@
-//
-//  AllPostVC.swift
-//  MOIZA
-//
-//  Created by 최형우 on 2022/02/20.
-//  Copyright © 2022 com.connect. All rights reserved.
-//
-
 import UIKit
 import PinLayout
 import FlexLayout
@@ -37,11 +29,6 @@ final class AllPostVC: baseVC<PostListReactor> {
         $0.separatorStyle = .none
         $0.backgroundColor = MOIZAAsset.moizaGray2.color
         $0.showsVerticalScrollIndicator = false
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
     }
     
     // MARK: - UI
@@ -119,7 +106,7 @@ final class AllPostVC: baseVC<PostListReactor> {
     }
 }
 
-// MARK: - Extension
+// MARK: - UITableViewDelegate
 extension AllPostVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         return headerContainer
