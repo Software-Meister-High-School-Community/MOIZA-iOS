@@ -60,7 +60,7 @@ final class NormalPostVC: baseVC<PostListReactor> {
     }
     override func darkConfigure() {
         view.backgroundColor = MOIZAAsset.moizaDark1.color
-        
+        postListTableView.backgroundColor = MOIZAAsset.moizaDark1.color
     }
     
     // MARK: - Reactor
