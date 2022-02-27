@@ -82,7 +82,7 @@ final class NormalPostVC: baseVC<PostListReactor> {
         let recommendDS = RxCollectionViewSectionedReloadDataSource<RecommendSection> { _, tv, ip, item in
             guard let cell = tv.dequeueReusableCell(withReuseIdentifier: RecommendCell.reusableID, for: ip) as? RecommendCell else { return .init() }
             cell.model = item
-            cell.backgroundColor = (ip.row+1)%2 != 0 ? MOIZAAsset.moizaPrimaryBlue.color : MOIZAAsset.moizaSecondaryBlue.color
+            cell.backgroundColor = (ip.row+1)%2 != 0 ? MOIZAAsset.moizaPrimaryBlue.color : .init(red: 0, green: 0.5213, blue: 1, alpha: 1)
             return cell
         }
         
