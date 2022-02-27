@@ -15,6 +15,7 @@ import RxDataSources
 final class AllPostVC: baseVC<PostListReactor> {
     // MARK: - Properties
     private let rootContainer = UIView()
+    private let headerContainer = UIView()
     private let recommendCollectionView = UICollectionView(frame: .zero, collectionViewLayout: .init()).then {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
@@ -35,28 +36,34 @@ final class AllPostVC: baseVC<PostListReactor> {
         $0.rowHeight = 60
         $0.separatorStyle = .none
         $0.backgroundColor = MOIZAAsset.moizaGray2.color
+        $0.showsVerticalScrollIndicator = false
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
     }
     
     // MARK: - UI
     override func setUp() {
-        
+        postListTableView.rx.setDelegate(self).disposed(by: disposeBag)
     }
     override func addView() {
         view.addSubViews(rootContainer)
+        headerContainer.addSubViews(recommendCollectionView, headerLabel, sortButton)
     }
     override func setLayoutSubViews() {
         rootContainer.pin.all(view.pin.safeArea)
-        
         rootContainer.flex.layout()
+        
+        headerContainer.pin.width(bound.width-34).height(300)
+        recommendCollectionView.pin.pinEdges().horizontally(10).marginTop(20).height(200)
+        headerLabel.pin.topLeft(to: recommendCollectionView.anchor.bottomLeft).marginTop(30).sizeToFit()
+        sortButton.pin.topRight(to: recommendCollectionView.anchor.bottomRight).marginTop(30).sizeToFit()
     }
     override func setLayout() {
         rootContainer.flex.define { flex in
-            flex.addItem(recommendCollectionView).marginHorizontal(10).top(20).height(200)
-            flex.addItem().direction(.row).paddingTop(30).marginHorizontal(17).define { flex in
-                flex.addItem(headerLabel).grow(1)
-                flex.addItem(sortButton).alignSelf(.end)
-            }
-            flex.addItem(postListTableView).grow(1).bottom(0).marginHorizontal(17).marginTop(25)
+            flex.addItem(postListTableView).grow(1).bottom(0).marginHorizontal(17)
         }
         
     }
@@ -65,6 +72,7 @@ final class AllPostVC: baseVC<PostListReactor> {
     }
     override func darkConfigure() {
         view.backgroundColor = MOIZAAsset.moizaDark1.color
+        postListTableView.backgroundColor = MOIZAAsset.moizaDark1.color
     }
     
     // MARK: - Reactor
@@ -108,5 +116,23 @@ final class AllPostVC: baseVC<PostListReactor> {
             .bind(to: postListTableView.rx.items(dataSource: postDS))
             .disposed(by: disposeBag)
         
+    }
+}
+
+// MARK: - Extension
+extension AllPostVC: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return headerContainer
+    }
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return headerContainer.frame.height
+    }
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let headerHeight: CGFloat = headerContainer.frame.height
+        if scrollView.contentOffset.y <= headerHeight, scrollView.contentOffset.y >= 0 {
+            scrollView.contentInset = .init(top: -scrollView.contentOffset.y, left: 0, bottom: 0, right: 0)
+        } else if scrollView.contentOffset.y >= headerHeight {
+            scrollView.contentInset = .init(top: -headerHeight, left: 0, bottom: 0, right: 0)
+        }
     }
 }
