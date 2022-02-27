@@ -48,15 +48,35 @@ final class SucFindIDVC: baseVC<SucFindIDReactor> {
     }
     override func setLayout() {
         rootContainer.flex.define { flex in
-            flex.addItem().horizontally(0).direction(.row).marginTop(120).alignSelf(.center).define { flex in
-                flex.addItem(nameLabel).height(18.75)
-                flex.addItem(descLabel).height(18.75)
-            }
-            flex.addItem(idLabel).marginTop(70).height(60).width(100%)
-            flex.addItem().horizontally(0).direction(.row).marginTop(90).alignSelf(.center).define { flex in
-                flex.addItem(findPWButton).width(113).height(36)
-                flex.addItem(navToSingInButton).width(100).height(36).marginLeft(20)
-            }
+            flex.addItem()
+                .horizontally(0)
+                .direction(.row)
+                .marginTop(120)
+                .alignSelf(.center)
+                .define { flex in
+                    flex.addItem(nameLabel)
+                        .height(18.75)
+                    flex.addItem(descLabel)
+                        .height(18.75)
+                }
+            flex.addItem(idLabel)
+                .marginTop(70)
+                .height(60)
+                .width(100%)
+            flex.addItem()
+                .horizontally(0)
+                .direction(.row)
+                .marginTop(90)
+                .alignSelf(.center)
+                .define { flex in
+                    flex.addItem(findPWButton)
+                        .width(113)
+                        .height(36)
+                    flex.addItem(navToSingInButton)
+                        .width(100)
+                        .height(36)
+                        .marginLeft(20)
+                }
         }
     }
     override func bindView(reactor: SucFindIDReactor) {

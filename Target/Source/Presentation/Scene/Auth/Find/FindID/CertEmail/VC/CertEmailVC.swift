@@ -54,15 +54,32 @@ final class CertEmailVC: baseVC<CertEmailReactor> {
     }
     override func setLayout() {
         rootContainer.flex.marginHorizontal(16).define { flex in
-            flex.addItem(titleLabel).height(23).marginTop(38)
+            flex.addItem(titleLabel)
+                .height(23)
+                .marginTop(38)
             // MARK: CERT
-            flex.addItem().horizontally(0).direction(.row).marginTop(30).define { flex in
-                flex.addItem(emailTextField).height(40).width(67%)
-                flex.addItem(reCertButton).height(40).width(33%).marginLeft(7)
-            }
-            flex.addItem(reCertLabel).marginTop(10).marginLeft(3)
+            flex.addItem()
+                .horizontally(0)
+                .direction(.row)
+                .marginTop(30)
+                .define { flex in
+                    flex.addItem(emailTextField)
+                        .height(40)
+                        .width(67%)
+                    flex.addItem(reCertButton)
+                        .height(40)
+                        .width(33%)
+                        .marginLeft(7)
+                }
+            flex.addItem(reCertLabel)
+                .marginTop(10)
+                .marginLeft(3)
             // MARK: Next
-            flex.addItem(nextButton).marginTop(96).width(88).height(36).alignSelf(.end)
+            flex.addItem(nextButton)
+                .marginTop(96)
+                .width(88)
+                .height(36)
+                .alignSelf(.end)
         }
     }
     override func bindView(reactor: CertEmailReactor) {

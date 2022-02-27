@@ -40,11 +40,19 @@ final class FindIDVC: baseVC<FindIDReactor> {
     }
     override func setLayout() {
         rootContainer.flex.marginHorizontal(16).define { flex in
-            flex.addItem(titleLabel).height(23).marginTop(38)
+            flex.addItem(titleLabel)
+                .height(23)
+                .marginTop(38)
             // MARK: CERT
-            flex.addItem(emailTextField).marginTop(30).height(40)
+            flex.addItem(emailTextField)
+                .marginTop(30)
+                .height(40)
             // MARK: Next
-            flex.addItem(nextButton).marginTop(127).width(88).height(36).alignSelf(.end)
+            flex.addItem(nextButton)
+                .marginTop(127)
+                .width(88)
+                .height(36)
+                .alignSelf(.end)
         }
     }
     override func bindView(reactor: FindIDReactor) {

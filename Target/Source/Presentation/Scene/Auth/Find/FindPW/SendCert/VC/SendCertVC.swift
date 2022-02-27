@@ -18,7 +18,6 @@ import ReactorKit
 
 final class SendCertVC: baseVC<SendCertReactor> {
     // MARK: - Properties
-    private let email: String = "adf"
     private let rootContainer = UIView()
     private let descriptionLabel = UILabel().then {
         $0.text = """
@@ -43,10 +42,19 @@ final class SendCertVC: baseVC<SendCertReactor> {
     }
     override func setLayout() {
         rootContainer.flex.define { flex in
-            flex.addItem(descriptionLabel).marginTop(84).alignSelf(.center)
-            flex.addItem(certTextField).marginTop(96).width(95%).alignSelf(.center).height(40)
-            flex.addItem(nextButton).marginTop(70).width(88).height(36).alignSelf(.end)
-            
+            flex.addItem(descriptionLabel)
+                .marginTop(84)
+                .alignSelf(.center)
+            flex.addItem(certTextField)
+                .marginTop(96)
+                .width(95%)
+                .alignSelf(.center)
+                .height(40)
+            flex.addItem(nextButton)
+                .marginTop(70)
+                .width(88)
+                .height(36)
+                .alignSelf(.end)
         }
     }
     override func bindView(reactor: SendCertReactor) {
