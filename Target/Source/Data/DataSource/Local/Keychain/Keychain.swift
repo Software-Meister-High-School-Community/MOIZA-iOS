@@ -7,10 +7,6 @@ enum KeychainAccountType: String {
     case expiredAt = "EXPIRED-AT"
 }
 
-enum KeychainError: Error {
-    case noData
-}
-
 final class Keychain {
     
     static let shared = Keychain()
