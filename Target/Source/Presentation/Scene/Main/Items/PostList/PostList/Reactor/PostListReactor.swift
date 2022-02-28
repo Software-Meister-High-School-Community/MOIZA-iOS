@@ -10,12 +10,14 @@ import ReactorKit
 import RxFlow
 import RxSwift
 import RxRelay
+import Foundation
 
 final class PostListReactor: Reactor, Stepper {
     // MARK: - Properties
     var steps: PublishRelay<Step> = .init()
     
     private let disposeBag: DisposeBag = .init()
+    private var page: Int = 0
     
     // MARK: - Reactor
     enum Action {
@@ -23,11 +25,17 @@ final class PostListReactor: Reactor, Stepper {
         case viewWillAppear
         case majorButtonDidTap
         case majorDidChange(Major)
+        case pagenation(
+            contentHeight: CGFloat,
+            contentOffsetY: CGFloat,
+            scrollViewHeight: CGFloat
+        )
     }
     enum Mutation {
         case setMajor(Major)
         case setRecommendPostList([PostList])
         case setPostList([PostList])
+        case updatePostList([PostList])
     }
     struct State {
         var major: Major
@@ -59,6 +67,8 @@ extension PostListReactor {
             return .just(.setMajor(major))
         case .viewWillAppear:
             return viewWillAppear()
+        case let .pagenation(contentHeight, contentOffsetY, scrollViewHeight):
+            return pagenation(contentHeight: contentHeight, contentOffsetY: contentOffsetY, scrollViewHeight: scrollViewHeight)
         }
         return .empty()
     }
@@ -76,6 +86,8 @@ extension PostListReactor {
             newState.recommendItems = rec
         case let .setPostList(posts):
             newState.postItems = posts
+        case let .updatePostList(posts):
+            newState.postItems.append(contentsOf: posts)
         }
         
         return newState
@@ -124,5 +136,19 @@ private extension PostListReactor {
     }
     func viewDidLoad() -> Observable<Mutation> {
         return .empty()
+    }
+    func pagenation(
+        contentHeight: CGFloat,
+        contentOffsetY: CGFloat,
+        scrollViewHeight: CGFloat
+    ) -> Observable<Mutation> {
+        let padding = contentHeight - contentOffsetY
+        if padding < scrollViewHeight {
+            self.page += 1
+            return Observable.just([PostList(id: UUID().uuidString, title: "ㅡㅗㅁㅇㄴㅊ", type: .allCases.randomElement() ?? .question, commentCount: 2, likeCount: 3, liked: .random())])
+                .map(Mutation.updatePostList)
+        } else {
+            return .empty()
+        }
     }
 }
