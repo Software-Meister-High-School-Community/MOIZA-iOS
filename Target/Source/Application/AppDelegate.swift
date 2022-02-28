@@ -1,6 +1,8 @@
 import UIKit
 import Swinject
 import IQKeyboardManagerSwift
+import FirebaseCore
+import FirebaseMessaging
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -10,6 +12,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool {
+        FirebaseApp.configure()
+        setFCM(application)
+        
         AppDelegate.container.registerDependencies()
         IQKeyboardManager.shared.enable = true
         IQKeyboardManager.shared.enableAutoToolbar = true
@@ -41,3 +46,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 }
 
+extension AppDelegate: UNUserNotificationCenterDelegate {
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        Messaging.messaging().apnsToken = deviceToken
+    }
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification) async -> UNNotificationPresentationOptions {
+        if #available(iOS 14.0, *) {
+            return [.badge, .sound, .list, .banner]
+        } else {
+            return [.alert, .badge, .sound]
+        }
+    }
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse) async {
+        return
+    }
+}
+
+
+private extension AppDelegate {
+    func setFCM(_ application: UIApplication) {
+        UNUserNotificationCenter.current().delegate = self
+        let authOption: UNAuthorizationOptions = [.alert, .badge, .sound]
+        UNUserNotificationCenter.current().requestAuthorization(options: authOption, completionHandler: { _,_ in } )
+        application.registerForRemoteNotifications()
+    }
+}
