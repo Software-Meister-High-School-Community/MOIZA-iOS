@@ -45,6 +45,8 @@ final class PostListFlow: Flow{
             return presentToMajorSelect()
         case .dismiss:
             return dismissVC()
+        case let .sortIsRequired(options):
+            return presentToSort(options)
         default:
             return .none
         }
@@ -66,6 +68,12 @@ private extension PostListFlow{
     func presentToMajorSelect() -> FlowContributors {
         let reactor = MajorModalReactor()
         let vc = MajorModalVC(reactor: reactor)
+        self.rootVC.presentPanModal(vc)
+        return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: reactor))
+    }
+    func presentToSort(_ options: [SortOption]) -> FlowContributors {
+        let reactor = SortModalReactor()
+        let vc = SortModalVC(options, reactor: reactor)
         self.rootVC.presentPanModal(vc)
         return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: reactor))
     }
