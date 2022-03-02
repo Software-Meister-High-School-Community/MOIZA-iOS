@@ -124,7 +124,7 @@ extension PostListTabVC {
         
         sharedState
             .map(\.major)
-            .map(\.rawValue)
+            .map(\.display)
             .withUnretained(self)
             .bind(onNext: { owner, item in
                 owner.majorButton.setTitle(item, for: .normal)

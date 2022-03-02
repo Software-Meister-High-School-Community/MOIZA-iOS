@@ -19,7 +19,7 @@ final class SignUpInfoReactor: Reactor, Stepper{
     
     // MARK: - Reactor
     enum Action{
-        case studentKindButtonDidTap(StudentKind)
+        case studentKindButtonDidTap(UserScope)
         case updateName(String)
         case genderButtonDidTap(Gender)
         case updateBirth(Date)
@@ -31,7 +31,7 @@ final class SignUpInfoReactor: Reactor, Stepper{
         case nextButtonDidTap
     }
     enum Mutation{
-        case setStudentKind(StudentKind)
+        case setStudentKind(UserScope)
         case setName(String)
         case setGender(Gender)
         case setBirth(Date)
@@ -41,11 +41,11 @@ final class SignUpInfoReactor: Reactor, Stepper{
         case setAuthCode(String)
     }
     struct State{
-        var studentKind: StudentKind = .student
+        var studentKind: UserScope = .student
         var name: String = ""
         var gender: Gender?
         var birth: Date = .init()
-        var school: School = .none
+        var school: School?
         var email: String = ""
         var emailType: String = ""
         var authCode: String = ""
@@ -119,7 +119,7 @@ private extension SignUpInfoReactor{
     func checkValidation(_ state: State) -> Bool {
         guard !state.name.isEmpty,
               state.gender != nil,
-              state.school != .none,
+              state.school != nil,
               !state.email.isEmpty,
               !state.emailType.isEmpty,
               state.authCodeValidation else {
@@ -132,11 +132,11 @@ private extension SignUpInfoReactor{
     func navigateToSignUpLoginSetup() -> Observable<Mutation> {
         steps.accept(MoizaStep.signUpLoginSetupIsRequired(
             .init(
-                kind: currentState.studentKind,
+                scope: currentState.studentKind,
                 name: currentState.name,
                 gender: currentState.gender ?? .male,
                 birth: currentState.birth,
-                school: currentState.school,
+                school: currentState.school ?? .gsm,
                 email: "\(currentState.email)@\(currentState.emailType)"
             )
         ))

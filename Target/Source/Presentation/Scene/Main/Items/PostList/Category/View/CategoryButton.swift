@@ -71,8 +71,10 @@ private extension CategoryButton {
         if major == .frontEnd {
             majorLabel.text = "Front\n-End"
             majorLabel.textAlignment = .right
+        } else if major == .backEnd {
+            majorLabel.text = "Back-End"
         } else {
-            majorLabel.text = major.rawValue
+            majorLabel.text = major.display
         }
     }
 }

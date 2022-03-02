@@ -78,8 +78,8 @@ extension PostListReactor {
 private extension PostListReactor {
     func viewDidLoad() -> Observable<Mutation> {
         let recommend: [PostList] = [
-            .init(title: "앱 아이콘 만드는 법", type: .question, commentCount: 2, likeCount: 3),
-            .init(title: "일러스트에서 아주 그냥 asdfasdfasdf", type: .normal, commentCount: 3, likeCount: 3)
+            .init(id: 0, title: "앱 아이콘 만드는법", type: .question, isLike: false, commentCount: 23, likeCount: 32, viewCount: 42, createdAt: Date()),
+            .init(id: 1, title: "일러스트에서 아주그냥 맨날 쓰는 기능을 알려드릴", type: .normal, isLike: true, commentCount: 23, likeCount: 42, viewCount: 21, createdAt: Date())
         ]
         return .concat([
             .just(.setRecommendPostList(recommend))

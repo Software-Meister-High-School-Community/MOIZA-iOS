@@ -48,12 +48,12 @@ final class SignUpInfoVC: baseVC<SignUpInfoReactor>{
         $0.checkState = .checked
     }
     private let studentLabel = UILabel().then {
-        $0.text = StudentKind.student.rawValue
+        $0.text = UserScope.student.display
         $0.font = Fonts.regular14
     }
     private let graduateRadio = MoizaRadioButton()
     private let graduateLabel = UILabel().then {
-        $0.text = StudentKind.graduate.rawValue
+        $0.text = UserScope.graduate.display
         $0.font = Fonts.regular14
     }
     
@@ -83,7 +83,7 @@ final class SignUpInfoVC: baseVC<SignUpInfoReactor>{
     }
     
     private let schoolPicker = UIPickerView()
-    private let schoolData = [.none, School.gsm, .dgsm, .dsm, .mirim, .bsm]
+    private let schoolData = [School.gsm, .dgsm, .dsm, .mirim, .bsm]
     
     private let emailLabel = SignUpCategoryLabel(text: "학교 이메일")
     private let emailTextField = SignUpTextField()
@@ -222,7 +222,7 @@ final class SignUpInfoVC: baseVC<SignUpInfoReactor>{
         
         Observable.just(self.schoolData)
             .bind(to: schoolPicker.rx.itemTitles) { _, item in
-                return "\(item.rawValue)"
+                return "\(item.display)"
             }
             .disposed(by: disposeBag)
         
@@ -246,7 +246,7 @@ final class SignUpInfoVC: baseVC<SignUpInfoReactor>{
             .disposed(by: disposeBag)
         
         graduateRadio.rx.controlEvent(.valueChanged)
-            .map { Reactor.Action.studentKindButtonDidTap(.graduate) }
+            .map { Reactor.Action.studentKindButtonDidTap(.user) }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
         
@@ -314,8 +314,8 @@ final class SignUpInfoVC: baseVC<SignUpInfoReactor>{
             .map(\.school)
             .withUnretained(self)
             .subscribe(onNext: { owner, item in
-                owner.emailTypeTextField.text = item.toDomain()
-                owner.schoolTextField.text = item.rawValue
+                owner.emailTypeTextField.text = item?.toDomain() ?? ""
+                owner.schoolTextField.text = item?.display ?? ""
             })
             .disposed(by: disposeBag)
         
