@@ -23,7 +23,7 @@ extension MyPageModalVC: PanModalPresentable{
         return .contentHeight(578)
     }
     var longFormHeight: PanModalHeight {
-        return .maxHeightWithTopInset(40)
+        return .maxHeightWithTopInset(50)
     }
     var panModalBackgroundColor: UIColor{
         return UIColor.black.withAlphaComponent(0.4)

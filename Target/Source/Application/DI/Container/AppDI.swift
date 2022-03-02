@@ -75,6 +75,15 @@ extension Container{
             ])
             return vc
         }
+        register(FollowTabVC.self) { r in
+            let reactor = r.resolve(MyPageFollowReactor.self)
+            let vc = FollowTabVC(reactor: reactor)
+            vc.setViewControllers([
+                MyPageFollowerVC(reactor: vc.reactor),
+                MyPageFollowingVC(reactor: vc.reactor)
+            ])
+            return vc
+        }
     }
     private func registerReactor(){
         autoregister(OnBoardingReactor.self, initializer: OnBoardingReactor.init)
@@ -93,6 +102,7 @@ extension Container{
         autoregister(PostBoardReactor.self, initializer: PostBoardReactor.init)
         autoregister(MyPageModalReactor.self, initializer: MyPageModalReactor.init)
         autoregister(PostListReactor.self, initializer: PostListReactor.init)
+        autoregister(MyPageFollowReactor.self, initializer: MyPageFollowReactor.init)
     }
     private func registerStepper(){
         autoregister(OnBoardingStepper.self, initializer: OnBoardingStepper.init)

@@ -27,8 +27,6 @@ def pods
   pod 'SwiftDate', '~> 6.3.1'
   pod 'IQKeyboardManagerSwift', '~> 6.5.9'
   pod 'Tabman', '~> 2.11.1'
-  pod 'PanModal', '~> 1.2.6'
-  pod 'Tabman', '~> 2.9'
   pod 'RealmSwift', '~> 10.22'
   pod 'ViewAnimator', '~> 3.1.0'
   pod 'PanModal', '~> 1.2.7'

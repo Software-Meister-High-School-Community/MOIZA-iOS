@@ -33,6 +33,8 @@ final class MyPageFlow: Flow{
             return coordinateToMyPage()
         case .myPostListSortIsRequired:
             return navigateToMyPageModal()
+        case .followerIsRequired:
+            return coordinateToFollow()
         default:
             return .none
         }
@@ -49,6 +51,11 @@ private extension MyPageFlow{
     func navigateToMyPageModal() -> FlowContributors {
         @Inject var vc: MyPageModalVC
         self.rootVC.presentPanModal(vc)
+        return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: vc.reactor ?? .init()))
+    }
+    func coordinateToFollow() -> FlowContributors {
+        @Inject var vc: FollowTabVC
+        self.rootVC.setViewControllers([vc], animated: true)
         return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: vc.reactor ?? .init()))
     }
 }
