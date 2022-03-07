@@ -22,7 +22,7 @@ final class SendCertVC: baseVC<SendCertReactor> {
     private let descriptionLabel = UILabel().then {
         $0.text = """
     회원가입 시 입력하신 이메일
-    로
+    ??? 로
     인증번호가 전송되었습니다.
 """
         $0.font = UIFont(font: MOIZAFontFamily.Roboto.regular, size: 16)

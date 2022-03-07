@@ -20,15 +20,20 @@ final class SendCertReactor: Stepper, Reactor {
     // MARK: - Reactor
     enum Action {
         case nextButtonDidTap
+        case viewWillAppear
     }
-    enum Mutation {}
-    struct State {}
+    enum Mutation {
+        case setEmail
+    }
+    struct State {
+        var email: String
+    }
     
     let initialState: State
     
     // MARK: - Init
     init() {
-        initialState = State()
+        self.initialState = State(email: "???")
     }
 }
 
@@ -38,7 +43,20 @@ extension SendCertReactor {
         switch action {
         case .nextButtonDidTap:
             return navToReRegistor()
+        case .viewWillAppear:
+            return Observable.just(.setEmail)
         }
+    }
+}
+
+// MARK: - Reduce
+extension SendCertReactor {
+    func reduce(state: State, mutation: Mutation) -> State {
+        var state = state
+        switch mutation {
+        case .setEmail:
+            state.email = "받아온 이메일"
+        return state
     }
 }
 
@@ -46,6 +64,9 @@ extension SendCertReactor {
 private extension SendCertReactor {
     func navToReRegistor() -> Observable<Mutation> {
         steps.accept(MoizaStep.reRegistorRequired)
+        return .empty()
+    }
+    func getEmail() -> Observable<Mutation> {
         return .empty()
     }
 }
