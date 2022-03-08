@@ -33,6 +33,6 @@ final class GenderCell: baseCollectionViewCell<Gender>{
         titleLabel.pin.all(11)
     }
     override func bind(_ model: Gender) {
-        titleLabel.text = model == .male ? "남" : "여"
+        titleLabel.text = model.display
     }
 }

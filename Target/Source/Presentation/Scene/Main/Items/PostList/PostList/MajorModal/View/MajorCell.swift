@@ -28,6 +28,6 @@ final class MajorCell: baseTableViewCell<Major> {
     }
     
     override func bind(_ model: Major) {
-        titleLabel.text = model.rawValue
+        titleLabel.text = model.display
     }
 }
