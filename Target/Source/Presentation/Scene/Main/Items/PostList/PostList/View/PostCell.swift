@@ -65,7 +65,7 @@ final class PostCell: baseTableViewCell<PostList> {
         titleLabel.text = model.title
         commentCount.setTitle("\(model.commentCount)", for: .normal)
         likeCount.setTitle("\(model.likeCount)", for: .normal)
-        if model.liked {
+        if model.isLike {
             likeCount.setImage(.init(systemName: "heart.fill")?.tintColor(MOIZAAsset.moizaPrimaryYellow.color), for: .normal)
         } else {
             likeCount.setImage(.init(systemName: "heart")?.tintColor(MOIZAAsset.moizaGray4.color), for: .normal)

@@ -45,10 +45,10 @@ final class PostListFlow: Flow{
             return presentToMajorSelect()
         case .dismiss:
             return dismissVC()
-            return navigateToDetailPost(feedId: id)
         case let .postDetailIsRequired(id):
-            return presentToSort(options)
+            return navigateToDetailPost(feedId: id)
         case let .sortIsRequired(options):
+            return presentToSort(options)
         default:
             return .none
         }
