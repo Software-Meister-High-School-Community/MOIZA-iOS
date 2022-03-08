@@ -1,10 +1,12 @@
 import Foundation
 
-struct PostList: Codable {
-    let id: String
+struct PostList {
+    let id: Int
     let title: String
     let type: PostType
+    let isLike: Bool
     let commentCount: Int
     let likeCount: Int
-    let liked: Bool
+    let viewCount: Int
+    let createdAt: Date
 }

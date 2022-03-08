@@ -55,7 +55,7 @@ final class SignUpSetUpReactor: Reactor, Stepper{
         self.initialState = State(
             student: student,
             id: "",
-            idExist: true, // TODO: validCheck
+            idExist: true,
             password: "",
             pwdVisible: true,
             passwordCheck: "",
@@ -80,7 +80,6 @@ extension SignUpSetUpReactor{
         case .isIdExistButtonDidTap:
             return checkIdExist()
         case .nextButtonDidTap:
-            // TODO: api
             return nextButtonDidTap()
         case .pwdVisibleButtonDidTap:
             return .just(.setPwdVisible(!currentState.pwdVisible))
@@ -125,9 +124,9 @@ private extension SignUpSetUpReactor{
         return .just(.setIdExist(false))
     }
     func nextButtonDidTap() -> Observable<Mutation> {
-        if currentState.student.kind == .student {
+        if currentState.student.scope == .student {
             steps.accept(MoizaStep.signUpSuccessIsRequired)
-        } else if currentState.student.kind == .graduate {
+        } else if currentState.student.scope == .user {
             steps.accept(MoizaStep.signUpGraduateAuthIsRequired)
         } 
         return .empty()

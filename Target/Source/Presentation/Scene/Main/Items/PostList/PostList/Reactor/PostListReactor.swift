@@ -30,6 +30,7 @@ final class PostListReactor: Reactor, Stepper {
             contentOffsetY: CGFloat,
             scrollViewHeight: CGFloat
         )
+        case sortButtonDidTap
     }
     enum Mutation {
         case setMajor(Major)
@@ -65,6 +66,8 @@ extension PostListReactor {
             return viewDidLoad()
         case let .majorDidChange(major):
             return .just(.setMajor(major))
+        case .sortButtonDidTap:
+            steps.accept(MoizaStep.sortIsRequired([.sortType]))
         case .viewWillAppear:
             return viewWillAppear()
         case let .pagenation(contentHeight, contentOffsetY, scrollViewHeight):
