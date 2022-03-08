@@ -81,7 +81,7 @@ final class SucFindIDVC: baseVC<SucFindIDReactor> {
     }
     override func bindView(reactor: SucFindIDReactor) {
         navToSingInButton.rx.tap
-            .map { _ in Reactor.Action.navToSingInButtonDidTap }
+            .map { _ in Reactor.Action.navToSignInButtonDidTap }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
         findPWButton.rx.tap

@@ -63,7 +63,10 @@ final class OnBoardingFlow: Flow{
             return navigateToCheckId()
         case .sendCertRequired:
             return navigateToSendCert()
-            
+        case .reRegistorRequired:
+            return navigateToReRegistration()
+        case .successFindPWRequired:
+            return navigateToSucFindPW()
         default:
             return .none
         }
@@ -72,6 +75,16 @@ final class OnBoardingFlow: Flow{
 
 // MARK: - Method
 private extension OnBoardingFlow{
+    func navigateToSucFindPW() -> FlowContributors {
+        @Inject var vc: SucFindPWVC
+        self.rootVC.pushViewController(vc, animated: true)
+        return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: vc.reactor ?? .init()))
+    }
+    func navigateToReRegistration() -> FlowContributors {
+        @Inject var vc: ReRegistrationVC
+        self.rootVC.pushViewController(vc, animated: true)
+        return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: vc.reactor ?? .init()))
+    }
     func navigateToSendCert() -> FlowContributors {
         @Inject var vc: SendCertVC
         self.rootVC.pushViewController(vc, animated: true)

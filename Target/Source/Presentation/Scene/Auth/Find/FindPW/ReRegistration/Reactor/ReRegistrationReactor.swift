@@ -18,7 +18,9 @@ final class ReRegistrationReactor: Reactor, Stepper {
     private let disposeBag = DisposeBag()
     
     // MARK: - Reactor
-    enum Action {}
+    enum Action {
+        case nextButtonDidTap
+    }
     enum Mutation {}
     struct State {}
     
@@ -30,17 +32,20 @@ final class ReRegistrationReactor: Reactor, Stepper {
     }
 }
 
-// MARK: Mutate
+// MARK: - Mutate
 extension ReRegistrationReactor {
     func mutate(action: Action) -> Observable<Mutation> {
-//        switch action {
-//        case .nextButtonDidTap:
-            return .empty()
-//        }
+        switch action {
+        case .nextButtonDidTap:
+            return navToSucFindPW()
+        }
     }
 }
 
 // MARK: - Method
 private extension ReRegistrationReactor {
-    
+    func navToSucFindPW() -> Observable<Mutation> {
+        steps.accept(MoizaStep.successFindPWRequired)
+        return .empty()
+    }
 }

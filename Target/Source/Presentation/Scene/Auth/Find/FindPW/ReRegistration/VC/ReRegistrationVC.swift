@@ -78,11 +78,13 @@ final class ReRegistrationVC: baseVC<ReRegistrationReactor> {
                     .marginTop(Metric.spacingMargin)
                     .width(100%)
                     .height(Metric.height)
+                    .direction(.rowReverse)
                     .define { flex in
                         flex.addItem(newPwdVisibleButton)
                             .width(24)
                             .height(24)
                             .marginTop(10)
+                            .marginRight(10)
                             .marginVertical(10)
                     }
                 flex.addItem(pwdHelperLabel)
@@ -109,12 +111,14 @@ final class ReRegistrationVC: baseVC<ReRegistrationReactor> {
                     .top(Metric.spacingMargin)
                     .width(88)
                     .height(36)
-                    .right(0)
                     .alignSelf(.end)
             }
     }
     override func bindView(reactor: ReRegistrationReactor) {
-        
+        nextButton.rx.tap
+            .map { _ in Reactor.Action.nextButtonDidTap }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
     }
     override func configureNavigation() {
         self.navigationItem.configAuthNavigation(title: "비밀번호 찾기")

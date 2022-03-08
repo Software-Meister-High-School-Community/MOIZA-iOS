@@ -29,7 +29,7 @@ final class SucFindPWVC: baseVC<SucFindPWReactor> {
         $0.font = UIFont(font: MOIZAFontFamily.Roboto.regular, size: 18)
         $0.textAlignment = .center
     }
-    private let signInButton = NextButton(title: "로그인하기")
+    private let moveTosSignInButton = NextButton(title: "로그인하기")
     
     // MARK: - UI
     override func addView() {
@@ -48,7 +48,7 @@ final class SucFindPWVC: baseVC<SucFindPWReactor> {
             flex.addItem(successLabel)
                 .marginTop(5)
                 .width(100%)
-            flex.addItem(signInButton)
+            flex.addItem(moveTosSignInButton)
                 .top(12%)
                 .width(88)
                 .height(36)
@@ -56,9 +56,14 @@ final class SucFindPWVC: baseVC<SucFindPWReactor> {
     }
     override func configureNavigation() {
         self.navigationItem.configAuthNavigation(title: "비밀번호 찾기")
+        self.navigationItem.configBack()
     }
     
     // MARK: - Reactor
     override func bindView(reactor: SucFindPWReactor) {
+        moveTosSignInButton.rx.tap
+            .map{ _ in Reactor.Action.navToSignInButtonDidTap }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
     }
 }

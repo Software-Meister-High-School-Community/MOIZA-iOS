@@ -19,7 +19,7 @@ final class SucFindIDReactor: Reactor, Stepper {
     
     // MARK: - Reactor
     enum Action {
-        case navToSingInButtonDidTap
+        case navToSignInButtonDidTap
         case findPWButtonDidTap
     }
     enum Mutation {}
@@ -39,8 +39,8 @@ extension SucFindIDReactor {
         switch action {
         case .findPWButtonDidTap:
             return findPWButtonDidTap()
-        case .navToSingInButtonDidTap:
-            return navToSingInButtonDidTap()
+        case .navToSignInButtonDidTap:
+            return navToSignInVC()
         }
     }
 }
@@ -52,7 +52,7 @@ private extension SucFindIDReactor {
         steps.accept(MoizaStep.findingPasswordIsRequired)
         return .empty()
     }
-    func navToSingInButtonDidTap() -> Observable<Mutation> {
+    func navToSignInVC() -> Observable<Mutation> {
         steps.accept(MoizaStep.signInIsRequired)
         return .empty()
     }

@@ -10,6 +10,8 @@ import Foundation
 import ReactorKit
 import RxFlow
 import RxCocoa
+import PinLayout
+import UIKit
 
 final class SucFindPWReactor: Reactor, Stepper {
     // MARK: - Properties
@@ -18,8 +20,10 @@ final class SucFindPWReactor: Reactor, Stepper {
     private let disposeBag = DisposeBag()
 
     // MARK: - Reactor
-    enum Action {}
-    enum MUtation {}
+    enum Action {
+        case navToSignInButtonDidTap
+    }
+    enum Mutation {}
     struct State {}
     
     let initialState: State
@@ -32,13 +36,18 @@ final class SucFindPWReactor: Reactor, Stepper {
 
 // MARK: - Mutate
 extension SucFindPWReactor {
-//    func mutate(action: Action) -> Observable<Mutation> {
-//        switch action {
-//        }
-//    }
+    func mutate(action: Action) -> Observable<Mutation> {
+        switch action {
+        case .navToSignInButtonDidTap:
+            return navToSignInVC()
+        }
+    }
 }
 
 // MARK: - Method
 private extension SucFindPWReactor {
-    
+    func navToSignInVC() -> Observable<Mutation> {
+        steps.accept(MoizaStep.signInIsRequired)
+        return .empty()
+    }
 }

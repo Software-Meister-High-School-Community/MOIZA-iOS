@@ -56,10 +56,10 @@ extension SendCertReactor {
         switch mutation {
         case .setEmail:
             state.email = "받아온 이메일"
-        return state
+            return state
+        }
     }
 }
-
 // MARK: - Method
 private extension SendCertReactor {
     func navToReRegistor() -> Observable<Mutation> {

@@ -41,7 +41,7 @@ final class SendCertVC: baseVC<SendCertReactor> {
         rootContainer.flex.layout()
     }
     override func setLayout() {
-        rootContainer.flex.define { flex in
+        rootContainer.flex.marginHorizontal(16).define { flex in
             flex.addItem(descriptionLabel)
                 .marginTop(84)
                 .alignSelf(.center)
