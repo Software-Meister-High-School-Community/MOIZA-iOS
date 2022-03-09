@@ -8,7 +8,7 @@ final class DetailPostVC: baseVC<DetailPostReactor> {
     override func configureNavigation() {
         self.navigationItem.configBack()
         self.navigationItem.setTitleWithSubTitle(
-            title: UserDefaultsLocal.shared.major.rawValue,
+            title: UserDefaultsLocal.shared.major.display,
             subtitle: "질문 게시판"
         )
     }
