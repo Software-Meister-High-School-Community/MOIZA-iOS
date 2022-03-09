@@ -1,14 +1,14 @@
 import RxDataSources
 
-struct RecommendSection: SectionModelType {
+struct PostSection: SectionModelType {
     let header: String
     var items: [PostList]
 }
 
-extension RecommendSection {
+extension PostSection {
     typealias Item = PostList
     
-    init(original: RecommendSection, items: [PostList]) {
+    init(original: PostSection, items: [PostList]) {
         self = original
         self.items = items
     }

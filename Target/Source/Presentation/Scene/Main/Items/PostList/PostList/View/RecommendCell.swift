@@ -1,5 +1,6 @@
 import UIKit
 import FlexLayout
+import RxSwift
 
 final class RecommendCell: baseCollectionViewCell<PostList> {
     // MARK: - Properties
@@ -16,6 +17,13 @@ final class RecommendCell: baseCollectionViewCell<PostList> {
         $0.numberOfLines = 0
     }
     
+    override func awakeFromNib() {
+        super.awakeFromNib()
+    }
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        model = nil
+    }
     // MARK: - UI
     override func setLayoutSubviews() {
         contentView.flex.layout()
@@ -35,5 +43,6 @@ final class RecommendCell: baseCollectionViewCell<PostList> {
         iconImageView.image = model.type == .question ? MOIZAAsset.moizaQuestion.image : MOIZAAsset.moizaIdea.image
         typeLabel.text = model.type == .question ? "오늘의 질문" : "오늘의 꿀팁"
         titleLabel.text = model.title
+        titleLabel.flex.markDirty()
     }
 }

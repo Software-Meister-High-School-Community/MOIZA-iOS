@@ -45,7 +45,7 @@ enum MoizaStep: Step{
     // Common
     case sortIsRequired(_ options: [SortOption])
     case majorSelectIsRequired
-    case postDetailIsRequired
+    case postDetailIsRequired(Int)
     case postDetailImageListIsRequired
     
     // Home
