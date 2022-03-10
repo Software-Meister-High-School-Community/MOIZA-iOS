@@ -41,6 +41,9 @@ final class MajorModalVC: baseVC<MajorModalReactor> {
             .bind(to: majorTableView.rx.items(dataSource: majorDS))
             .disposed(by: disposeBag)
     }
+    override func darkConfigure() {
+        view.backgroundColor = MOIZAAsset.moizaDark2.color
+    }
     
     // MARK: - Reactor
     override func bindView(reactor: MajorModalReactor) {

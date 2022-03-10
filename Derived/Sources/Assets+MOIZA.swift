@@ -43,6 +43,7 @@ public enum MOIZAAsset {
   public static let moizaGray6 = MOIZAColors(name: "MOIZA_Gray6")
   public static let moizaFunnel = MOIZAImages(name: "MOIZA_Funnel")
   public static let moizaIdea = MOIZAImages(name: "MOIZA_Idea")
+  public static let moizaPencil = MOIZAImages(name: "MOIZA_Pencil")
   public static let moizaQuestion = MOIZAImages(name: "MOIZA_Question")
   public static let moizaSymbol = MOIZAImages(name: "MOIZA_Symbol")
   public static let moizaBookReader = MOIZAImages(name: "MOIZA_bookReader")

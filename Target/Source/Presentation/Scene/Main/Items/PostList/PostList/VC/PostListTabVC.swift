@@ -30,7 +30,7 @@ final class PostListTabVC: TabmanViewController, ReactorKit.View {
         $0.layer.cornerRadius = 5
         $0.backgroundColor = .clear
         if #available(iOS 15.0, *) {
-            var config = UIButton.Configuration.plain()
+            var config = UIButton.Configuration.filled()
             $0.configuration = config
             $0.configuration?.imagePlacement = .trailing
             $0.configuration?.imagePadding = 5
@@ -42,6 +42,11 @@ final class PostListTabVC: TabmanViewController, ReactorKit.View {
     }
     private lazy var majorBarButton = UIBarButtonItem(customView: majorButton)
     private let searchButton = UIBarButtonItem(image: .init(systemName: "magnifyingglass")?.downSample(size: .init(width: 10, height: 10)).tintColor(MOIZAAsset.moizaGray6.color), style: .plain, target: nil, action: nil)
+    private let writeFabButton = UIButton().then {
+        $0.setImage(MOIZAAsset.moizaPencil.image.tintColor(MOIZAAsset.moizaConstGray1.color), for: .normal)
+        $0.layer.cornerRadius = 24
+        $0.backgroundColor = MOIZAAsset.moizaPrimaryYellow.color
+    }
     
     var disposeBag: DisposeBag = .init()
     
@@ -60,9 +65,15 @@ final class PostListTabVC: TabmanViewController, ReactorKit.View {
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        addView()
         setNavigation()
         if traitCollection.userInterfaceStyle == .dark { darkConfigure() }
     }
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        writeFabButton.pin.bottom(view.pin.safeArea.bottom + 16).right(16).size(48)
+    }
+    
     // MARK: - Method
     public func setViewControllers(_ vcs: [UIViewController]) {
         self.viewControllers = vcs
@@ -90,14 +101,19 @@ final class PostListTabVC: TabmanViewController, ReactorKit.View {
 
 // MARK: - UI
 private extension PostListTabVC {
+    func addView(){
+        view.addSubViews(writeFabButton)
+    }
     func setNavigation() {
         self.navigationItem.setLeftBarButtonItems([logoImage, majorBarButton], animated: false)
         self.navigationItem.setRightBarButton(searchButton, animated: false)
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
     }
     func darkConfigure() {
+        majorButton.layer.borderColor = UIColor.clear.cgColor
         if #available(iOS 15.0, *) {
             majorButton.configuration?.baseBackgroundColor = MOIZAAsset.moizaDark3.color
-            majorButton.layer.borderColor = UIColor.clear.cgColor
         } else {
             majorButton.setBackgroundColor(MOIZAAsset.moizaDark3.color, for: .normal)
         }
@@ -124,7 +140,7 @@ extension PostListTabVC {
         
         sharedState
             .map(\.major)
-            .map(\.rawValue)
+            .map(\.display)
             .withUnretained(self)
             .bind(onNext: { owner, item in
                 owner.majorButton.setTitle(item, for: .normal)
