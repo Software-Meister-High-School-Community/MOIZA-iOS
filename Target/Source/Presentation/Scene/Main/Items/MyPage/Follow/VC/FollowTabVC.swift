@@ -19,6 +19,7 @@ final class FollowTabVC: TabmanViewController, ReactorKit.View{
     private var viewControllers: [UIViewController] = []
     var disposeBag: DisposeBag = .init()
     typealias Reactor = MyPageFollowReactor
+    
     // MARK: - init
     init(reactor: MyPageFollowReactor?) {
         super.init(nibName: nil, bundle: nil)
@@ -26,6 +27,11 @@ final class FollowTabVC: TabmanViewController, ReactorKit.View{
     }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setNavigation()
     }
     
     public func setViewControllers(_ vcs: [UIViewController]){
@@ -50,10 +56,6 @@ final class FollowTabVC: TabmanViewController, ReactorKit.View{
         
         addBar(bar, dataSource: self, at: .top)
     }
-    private func configureNavigation() {
-        self.navigationItem.configAuthNavigation(title: "최형우")
-        self.navigationItem.configBack()
-    }
 }
 extension FollowTabVC{
     public func bind(reactor: MyPageFollowReactor) {
@@ -61,6 +63,13 @@ extension FollowTabVC{
     }
 }
 
+private extension FollowTabVC{
+    func setNavigation(){
+        self.navigationItem.setTitle(title: "asd")
+    }
+}
+
+// MARK: - SetTab
 extension FollowTabVC: PageboyViewControllerDataSource, TMBarDataSource {
     func numberOfViewControllers(in pageboyViewController: PageboyViewController) -> Int {
         return viewControllers.count
@@ -71,7 +80,7 @@ extension FollowTabVC: PageboyViewControllerDataSource, TMBarDataSource {
     }
     
     func defaultPage(for pageboyViewController: PageboyViewController) -> PageboyViewController.Page? {
-        return .first
+        return nil
     }
     
     func barItem(for bar: TMBar, at index: Int) -> TMBarItemable {

@@ -16,6 +16,6 @@ import FlexLayout
 
 final class MyPageFollowingVC: baseVC<MyPageFollowReactor>{
     override func setUp() {
-        view.backgroundColor = .blue
+        view.backgroundColor = MOIZAAsset.moizaGray1.color
     }
 }

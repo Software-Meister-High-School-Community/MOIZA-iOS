@@ -35,6 +35,8 @@ final class MyPageFlow: Flow{
             return navigateToMyPageModal()
         case .followerIsRequired:
             return coordinateToFollow()
+        case .followingIsRequired:
+            return coordinateToFollow()
         default:
             return .none
         }
