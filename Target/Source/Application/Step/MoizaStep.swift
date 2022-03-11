@@ -69,4 +69,5 @@ enum MoizaStep: Step{
     case myPageIntroduceModifyIsRequired
     case myPageWebsiteAddIsRequired
     case myPageSettingIsRequired
+    case myPostListSortIsRequired
 }
