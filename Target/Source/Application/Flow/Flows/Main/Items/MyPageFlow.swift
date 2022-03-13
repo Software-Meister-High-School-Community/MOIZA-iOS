@@ -57,7 +57,7 @@ private extension MyPageFlow{
     }
     func coordinateToFollow() -> FlowContributors {
         @Inject var vc: FollowTabVC
-        self.rootVC.setViewControllers([vc], animated: true)
+        self.rootVC.pushViewController(vc, animated: true)
         return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: vc.reactor ?? .init()))
     }
 }

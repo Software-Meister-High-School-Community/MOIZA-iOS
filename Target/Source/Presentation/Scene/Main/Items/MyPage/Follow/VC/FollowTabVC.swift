@@ -66,6 +66,7 @@ extension FollowTabVC{
 private extension FollowTabVC{
     func setNavigation(){
         self.navigationItem.setTitle(title: "asd")
+        self.navigationItem.configBack()
     }
 }
 

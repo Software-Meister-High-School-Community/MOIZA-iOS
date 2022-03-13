@@ -27,6 +27,7 @@ extension UINavigationItem{
     func configBack(){
         let back = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         back.tintColor = MOIZAAsset.moizaGray6.color
+//        print("asdfasdfasdfadf")
         self.backBarButtonItem = back
     }
     func configLeftLogo(){
