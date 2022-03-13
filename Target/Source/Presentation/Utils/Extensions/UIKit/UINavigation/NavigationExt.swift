@@ -1,11 +1,3 @@
-//
-//  NavigationExt.swift
-//  MOIZA
-//
-//  Created by 최형우 on 2022/01/26.
-//  Copyright © 2022 com.connect. All rights reserved.
-//
-
 import UIKit
 
 extension UINavigationItem{
@@ -14,6 +6,17 @@ extension UINavigationItem{
         lb.text = title
         lb.textColor = MOIZAAsset.moizaGray6.color
         lb.font = UIFont(font: MOIZAFontFamily.Roboto.regular, size: 16)
+        self.titleView = lb
+    }
+    func setTitleWithSubTitle(title: String, subtitle: String) {
+        let lb = UILabel()
+        let str = NSMutableAttributedString(string: "\(title)\n\(subtitle)")
+        str.setFontForText(textToFind: title, withFont: UIFont(font: MOIZAFontFamily.Roboto.bold, size: 12) ?? .init())
+        str.setFontForText(textToFind: subtitle, withFont: UIFont(font: MOIZAFontFamily.Roboto.regular, size: 12) ?? .init())
+        lb.numberOfLines = 0
+        lb.textAlignment = .center
+        lb.textColor = MOIZAAsset.moizaGray6.color
+        lb.attributedText = str
         self.titleView = lb
     }
     func configAuthNavigation(title: String){

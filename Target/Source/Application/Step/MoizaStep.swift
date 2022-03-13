@@ -8,6 +8,8 @@
 
 import RxFlow
 import ReactorKit
+import RxSwift
+import RxRelay
 
 enum MoizaStep: Step{
     // Global
@@ -28,6 +30,10 @@ enum MoizaStep: Step{
     case signUpLoginSetupIsRequired(Student)
     case signUpSuccessIsRequired
     case signUpIsCompleted
+    case signUpGraduateAuthIsRequired
+    case signUpGraduateAuthFileIsRequired
+    case signUpGraduateAuthSuccessIsRequired
+    case signUpGraduateAuthIsCompleted
     
     //Find
     case certIsRequired
@@ -35,4 +41,39 @@ enum MoizaStep: Step{
     case sendCertRequired
     case reRegistorRequired
     case successFindPWRequired
+    
+    // Main
+    case mainTabbarIsRequired
+    case homeIsRequired
+    case categoryIsRequired
+    case alarmIsRequired
+    case myPageIsRequired
+    
+    // Common
+    case sortIsRequired(_ options: [SortOption])
+    case majorSelectIsRequired
+    case postDetailIsRequired(Int)
+    case postDetailImageListIsRequired
+    
+    // Home
+    
+    // Posts
+    case categoryDropdownIsRequired
+    case searchIsRequired
+    case searchResultIsRequired
+    case postListIsRequired
+    case postWriteIsRequired
+    case temporarySavedPostIsRequired
+    case answerIsRequired
+    
+    // Alarm
+    case allNoticeListIsRequired
+    
+    // MyPage
+    case followerIsRequired
+    case followingIsRequired
+    case myPageModifyIsRequired
+    case myPageIntroduceModifyIsRequired
+    case myPageWebsiteAddIsRequired
+    case myPageSettingIsRequired
 }

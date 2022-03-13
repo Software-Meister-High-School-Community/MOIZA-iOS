@@ -17,6 +17,7 @@ final class OnBoardingVC: baseVC<OnBoardingReactor>{
     private let logoImageView = UIImageView().then {
         $0.image = MOIZAAsset.moizaLogo.image
         $0.contentMode = .scaleAspectFit
+        $0.hero.id = "logo"
     }
     private let signUpButton = OnBoardingButton(text: "회원가입", foregroundColor: MOIZAAsset.moizaGray1.color, backgroundColor: MOIZAAsset.moizaPrimaryBlue.color).then {
         $0.hero.id = "progress"
