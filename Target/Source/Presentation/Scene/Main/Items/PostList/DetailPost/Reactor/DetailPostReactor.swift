@@ -11,13 +11,13 @@ final class DetailPostReactor: Reactor, Stepper {
     
     // MARK: - Reactor
     enum Action {
-        
+        case viewDidLoad
     }
     enum Mutation {
-        
+        case setComments([Comment])
     }
     struct State {
-        
+        var comments: [Comment]
     }
     private let id: Int
     let initialState: State
@@ -27,7 +27,9 @@ final class DetailPostReactor: Reactor, Stepper {
         feedId: Int
     ) {
         self.id = feedId
-        initialState = State()
+        initialState = State(
+            comments: []
+        )
     }
     
 }
@@ -36,7 +38,8 @@ final class DetailPostReactor: Reactor, Stepper {
 extension DetailPostReactor {
     func mutate(action: Action) -> Observable<Mutation> {
         switch action {
-            
+        case .viewDidLoad:
+            return viewDidLoad()
         }
         return .empty()
     }
@@ -48,7 +51,8 @@ extension DetailPostReactor {
         var newState = state
         
         switch mutation {
-            
+        case let .setComments(comments):
+            newState.comments = comments
         }
         
         return newState
@@ -57,5 +61,19 @@ extension DetailPostReactor {
 
 // MARK: - Method
 private extension DetailPostReactor {
-    
+    func viewDidLoad() -> Observable<Mutation> {
+        
+        return .just(.setComments([
+            .init(id: 0,
+                  author: .init(id: 0, name: "ASDF", schoolName: "ASDF", type: .student),
+                  isMine: true,
+                  isPinned: false,
+                  createdAt: Date(),
+                  content: "Content",
+                  likeCount: 2,
+                  imageUrls: [],
+                  childComments: []
+                 )
+        ]))
+    }
 }

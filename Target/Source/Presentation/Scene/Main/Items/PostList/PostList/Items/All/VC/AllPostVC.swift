@@ -75,6 +75,12 @@ final class AllPostVC: baseVC<PostListReactor> {
             }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
+        
+        postListTableView.rx.modelSelected(PostList.self)
+            .map(\.id)
+            .map(Reactor.Action.postDidTap)
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
     }
     override func bindAction(reactor: PostListReactor) {
         self.rx.viewDidLoad
