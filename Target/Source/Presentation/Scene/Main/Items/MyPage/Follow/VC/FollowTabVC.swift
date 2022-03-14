@@ -88,9 +88,9 @@ extension FollowTabVC: PageboyViewControllerDataSource, TMBarDataSource {
         var title = ""
         switch index {
         case 0:
-            title = "팔로우"
+            title = "800 팔로워"
         case 1:
-            title = "팔로잉"
+            title = "800 팔로잉"
         default:
             title = "Anomaly"
         }
