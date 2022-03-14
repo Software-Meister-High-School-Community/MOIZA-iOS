@@ -16,7 +16,7 @@ final class MyPageFollowReactor: Reactor, Stepper {
     var steps: PublishRelay<Step> = .init()
     
     private let disposeBag: DisposeBag = .init()
-    
+    private let page: Int = 0
     // MARK: - Reactor
     enum Action {
         

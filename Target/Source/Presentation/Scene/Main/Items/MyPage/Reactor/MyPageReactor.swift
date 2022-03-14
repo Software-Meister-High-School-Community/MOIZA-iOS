@@ -16,6 +16,7 @@ final class MyPageReactor: Reactor, Stepper {
     var steps: PublishRelay<Step> = .init()
     
     private let disposeBag: DisposeBag = .init()
+    private var page: Int = 0
     
     // MARK: - Reactor
     enum Action {
@@ -28,23 +29,33 @@ final class MyPageReactor: Reactor, Stepper {
         case sortButtonDidTap
         case modifyButtonDidTap
         case settingButtonDidTap
+        case viewWillAppear
+        case pagenation(
+            contentHeight: CGFloat,
+            contentOffsetY: CGFloat,
+            scrollViewHeight: CGFloat
+        )
     }
     enum Mutation {
         case setPost(Int)
         case setFollower(Int)
         case setFollowing(Int)
+        case setPostList([PostList])
+        case updatePostList([PostList])
     }
     struct State {
         var post: Int?
         var follower: Int?
         var following: Int?
+        var recommendItems: [PostList]
+        var postItems: [PostList]
     }
     
     let initialState: State
     
     // MARK: - Init
     init() {
-        initialState = State()
+        initialState = State(recommendItems: [], postItems: [])
     }
     
 }
@@ -76,6 +87,10 @@ extension MyPageReactor {
         case .settingButtonDidTap:
             steps.accept(MoizaStep.myPageSettingIsRequired)
             return .empty()
+        case .viewWillAppear:
+            return viewWillAppear()
+        case let .pagenation(contentHeight, contentOffsetY, scrollViewHeight):
+            return pagenation(contentHeight: contentHeight, contentOffsetY: contentOffsetY, scrollViewHeight: scrollViewHeight)
         }
     }
 }
@@ -92,6 +107,10 @@ extension MyPageReactor {
             newState.follower = follower
         case let .setFollowing(following):
             newState.following = following
+        case let .setPostList(posts):
+            newState.postItems = posts
+        case let .updatePostList(posts):
+            newState.postItems.append(contentsOf: posts)
         }
         return newState
     }
@@ -99,5 +118,34 @@ extension MyPageReactor {
 
 // MARK: - Method
 private extension MyPageReactor {
-    
+    func viewWillAppear() -> Observable<Mutation>{
+        let posts: [PostList] = [
+            .init(id: 6, title: "대충 제목", type: .normal, isLike: .random(), commentCount: 2, likeCount: 19, viewCount: 26, createdAt: Date()),
+            .init(id: 7, title: "제에목", type: .question, isLike: .random(), commentCount: 7, likeCount: 39, viewCount: 72, createdAt: Date()),
+            .init(id: 8, title: "대충 제목", type: .normal, isLike: .random(), commentCount: 2, likeCount: 19, viewCount: 26, createdAt: Date()),
+            .init(id: 9, title: "제에목", type: .question, isLike: .random(), commentCount: 7, likeCount: 39, viewCount: 72, createdAt: Date()),
+            .init(id: 10, title: "대충 제목", type: .normal, isLike: .random(), commentCount: 2, likeCount: 19, viewCount: 26, createdAt: Date()),
+            .init(id: 11, title: "제에목", type: .question, isLike: .random(), commentCount: 7, likeCount: 39, viewCount: 72, createdAt: Date())
+        ].filter {
+            if UserDefaultsLocal.shared.post == .all { return true }
+            return $0.type == UserDefaultsLocal.shared.post
+        }
+        return .concat([
+            .just(.setPostList(posts))
+        ])
+    }
+    func pagenation(
+        contentHeight: CGFloat,
+        contentOffsetY: CGFloat,
+        scrollViewHeight: CGFloat
+    ) -> Observable<Mutation> {
+        let padding = contentHeight - contentOffsetY
+        if padding < scrollViewHeight {
+            self.page += 1
+            return Observable.just([PostList(id: currentState.postItems.count+1, title: "제에목", type: .question, isLike: .random(), commentCount: 27, likeCount: 38, viewCount: 294, createdAt: Date())])
+                .map(Mutation.updatePostList)
+        } else {
+            return .empty()
+        }
+    }
 }
