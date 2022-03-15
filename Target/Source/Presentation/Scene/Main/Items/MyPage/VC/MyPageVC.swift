@@ -1,20 +1,25 @@
 
 import UIKit
-import Hero
 import RxDataSources
 import RxSwift
 import RxViewController
 import PinLayout
+import RxCocoa
 import FlexLayout
 
 final class MyPageVC: baseVC<MyPageReactor> {
     
     //MARK: - Properties
+    private let headerContainer = UIView().then{
+        $0.backgroundColor = .red
+    }
+    
     private let mainContainer = UIView()
     
     private let describeContainer = UIView().then{
         $0.backgroundColor = MOIZAAsset.moizaGray1.color
     }
+    private let postContainer = UIView()
     
     private let scrollView = UIScrollView().then {
         $0.showsVerticalScrollIndicator = true
@@ -126,6 +131,14 @@ final class MyPageVC: baseVC<MyPageReactor> {
         $0.titleEdgeInsets = UIEdgeInsets(top: 0, left: 18, bottom: 0, right: 12)
     }
     
+    private let postListTableView = UITableView(frame: .zero, style: .plain).then {
+        $0.register(PostCell.self, forCellReuseIdentifier: PostCell.reusableID)
+        $0.rowHeight = 60
+        $0.separatorStyle = .none
+        $0.backgroundColor = MOIZAAsset.moizaGray2.color
+        $0.showsVerticalScrollIndicator = false
+    }
+    
     override func configureNavigation() {
         self.navigationItem.configLeftLogo()
         self.navigationItem.configBack()
@@ -133,6 +146,7 @@ final class MyPageVC: baseVC<MyPageReactor> {
     }
     
     override func setUp() {
+        postListTableView.rx.setDelegate(self).disposed(by: disposeBag)
         view.backgroundColor = MOIZAAsset.moizaGray2.color
         if #available(iOS 14.0, *) {
             ellipsis.menu = UIMenu(identifier: nil, options: .displayInline, children: [modifyProfile,setting,cancel])
@@ -141,15 +155,17 @@ final class MyPageVC: baseVC<MyPageReactor> {
     
     // MARK: - UI
     override func addView() {
-        view.addSubViews(scrollView)
-        scrollView.addSubViews(backgroundView,descriptionView,mainView,profile,myPostLabel,sortButton)
+        view.addSubViews(/*scrollView*/headerContainer,postContainer)
+        headerContainer.addSubViews(mainView,descriptionView,backgroundView,sortButton,myPostLabel,profile)
+        //scrollView.addSubViews(backgroundView,descriptionView,mainView,profile,myPostLabel,sortButton,postContainer)
         mainView.addSubViews(mainContainer,profileName,postLabel,postValueLabel,followingButton,followerButton)
         descriptionView.addSubViews(introduceLabel,webSiteLabel,describeContainer)
     }
     
     override func setLayoutSubViews() {
-        scrollView.pin.all(view.pin.safeArea)
-        scrollView.contentSize = .init(width: scrollView.bounds.width, height: scrollView.bounds.height*1.15)
+        //scrollView.pin.all(view.pin.safeArea)
+        //scrollView.contentSize = .init(width: scrollView.bounds.width, height: scrollView.bounds.height*1.15)
+        headerContainer.pin.width(100%).height(380)
         backgroundView.pin.horizontally(16).height(99).width(92%)
         profile.pin.horizontally(34).height(84).width(84).top(69)
         mainView.pin.below(of: backgroundView, aligned: .center).height(133).width(92%)
@@ -158,6 +174,7 @@ final class MyPageVC: baseVC<MyPageReactor> {
         describeContainer.pin.top(20).horizontally(14).height(36).width(315)
         myPostLabel.pin.below(of: descriptionView, aligned: .start).marginTop(40).height(16).width(68)
         sortButton.pin.below(of: descriptionView, aligned: .end).marginTop(34).height(28).width(63)
+        postContainer.pin.all(view.pin.safeArea)
         
         mainContainer.flex.define { flex in
             flex.addItem(profileName)
@@ -189,8 +206,12 @@ final class MyPageVC: baseVC<MyPageReactor> {
             flex.addItem(introduceLabel)
             flex.addItem(webSiteLabel).marginVertical(8)
         }
+        postContainer.flex.define { flex in
+            flex.addItem(postListTableView).grow(1).bottom(0).marginHorizontal(16)
+        }
         mainContainer.flex.layout()
         describeContainer.flex.layout()
+        postContainer.flex.layout()
     }
     
     override func setLayout() {
@@ -211,6 +232,54 @@ final class MyPageVC: baseVC<MyPageReactor> {
             .map { Reactor.Action.followingButtonDidTap }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
+        postListTableView.rx.didScroll
+            .withLatestFrom(self.postListTableView.rx.contentOffset)
+            .map { [weak self] in
+                Reactor.Action.pagenation(
+                    contentHeight: self?.postListTableView.contentSize.height ?? 0,
+                    contentOffsetY: $0.y,
+                    scrollViewHeight: self?.bound.height ?? 0
+                )
+            }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+    }
+    override func bindAction(reactor: MyPageReactor) {
+        self.rx.viewWillAppear.do(onNext: { _ in UserDefaultsLocal.shared.post = .normal } )
+            .map { _ in Reactor.Action.viewWillAppear }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+    }
+    override func bindState(reactor: MyPageReactor) {
+        let sharedState = reactor.state.share(replay: 1).observe(on: MainScheduler.asyncInstance)
         
+        let postDS = RxTableViewSectionedReloadDataSource<PostSection> { _, tv, ip, item in
+            guard let cell = tv.dequeueReusableCell(withIdentifier: PostCell.reusableID) as? PostCell else { return .init() }
+            cell.model = item
+            return cell
+        }
+        
+        sharedState
+            .map(\.postItems)
+            .map { [PostSection.init(header: "", items: $0)] }
+            .bind(to: postListTableView.rx.items(dataSource: postDS))
+            .disposed(by: disposeBag)
+    }
+}
+// MARK: - UITableViewDelegate
+extension MyPageVC: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return headerContainer
+    }
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return headerContainer.frame.height
+    }
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let headerHeight: CGFloat = headerContainer.frame.height
+        if scrollView.contentOffset.y <= headerHeight, scrollView.contentOffset.y >= 0 {
+            scrollView.contentInset = .init(top: -scrollView.contentOffset.y, left: 0, bottom: 0, right: 0)
+        } else if scrollView.contentOffset.y >= headerHeight {
+            scrollView.contentInset = .init(top: -headerHeight, left: 0, bottom: 0, right: 0)
+        }
     }
 }
