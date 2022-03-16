@@ -111,7 +111,7 @@ PODS:
   - nanopb/encode (2.30908.0)
   - Pageboy (3.6.2)
   - PanModal (1.2.7)
-  - PinLayout (1.10.0)
+  - PinLayout (1.10.2)
   - PromisesObjC (2.0.0)
   - ReactorKit (3.1.0):
     - RxSwift (~> 6.0)
@@ -250,7 +250,7 @@ SPEC CHECKSUMS:
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
   Pageboy: cf121b9dd48c63f3f281b2a9ec93d02e0f23879b
   PanModal: 3e16ead1a907fb06f4df3f13492fd00149fa4974
-  PinLayout: e50e9a748b632905fca6e67043ea4b05d6c92186
+  PinLayout: d6b1960e4b182b4da1481b9aa6728f621e20708d
   PromisesObjC: 68159ce6952d93e17b2dfe273b8c40907db5ba58
   ReactorKit: a06dd2a5c9339287aedf3dc821cfab6347eca106
   Realm: d9e4e5877095a6722145811f56fe89a531c9659d
