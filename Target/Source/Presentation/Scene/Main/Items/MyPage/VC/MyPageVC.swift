@@ -12,9 +12,7 @@ final class MyPageVC: baseVC<MyPageReactor> {
     //MARK: - Properties
     private let headerContainer = UIView()
     
-    private let mainContainer = UIView().then{
-        $0.backgroundColor = .red
-    }
+    private let mainContainer = UIView()
     
     private let describeContainer = UIView().then{
         $0.backgroundColor = MOIZAAsset.moizaGray1.color
@@ -32,7 +30,7 @@ final class MyPageVC: baseVC<MyPageReactor> {
     private let ellipsis = UIBarButtonItem(image: .init(systemName: "ellipsis")?.downSample(size: .init(width: 12, height: 1)).tintColor(MOIZAAsset.moizaGray6.color), style: .plain, target: nil, action: nil)
     
     private let backgroundView = UIView().then{
-        //$0.backgroundColor = MOIZAAsset.moizaPrimaryYellow.color
+        $0.backgroundColor = MOIZAAsset.moizaPrimaryYellow.color
         $0.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         $0.layer.cornerRadius = 5
     }
@@ -166,17 +164,17 @@ final class MyPageVC: baseVC<MyPageReactor> {
         backgroundView.pin.height(99).width(100%)
         profile.pin.horizontally(34).height(84).width(84).top(69)
         mainView.pin.below(of: backgroundView, aligned: .center).height(133).width(100%)
-        mainContainer.pin.height(57).width(254)
+        mainContainer.pin.height(115).width(254).left(140)
         descriptionView.pin.below(of: mainView, aligned: .left).marginTop(11).height(82).width(100%)
         describeContainer.pin.top(20).horizontally(14).height(36).width(315)
         myPostLabel.pin.below(of: descriptionView, aligned: .start).marginTop(40).height(16).width(68)
         sortButton.pin.below(of: descriptionView, aligned: .end).marginTop(34).height(28).width(63)
         postContainer.pin.all(view.pin.safeArea)
         
-        mainContainer.flex.left(68).direction(.column).define { flex in
-            //flex.addItem(profileName).marginVertical(8).marginTop(7)
-            //flex.addItem(schoolKind).marginBottom(20)
-            flex.addItem().direction(.row).define { flex in
+        mainContainer.flex.define { flex in
+            flex.addItem(profileName).bottom(43)
+            flex.addItem(schoolKind).bottom(35)
+            flex.addItem().bottom(28).direction(.row).define { flex in
                 // MARK: - Post
                 flex.addItem().alignSelf(.center).define { flex in
                     flex.addItem(postLabel).marginVertical(6).direction(.column)
@@ -186,14 +184,14 @@ final class MyPageVC: baseVC<MyPageReactor> {
                 flex.addItem().marginHorizontal(48).alignSelf(.center).define { flex in
                     flex.addItem(followerButton).justifyContent(.center).width(50).height(55).define { flex in
                         flex.addItem(followerLabel).alignSelf(.center).marginVertical(6)
-                        flex.addItem(followerValueLabel).alignSelf(.center).marginBottom(5)
+                        flex.addItem(followerValueLabel).alignSelf(.center)
                     }
                 }
                 // MARK: - Following
                 flex.addItem().alignSelf(.center).define { flex in
                     flex.addItem(followingButton).justifyContent(.center).width(50).height(55).define { flex in
                         flex.addItem(followingLabel).alignSelf(.center).marginVertical(6)
-                        flex.addItem(followingValueLabel).alignSelf(.center).marginBottom(5)
+                        flex.addItem(followingValueLabel).alignSelf(.center)
                     }
                 }
             }
