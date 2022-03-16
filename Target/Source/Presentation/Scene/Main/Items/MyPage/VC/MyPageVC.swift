@@ -114,20 +114,7 @@ final class MyPageVC: baseVC<MyPageReactor> {
         $0.text = "나의 게시물"
     }
     
-    private let sortButton = UIButton().then{
-        $0.layer.borderWidth = 1
-        $0.layer.borderColor = MOIZAAsset.moizaGray3.color.cgColor
-        $0.layer.cornerRadius = 5
-        $0.setImage(UIImage(named: "MOIZA_Funnel")?.withRenderingMode(.alwaysOriginal).tintColor(MOIZAAsset.moizaGray3.color), for: .normal)
-        $0.setTitle("정렬", for: .normal)
-        $0.imageView?.contentMode = .scaleAspectFit
-        $0.titleLabel?.font = UIFont(font: MOIZAFontFamily.Roboto.regular, size: 12)
-        $0.setTitleColor(MOIZAAsset.moizaGray5.color, for: .normal)
-        $0.contentHorizontalAlignment = .center
-        $0.semanticContentAttribute = .forceLeftToRight
-        $0.imageEdgeInsets = UIEdgeInsets(top: 8, left: 12, bottom: 8, right: 41)
-        $0.titleEdgeInsets = UIEdgeInsets(top: 0, left: 18, bottom: 0, right: 12)
-    }
+    private let sortButton = SortButton()
     
     private let postListTableView = UITableView(frame: .zero, style: .plain).then {
         $0.register(PostCell.self, forCellReuseIdentifier: PostCell.reusableID)

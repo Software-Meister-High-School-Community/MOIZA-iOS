@@ -30,6 +30,7 @@ def pods
   pod 'RealmSwift', '~> 10.22'
   pod 'ViewAnimator', '~> 3.1.0'
   pod 'PanModal', '~> 1.2.7'
+  pod 'Kingfisher', '~> 7.2.0'
 
   # Network
   pod 'Moya/RxSwift', '~> 15.0.0'

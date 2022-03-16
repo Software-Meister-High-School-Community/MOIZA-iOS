@@ -97,6 +97,7 @@ PODS:
     - GoogleUtilities/Logger
   - Hero (1.6.1)
   - IQKeyboardManagerSwift (6.5.9)
+  - Kingfisher (7.2.0)
   - M13Checkbox (3.4.0)
   - Moya/Core (15.0.0):
     - Alamofire (~> 5.0)
@@ -160,6 +161,7 @@ DEPENDENCIES:
   - FlexLayout (~> 1.3.23)
   - Hero (~> 1.6.1)
   - IQKeyboardManagerSwift (~> 6.5.9)
+  - Kingfisher (~> 7.2.0)
   - M13Checkbox (~> 3.4.0)
   - Moya/RxSwift (~> 15.0.0)
   - PanModal (~> 1.2.7)
@@ -198,6 +200,7 @@ SPEC REPOS:
     - GoogleUtilities
     - Hero
     - IQKeyboardManagerSwift
+    - Kingfisher
     - M13Checkbox
     - Moya
     - nanopb
@@ -241,6 +244,7 @@ SPEC CHECKSUMS:
   GoogleUtilities: e0913149f6b0625b553d70dae12b49fc62914fd1
   Hero: 215865ba3ae41dd9bb08cd6c60a645529c6fc94b
   IQKeyboardManagerSwift: 6e839c575c4aa1078d58a596e41244e77abe918f
+  Kingfisher: 3ac0b75b155cabc0e544877d1a4deea29feece92
   M13Checkbox: 6f59404540ac98ba83a3d1afac335895a40c6a5d
   Moya: 138f0573e53411fb3dc17016add0b748dfbd78ee
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
@@ -268,6 +272,10 @@ SPEC CHECKSUMS:
   ViewAnimator: a9ceed80266e00fd435ec4fb99b2df64d580d0e4
   WeakMapTable: 05c694ce8439a7a9ebabb56187287a63c57673d6
 
+<<<<<<< HEAD
 PODFILE CHECKSUM: efb39f4c955bfe052d03e2ab155fa7a4413078ea
+=======
+PODFILE CHECKSUM: 6d428d8879a66aa134b2ce6be3f6c2a682ccc4fe
+>>>>>>> 1128e119589c7fb802ec71a53b33ad923cee1582
 
 COCOAPODS: 1.11.2
