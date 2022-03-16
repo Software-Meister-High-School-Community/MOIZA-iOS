@@ -65,7 +65,27 @@ private extension DetailPostReactor {
         
         return .just(.setComments([
             .init(id: 0,
-                  author: .init(id: 0, name: "ASDF", schoolName: "ASDF", type: .student),
+                  author: .init(id: 0, profileImageUrl: "https://avatars.githubusercontent.com/u/14981341?s=48&v=4", name: "ASDF", schoolName: "ASDF", type: .student),
+                  isMine: true,
+                  isPinned: false,
+                  createdAt: Date(),
+                  content: "Content",
+                  likeCount: 2,
+                  imageUrls: [],
+                  childComments: []
+                 ),
+            .init(id: 2,
+                  author: .init(id: 0, profileImageUrl: "https://avatars.githubusercontent.com/u/14981341?s=48&v=4", name: "ASDF", schoolName: "ASDF", type: .student),
+                  isMine: true,
+                  isPinned: false,
+                  createdAt: Date(),
+                  content: "Content\n\ncon\nasdf\nasd",
+                  likeCount: 2,
+                  imageUrls: [],
+                  childComments: []
+                 ),
+            .init(id: 0,
+                  author: .init(id: 0, profileImageUrl: "https://avatars.githubusercontent.com/u/14981341?s=48&v=4", name: "ASDF", schoolName: "ASDF", type: .student),
                   isMine: true,
                   isPinned: false,
                   createdAt: Date(),

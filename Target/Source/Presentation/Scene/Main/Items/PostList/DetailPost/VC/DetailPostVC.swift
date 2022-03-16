@@ -43,6 +43,31 @@ final class DetailPostVC: baseVC<DetailPostReactor> {
     private let commentTableView = UITableView().then {
         $0.register(CommentCell.self, forCellReuseIdentifier: CommentCell.reusableID)
         $0.rowHeight = UITableView.automaticDimension
+        $0.backgroundColor = .clear
+        $0.separatorStyle = .none
+        $0.isScrollEnabled = false
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.commentTableView.addObserver(self, forKeyPath: "contentSize", options: .new, context: nil)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.commentTableView.removeObserver(self, forKeyPath: "contentSize")
+    }
+    
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        if keyPath == "contentSize" {
+            if object is UITableView {
+                if let newValue = change?[.newKey] as? CGSize {
+                    commentTableView.flex.height(newValue.height + 50)
+                    rootContainer.flex.layout(mode: .adjustHeight)
+                    scrollView.contentSize = rootContainer.frame.size
+                }
+            }
+        }
     }
     
     // MARK: - UI
@@ -54,7 +79,7 @@ final class DetailPostVC: baseVC<DetailPostReactor> {
         scrollView.pin.all()
         rootContainer.pin.top().width(100%)
         
-        commentTableView.flex.height(commentTableView.contentSize.height)
+//        commentTableView.flex.height(commentTableView.contentSize.height)
         rootContainer.flex.layout(mode: .adjustHeight)
         scrollView.contentSize = rootContainer.frame.size
     }
