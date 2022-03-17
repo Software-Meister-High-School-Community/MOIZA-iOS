@@ -9,7 +9,6 @@
 import UIKit
 import PinLayout
 import FlexLayout
-import Hero
 import RxCocoa
 
 final class SignUpSuccessVC: baseVC<SignUpSuccessReactor> {
@@ -18,7 +17,6 @@ final class SignUpSuccessVC: baseVC<SignUpSuccessReactor> {
     private let checkMarkImageView = UIImageView().then {
         $0.image = UIImage(systemName: "checkmark.circle.fill")?.tintColor(MOIZAAsset.moizaPrimaryBlue.color)
         $0.contentMode = .scaleAspectFit
-        $0.hero.id = "progress"
     }
     private let successLabel = UILabel().then {
         $0.text = "회원가입이 완료되었습니다."
@@ -26,9 +24,7 @@ final class SignUpSuccessVC: baseVC<SignUpSuccessReactor> {
         $0.font = UIFont(font: MOIZAFontFamily.Roboto.regular, size: 18)
         $0.textAlignment = .center
     }
-    private let signInButton = NextButton(title: "로그인하기").then {
-        $0.hero.id = "next"
-    }
+    private let signInButton = NextButton(title: "로그인하기")
     
     // MARK: - UI
     override func addView() {

@@ -8,7 +8,6 @@
 
 import UIKit
 import FlexibleSteppedProgressBar
-import Hero
 import M13Checkbox
 import RxDataSources
 import RxSwift

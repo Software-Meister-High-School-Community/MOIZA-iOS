@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Hero
 import M13Checkbox
 import RxDataSources
 import RxSwift
@@ -22,7 +21,6 @@ final class SignInVC: baseVC<SignInReactor>{
     private let moizaLogoImageView = UIImageView(image: MOIZAAsset.moizaLogo.image).then{
         $0.backgroundColor = MOIZAAsset.moizaGray1.color
         $0.contentMode = .scaleToFill
-        $0.hero.id = "logo"
     }
     private let signInIdTextfield = SignInTextField().then{
         $0.autocapitalizationType = .none

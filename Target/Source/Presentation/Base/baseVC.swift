@@ -9,7 +9,6 @@ import UIKit
 import ReactorKit
 import Then
 import SnapKit
-import Hero
 
 class baseVC<T: Reactor>: UIViewController{
     let bound = UIScreen.main.bounds
