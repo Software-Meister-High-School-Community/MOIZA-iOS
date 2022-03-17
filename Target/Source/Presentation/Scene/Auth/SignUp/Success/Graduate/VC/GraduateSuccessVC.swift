@@ -9,7 +9,6 @@
 import UIKit
 import PinLayout
 import FlexLayout
-import Hero
 import RxCocoa
 
 final class GraduateSuccessVC: baseVC<GraduateSuccessReactor> {
@@ -17,7 +16,6 @@ final class GraduateSuccessVC: baseVC<GraduateSuccessReactor> {
     private let rootContainer = UIView()
     private let paperPlaneImageView = UIImageView().then {
         $0.image = UIImage(systemName: "paperplane.fill")?.tintColor(MOIZAAsset.moizaPrimaryBlue.color)
-        $0.hero.id = "progress"
     }
     private let successLabel = UILabel().then {
         $0.text = "졸업 인증 신청이 완료되었습니다."
