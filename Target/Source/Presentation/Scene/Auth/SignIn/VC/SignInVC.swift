@@ -107,7 +107,7 @@ final class SignInVC: baseVC<SignInReactor>{
             // MARK: - LoginButton
             flex.addItem(loginButton).width(100%).height(50).marginTop(35).alignSelf(.center)
             // MARK: - Additions
-            flex.addItem().horizontally(65).define { flex in
+            flex.addItem().alignSelf(.center).define { flex in
                 flex.addItem().marginTop(40).direction(.row).shrink(1).define { flex in
                     flex.addItem(registerButton).width(45).height(14)
                     flex.addItem(line).marginLeft(18).marginRight(18)
