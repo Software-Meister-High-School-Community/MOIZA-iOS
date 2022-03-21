@@ -2,6 +2,7 @@ import Foundation
 import Moya
 
 enum AuthAPI {
+    case login(req: LoginRequest)
     case reissue
 }
 
@@ -12,13 +13,15 @@ extension AuthAPI: MoizaAPI {
     
     var urlPath: String {
         switch self {
-        case .reissue:
+        case .reissue, .login:
             return "/tokens"
         }
     }
     
     var method: Moya.Method {
         switch self {
+        case .login:
+            return .post
         case .reissue:
             return .put
         }
@@ -26,7 +29,8 @@ extension AuthAPI: MoizaAPI {
     
     var task: Task {
         switch self {
-            
+        case let .login(req):
+            return .requestJSONEncodable(req)
         default:
             return .requestPlain
         }
@@ -36,6 +40,8 @@ extension AuthAPI: MoizaAPI {
         switch self {
         case .reissue:
             return .refreshToken
+        default:
+            return JWTTokenType.none
         }
     }
 }
