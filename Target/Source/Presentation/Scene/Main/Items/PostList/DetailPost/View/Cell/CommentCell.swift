@@ -54,10 +54,10 @@ final class CommentCell: baseTableViewCell<Comment> {
     }
     override func setLayout() {
         rootContainer.flex.marginVertical(12.5).define { flex in
-            flex.addItem(authorLabel).marginTop(10).marginLeft(Metric.marginHorizontal).width(46).height(26)
+            flex.addItem(authorLabel).marginTop(10).marginLeft(Metric.marginHorizontal).width(46).height(26).display(.none)
             flex.addItem().direction(.row).marginTop(10).marginHorizontal(Metric.marginHorizontal).define { flex in
                 flex.addItem(profileImageView).size(36)
-                flex.addItem(userInfoLabel).grow(1)
+                flex.addItem(userInfoLabel).grow(1).marginLeft(12)
                 flex.addItem(moreButton)
             }
             flex.addItem(contentLabel).marginTop(20).marginHorizontal(Metric.marginHorizontal).grow(1)

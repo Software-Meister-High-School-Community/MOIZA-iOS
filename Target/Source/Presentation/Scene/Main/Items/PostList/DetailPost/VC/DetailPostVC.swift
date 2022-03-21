@@ -13,6 +13,10 @@ final class DetailPostVC: baseVC<DetailPostReactor> {
     private let scrollView = UIScrollView().then {
         $0.backgroundColor = MOIZAAsset.moizaGray2.color
     }
+    private let ellipsisButton = UIBarButtonItem(image: .init(systemName: "ellipsis")?.tintColor(MOIZAAsset.moizaGray6.color),
+                                                 style: .plain,
+                                                 target: nil,
+                                                 action: nil)
     private let rootContainer = UIView()
     private let headerContainer = UIView().then {
         $0.backgroundColor = MOIZAAsset.moizaConstGray1.color
@@ -23,7 +27,7 @@ final class DetailPostVC: baseVC<DetailPostReactor> {
         $0.numberOfLines = 0
     }
     private let postInfoLabel = UILabel().then {
-        $0.text = "TEST"
+        $0.text = "작성일 언제"
     }
     private let profileImageView = UIImageView().then {
         $0.layer.cornerRadius = 18
@@ -39,7 +43,20 @@ final class DetailPostVC: baseVC<DetailPostReactor> {
     private let likeButton = UIButton().then {
         $0.setImage(.init(systemName: "heart"), for: .normal)
     }
-    
+    private let noCommentLabel = UILabel().then {
+        $0.text = "아직 답글이 없네요!"
+    }
+    private let commentCountLabel = UILabel().then {
+        let str = NSMutableAttributedString(string: "답글 0")
+        str.setColorForText(textToFind: "답글", withColor: MOIZAAsset.moizaGray6.color)
+        $0.text = "답글 2"
+    }
+    private let commentAddButton = UIButton().then {
+        $0.setTitle("답글 추가", for: .normal)
+        $0.setTitleColor(MOIZAAsset.moizaGray1.color, for: .normal)
+        $0.backgroundColor = MOIZAAsset.moizaPrimaryBlue.color
+        $0.layer.cornerRadius = 16
+    }
     private let commentTableView = UITableView().then {
         $0.register(CommentCell.self, forCellReuseIdentifier: CommentCell.reusableID)
         $0.rowHeight = UITableView.automaticDimension
@@ -76,26 +93,30 @@ final class DetailPostVC: baseVC<DetailPostReactor> {
         scrollView.addSubViews(rootContainer)
     }
     override func setLayoutSubViews() {
-        scrollView.pin.all()
+        scrollView.pin.all(view.pin.safeArea)
         rootContainer.pin.top().width(100%)
         
-//        commentTableView.flex.height(commentTableView.contentSize.height)
         rootContainer.flex.layout(mode: .adjustHeight)
         scrollView.contentSize = rootContainer.frame.size
     }
     override func setLayout() {
         rootContainer.flex.define { flex in
-            flex.addItem(headerContainer).define { flex in
+            flex.addItem(headerContainer).marginTop(12).define { flex in
                 flex.addItem(titleLabel).marginTop(30).marginHorizontal(Metric.marginHorizontal)
                 flex.addItem(postInfoLabel).marginTop(8).marginHorizontal(Metric.marginHorizontal)
                 flex.addItem().direction(.row).marginHorizontal(Metric.marginHorizontal).define { flex in
                     flex.addItem(profileImageView).size(36)
-                    flex.addItem(userInfoLabel)
+                    flex.addItem(userInfoLabel).marginLeft(12)
                 }
                 flex.addItem(contentLabel).marginTop(30).marginHorizontal(Metric.marginHorizontal)
-                flex.addItem(likeButton).marginTop(20).marginHorizontal(Metric.marginHorizontal)
+                flex.addItem(likeButton).marginLeft(Metric.marginHorizontal).marginTop(20).marginBottom(25).alignSelf(.start)
             }
-            flex.addItem(commentTableView).marginTop(82).grow(1).maxHeight(.infinity)
+            flex.addItem().direction(.row).marginHorizontal(16).marginTop(40).define { flex in
+                flex.addItem(commentCountLabel)
+                flex.addItem().grow(1)
+                flex.addItem(commentAddButton).height(32).width(80)
+            }
+            flex.addItem(commentTableView).marginTop(10).grow(1)
         }
         
     }
@@ -107,6 +128,7 @@ final class DetailPostVC: baseVC<DetailPostReactor> {
             title: UserDefaultsLocal.shared.major.display,
             subtitle: "질문 게시판"
         )
+        self.navigationItem.rightBarButtonItem = ellipsisButton
     }
     override func configureVC() {
         view.backgroundColor = MOIZAAsset.moizaGray2.color
@@ -131,9 +153,6 @@ final class DetailPostVC: baseVC<DetailPostReactor> {
         sharedState
             .map(\.comments)
             .map{ [CommentSection.init(items: $0)] }
-            .do(afterNext: { [weak self] _ in
-                self?.view.setNeedsLayout()
-            })
             .bind(to: commentTableView.rx.items(dataSource: commentDS))
             .disposed(by: disposeBag)
             

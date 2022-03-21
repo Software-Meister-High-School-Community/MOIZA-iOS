@@ -28,7 +28,6 @@ final class AllPostVC: baseVC<PostListReactor> {
         $0.rowHeight = 60
         $0.separatorStyle = .none
         $0.backgroundColor = MOIZAAsset.moizaGray2.color
-        $0.showsVerticalScrollIndicator = false
     }
     
     // MARK: - UI
