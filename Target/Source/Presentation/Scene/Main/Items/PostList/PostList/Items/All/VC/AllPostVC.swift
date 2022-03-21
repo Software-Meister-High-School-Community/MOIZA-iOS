@@ -75,6 +75,11 @@ final class AllPostVC: baseVC<PostListReactor> {
             }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
+        
+        sortButton.rx.tap
+            .map { Reactor.Action.sortButtonDidTap }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
     }
     override func bindAction(reactor: PostListReactor) {
         self.rx.viewDidLoad

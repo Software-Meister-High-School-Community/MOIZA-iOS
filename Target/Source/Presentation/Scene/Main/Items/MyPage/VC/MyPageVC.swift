@@ -155,7 +155,7 @@ final class MyPageVC: baseVC<MyPageReactor> {
         descriptionView.pin.below(of: mainView, aligned: .left).marginTop(11).height(82).width(100%)
         describeContainer.pin.top(20).horizontally(14).height(36).width(315)
         myPostLabel.pin.below(of: descriptionView, aligned: .start).marginTop(40).height(16).width(68)
-        sortButton.pin.below(of: descriptionView, aligned: .end).marginTop(34).height(28).width(63)
+        sortButton.pin.below(of: descriptionView, aligned: .end).marginTop(34).height(28).width(63).sizeToFit()
         postContainer.pin.all(view.pin.safeArea)
         
         mainContainer.flex.define { flex in
