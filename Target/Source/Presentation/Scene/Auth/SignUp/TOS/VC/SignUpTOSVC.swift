@@ -34,6 +34,7 @@ final class SignUpTOSVC: baseVC<SignUpTOSReactor>{
     private let allAgreeLabel = UILabel().then {
         $0.font = UIFont(font: MOIZAFontFamily.Roboto.regular, size: 16)
         $0.text = "전체 약관 동의"
+        $0.backgroundColor = .clear
     }
     private let agreeContainer = UIView()
     private let separatorView = UIView().then {
@@ -93,6 +94,13 @@ final class SignUpTOSVC: baseVC<SignUpTOSReactor>{
         self.navigationItem.configAuthNavigation(title: "회원가입")
         
         self.navigationItem.configBack()
+    }
+    override func darkConfigure() {
+        descriptionLabel.textColor = MOIZAAsset.moizaDark4.color
+        subView.backgroundColor = MOIZAAsset.moizaDark2.color
+        agreeContainer.backgroundColor = MOIZAAsset.moizaDark2.color
+        continueButton.backgroundColor = MOIZAAsset.moizaDark3.color
+        continueButton.layer.borderColor = UIColor.clear.cgColor
     }
     
     // MARK: - Reactor
