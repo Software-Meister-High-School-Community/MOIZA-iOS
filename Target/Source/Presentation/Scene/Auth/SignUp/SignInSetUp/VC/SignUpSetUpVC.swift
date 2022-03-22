@@ -239,7 +239,8 @@ final class SignUpSetUpVC: baseVC<SignUpSetUpReactor>{
             .withUnretained(self)
             .bind { owner, valid in
                 owner.pwdCheckInvalidLabel.isHidden = valid
-                owner.pwdCheckTextField.layer.borderColor = valid ? MOIZAAsset.moizaGray3.color.cgColor : MOIZAAsset.moizaTheme.color.cgColor
+                let color = owner.traitCollection.userInterfaceStyle == .dark ? UIColor.clear.cgColor : MOIZAAsset.moizaGray3.color.cgColor
+                owner.pwdCheckTextField.layer.borderColor = valid ? color : MOIZAAsset.moizaTheme.color.cgColor
             }
             .disposed(by: disposeBag)
     }
