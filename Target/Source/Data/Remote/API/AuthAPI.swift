@@ -5,6 +5,7 @@ enum AuthAPI {
     case login(req: LoginRequest)
     case sendVerification(SendVerificationRequest)
     case checkVerification(CheckVerificationRequest)
+    case checkIdValidations(id: String)
     case reissue
 }
 
@@ -19,12 +20,14 @@ extension AuthAPI: MoizaAPI {
             return "/tokens"
         case .sendVerification, .checkVerification:
             return "/email-verifications"
+        case .checkIdValidations:
+            return "/id-validations"
         }
     }
     
     var method: Moya.Method {
         switch self {
-        case .checkVerification:
+        case .checkVerification, .checkIdValidations:
             return .head
         case .login, .sendVerification:
             return .post
@@ -41,6 +44,10 @@ extension AuthAPI: MoizaAPI {
             return .requestJSONEncodable(req)
         case let .checkVerification(req):
             return .requestJSONEncodable(req)
+        case let .checkIdValidations(id):
+            return .requestParameters(parameters: [
+                "account_id": id
+            ], encoding: JSONEncoding.default)
         default:
             return .requestPlain
         }
