@@ -6,6 +6,7 @@ enum AuthAPI {
     case sendVerification(SendVerificationRequest)
     case checkVerification(CheckVerificationRequest)
     case checkIdValidations(id: String)
+    case findId(email: String)
     case reissue
 }
 
@@ -22,11 +23,15 @@ extension AuthAPI: MoizaAPI {
             return "/email-verifications"
         case .checkIdValidations:
             return "/id-validations"
+        case let .findId(email):
+            return "/\(email)"
         }
     }
     
     var method: Moya.Method {
         switch self {
+        case .findId:
+            return .get
         case .checkVerification, .checkIdValidations:
             return .head
         case .login, .sendVerification:
