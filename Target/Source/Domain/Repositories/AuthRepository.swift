@@ -7,4 +7,5 @@ protocol AuthRepository {
     func checkIdValidation(id: String, isTest: Bool) -> Completable
     func findId(email: String, isTest: Bool) -> Single<FindIdResponse>
     func changeNewPassword(req: ChangeNewPasswordRequest, isTest: Bool) -> Completable
+    func reissue(isTest: Bool) -> Completable
 }
