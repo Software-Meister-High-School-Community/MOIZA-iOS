@@ -50,6 +50,9 @@ final class GraduateSuccessVC: baseVC<GraduateSuccessReactor> {
     override func configureNavigation() {
         self.navigationItem.configAuthNavigation(title: "졸업생 인증")
     }
+    override func darkConfigure() {
+        descriptionLabel.textColor = MOIZAAsset.moizaDark4.color
+    }
     
     // MARK: - Reactor
     override func bindView(reactor: GraduateSuccessReactor) {
