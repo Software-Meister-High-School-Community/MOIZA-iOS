@@ -7,7 +7,7 @@ enum AuthAPI {
     case checkVerification(CheckVerificationRequest)
     case checkIdValidations(id: String)
     case findId(email: String)
-    case newPassword(password: String, id: String)
+    case newPassword(req: ChangeNewPasswordRequest)
     case reissue
 }
 
@@ -58,11 +58,8 @@ extension AuthAPI: MoizaAPI {
             return .requestParameters(parameters: [
                 "account_id": id
             ], encoding: JSONEncoding.default)
-        case let .newPassword(password, id):
-            return .requestParameters(parameters: [
-                "new_password": password,
-                "account_id": id
-            ], encoding: JSONEncoding.default)
+        case let .newPassword(req):
+            return .requestJSONEncodable(req)
         default:
             return .requestPlain
         }

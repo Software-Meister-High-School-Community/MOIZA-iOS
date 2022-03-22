@@ -28,12 +28,8 @@ final class AuthRemote: BaseRemote<AuthAPI> {
         request(.findId(email: email), isTest: isTest)
             .map(FindIdResponse.self)
     }
-    func changeNewPassword(
-        newPassword: String,
-        id: String,
-        isTest: Bool
-    ) -> Completable {
-        request(.newPassword(password: newPassword, id: id), isTest: isTest)
+    func changeNewPassword(req: ChangeNewPasswordRequest, isTest: Bool) -> Completable {
+        request(.newPassword(req: req), isTest: isTest)
             .asCompletable()
     }
 }
