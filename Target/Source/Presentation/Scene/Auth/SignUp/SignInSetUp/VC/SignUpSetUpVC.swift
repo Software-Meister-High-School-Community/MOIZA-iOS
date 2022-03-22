@@ -136,6 +136,16 @@ final class SignUpSetUpVC: baseVC<SignUpSetUpReactor>{
         self.navigationItem.configBack()
         view.backgroundColor = MOIZAAsset.moizaGray1.color
     }
+    override func darkConfigure() {
+        [
+            idTextField, pwdTextField, pwdCheckTextField, idCheckButton
+        ].forEach {
+            $0.backgroundColor = MOIZAAsset.moizaDark2.color
+            $0.layer.borderColor = UIColor.clear.cgColor
+        }
+        
+        
+    }
     
     // MARK: - Reactor
     override func bindView(reactor: SignUpSetUpReactor) {

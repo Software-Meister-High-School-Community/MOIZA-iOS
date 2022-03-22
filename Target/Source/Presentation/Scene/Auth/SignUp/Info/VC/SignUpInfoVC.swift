@@ -232,7 +232,7 @@ final class SignUpInfoVC: baseVC<SignUpInfoReactor>{
     }
     override func darkConfigure() {
         [
-            nameTextField, birthTextField, schoolTextField, emailTextField, emailTypeTextField, authCodeTextField
+            nameTextField, birthTextField, schoolTextField, emailTextField, emailTypeTextField, authCodeTextField, genderCollectionView
         ].forEach {
             $0.backgroundColor = MOIZAAsset.moizaDark2.color
             $0.layer.borderColor = UIColor.clear.cgColor
