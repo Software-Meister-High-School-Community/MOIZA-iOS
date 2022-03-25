@@ -22,13 +22,21 @@ final class FindIDReactor: Reactor, Stepper {
         case nextButtonDidTap
     }
     enum Mutation {}
-    struct State {}
+    struct State {
+        var certNumber: String
+        var isValid: Bool
+        var certIsCorrect: Bool
+    }
     
     let initialState: State
     
     // MARK: - Init
     init() {
-        initialState = State()
+        initialState = State(
+            certNumber: "",
+            isValid: false,
+            certIsCorrect: true
+        )
     }
     
 }

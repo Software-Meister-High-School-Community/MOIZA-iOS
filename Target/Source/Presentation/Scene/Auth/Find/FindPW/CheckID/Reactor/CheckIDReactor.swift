@@ -22,13 +22,19 @@ final class CheckIDReactor: Stepper, Reactor {
         case nextButtonDidTap
     }
     enum Mutation {}
-    struct State {}
+    struct State {
+        var userID: String
+        var isValid: Bool
+    }
     
     let initialState: State
     
     // MARK: - Init
     init() {
-        initialState = State()
+        initialState = State(
+            userID: "",
+            isValid: false
+        )
     }
 }
 

@@ -27,13 +27,19 @@ final class SendCertReactor: Stepper, Reactor {
     }
     struct State {
         var email: String
+        var isValid: Bool
+        var certisCorrect: Bool
     }
     
     let initialState: State
     
     // MARK: - Init
     init() {
-        self.initialState = State(email: "???")
+        self.initialState = State(
+            email: "",
+            isValid: false,
+            certisCorrect: true
+        )
     }
 }
 

@@ -23,13 +23,19 @@ final class SucFindIDReactor: Reactor, Stepper {
         case findPWButtonDidTap
     }
     enum Mutation {}
-    struct State {}
+    struct State {
+        var userName: String
+        var userID: String
+    }
     
     let initialState: State
     
     // MARK: - Init
     init() {
-        initialState = State()
+        initialState = State(
+            userName: "",
+            userID: ""
+        )
     }
 }
 

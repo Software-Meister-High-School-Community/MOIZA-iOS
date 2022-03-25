@@ -22,13 +22,27 @@ final class ReRegistrationReactor: Reactor, Stepper {
         case nextButtonDidTap
     }
     enum Mutation {}
-    struct State {}
+    struct State {
+        var PWIsCorrect: Bool
+        var isValid: Bool
+        var newPassWord: String
+        var newPassWordVisible: Bool
+        var newPassWordCheck: String
+        var newPassWordCheckVisible: Bool
+    }
     
     let initialState: State
     
     // MARK: - Init
     init() {
-        initialState = State()
+        initialState = State(
+            PWIsCorrect: true,
+            isValid: false,
+            newPassWord: "",
+            newPassWordVisible: false,
+            newPassWordCheck: "",
+            newPassWordCheckVisible: false
+        )
     }
 }
 

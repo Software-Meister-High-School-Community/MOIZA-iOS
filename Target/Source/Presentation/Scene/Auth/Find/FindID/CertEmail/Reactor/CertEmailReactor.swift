@@ -23,13 +23,19 @@ final class CertEmailReactor: Reactor, Stepper{
         case nextButtonDidTap
     }
     enum Mutation {}
-    struct State {}
+    struct State {
+        var isValid: Bool
+        var email: String
+    }
     
     let initialState: State
     
     // MARK: - Init
     init() {
-        initialState = State()
+        initialState = State(
+            isValid: false,
+            email: ""
+        )
     }
 }
 
