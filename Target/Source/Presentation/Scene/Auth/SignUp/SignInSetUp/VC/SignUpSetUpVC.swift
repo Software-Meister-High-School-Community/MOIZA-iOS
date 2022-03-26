@@ -77,9 +77,7 @@ final class SignUpSetUpVC: baseVC<SignUpSetUpReactor>{
         $0.isHidden = true
     }
     
-    private let nextButton = NextButton(title: "다음 단계").then {
-        $0.hero.id = "next"
-    }
+    private let nextButton = NextButton(title: "다음 단계")
     
     // MARK: - Lifecycle
     override func viewDidAppear(_ animated: Bool) {

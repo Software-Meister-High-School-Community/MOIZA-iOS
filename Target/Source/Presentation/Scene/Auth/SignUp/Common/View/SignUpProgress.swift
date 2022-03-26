@@ -7,7 +7,6 @@
 //
 
 import FlexibleSteppedProgressBar
-import Hero
 
 final class SignUpProgress: FlexibleSteppedProgressBar{
     init(){
@@ -18,7 +17,6 @@ final class SignUpProgress: FlexibleSteppedProgressBar{
         self.currentSelectedCenterColor = MOIZAAsset.moizaPrimaryBlue.color
         self.selectedBackgoundColor = MOIZAAsset.moizaPrimaryBlue.color
         self.selectedOuterCircleStrokeColor = .clear
-        self.hero.id = "progress"
     }
     
     required init?(coder aDecoder: NSCoder) {

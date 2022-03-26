@@ -8,7 +8,6 @@
 
 import RxFlow
 import RxRelay
-import Hero
 import Then
 import ReactorKit
 
@@ -28,9 +27,7 @@ final class OnBoardingFlow: Flow{
     
     @Inject private var vc: OnBoardingVC
     @Inject var stepper: OnBoardingStepper
-    private let rootVC = UINavigationController().then {
-        $0.hero.isEnabled = true
-    }
+    private let rootVC = UINavigationController()
     
     // MARK: - Init
     deinit {

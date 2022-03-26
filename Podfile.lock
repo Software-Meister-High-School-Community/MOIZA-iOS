@@ -95,7 +95,6 @@ PODS:
     - GoogleUtilities/Logger
   - GoogleUtilities/UserDefaults (7.7.0):
     - GoogleUtilities/Logger
-  - Hero (1.6.1)
   - IQKeyboardManagerSwift (6.5.9)
   - Kingfisher (7.2.0)
   - M13Checkbox (3.4.0)
@@ -116,11 +115,6 @@ PODS:
   - ReactorKit (3.1.0):
     - RxSwift (~> 6.0)
     - WeakMapTable (~> 1.1)
-  - Realm (10.22.0):
-    - Realm/Headers (= 10.22.0)
-  - Realm/Headers (10.22.0)
-  - RealmSwift (10.22.0):
-    - Realm (= 10.22.0)
   - RxCocoa (6.2.0):
     - RxRelay (= 6.2.0)
     - RxSwift (= 6.2.0)
@@ -159,7 +153,6 @@ DEPENDENCIES:
   - Firebase/Messaging (~> 8.12.0)
   - FlexibleSteppedProgressBar (~> 0.7.2)
   - FlexLayout (~> 1.3.23)
-  - Hero (~> 1.6.1)
   - IQKeyboardManagerSwift (~> 6.5.9)
   - Kingfisher (~> 7.2.0)
   - M13Checkbox (~> 3.4.0)
@@ -167,7 +160,6 @@ DEPENDENCIES:
   - PanModal (~> 1.2.7)
   - PinLayout (~> 1.10.0)
   - ReactorKit (~> 3.1.0)
-  - RealmSwift (~> 10.22)
   - RxCocoa (~> 6.2.0)
   - RxDataSources (~> 5.0.0)
   - RxFlow (~> 2.12.4)
@@ -198,7 +190,6 @@ SPEC REPOS:
     - GoogleAppMeasurement
     - GoogleDataTransport
     - GoogleUtilities
-    - Hero
     - IQKeyboardManagerSwift
     - Kingfisher
     - M13Checkbox
@@ -209,8 +200,6 @@ SPEC REPOS:
     - PinLayout
     - PromisesObjC
     - ReactorKit
-    - Realm
-    - RealmSwift
     - RxCocoa
     - RxDataSources
     - RxFlow
@@ -242,7 +231,6 @@ SPEC CHECKSUMS:
   GoogleAppMeasurement: ae033c3aad67e68294369373056b4d74cc8ae0d6
   GoogleDataTransport: 629c20a4d363167143f30ea78320d5a7eb8bd940
   GoogleUtilities: e0913149f6b0625b553d70dae12b49fc62914fd1
-  Hero: 215865ba3ae41dd9bb08cd6c60a645529c6fc94b
   IQKeyboardManagerSwift: 6e839c575c4aa1078d58a596e41244e77abe918f
   Kingfisher: 3ac0b75b155cabc0e544877d1a4deea29feece92
   M13Checkbox: 6f59404540ac98ba83a3d1afac335895a40c6a5d
@@ -253,8 +241,6 @@ SPEC CHECKSUMS:
   PinLayout: d6b1960e4b182b4da1481b9aa6728f621e20708d
   PromisesObjC: 68159ce6952d93e17b2dfe273b8c40907db5ba58
   ReactorKit: a06dd2a5c9339287aedf3dc821cfab6347eca106
-  Realm: d9e4e5877095a6722145811f56fe89a531c9659d
-  RealmSwift: e4191b4b957fcfcbed23751ec65eec98f8173ab5
   RxCocoa: 4baf94bb35f2c0ab31bc0cb9f1900155f646ba42
   RxDataSources: aa47cc1ed6c500fa0dfecac5c979b723542d79cf
   RxFlow: 03a73c83fb8f183107074b40ab2544c668583f73
@@ -272,6 +258,6 @@ SPEC CHECKSUMS:
   ViewAnimator: a9ceed80266e00fd435ec4fb99b2df64d580d0e4
   WeakMapTable: 05c694ce8439a7a9ebabb56187287a63c57673d6
 
-PODFILE CHECKSUM: 6d428d8879a66aa134b2ce6be3f6c2a682ccc4fe
+PODFILE CHECKSUM: e3512731782506228b330e81da135b1d490c3762
 
-COCOAPODS: 1.11.2
+COCOAPODS: 1.11.3

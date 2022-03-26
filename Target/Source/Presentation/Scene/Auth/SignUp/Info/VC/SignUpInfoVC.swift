@@ -8,7 +8,6 @@
 
 import FlexibleSteppedProgressBar
 import SwiftDate
-import Hero
 import PinLayout
 import Then
 import UIKit
@@ -128,7 +127,6 @@ final class SignUpInfoVC: baseVC<SignUpInfoReactor>{
     // MARK: - Lifecycle
     override func viewDidAppear(_ animated: Bool) {
         progressBar.currentIndex = 1
-        nextButton.hero.id = "progress"
     }
     
     // MARK: - UI
