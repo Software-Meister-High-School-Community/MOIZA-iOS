@@ -10,7 +10,6 @@ import UIKit
 import Then
 import FlexLayout
 import PinLayout
-import Hero
 import RxCocoa
 import RxFlow
 import RxSwift

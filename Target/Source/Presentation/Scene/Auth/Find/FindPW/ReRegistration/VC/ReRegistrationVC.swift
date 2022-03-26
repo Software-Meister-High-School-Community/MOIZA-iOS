@@ -13,7 +13,6 @@ import ReactorKit
 import FlexLayout
 import PinLayout
 import UIKit
-import Hero
 
 final class ReRegistrationVC: baseVC<ReRegistrationReactor> {
     // MARK: - Metric
