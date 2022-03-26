@@ -23,12 +23,14 @@ final class SendCertReactor: Stepper, Reactor {
         case viewWillAppear
     }
     enum Mutation {
-        case setEmail
+        case setEmail(String)
+        case setIsValid(Bool)
+        case certIsCorrect(Bool)
     }
     struct State {
         var email: String
         var isValid: Bool
-        var certisCorrect: Bool
+        var certIsCorrect: Bool
     }
     
     let initialState: State
@@ -38,7 +40,7 @@ final class SendCertReactor: Stepper, Reactor {
         self.initialState = State(
             email: "",
             isValid: false,
-            certisCorrect: true
+            certIsCorrect: true
         )
     }
 }
@@ -63,6 +65,10 @@ extension SendCertReactor {
         case .setEmail:
             state.email = "받아온 이메일"
             return state
+        case .setIsValid(_):
+            <#code#>
+        case .certIsCorrect:
+            <#code#>
         }
     }
 }

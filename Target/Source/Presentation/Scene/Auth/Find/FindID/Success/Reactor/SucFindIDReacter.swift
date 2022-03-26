@@ -22,10 +22,14 @@ final class SucFindIDReactor: Reactor, Stepper {
         case navToSignInButtonDidTap
         case findPWButtonDidTap
     }
-    enum Mutation {}
+    enum Mutation {
+        case setUserName(String)
+        case setUesrId(String)
+        
+    }
     struct State {
         var userName: String
-        var userID: String
+        var userId: String
     }
     
     let initialState: State

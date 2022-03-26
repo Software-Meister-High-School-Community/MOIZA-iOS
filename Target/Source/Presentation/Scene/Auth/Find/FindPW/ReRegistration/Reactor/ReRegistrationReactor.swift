@@ -21,9 +21,16 @@ final class ReRegistrationReactor: Reactor, Stepper {
     enum Action {
         case nextButtonDidTap
     }
-    enum Mutation {}
+    enum Mutation {
+        case setPassWordIsCorrect(Bool)
+        case setIsValid(Bool)
+        case setNewPassWord(String)
+        case setNewPassWordVisible(Bool)
+        case setNewPassWordCheck(String)
+        case setNewPassWordCheckVisible(Bool)
+    }s
     struct State {
-        var PWIsCorrect: Bool
+        var passWordIsCorrect: Bool
         var isValid: Bool
         var newPassWord: String
         var newPassWordVisible: Bool
@@ -36,7 +43,7 @@ final class ReRegistrationReactor: Reactor, Stepper {
     // MARK: - Init
     init() {
         initialState = State(
-            PWIsCorrect: true,
+            passWordIsCorrect: true,
             isValid: false,
             newPassWord: "",
             newPassWordVisible: false,

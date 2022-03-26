@@ -21,9 +21,12 @@ final class CheckIDReactor: Stepper, Reactor {
     enum Action {
         case nextButtonDidTap
     }
-    enum Mutation {}
+    enum Mutation {
+        case setUserId(String)
+        case setIsValid
+    }
     struct State {
-        var userID: String
+        var userId: String
         var isValid: Bool
     }
     
@@ -32,7 +35,7 @@ final class CheckIDReactor: Stepper, Reactor {
     // MARK: - Init
     init() {
         initialState = State(
-            userID: "",
+            userId: "",
             isValid: false
         )
     }

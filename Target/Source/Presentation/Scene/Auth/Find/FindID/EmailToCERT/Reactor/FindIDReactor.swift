@@ -20,8 +20,14 @@ final class FindIDReactor: Reactor, Stepper {
     // MARK: - Reactor
     enum Action {
         case nextButtonDidTap
+        case updateCertNumber(String)
+        case reCertButtonDidTap
     }
-    enum Mutation {}
+    enum Mutation {
+        case setCertNumber(String)
+        case setIsValid(Bool)
+        
+    }
     struct State {
         var certNumber: String
         var isValid: Bool
@@ -47,6 +53,10 @@ extension FindIDReactor {
         switch action {
         case .nextButtonDidTap:
             return nextButtonDidTap()
+        case .updateCertNumber(_):
+            <#code#>
+        case .reCertButtonDidTap:
+            <#code#>
         }
     }
 }

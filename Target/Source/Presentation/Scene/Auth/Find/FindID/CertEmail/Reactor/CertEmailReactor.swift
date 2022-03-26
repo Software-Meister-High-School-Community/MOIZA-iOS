@@ -22,7 +22,10 @@ final class CertEmailReactor: Reactor, Stepper{
         case reCertButtonDidTap
         case nextButtonDidTap
     }
-    enum Mutation {}
+    enum Mutation {
+        case setIsValid(Bool)
+        case setEmail(String)
+    }
     struct State {
         var isValid: Bool
         var email: String
