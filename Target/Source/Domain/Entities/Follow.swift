@@ -9,7 +9,6 @@ struct Follow: Codable {
         case userList = "user_list"
     }
 }
-
 struct UserList: Codable {
     let userID: Int
     let name: String
