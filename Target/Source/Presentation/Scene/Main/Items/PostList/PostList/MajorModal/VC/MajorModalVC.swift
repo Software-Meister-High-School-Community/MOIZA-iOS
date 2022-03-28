@@ -3,7 +3,6 @@ import PanModal
 import PinLayout
 import RxDataSources
 import RxSwift
-import Hero
 
 final class MajorModalVC: baseVC<MajorModalReactor> {
     // MARK: - Properties
