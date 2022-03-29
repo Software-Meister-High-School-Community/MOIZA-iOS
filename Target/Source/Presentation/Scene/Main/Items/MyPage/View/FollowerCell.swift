@@ -17,7 +17,9 @@ final class FollowerCell: baseTableViewCell<UserList> {
     private let view = UIView().then {
         $0.backgroundColor = .clear
     }
-    private let userProfileImageView = UIImageView()
+    private let userProfileImageView = UIImageView().then{
+        $0.layer.cornerRadius = 50
+    }
     
     private let userId = UILabel().then{
         $0.textColor = MOIZAAsset.moizaGray6.color
@@ -81,6 +83,8 @@ final class FollowerCell: baseTableViewCell<UserList> {
         userProfileImageView.kf.setImage(with: URL(string: model.profileImageURL) ?? .none,
                                      placeholder: UIImage(),
                                      options: [])
+        userProfileImageView.backgroundColor = MOIZAAsset.moizaGray3.color
+    
         userId.text = model.name
         isFollowButton.setTitle("맞팔로우", for: .normal)
         deleteButton.setTitle("삭제", for: .normal)

@@ -13,7 +13,8 @@ struct UserList: Codable {
     let userID: Int
     let name: String
     let profileImageURL: String
-    let userScope, school: String
+    let school: School
+    let userScope: UserScope
     let isFollow: Bool
 
     enum CodingKeys: String, CodingKey {

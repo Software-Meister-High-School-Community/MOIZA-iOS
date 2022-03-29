@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Hero
 import M13Checkbox
 import RxDataSources
 import RxSwift

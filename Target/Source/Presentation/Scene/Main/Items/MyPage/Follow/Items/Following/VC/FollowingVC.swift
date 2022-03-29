@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Hero
 import RxDataSources
 import RxSwift
 import RxViewController

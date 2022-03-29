@@ -47,7 +47,6 @@ final class MyPageReactor: Reactor, Stepper {
         var post: Int?
         var follower: Int?
         var following: Int?
-        var recommendItems: [PostList]
         var postItems: [PostList]
     }
     
@@ -55,7 +54,7 @@ final class MyPageReactor: Reactor, Stepper {
     
     // MARK: - Init
     init() {
-        initialState = State(recommendItems: [], postItems: [])
+        initialState = State(postItems: [])
     }
     
 }
