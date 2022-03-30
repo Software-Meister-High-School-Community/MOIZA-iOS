@@ -98,7 +98,12 @@ final class GraduateFileVC: baseVC<GraduateFileReactor> {
         self.navigationItem.configAuthNavigation(title: "졸업생 인증")
         self.navigationItem.configBack()
     }
-    
+    override func darkConfigure() {
+        descriptionLabel.textColor = MOIZAAsset.moizaDark2.color
+        attachButton.backgroundColor = MOIZAAsset.moizaDark2.color
+        attachButton.layer.borderColor = UIColor.clear.cgColor
+        fileNameLabel.backgroundColor = MOIZAAsset.moizaDark4.color
+    }
     // MARK: - Reactor
     override func bindView(reactor: GraduateFileReactor) {
         attachButton.rx.tap

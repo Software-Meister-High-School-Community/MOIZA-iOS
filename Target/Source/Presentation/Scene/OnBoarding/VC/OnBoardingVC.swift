@@ -43,7 +43,11 @@ final class OnBoardingVC: baseVC<OnBoardingReactor>{
     }
     override func configureNavigation() {
         self.navigationItem.configBack()
-        
+    }
+    override func darkConfigure() {
+        signUpButton.setTitleColor(MOIZAAsset.moizaConstGray1.color, for: .normal)
+        signInButton.backgroundColor = MOIZAAsset.moizaDark3.color
+        signInButton.layer.borderColor = UIColor.clear.cgColor
     }
     
     // MARK: - Reactor

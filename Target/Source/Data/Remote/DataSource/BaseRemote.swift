@@ -15,7 +15,29 @@ class BaseRemote<API: MoizaAPI> {
     }
     private lazy var testingProvider = MoyaProvider<API>(endpointClosure: testingEndpoing, plugins: [JWTPlugin()])
     
-    
+    func request(_ api: API, isTest: Bool = false) -> Single<Response> {
+        return .create { single in
+            var disposables: [Disposable] = []
+            if self.checkApiIsNeedAccessToken(api) {
+                disposables.append(
+                    self.requestWithAccessToken(api, isTest: isTest)
+                        .subscribe(
+                            onSuccess: { single(.success($0)) },
+                            onFailure: { single(.failure($0)) }
+                        )
+                )
+            } else {
+                disposables.append(
+                    self.defaultRequest(api, isTest: isTest)
+                        .subscribe(
+                            onSuccess: { single(.success($0)) },
+                            onFailure: { single(.failure($0)) }
+                        )
+                )
+            }
+            return Disposables.create(disposables)
+        }
+    }
 }
 
 private extension BaseRemote {
