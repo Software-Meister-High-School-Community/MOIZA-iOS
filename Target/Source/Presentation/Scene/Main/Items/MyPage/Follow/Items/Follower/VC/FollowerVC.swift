@@ -38,7 +38,7 @@ final class MyPageFollowerVC: baseVC<MyPageFollowReactor>{
         followerContainer.flex.layout()
         
         headerContainer.pin.width(bound.width-34).height(55)
-        searchBar.pin.pinEdges().horizontally(8).marginTop(14).height(35)
+        searchBar.pin.pinEdges().horizontally(0).marginTop(14).height(35)
     }
     override func setLayout() {
         followerContainer.flex.define { flex in

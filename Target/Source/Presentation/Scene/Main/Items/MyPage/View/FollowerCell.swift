@@ -18,7 +18,7 @@ final class FollowerCell: baseTableViewCell<UserList> {
         $0.backgroundColor = .clear
     }
     private let userProfileImageView = UIImageView().then{
-        $0.layer.masksToBounds = true
+        $0.clipsToBounds = true
     }
     
     private let userId = UILabel().then{
@@ -67,7 +67,7 @@ final class FollowerCell: baseTableViewCell<UserList> {
     }
     override func setLayout() {
         view.flex.direction(.row).marginVertical(5).alignItems(.center).define { flex in
-            flex.addItem(userProfileImageView).marginLeft(10).size(55)
+            flex.addItem(userProfileImageView).marginLeft(4).size(60)
             flex.addItem(userId).width(45).direction(.column).marginLeft(16)
             flex.addItem(schoolLabel).width(114).marginTop(4)
             flex.addItem().direction(.row).paddingLeft(15).grow(1).define { flex in
