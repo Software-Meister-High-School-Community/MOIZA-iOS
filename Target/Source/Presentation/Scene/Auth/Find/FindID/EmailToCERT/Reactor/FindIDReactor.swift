@@ -53,11 +53,27 @@ extension FindIDReactor {
         switch action {
         case .nextButtonDidTap:
             return nextButtonDidTap()
-        case .updateCertNumber(_):
-            <#code#>
+        case let .updateCertNumber(num):
+            return .just(.setCertNumber(num))
         case .reCertButtonDidTap:
-            <#code#>
+            return .empty()
         }
+        return .empty()
+    }
+}
+
+extension FindIDReactor {
+    func reduce(state: State, mutation: Mutation) -> State {
+        var newState = state
+        
+        switch mutation {
+        case let .setCertNumber(num):
+            newState.certNumber = num
+        case let .setIsValid(valid):
+            newState.isValid = valid
+        }
+        
+        return newState
     }
 }
 

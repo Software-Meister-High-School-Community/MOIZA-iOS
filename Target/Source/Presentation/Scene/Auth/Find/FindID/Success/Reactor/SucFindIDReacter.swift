@@ -38,7 +38,7 @@ final class SucFindIDReactor: Reactor, Stepper {
     init() {
         initialState = State(
             userName: "",
-            userID: ""
+            userId: ""
         )
     }
 }

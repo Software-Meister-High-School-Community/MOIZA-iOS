@@ -28,7 +28,7 @@ final class ReRegistrationReactor: Reactor, Stepper {
         case setNewPassWordVisible(Bool)
         case setNewPassWordCheck(String)
         case setNewPassWordCheckVisible(Bool)
-    }s
+    }
     struct State {
         var passWordIsCorrect: Bool
         var isValid: Bool

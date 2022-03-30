@@ -52,7 +52,7 @@ extension SendCertReactor {
         case .nextButtonDidTap:
             return navToReRegistor()
         case .viewWillAppear:
-            return Observable.just(.setEmail)
+            return viewWillAppear()
         }
     }
 }
@@ -64,12 +64,13 @@ extension SendCertReactor {
         switch mutation {
         case .setEmail:
             state.email = "받아온 이메일"
-            return state
-        case .setIsValid(_):
-            <#code#>
-        case .certIsCorrect:
-            <#code#>
+        case let .setIsValid(valid):
+            state.isValid = valid
+        case let .certIsCorrect(correct):
+            state.certIsCorrect = correct
         }
+        
+        return state
     }
 }
 // MARK: - Method
@@ -78,7 +79,7 @@ private extension SendCertReactor {
         steps.accept(MoizaStep.reRegistorRequired)
         return .empty()
     }
-    func getEmail() -> Observable<Mutation> {
+    func viewWillAppear() -> Observable<Mutation> {
         return .empty()
     }
 }
