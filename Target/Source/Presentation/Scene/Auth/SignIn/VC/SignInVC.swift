@@ -45,7 +45,7 @@ final class SignInVC: baseVC<SignInReactor>{
     
     private let loginButton = UIButton().then{
         $0.setTitle("로그인", for: .normal)
-        $0.setTitleColor(MOIZAAsset.moizaGray1.color, for: .normal)
+        $0.setTitleColor(MOIZAAsset.moizaConstGray1.color, for: .normal)
         $0.titleLabel?.font = UIFont(font: MOIZAFontFamily.Roboto.bold, size: 16)
         $0.layer.cornerRadius = 5
         $0.backgroundColor = MOIZAAsset.moizaSecondaryYellow.color
@@ -118,6 +118,20 @@ final class SignInVC: baseVC<SignInReactor>{
             }
         }
     }
+    override func darkConfigure() {
+        [registerButton, findIdButton, findPwdButton].forEach {
+            $0.setTitleColor(MOIZAAsset.moizaDark4.color, for: .normal)
+        }
+        [line, line2].forEach {
+            $0.backgroundColor = MOIZAAsset.moizaDark4.color
+        }
+        [signInIdTextfield, signInPwdTextfield].forEach {
+            $0.backgroundColor = MOIZAAsset.moizaDark2.color
+            $0.layer.borderColor = UIColor.clear.cgColor
+        }
+    }
+    
+    // MARK: - Reactor
     override func bindView(reactor: SignInReactor) {
         signInIdTextfield.rx.text
             .orEmpty.observe(on: MainScheduler.asyncInstance)
