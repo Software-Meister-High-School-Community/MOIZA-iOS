@@ -18,7 +18,7 @@ final class FollowerCell: baseTableViewCell<UserList> {
         $0.backgroundColor = .clear
     }
     private let userProfileImageView = UIImageView().then{
-        $0.layer.cornerRadius = 50
+        $0.layer.masksToBounds = true
     }
     
     private let userId = UILabel().then{
@@ -33,15 +33,15 @@ final class FollowerCell: baseTableViewCell<UserList> {
     private let isFollowButton = UIButton().then {
         $0.backgroundColor = MOIZAAsset.moizaPrimaryBlue.color
         $0.layer.cornerRadius = 5
-        $0.setTitleColor(MOIZAAsset.moizaGray6.color, for: .normal)
+        $0.setTitleColor(MOIZAAsset.moizaGray1.color, for: .normal)
         $0.titleLabel?.font = UIFont(font: MOIZAFontFamily.Roboto.regular, size: 10)
     }
     private let deleteButton = UIButton().then {
-        $0.backgroundColor = MOIZAAsset.moizaGray6.color
+        $0.backgroundColor = MOIZAAsset.moizaGray1.color
         $0.layer.cornerRadius = 5
         $0.layer.borderColor = MOIZAAsset.moizaGray3.color.cgColor
         $0.layer.borderWidth = 0.5
-        $0.setTitleColor(MOIZAAsset.moizaGray2.color, for: .normal)
+        $0.setTitleColor(MOIZAAsset.moizaGray3.color, for: .normal)
         $0.titleLabel?.font = UIFont(font: MOIZAFontFamily.Roboto.regular, size: 10)
     }
     
@@ -55,6 +55,7 @@ final class FollowerCell: baseTableViewCell<UserList> {
         schoolLabel.text = nil
         isFollowButton.setTitle("맞팔로우", for: .normal)
         deleteButton.setTitle("삭제", for: .normal)
+        userProfileImageView.layer.cornerRadius = userProfileImageView.frame.height/2
     }
     // MARK: - UI
     override func addView() {
@@ -70,11 +71,11 @@ final class FollowerCell: baseTableViewCell<UserList> {
             flex.addItem(userId).width(45).direction(.column).marginLeft(16)
             flex.addItem(schoolLabel).width(114).marginTop(4)
             flex.addItem().direction(.row).paddingLeft(15).grow(1).define { flex in
-                flex.addItem().shrink(1).grow(1).alignItems(.start).define { flex in
-                    flex.addItem(isFollowButton)
+                flex.addItem().shrink(1).grow(1).alignItems(.center).define { flex in
+                    flex.addItem(isFollowButton).width(50).height(27)
                 }
-                flex.addItem().shrink(1).grow(1).alignItems(.start).define { flex in
-                    flex.addItem(deleteButton)
+                flex.addItem().shrink(1).grow(1).alignItems(.end).define { flex in
+                    flex.addItem(deleteButton).width(50).height(27)
                 }
             }
         }

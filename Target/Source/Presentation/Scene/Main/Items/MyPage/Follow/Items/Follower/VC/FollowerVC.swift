@@ -21,7 +21,7 @@ final class MyPageFollowerVC: baseVC<MyPageFollowReactor>{
         $0.register(FollowerCell.self, forCellReuseIdentifier: FollowerCell.reusableID)
         $0.rowHeight = 77
         $0.separatorStyle = .singleLine
-        $0.backgroundColor = MOIZAAsset.moizaGray2.color
+        $0.backgroundColor = MOIZAAsset.moizaGray1.color
         $0.showsVerticalScrollIndicator = false
     }
     
@@ -37,7 +37,7 @@ final class MyPageFollowerVC: baseVC<MyPageFollowReactor>{
         followerContainer.pin.all(view.pin.safeArea)
         followerContainer.flex.layout()
         
-        headerContainer.pin.width(bound.width-34).height(300)
+        headerContainer.pin.width(bound.width-34).height(55)
         searchBar.pin.pinEdges().horizontally(8).marginTop(14).height(35)
     }
     override func setLayout() {
@@ -59,7 +59,7 @@ final class MyPageFollowerVC: baseVC<MyPageFollowReactor>{
             .disposed(by: disposeBag)
     }
     override func bindAction(reactor: MyPageFollowReactor) {
-        self.rx.viewWillAppear
+        self.rx.viewDidLoad
             .map { _ in Reactor.Action.viewWillAppear }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
