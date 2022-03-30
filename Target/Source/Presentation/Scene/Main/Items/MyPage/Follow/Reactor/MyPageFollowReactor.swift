@@ -73,8 +73,8 @@ extension MyPageFollowReactor {
 private extension MyPageFollowReactor {
     func viewWillAppear() -> Observable<Mutation>{
         let follower: [UserList] = [
-            .init(userID: 6, name: "최형우", profileImageURL: "ㅁㄴㅇ", school: .gsm, userScope: .user, isFollow: .random()),
-            .init(userID: 7, name: "김상은", profileImageURL: "ㅁㄴㅇㄹ", school: .dgsm, userScope: .user, isFollow: .random())
+            .init(userID: 0, name: "최형우", profileImageURL: "https://avatars.githubusercontent.com/u/76590302?s=400&u=2b40b74acd6eca17e346471f3e7028bdd2c1e14a&v=4", school: .gsm, userScope: .student, isFollow: .random()),
+            .init(userID: 1, name: "김상은", profileImageURL: "https://avatars.githubusercontent.com/u/76590302?s=400&u=2b40b74acd6eca17e346471f3e7028bdd2c1e14a&v=4", school: .dgsm, userScope: .student, isFollow: .random())
         ]
         return .concat([
             .just(.setFollowerList(follower))
@@ -88,7 +88,7 @@ private extension MyPageFollowReactor {
         let padding = contentHeight - contentOffsetY
         if padding < scrollViewHeight {
             self.page += 1
-            return Observable.just([UserList(userID: currentState.FollowerItems.count+1, name: "최형우", profileImageURL: "ads", school: .gsm, userScope: .user, isFollow: .random())])
+            return Observable.just([UserList(userID: currentState.FollowerItems.count+1, name: "최형우", profileImageURL: "https://avatars.githubusercontent.com/u/76590302?s=400&u=2b40b74acd6eca17e346471f3e7028bdd2c1e14a&v=4", school: .gsm, userScope: .user, isFollow: .random())])
                 .map(Mutation.updateFollowerList)
         } else {
             return .empty()
