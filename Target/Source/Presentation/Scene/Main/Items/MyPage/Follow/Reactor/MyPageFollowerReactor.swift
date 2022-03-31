@@ -11,7 +11,7 @@ import RxFlow
 import RxSwift
 import RxRelay
 
-final class MyPageFollowReactor: Reactor, Stepper {
+final class MyPageFollowerReactor: Reactor, Stepper {
     // MARK: - Properties
     var steps: PublishRelay<Step> = .init()
     
@@ -44,7 +44,7 @@ final class MyPageFollowReactor: Reactor, Stepper {
 }
 
 // MARK: - Mutate
-extension MyPageFollowReactor {
+extension MyPageFollowerReactor {
     func mutate(action: Action) -> Observable<Mutation> {
         switch action {
         case .viewWillAppear:
@@ -56,7 +56,7 @@ extension MyPageFollowReactor {
 }
 
 // MARK: - Reduce
-extension MyPageFollowReactor {
+extension MyPageFollowerReactor {
     func reduce(state: State, mutation: Mutation) -> State {
         var newState = state
         switch mutation {
@@ -70,7 +70,7 @@ extension MyPageFollowReactor {
 }
 
 // MARK: - Method
-private extension MyPageFollowReactor {
+private extension MyPageFollowerReactor {
     func viewWillAppear() -> Observable<Mutation>{
         let follower: [UserList] = [
             .init(userID: 0, name: "최형우", profileImageURL: "https://avatars.githubusercontent.com/u/76590302?s=400&u=2b40b74acd6eca17e346471f3e7028bdd2c1e14a&v=4", school: .gsm, userScope: .student, isFollow: .random()),

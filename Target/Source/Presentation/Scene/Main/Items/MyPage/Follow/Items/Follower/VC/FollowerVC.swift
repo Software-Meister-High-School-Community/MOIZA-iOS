@@ -6,7 +6,7 @@ import RxViewController
 import PinLayout
 import FlexLayout
 
-final class MyPageFollowerVC: baseVC<MyPageFollowReactor>{
+final class MyPageFollowerVC: baseVC<MyPageFollowerReactor>{
     
     private let headerContainer = UIView()
     
@@ -30,7 +30,6 @@ final class MyPageFollowerVC: baseVC<MyPageFollowReactor>{
     override func setUp() {
         followerListTableView.rx.setDelegate(self).disposed(by: disposeBag)
         view.backgroundColor = MOIZAAsset.moizaGray1.color
-        followerListTableView.tableHeaderView = UIView()
     }
     override func addView() {
         view.addSubViews(followerContainer)
@@ -48,7 +47,7 @@ final class MyPageFollowerVC: baseVC<MyPageFollowReactor>{
             flex.addItem(followerListTableView).grow(1).bottom(0).marginHorizontal(16)
         }
     }
-    override func bindView(reactor: MyPageFollowReactor) {
+    override func bindView(reactor: MyPageFollowerReactor) {
         followerListTableView.rx.didScroll
             .withLatestFrom(self.followerListTableView.rx.contentOffset)
             .map { [weak self] in
@@ -61,13 +60,13 @@ final class MyPageFollowerVC: baseVC<MyPageFollowReactor>{
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
     }
-    override func bindAction(reactor: MyPageFollowReactor) {
+    override func bindAction(reactor: MyPageFollowerReactor) {
         self.rx.viewDidLoad
             .map { _ in Reactor.Action.viewWillAppear }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
     }
-    override func bindState(reactor: MyPageFollowReactor) {
+    override func bindState(reactor: MyPageFollowerReactor) {
         let sharedState = reactor.state.share(replay: 1).observe(on: MainScheduler.asyncInstance)
         
         let followerDS = RxTableViewSectionedReloadDataSource<FollowerSection> { _, tv, ip, item in
