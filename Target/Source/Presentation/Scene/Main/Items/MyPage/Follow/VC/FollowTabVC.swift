@@ -18,10 +18,10 @@ final class FollowTabVC: TabmanViewController, ReactorKit.View{
     
     private var viewControllers: [UIViewController] = []
     var disposeBag: DisposeBag = .init()
-    typealias Reactor = MyPageFollowerReactor
+    typealias Reactor = MyPageFollowReactor
     
     // MARK: - init
-    init(reactor: MyPageFollowerReactor?) {
+    init(reactor: MyPageFollowReactor?) {
         super.init(nibName: nil, bundle: nil)
         self.reactor = reactor
     }
@@ -58,7 +58,7 @@ final class FollowTabVC: TabmanViewController, ReactorKit.View{
     }
 }
 extension FollowTabVC{
-    public func bind(reactor: MyPageFollowerReactor) {
+    public func bind(reactor: MyPageFollowReactor) {
         
     }
 }

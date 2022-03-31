@@ -103,7 +103,7 @@ extension Container{
         autoregister(PostBoardReactor.self, initializer: PostBoardReactor.init)
         autoregister(MyPageModalReactor.self, initializer: MyPageModalReactor.init)
         autoregister(PostListReactor.self, initializer: PostListReactor.init)
-        autoregister(MyPageFollowerReactor.self, initializer: MyPageFollowerReactor.init)
+        autoregister(MyPageFollowReactor.self, initializer: MyPageFollowReactor.init)
     }
     private func registerStepper(){
         autoregister(OnBoardingStepper.self, initializer: OnBoardingStepper.init)

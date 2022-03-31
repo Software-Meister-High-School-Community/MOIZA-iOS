@@ -6,7 +6,7 @@ import RxViewController
 import PinLayout
 import FlexLayout
 
-final class MyPageFollowerVC: baseVC<MyPageFollowerReactor>{
+final class MyPageFollowerVC: baseVC<MyPageFollowReactor>{
     
     private let headerContainer = UIView()
     
@@ -47,7 +47,7 @@ final class MyPageFollowerVC: baseVC<MyPageFollowerReactor>{
             flex.addItem(followerListTableView).grow(1).bottom(0).marginHorizontal(16)
         }
     }
-    override func bindView(reactor: MyPageFollowerReactor) {
+    override func bindView(reactor: MyPageFollowReactor) {
         followerListTableView.rx.didScroll
             .withLatestFrom(self.followerListTableView.rx.contentOffset)
             .map { [weak self] in
@@ -60,13 +60,13 @@ final class MyPageFollowerVC: baseVC<MyPageFollowerReactor>{
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
     }
-    override func bindAction(reactor: MyPageFollowerReactor) {
+    override func bindAction(reactor: MyPageFollowReactor) {
         self.rx.viewDidLoad
             .map { _ in Reactor.Action.viewWillAppear }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
     }
-    override func bindState(reactor: MyPageFollowerReactor) {
+    override func bindState(reactor: MyPageFollowReactor) {
         let sharedState = reactor.state.share(replay: 1).observe(on: MainScheduler.asyncInstance)
         
         let followerDS = RxTableViewSectionedReloadDataSource<FollowerSection> { _, tv, ip, item in
