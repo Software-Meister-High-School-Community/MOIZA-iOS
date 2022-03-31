@@ -7,7 +7,7 @@ import RxViewController
 import PinLayout
 import FlexLayout
 
-final class MyPageFollowingVC: baseVC<MyPageFollowingReactor>{
+final class MyPageFollowingVC: baseVC<MyPageFollowReactor>{
     
     private let mainContainer = UIView()
     private let searchBar = UISearchBar().then{

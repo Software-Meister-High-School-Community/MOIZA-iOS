@@ -74,14 +74,13 @@ extension Container{
                 NormalPostVC(reactor: vc.reactor)
             ])
             return vc
-        }=
+        }
         register(FollowTabVC.self) { r in
-            let followerReactor = r.resolve(MyPageFollowerReactor.self)
-            let followingReactor = r.resolve(MyPageFollowingReactor.self)
-            let vc = FollowTabVC(reactor: followerReactor,followingReactor)
+            let reactor = r.resolve(MyPageFollowReactor.self)
+            let vc = FollowTabVC(reactor: reactor)
             vc.setViewControllers([
-                MyPageFollowerVC(reactor: vc.followerReactor),
-                MyPageFollowingVC(reactor: vc.followingReactor)
+                MyPageFollowerVC(reactor: vc.reactor),
+                MyPageFollowingVC(reactor: vc.reactor)
             ])
             return vc
         }
