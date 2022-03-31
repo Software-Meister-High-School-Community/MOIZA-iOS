@@ -15,7 +15,7 @@ extension PostList {
     static let dummy = PostList(
         id: .random(in: 0...100),
         title: "대충 제목",
-        type: .allCases.randomElement(),
+        type: .allCases.randomElement() ?? .normal,
         isLike: true,
         commentCount: 4,
         likeCount: 8,
