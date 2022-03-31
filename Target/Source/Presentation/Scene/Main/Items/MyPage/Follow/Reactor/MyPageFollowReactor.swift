@@ -73,8 +73,9 @@ extension MyPageFollowReactor {
 private extension MyPageFollowReactor {
     func viewWillAppear() -> Observable<Mutation>{
         let follower: [UserList] = [
-            .init(userID: 0, name: "최형우", profileImageURL: "https://avatars.githubusercontent.com/u/76590302?s=400&u=2b40b74acd6eca17e346471f3e7028bdd2c1e14a&v=4", school: .gsm, userScope: .student, isFollow: .random()),
-            .init(userID: 1, name: "김상은", profileImageURL: "https://avatars.githubusercontent.com/u/76590302?s=400&u=2b40b74acd6eca17e346471f3e7028bdd2c1e14a&v=4", school: .dgsm, userScope: .student, isFollow: .random())
+            .init(userID: 0, name: "최형우", profileImageURL: "https://avatars.githubusercontent.com/u/74440939?v=4", school: .gsm, userScope: .student, isFollow: .random()),
+            .init(userID: 1, name: "김상은", profileImageURL: "https://avatars.githubusercontent.com/u/81676542?v=4", school: .dgsm, userScope: .student, isFollow: .random()),
+            .init(userID: 2, name: "임준화", profileImageURL: "https://avatars.githubusercontent.com/u/76590302?s=400&u=2b40b74acd6eca17e346471f3e7028bdd2c1e14a&v=4", school: .gsm, userScope: .user, isFollow: .random())
         ]
         return .concat([
             .just(.setFollowerList(follower))

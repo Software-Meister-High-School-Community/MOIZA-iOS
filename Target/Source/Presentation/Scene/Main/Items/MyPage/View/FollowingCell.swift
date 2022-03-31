@@ -29,7 +29,7 @@ final class FollowingCell: baseTableViewCell<UserList> {
         $0.layer.cornerRadius = 5
         $0.layer.borderColor = MOIZAAsset.moizaGray3.color.cgColor
         $0.layer.borderWidth = 0.5
-        $0.setTitleColor(MOIZAAsset.moizaGray4.color, for: .normal)
+        $0.setTitleColor(MOIZAAsset.moizaGray5.color, for: .normal)
         $0.titleLabel?.font = UIFont(font: MOIZAFontFamily.Roboto.regular, size: 10)
     }
     
@@ -41,7 +41,7 @@ final class FollowingCell: baseTableViewCell<UserList> {
         model = nil
         userProfileImageView.image = nil
         schoolLabel.text = nil
-        isFollowingButton.setTitle("삭제", for: .normal)
+        isFollowingButton.setTitle("팔로잉", for: .normal)
     }
     // MARK: - UI
     override func addView() {
