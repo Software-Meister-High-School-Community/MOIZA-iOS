@@ -21,6 +21,8 @@ final class MyPageFollowerVC: baseVC<MyPageFollowReactor>{
         $0.register(FollowerCell.self, forCellReuseIdentifier: FollowerCell.reusableID)
         $0.rowHeight = 77
         $0.separatorStyle = .singleLine
+        $0.separatorColor = MOIZAAsset.moizaGray3.color
+        $0.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         $0.backgroundColor = MOIZAAsset.moizaGray1.color
         $0.showsVerticalScrollIndicator = false
     }

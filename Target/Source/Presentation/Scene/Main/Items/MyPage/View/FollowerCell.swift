@@ -19,6 +19,7 @@ final class FollowerCell: baseTableViewCell<UserList> {
     }
     private let userProfileImageView = UIImageView().then{
         $0.clipsToBounds = true
+        $0.layer.cornerRadius = 30
     }
     
     private let userId = UILabel().then{
@@ -55,7 +56,6 @@ final class FollowerCell: baseTableViewCell<UserList> {
         schoolLabel.text = nil
         isFollowButton.setTitle("맞팔로우", for: .normal)
         deleteButton.setTitle("삭제", for: .normal)
-        userProfileImageView.layer.cornerRadius = userProfileImageView.frame.height/2
     }
     // MARK: - UI
     override func addView() {
