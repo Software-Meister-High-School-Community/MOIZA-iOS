@@ -1,4 +1,4 @@
-enum School: String, Codable{
+enum School: String, Codable, CaseIterable{
     case gsm = "GSM"
     case dgsm = "DGSW"
     case dsm = "DSM"

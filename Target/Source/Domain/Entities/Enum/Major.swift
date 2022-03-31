@@ -1,5 +1,4 @@
 
-
 enum Major: String, CaseIterable {
     case frontEnd = "FRONTEND"
     case backEnd = "BACKEND"

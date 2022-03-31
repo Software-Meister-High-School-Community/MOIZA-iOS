@@ -1,5 +1,5 @@
 
-enum Gender: String, Codable{
+enum Gender: String, Codable, CaseIterable{
     case male = "MALE"
     case female = "FEMALE"
 }
