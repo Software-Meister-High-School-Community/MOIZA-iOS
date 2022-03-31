@@ -63,7 +63,7 @@ extension Container{
             return PostBoardVC(reactor: r.resolve(PostBoardReactor.self))
         }
         register(MyPageModalVC.self) { r in
-            return MyPageModalVC(reactor: r.resolve(MyPageModalReactor.self))
+            return MyPageModalVC([.sortType], reactor: r.resolve(MyPageModalReactor.self))
         }
         register(PostListTabVC.self) { r in
             let reactor = r.resolve(PostListReactor.self)

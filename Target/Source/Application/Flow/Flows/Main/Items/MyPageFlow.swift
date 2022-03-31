@@ -31,8 +31,8 @@ final class MyPageFlow: Flow{
         switch step{
         case .myPageIsRequired:
             return coordinateToMyPage()
-        case .myPostListSortIsRequired:
-            return navigateToMyPageModal()
+        case let .sortIsRequired(options):
+            return presentToSort(options)
         case .followerIsRequired:
             return coordinateToFollow()
         case .followingIsRequired:
@@ -50,10 +50,11 @@ private extension MyPageFlow{
         self.rootVC.setViewControllers([vc], animated: true)
         return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: vc.reactor ?? .init()))
     }
-    func navigateToMyPageModal() -> FlowContributors {
-        @Inject var vc: MyPageModalVC
+    func presentToSort(_ options: [SortOption]) -> FlowContributors {
+        let reactor = MyPageModalReactor()
+        let vc = MyPageModalVC(options, reactor: reactor)
         self.rootVC.presentPanModal(vc)
-        return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: vc.reactor ?? .init()))
+        return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: reactor))
     }
     func coordinateToFollow() -> FlowContributors {
         @Inject var vc: FollowTabVC

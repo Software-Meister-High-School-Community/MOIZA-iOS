@@ -78,7 +78,7 @@ extension MyPageReactor {
         case let .updateFollwing(following):
             return .just(.setFollowing(following))
         case .sortButtonDidTap:
-            steps.accept(MoizaStep.myPostListSortIsRequired)
+            steps.accept(MoizaStep.sortIsRequired([.sortType]))
             return .empty()
         case .modifyButtonDidTap:
             steps.accept(MoizaStep.myPageModifyIsRequired)
