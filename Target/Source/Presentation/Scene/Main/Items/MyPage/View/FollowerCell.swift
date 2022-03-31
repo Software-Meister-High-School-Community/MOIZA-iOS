@@ -42,7 +42,7 @@ final class FollowerCell: baseTableViewCell<UserList> {
         $0.layer.cornerRadius = 5
         $0.layer.borderColor = MOIZAAsset.moizaGray3.color.cgColor
         $0.layer.borderWidth = 0.5
-        $0.setTitleColor(MOIZAAsset.moizaGray3.color, for: .normal)
+        $0.setTitleColor(MOIZAAsset.moizaGray4.color, for: .normal)
         $0.titleLabel?.font = UIFont(font: MOIZAFontFamily.Roboto.regular, size: 10)
     }
     
@@ -68,8 +68,12 @@ final class FollowerCell: baseTableViewCell<UserList> {
     override func setLayout() {
         view.flex.direction(.row).marginVertical(5).alignItems(.center).define { flex in
             flex.addItem(userProfileImageView).marginLeft(4).size(60)
-            flex.addItem(userId).width(45).direction(.column).marginLeft(16)
-            flex.addItem(schoolLabel).width(114).marginTop(4)
+            
+            flex.addItem().direction(.column).marginLeft(16).grow(1).define { flex in
+                flex.addItem(userId).width(45)
+                flex.addItem(schoolLabel).width(100%).marginTop(4)
+            }
+            
             flex.addItem().direction(.row).paddingLeft(15).grow(1).define { flex in
                 flex.addItem().shrink(1).grow(1).alignItems(.center).define { flex in
                     flex.addItem(isFollowButton).width(50).height(27)
@@ -87,6 +91,7 @@ final class FollowerCell: baseTableViewCell<UserList> {
         userProfileImageView.backgroundColor = MOIZAAsset.moizaGray3.color
     
         userId.text = model.name
+        schoolLabel.text = model.school.display
         isFollowButton.setTitle("맞팔로우", for: .normal)
         deleteButton.setTitle("삭제", for: .normal)
         if model.isFollow {

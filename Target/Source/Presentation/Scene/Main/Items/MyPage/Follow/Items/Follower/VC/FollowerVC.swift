@@ -30,6 +30,7 @@ final class MyPageFollowerVC: baseVC<MyPageFollowReactor>{
     override func setUp() {
         followerListTableView.rx.setDelegate(self).disposed(by: disposeBag)
         view.backgroundColor = MOIZAAsset.moizaGray1.color
+        followerListTableView.tableHeaderView = UIView()
     }
     override func addView() {
         view.addSubViews(followerContainer)
