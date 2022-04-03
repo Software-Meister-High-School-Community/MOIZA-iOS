@@ -88,7 +88,8 @@ final class MyPageModalVC: baseVC<MyPageModalReactor> {
             flex.addItem(sortTypeSegment).width(100%).marginBottom(20).height(35).display(options.contains(.sortType) ? .flex : .none)
             flex.addItem(majorTextField).width(100%).height(50).display(options.contains(.major) ? .flex : .none)
             flex.addItem().grow(1).display(options.contains(.major) ? .flex : .none)
-            flex.addItem(separatorSecond).height(0.5)
+            flex.addItem(majorPicker).height(100)
+            flex.addItem(separatorSecond).height(0.5).marginTop(240)
             flex.addItem(applyButton).height(50).width(100%).marginTop(15).marginBottom(10)
         }
     }
@@ -152,10 +153,10 @@ extension MyPageModalVC: PanModalPresentable {
         return nil
     }
     var shortFormHeight: PanModalHeight {
-        return .contentHeight(250)
+        return .contentHeight(551)
     }
     var longFormHeight: PanModalHeight {
-        return .contentHeight(bound.height*0.7)
+        return .contentHeight(551)
     }
     var cornerRadius: CGFloat {
         return 10
