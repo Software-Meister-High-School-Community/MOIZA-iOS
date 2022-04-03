@@ -175,7 +175,7 @@ final class MyPageVC: baseVC<MyPageReactor> {
                     }
                 }
                 // MARK: - Following
-                flex.addItem().alignSelf(.center).define { flex in
+                flex.addItem().alignSelf(.center).marginRight(20).define { flex in
                     flex.addItem(followingButton).justifyContent(.center).width(50).height(55).define { flex in
                         flex.addItem(followingLabel).alignSelf(.center).marginVertical(6)
                         flex.addItem(followingValueLabel).alignSelf(.center)
