@@ -149,9 +149,9 @@ final class MyPageVC: baseVC<MyPageReactor> {
     override func setLayoutSubViews() {
         headerContainer.pin.width(100%).height(402)
         backgroundView.pin.height(99).width(100%)
-        profile.pin.horizontally(34).height(84).width(84).top(69)
+        profile.pin.horizontally(18).height(100).width(100).top(69)
         mainView.pin.below(of: backgroundView, aligned: .center).height(133).width(100%)
-        mainContainer.pin.height(115).width(254).left(140)
+        mainContainer.pin.height(115).width(254).marginLeft(22).after(of: profile)
         descriptionView.pin.below(of: mainView, aligned: .left).marginTop(11).height(82).width(100%)
         describeContainer.pin.top(20).horizontally(14).height(36).width(315)
         myPostLabel.pin.below(of: descriptionView, aligned: .start).marginTop(40).height(16).width(68)
@@ -168,7 +168,7 @@ final class MyPageVC: baseVC<MyPageReactor> {
                     flex.addItem(postValueLabel).alignSelf(.center)
                 }
                 // MARK: - Follower
-                flex.addItem().marginHorizontal(48).alignSelf(.center).define { flex in
+                flex.addItem().marginHorizontal(17%).alignSelf(.center).define { flex in
                     flex.addItem(followerButton).justifyContent(.center).width(50).height(55).define { flex in
                         flex.addItem(followerLabel).alignSelf(.center).marginVertical(6)
                         flex.addItem(followerValueLabel).alignSelf(.center)
