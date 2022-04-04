@@ -23,7 +23,7 @@ final class MyPageVC: baseVC<MyPageReactor> {
         $0.showsVerticalScrollIndicator = true
     }
     
-    private let modifyProfile = UIAction(title: "프로필 수정",image: UIImage(systemName: "pencil"),handler: {_ in print("프로필 설정")})
+    private let modifyProfile = UIAction(title: "프로필 수정",image: UIImage(systemName: "pencil"),handler: {_ in print("프로필 수정")})
     private let setting = UIAction(title: "설정",image: UIImage(systemName: "gearshape.fill"), handler: {_ in print("설정")})
     private let cancel = UIAction(title: "취소", attributes: .destructive, handler: { _ in print("취소") })
 
@@ -225,6 +225,8 @@ final class MyPageVC: baseVC<MyPageReactor> {
             }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
+
+        modifyProfile.rx
     }
     override func bindAction(reactor: MyPageReactor) {
         self.rx.viewWillAppear.do(onNext: { _ in UserDefaultsLocal.shared.post = .normal } )
