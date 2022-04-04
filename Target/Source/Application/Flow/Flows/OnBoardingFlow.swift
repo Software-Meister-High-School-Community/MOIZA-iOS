@@ -10,6 +10,7 @@ import RxFlow
 import RxRelay
 import Then
 import ReactorKit
+import UIKit
 
 struct OnBoardingStepper: Stepper{
     let steps: PublishRelay<Step> = .init()
@@ -58,8 +59,10 @@ final class OnBoardingFlow: Flow{
             return navigateToGraduateFile()
         case .dismiss:
             return presentToDismiss()
-        case let .alert(title, message):
-            return presentToAlert(title: title, message: message)
+        case let .alert(title, message, style, action):
+            return presentToAlert(title: title, message: message, style: style, action: action)
+        case let .errorAlert(title, message):
+            return presentToErrorAlert(title: title, message: message)
         case .signUpGraduateAuthSuccessIsRequired:
             return navigateToGraduateSuccess()
         case .mainTabbarIsRequired:
@@ -120,9 +123,23 @@ private extension OnBoardingFlow{
         self.rootVC.pushViewController(vc, animated: true)
         return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: vc.reactor ?? .init()))
     }
-    func presentToAlert(title: String?, message: String?) -> FlowContributors {
+    func presentToAlert(title: String?, message: String?, style: UIAlertController.Style, action: [UIAlertAction]) -> FlowContributors {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: style)
+        action.forEach { alert.addAction($0) }
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            guard let view = rootVC.visibleViewController?.view else { return .none }
+            guard let popOver = alert.popoverPresentationController else { return .none }
+            popOver.sourceView = view
+            popOver.sourceRect = CGRect(x: view.bounds.midX, y: view.bounds.midY, width: 0, height: 0)
+            popOver.permittedArrowDirections = []
+        }
+        self.rootVC.visibleViewController?.present(alert, animated: true)
+        return .none
+    }
+    func presentToErrorAlert(title: String?, message: String?) -> FlowContributors {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        self.rootVC.present(alert, animated: true, completion: nil)
+        alert.addAction(.init(title: "확인", style: .default))
+        self.rootVC.visibleViewController?.present(alert, animated: true)
         return .none
     }
     func navigateToGraduateSuccess() -> FlowContributors {

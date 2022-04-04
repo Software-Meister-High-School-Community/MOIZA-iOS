@@ -13,7 +13,8 @@ import RxRelay
 
 enum MoizaStep: Step{
     // Global
-    case alert(title: String?, message: String?)
+    case alert(title: String?, message: String?, style: UIAlertController.Style, actions: [UIAlertAction])
+    case errorAlert(title: String?, message: String?)
     case dismiss
     
     // OnBoarding

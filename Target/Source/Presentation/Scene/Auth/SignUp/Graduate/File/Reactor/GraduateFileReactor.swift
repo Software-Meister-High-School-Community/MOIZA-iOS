@@ -21,7 +21,8 @@ final class GraduateFileReactor: Reactor, Stepper {
     // MARK: - Reactor
     enum Action {
         case imageDidSelected(Data?, String)
-        case alert(title: String?, message: String)
+        case alert(title: String?, message: String, style: UIAlertController.Style, actions: [UIAlertAction])
+        case errorAlert(title: String?, message: String)
         case cancelButtonDidTap
         case requestButtonDidTap
     }
@@ -58,9 +59,10 @@ extension GraduateFileReactor {
                 .just(.setImage(image)),
                 .just(.setFileSize(image?.count))
             ])
-        case let .alert(title, message):
-            steps.accept(MoizaStep.alert(title: title, message: message))
-            return .empty()
+        case let .alert(title, message, style, actions):
+            steps.accept(MoizaStep.alert(title: title, message: message, style: style, actions: actions))
+        case let .errorAlert(title, message):
+            steps.accept(MoizaStep.errorAlert(title: title, message: message))
         case .cancelButtonDidTap:
             return .concat([
                 .just(.setImage(nil)),
@@ -69,8 +71,8 @@ extension GraduateFileReactor {
             ])
         case .requestButtonDidTap:
             steps.accept(MoizaStep.signUpGraduateAuthSuccessIsRequired)
-            return .empty()
         }
+        return .empty()
     }
 }
 

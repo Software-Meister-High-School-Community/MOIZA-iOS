@@ -21,7 +21,11 @@ final class GenderCell: baseCollectionViewCell<Gender>{
     
     override var isSelected: Bool{
         didSet {
-            self.backgroundColor = isSelected ? MOIZAAsset.moizaPrimaryYellow.color : MOIZAAsset.moizaGray1.color
+            if self.traitCollection.userInterfaceStyle == .dark {
+                self.backgroundColor = isSelected ? MOIZAAsset.moizaPrimaryYellow.color : MOIZAAsset.moizaDark2.color
+            } else {
+                self.backgroundColor = isSelected ? MOIZAAsset.moizaPrimaryYellow.color : MOIZAAsset.moizaGray1.color
+            }
         }
     }
     
@@ -32,7 +36,13 @@ final class GenderCell: baseCollectionViewCell<Gender>{
     override func setLayout() {
         titleLabel.pin.all(11)
     }
+    override func configureCell() {
+        self.backgroundColor = .clear
+    }
     override func bind(_ model: Gender) {
         titleLabel.text = model.display
+    }
+    override func darkConfigure() {
+        backgroundColor = MOIZAAsset.moizaDark2.color
     }
 }

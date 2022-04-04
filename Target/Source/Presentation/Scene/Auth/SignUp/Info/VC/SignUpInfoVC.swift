@@ -141,17 +141,17 @@ final class SignUpInfoVC: baseVC<SignUpInfoReactor>{
         view.addSubViews(scrollView)
     }
     override func setLayoutSubViews() {
-        scrollView.pin.all()
-        rootContainer.pin.top().right().left().height(bound.height*1.5)
-        rootContainer.flex.layout()
-        scrollView.contentSize = .init(width: bound.width, height: bound.height*1.5)
+        scrollView.pin.all(view.pin.safeArea)
+        rootContainer.pin.width(100%)
+        rootContainer.flex.layout(mode: .adjustHeight)
+        scrollView.contentSize = rootContainer.frame.size
     }
     override func setLayout() {
         rootContainer.flex.marginHorizontal(20).define { flex in
             flex.addItem(progressBar).height(10).top(12)
             flex.addItem(titleLabel).height(Metric.labelHeight).marginTop(40)
             // MARK: Division
-            flex.addItem().top(Metric.spacingMargin * 1).define { flex in
+            flex.addItem().marginTop(Metric.spacingMargin).define { flex in
                 flex.addItem(divisionLabel).height(Metric.labelHeight).width(100%)
                 flex.addItem().horizontally(0).direction(.row).define { flex in
                     flex.addItem().direction(.row).shrink(1).define { flex in
@@ -165,7 +165,7 @@ final class SignUpInfoVC: baseVC<SignUpInfoReactor>{
                 }
             }
             // MARK: Name
-            flex.addItem().top(Metric.spacingMargin * 2).define { flex in
+            flex.addItem().marginTop(Metric.spacingMargin).define { flex in
                 flex.addItem(nameLabel).height(Metric.labelHeight).width(100%)
                 flex.addItem().horizontally(0).height(44).direction(.row).define { flex in
                     flex.addItem(nameTextField).width(65%).height(Metric.height)
@@ -173,17 +173,17 @@ final class SignUpInfoVC: baseVC<SignUpInfoReactor>{
                 }
             }
             // MARK: Birth
-            flex.addItem().top(Metric.spacingMargin * 3).define { flex in
+            flex.addItem().marginTop(Metric.spacingMargin).define { flex in
                 flex.addItem(birthLabel).height(Metric.labelHeight).width(100%)
                 flex.addItem(birthTextField).width(100%).height(Metric.height)
             }
             // MARK: School
-            flex.addItem().top(Metric.spacingMargin * 4).define { flex in
+            flex.addItem().marginTop(Metric.spacingMargin).define { flex in
                 flex.addItem(schoolLabel).height(Metric.labelHeight).width(100%)
                 flex.addItem(schoolTextField).height(Metric.height).width(100%)
             }
             // MARK: Email
-            flex.addItem().top(Metric.spacingMargin * 5).define { flex in
+            flex.addItem().marginTop(Metric.spacingMargin).define { flex in
                 flex.addItem(emailLabel).height(Metric.labelHeight).width(100%)
                 flex.addItem().direction(.row).width(100%).height(Metric.height).define { flex in
                     flex.addItem(emailTextField).width(40%).height(Metric.height)
@@ -194,13 +194,13 @@ final class SignUpInfoVC: baseVC<SignUpInfoReactor>{
                 flex.addItem(emailHelperLabel).top(10).width(100%).minHeight(0).maxHeight(Metric.height)
             }
             // MARK: AuthCode
-            flex.addItem().top(Metric.spacingMargin * 6).define { flex in
+            flex.addItem().marginTop(Metric.spacingMargin).define { flex in
                 flex.addItem(authCodeLabel).height(Metric.labelHeight).width(100%)
                 flex.addItem(authCodeTextField).height(Metric.labelHeight).width(100%)
                 flex.addItem(authCodeRetryLabel).height(Metric.labelHeight).width(100%)
             }
             // MARK: Next
-            flex.addItem(nextButton).top(Metric.spacingMargin * 7).width(88).height(36).right(0).alignSelf(.end)
+            flex.addItem(nextButton).marginTop(Metric.spacingMargin).width(88).height(36).right(0).marginBottom(30).alignSelf(.end)
         }
     }
     override func configureVC() {
@@ -229,6 +229,14 @@ final class SignUpInfoVC: baseVC<SignUpInfoReactor>{
         self.navigationItem.configAuthNavigation(title: "회원가입")
         
         self.navigationItem.configBack()
+    }
+    override func darkConfigure() {
+        [
+            nameTextField, birthTextField, schoolTextField, emailTextField, emailTypeTextField, authCodeTextField, genderCollectionView
+        ].forEach {
+            $0.backgroundColor = MOIZAAsset.moizaDark2.color
+            $0.layer.borderColor = UIColor.clear.cgColor
+        }
     }
     
     // MARK: - Reactor
@@ -303,6 +311,11 @@ final class SignUpInfoVC: baseVC<SignUpInfoReactor>{
                 owner.studentRadio.checkState = item ? .checked : .unchecked
                 owner.graduateRadio.checkState = item ? .unchecked : .checked
                 owner.emailTypeTextField.isEnabled = !item
+                if owner.traitCollection.userInterfaceStyle == .dark {
+                    owner.emailTypeTextField.backgroundColor = item ? .clear : MOIZAAsset.moizaDark2.color
+                } else {
+                    owner.emailTypeTextField.layer.borderColor = item ? UIColor.clear.cgColor : MOIZAAsset.moizaGray3.color.cgColor
+                }
                 owner.emailHelperLabel.isHidden = item
                 owner.emailLabel.text = item ? "학교 이메일" : "이메일"
             })
