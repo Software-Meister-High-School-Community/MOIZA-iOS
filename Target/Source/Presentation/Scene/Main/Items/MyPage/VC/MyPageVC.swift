@@ -10,6 +10,7 @@ import FlexLayout
 final class MyPageVC: baseVC<MyPageReactor> {
     
     //MARK: - Properties
+    
     private let headerContainer = UIView()
     
     private let mainContainer = UIView()
@@ -23,9 +24,11 @@ final class MyPageVC: baseVC<MyPageReactor> {
         $0.showsVerticalScrollIndicator = true
     }
     
-    private let modifyProfile = UIAction(title: "프로필 수정",image: UIImage(systemName: "pencil"),handler: {_ in print("프로필 수정")})
-    private let setting = UIAction(title: "설정",image: UIImage(systemName: "gearshape.fill"), handler: {_ in print("설정")})
-    private let cancel = UIAction(title: "취소", attributes: .destructive, handler: { _ in print("취소") })
+    private lazy var modifyProfile = UIAction(title: "프로필 수정",image: UIImage(systemName: "pencil"),handler: { [weak self] _ in
+        self?.reactor?.action.onNext(.modifyButtonDidTap)
+    })
+    private lazy var setting = UIAction(title: "설정",image: UIImage(systemName: "gearshape.fill"), handler: { [weak self]_ in self?.reactor?.action.onNext(.settingButtonDidTap)})
+    private lazy var cancel = UIAction(title: "취소", attributes: .destructive, handler: { _ in print("취소") })
 
     private let ellipsis = UIBarButtonItem(image: .init(systemName: "ellipsis")?.downSample(size: .init(width: 12, height: 1)).tintColor(MOIZAAsset.moizaGray6.color), style: .plain, target: nil, action: nil)
     
@@ -225,8 +228,6 @@ final class MyPageVC: baseVC<MyPageReactor> {
             }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
-
-        modifyProfile.rx
     }
     override func bindAction(reactor: MyPageReactor) {
         self.rx.viewWillAppear.do(onNext: { _ in UserDefaultsLocal.shared.post = .normal } )

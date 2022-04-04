@@ -37,6 +37,8 @@ final class MyPageFlow: Flow{
             return coordinateToFollow()
         case .followingIsRequired:
             return coordinateToFollow()
+        case .dismiss:
+            return dismissVC()
         default:
             return .none
         }
@@ -60,5 +62,9 @@ private extension MyPageFlow{
         @Inject var vc: FollowTabVC
         self.rootVC.pushViewController(vc, animated: true)
         return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: vc.reactor ?? .init()))
+    }
+    func dismissVC() -> FlowContributors {
+        self.rootVC.visibleViewController?.dismiss(animated: true, completion: nil)
+        return .none
     }
 }
