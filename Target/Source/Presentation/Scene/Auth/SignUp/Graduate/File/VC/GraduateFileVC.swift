@@ -153,21 +153,16 @@ final class GraduateFileVC: baseVC<GraduateFileReactor> {
 // MARK: - Method
 private extension GraduateFileVC {
     func photoAndCameraAction() {
-        let alert = UIAlertController(title: "업로드 방식을 선택해주세요.", message: "앨범에서 선택 또는 카메라로 촬영 ", preferredStyle: .actionSheet)
-        alert.addAction(.init(title: "앨범", style: .default, handler: { [weak self] _ in
-            self?.presentToPhotoAlbum()
-        }))
-        alert.addAction(.init(title: "촬영", style: .default, handler: { [weak self] _ in
-            self?.presentToCamera()
-        }))
-        alert.addAction(.init(title: "취소", style: .cancel, handler: nil))
-        if UIDevice.current.userInterfaceIdiom == .pad {
-            guard let popOver = alert.popoverPresentationController else { return }
-            popOver.sourceView = view
-            popOver.sourceRect = CGRect(x: view.bounds.midX, y: view.bounds.midY, width: 0, height: 0)
-            popOver.permittedArrowDirections = []
-        }
-        present(alert, animated: true, completion: nil)
+        
+        reactor?.action.onNext(.alert(title: "업로드 방식을 선택해주세요.", message: "앨범에서 선택 또는 카메라로 촬영", style: .actionSheet, actions: [
+            .init(title: "앨범", style: .default, handler: { [weak self] _ in
+                self?.presentToPhotoAlbum()
+            }),
+            .init(title: "촬영", style: .default, handler: { [weak self] _ in
+                self?.presentToCamera()
+            }),
+            .init(title: "취소", style: .cancel, handler: nil)
+        ]))
     }
     func presentToPhotoAlbum() {
         self.imagePicker.sourceType = .photoLibrary
@@ -175,7 +170,7 @@ private extension GraduateFileVC {
     }
     func presentToCamera() {
         guard UIImagePickerController.isSourceTypeAvailable(.camera) else {
-            self.reactor?.action.onNext(.alert(title: "권한이 없습니다.", message: "카메라를 실행할 수 없습니다!"))
+            self.reactor?.action.onNext(.errorAlert(title: "권한이 없습니다.", message: "카메라를 실행할 수 없습니다!"))
             return
         }
         self.imagePicker.sourceType = .camera
