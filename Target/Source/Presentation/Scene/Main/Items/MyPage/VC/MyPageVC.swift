@@ -47,7 +47,7 @@ final class MyPageVC: baseVC<MyPageReactor> {
         $0.backgroundColor = MOIZAAsset.moizaGray1.color
         $0.layer.cornerRadius = 5
     }
-    private let introduceLabel = UITextView().then{
+    private let introduce = UITextView().then{
         $0.font = UIFont(font: MOIZAFontFamily.Roboto.regular, size: 13)
         $0.textColor = MOIZAAsset.moizaGray6.color
         $0.text = "나는 최형우"
@@ -55,7 +55,7 @@ final class MyPageVC: baseVC<MyPageReactor> {
         $0.isScrollEnabled = false
         $0.textContainerInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
     }
-    private let webSiteLabel = UITextView().then{
+    private let webSite = UITextView().then{
         $0.font = UIFont(font: MOIZAFontFamily.Roboto.regular, size: 12)
         $0.textColor = MOIZAAsset.moizaPrimaryBlue.color
         $0.text = "https://www.instagram.com/baekteun/"
@@ -154,7 +154,7 @@ final class MyPageVC: baseVC<MyPageReactor> {
         headerContainer.addSubViews(mainView,descriptionView,backgroundView,sortButton,myPostLabel,profile)
         mainView.addSubViews(mainContainer,profileName,postLabel,postValueLabel,followingButton,followerButton)
         descriptionView.addSubViews(describeContainer)
-        describeContainer.addSubViews(introduceLabel,webSiteLabel)
+        describeContainer.addSubViews(introduce,webSite)
     }
     
     override func setLayoutSubViews() {
@@ -164,7 +164,7 @@ final class MyPageVC: baseVC<MyPageReactor> {
         mainView.pin.below(of: backgroundView, aligned: .center).height(133).width(100%)
         mainContainer.pin.height(115).width(254).marginLeft(22).after(of: profile)
         descriptionView.pin.below(of: mainView, aligned: .left).marginTop(11).height(82).width(100%)
-        describeContainer.pin.top(20).horizontally(14).height(55).width(315)
+        describeContainer.pin.top(20).horizontally(14).height(35).width(315)
         myPostLabel.pin.below(of: descriptionView, aligned: .start).marginTop(40).height(16).width(68)
         sortButton.pin.below(of: descriptionView, aligned: .end).marginTop(34).height(28).width(63).sizeToFit()
         postContainer.pin.all(view.pin.safeArea)
@@ -196,8 +196,8 @@ final class MyPageVC: baseVC<MyPageReactor> {
         }
         
         describeContainer.flex.define { flex in
-            flex.addItem(introduceLabel)
-            flex.addItem(webSiteLabel).marginVertical(8)
+            flex.addItem(introduce)
+            flex.addItem(webSite).marginVertical(8)
         }
         postContainer.flex.define { flex in
             flex.addItem(postListTableView).grow(1).bottom(0).marginHorizontal(16)
