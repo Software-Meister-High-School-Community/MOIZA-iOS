@@ -136,6 +136,16 @@ final class SignUpSetUpVC: baseVC<SignUpSetUpReactor>{
         self.navigationItem.configBack()
         view.backgroundColor = MOIZAAsset.moizaGray1.color
     }
+    override func darkConfigure() {
+        [
+            idTextField, pwdTextField, pwdCheckTextField, idCheckButton
+        ].forEach {
+            $0.backgroundColor = MOIZAAsset.moizaDark2.color
+            $0.layer.borderColor = UIColor.clear.cgColor
+        }
+        
+        
+    }
     
     // MARK: - Reactor
     override func bindView(reactor: SignUpSetUpReactor) {
@@ -229,7 +239,8 @@ final class SignUpSetUpVC: baseVC<SignUpSetUpReactor>{
             .withUnretained(self)
             .bind { owner, valid in
                 owner.pwdCheckInvalidLabel.isHidden = valid
-                owner.pwdCheckTextField.layer.borderColor = valid ? MOIZAAsset.moizaGray3.color.cgColor : MOIZAAsset.moizaTheme.color.cgColor
+                let color = owner.traitCollection.userInterfaceStyle == .dark ? UIColor.clear.cgColor : MOIZAAsset.moizaGray3.color.cgColor
+                owner.pwdCheckTextField.layer.borderColor = valid ? color : MOIZAAsset.moizaTheme.color.cgColor
             }
             .disposed(by: disposeBag)
     }

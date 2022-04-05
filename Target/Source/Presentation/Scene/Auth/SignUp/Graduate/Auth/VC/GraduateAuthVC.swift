@@ -102,6 +102,17 @@ final class GraduateAuthVC: baseVC<GraduateAuthReactor> {
     }
     override func configureNavigation() {
         self.navigationItem.configAuthNavigation(title: "졸업생 인증")
+        self.navigationItem.configBack()
+    }
+    override func darkConfigure() {
+        [
+            detailReasonLabbel, warnListLabel, firstDescriptionLabel, secondDescriptionLabel
+        ].forEach {
+            $0.textColor = MOIZAAsset.moizaDark4.color
+        }
+        nextButton.setTitleColor(MOIZAAsset.moizaConstGray1.color, for: .normal)
+        signInButton.backgroundColor = MOIZAAsset.moizaDark2.color
+        signInButton.layer.borderColor = UIColor.clear.cgColor
     }
     
     // MARK: - Reactor
