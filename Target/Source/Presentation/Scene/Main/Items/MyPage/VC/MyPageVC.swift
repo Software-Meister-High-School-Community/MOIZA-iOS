@@ -47,15 +47,22 @@ final class MyPageVC: baseVC<MyPageReactor> {
         $0.backgroundColor = MOIZAAsset.moizaGray1.color
         $0.layer.cornerRadius = 5
     }
-    private let introduceLabel = UILabel().then{
+    private let introduceLabel = UITextView().then{
         $0.font = UIFont(font: MOIZAFontFamily.Roboto.regular, size: 13)
         $0.textColor = MOIZAAsset.moizaGray6.color
         $0.text = "나는 최형우"
+        $0.isEditable = false
+        $0.isScrollEnabled = false
+        $0.textContainerInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
     }
-    private let webSiteLabel = UILabel().then{
+    private let webSiteLabel = UITextView().then{
         $0.font = UIFont(font: MOIZAFontFamily.Roboto.regular, size: 12)
         $0.textColor = MOIZAAsset.moizaPrimaryBlue.color
         $0.text = "https://www.instagram.com/baekteun/"
+        $0.dataDetectorTypes = .link
+        $0.isEditable = false
+        $0.isScrollEnabled = false
+        $0.textContainerInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
     }
     private let profile = UIImageView().then{
         $0.image = UIImage(systemName: "person.crop.circle.fill")?.withRenderingMode(.alwaysOriginal)
@@ -146,7 +153,8 @@ final class MyPageVC: baseVC<MyPageReactor> {
         view.addSubViews(headerContainer,postContainer)
         headerContainer.addSubViews(mainView,descriptionView,backgroundView,sortButton,myPostLabel,profile)
         mainView.addSubViews(mainContainer,profileName,postLabel,postValueLabel,followingButton,followerButton)
-        descriptionView.addSubViews(introduceLabel,webSiteLabel,describeContainer)
+        descriptionView.addSubViews(describeContainer)
+        describeContainer.addSubViews(introduceLabel,webSiteLabel)
     }
     
     override func setLayoutSubViews() {
@@ -156,7 +164,7 @@ final class MyPageVC: baseVC<MyPageReactor> {
         mainView.pin.below(of: backgroundView, aligned: .center).height(133).width(100%)
         mainContainer.pin.height(115).width(254).marginLeft(22).after(of: profile)
         descriptionView.pin.below(of: mainView, aligned: .left).marginTop(11).height(82).width(100%)
-        describeContainer.pin.top(20).horizontally(14).height(36).width(315)
+        describeContainer.pin.top(20).horizontally(14).height(55).width(315)
         myPostLabel.pin.below(of: descriptionView, aligned: .start).marginTop(40).height(16).width(68)
         sortButton.pin.below(of: descriptionView, aligned: .end).marginTop(34).height(28).width(63).sizeToFit()
         postContainer.pin.all(view.pin.safeArea)
@@ -178,7 +186,7 @@ final class MyPageVC: baseVC<MyPageReactor> {
                     }
                 }
                 // MARK: - Following
-                flex.addItem().alignSelf(.center).marginRight(20).define { flex in
+                flex.addItem().alignSelf(.center).define { flex in
                     flex.addItem(followingButton).justifyContent(.center).width(50).height(55).define { flex in
                         flex.addItem(followingLabel).alignSelf(.center).marginVertical(6)
                         flex.addItem(followingValueLabel).alignSelf(.center)
