@@ -67,12 +67,12 @@ final class FollowerCell: baseTableViewCell<UserList> {
                 flex.addItem(schoolLabel).width(100%).marginTop(4)
             }
             
-            flex.addItem().direction(.row).paddingLeft(15).grow(1).define { flex in
+            flex.addItem().direction(.row).paddingLeft(10).grow(1).define { flex in
                 flex.addItem().shrink(1).grow(1).alignItems(.center).define { flex in
                     flex.addItem(isFollowButton).width(50).height(27).marginRight(10)
                 }
                 flex.addItem().shrink(1).grow(1).alignItems(.end).define { flex in
-                    flex.addItem(deleteButton).width(50).height(27)
+                    flex.addItem(deleteButton).width(50).height(27).marginRight(5)
                 }
             }
         }

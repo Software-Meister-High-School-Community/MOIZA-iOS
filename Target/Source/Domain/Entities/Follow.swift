@@ -9,4 +9,3 @@ struct Follow: Equatable {
         case userList = "user_list"
     }
 }
-
