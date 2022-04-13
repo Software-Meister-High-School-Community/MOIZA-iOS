@@ -60,9 +60,9 @@ final class FollowingCell: baseTableViewCell<UserList> {
                 flex.addItem(schoolLabel).width(100%).marginTop(4)
             }
             
-            flex.addItem().direction(.row).paddingLeft(15).grow(1).define { flex in
+            flex.addItem().direction(.row).paddingLeft(10).grow(1).define { flex in
                 flex.addItem().shrink(1).grow(1).alignItems(.end).define { flex in
-                    flex.addItem(isFollowingButton).width(50).height(27)
+                    flex.addItem(isFollowingButton).width(50).height(27).marginRight(10)
                 }
             }
         }
