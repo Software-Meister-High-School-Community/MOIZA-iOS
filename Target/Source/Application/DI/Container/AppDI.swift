@@ -45,7 +45,6 @@ extension Container{
         register(GraduateSuccessVC.self) { r in
             return GraduateSuccessVC(reactor: r.resolve(GraduateSuccessReactor.self))
         }
-        
         register(AlarmVC.self) { r in
             return AlarmVC(reactor: r.resolve(AlarmReactor.self))
         }
@@ -58,7 +57,6 @@ extension Container{
         register(CategoryVC.self) { r in
             return CategoryVC(reactor: r.resolve(CategoryReactor.self))
         }
-        
         register(PostBoardVC.self) { r in
             return PostBoardVC(reactor: r.resolve(PostBoardReactor.self))
         }

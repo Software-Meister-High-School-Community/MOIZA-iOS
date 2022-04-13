@@ -24,14 +24,14 @@ final class MyPageFollowReactor: Reactor, Stepper {
         case updateFollowerList([UserList])
     }
     struct State {
-        var FollowerItems: [UserList]
+        var FollowItems: [UserList]
     }
     
     let initialState: State
     
     // MARK: - Init
     init() {
-        initialState = State(FollowerItems: [])
+        initialState = State(FollowItems: [])
     }
     
 }
@@ -54,9 +54,9 @@ extension MyPageFollowReactor {
         var newState = state
         switch mutation {
         case let .setFollowerList(followers):
-            newState.FollowerItems = followers
+            newState.FollowItems = followers
         case let .updateFollowerList(followers):
-            newState.FollowerItems.append(contentsOf: followers)
+            newState.FollowItems.append(contentsOf: followers)
         }
         return newState
     }
@@ -66,9 +66,9 @@ extension MyPageFollowReactor {
 private extension MyPageFollowReactor {
     func viewWillAppear() -> Observable<Mutation>{
         let follower: [UserList] = [
-            .init(userID: 0, name: "최형우", profileImageURL: "https://avatars.githubusercontent.com/u/74440939?v=4", school: .gsm, userScope: .student, isFollow: .random()),
-            .init(userID: 1, name: "김상은", profileImageURL: "https://avatars.githubusercontent.com/u/81676542?v=4", school: .dgsm, userScope: .student, isFollow: .random()),
-            .init(userID: 2, name: "임준화", profileImageURL: "https://avatars.githubusercontent.com/u/76590302?s=400&u=2b40b74acd6eca17e346471f3e7028bdd2c1e14a&v=4", school: .gsm, userScope: .user, isFollow: .random())
+            .init(userId: 0, name: "최형우", profileImageURL: "https://avatars.githubusercontent.com/u/74440939?v=4", school: .gsm, userScope: .student, isFollow: .random()),
+            .init(userId: 1, name: "김상은", profileImageURL: "https://avatars.githubusercontent.com/u/81676542?v=4", school: .dgsm, userScope: .student, isFollow: .random()),
+            .init(userId: 2, name: "임준화", profileImageURL: "https://avatars.githubusercontent.com/u/76590302?s=400&u=2b40b74acd6eca17e346471f3e7028bdd2c1e14a&v=4", school: .gsm, userScope: .user, isFollow: .random())
         ]
         return .concat([
             .just(.setFollowerList(follower))
@@ -82,7 +82,7 @@ private extension MyPageFollowReactor {
         let padding = contentHeight - contentOffsetY
         if padding < scrollViewHeight {
             self.page += 1
-            return Observable.just([UserList(userID: currentState.FollowerItems.count+1, name: "최형우", profileImageURL: "https://avatars.githubusercontent.com/u/76590302?s=400&u=2b40b74acd6eca17e346471f3e7028bdd2c1e14a&v=4", school: .gsm, userScope: .user, isFollow: .random())])
+            return Observable.just([UserList(userId: currentState.FollowItems.count+1, name: "최형우", profileImageURL: "https://avatars.githubusercontent.com/u/76590302?s=400&u=2b40b74acd6eca17e346471f3e7028bdd2c1e14a&v=4", school: .gsm, userScope: .user, isFollow: .random())])
                 .map(Mutation.updateFollowerList)
         } else {
             return .empty()

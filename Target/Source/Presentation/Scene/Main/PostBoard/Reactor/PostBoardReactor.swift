@@ -24,7 +24,6 @@ final class PostBoardReactor: Reactor,Stepper{
         case updateContent(String)
         case imageViewDidTap(index: Int)
         case postTypeButtonDidTap(PostType)
-        case privacySettingButtonDidTap(PrivacySetting)
         case draftsButtonDidTap
         case registerButtonDidTap
     }
@@ -34,7 +33,6 @@ final class PostBoardReactor: Reactor,Stepper{
         case setImage(image: String)
         case setLoading(Bool)
         case setPostType(PostType)
-        case setPrivacySetting(PrivacySetting)
         case setIsInValid
     }
     struct State{
@@ -43,7 +41,6 @@ final class PostBoardReactor: Reactor,Stepper{
         var image: String?
         var isLoading: Bool = false
         var postType: PostType = .question
-        var privacySetting: PrivacySetting = .everyone
         var isInvalid: Bool = false
     }
     var initialState: State = State()
@@ -65,8 +62,6 @@ extension PostBoardReactor{
             ])
         case let .postTypeButtonDidTap(postType):
             return .just(.setPostType(postType))
-        case let .privacySettingButtonDidTap(privacySetting):
-            return .just(.setPrivacySetting(privacySetting))
         case .draftsButtonDidTap:
             return .empty()
         case .registerButtonDidTap:
@@ -90,8 +85,6 @@ extension PostBoardReactor{
             newState.isLoading = isLoading
         case let .setPostType(postType):
             newState.postType = postType
-        case let .setPrivacySetting(privacySetting):
-            newState.privacySetting = privacySetting
         case .setIsInValid:
             newState.isInvalid = false
         }

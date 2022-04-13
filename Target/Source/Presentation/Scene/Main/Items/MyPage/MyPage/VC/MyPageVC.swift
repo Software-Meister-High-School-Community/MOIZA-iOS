@@ -24,6 +24,7 @@ final class MyPageVC: baseVC<MyPageReactor> {
         $0.showsVerticalScrollIndicator = true
     }
     
+    //MARK: - MenuAction
     private lazy var modifyProfile = UIAction(title: "프로필 수정",image: UIImage(systemName: "pencil"),handler: { [weak self] _ in
         self?.reactor?.action.onNext(.modifyButtonDidTap)
     })
@@ -225,6 +226,7 @@ final class MyPageVC: baseVC<MyPageReactor> {
             .map { Reactor.Action.followingButtonDidTap }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
+        
         postListTableView.rx.didScroll
             .withLatestFrom(self.postListTableView.rx.contentOffset)
             .map { [weak self] in

@@ -14,11 +14,13 @@ import PinLayout
 import ReactorKit
 import UIKit
 
-final class FollowTabVC: TabmanViewController, ReactorKit.View{
+final class FollowTabVC: TabmanViewController, ReactorKit.View {
     
     private var viewControllers: [UIViewController] = []
     var disposeBag: DisposeBag = .init()
     typealias Reactor = MyPageFollowReactor
+    private var followerCount: Int = 80
+    private var followingCount: Int = 80
     
     // MARK: - init
     init(reactor: MyPageFollowReactor?) {
@@ -56,10 +58,22 @@ final class FollowTabVC: TabmanViewController, ReactorKit.View{
         
         addBar(bar, dataSource: self, at: .top)
     }
+    func bind(reactor: MyPageFollowReactor) {
+        bindState(reactor: reactor)
+    }
 }
-extension FollowTabVC{
-    public func bind(reactor: MyPageFollowReactor) {
+private extension FollowTabVC{
+    func bindState(reactor: MyPageFollowReactor) {
+        let sharedState = reactor.state.share(replay: 1).observe(on: MainScheduler.asyncInstance)
         
+        sharedState
+            .map(\.FollowItems)
+            .map(\.count)
+            .bind(with: self) { owner, count in
+                
+                owner.reloadData()
+            }
+            .disposed(by: disposeBag)
     }
 }
 
@@ -88,9 +102,9 @@ extension FollowTabVC: PageboyViewControllerDataSource, TMBarDataSource {
         var title = ""
         switch index {
         case 0:
-            title = "800 팔로워"
+            title = "\(followerCount) 팔로워"
         case 1:
-            title = "800 팔로잉"
+            title = "\(followingCount) 팔로잉"
         default:
             title = "Anomaly"
         }

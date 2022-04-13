@@ -61,7 +61,7 @@ final class MyPageFollowerVC: baseVC<MyPageFollowReactor>{
             .disposed(by: disposeBag)
     }
     override func bindAction(reactor: MyPageFollowReactor) {
-        self.rx.viewDidLoad
+        self.rx.viewWillAppear
             .map { _ in Reactor.Action.viewWillAppear }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
@@ -76,8 +76,8 @@ final class MyPageFollowerVC: baseVC<MyPageFollowReactor>{
         }
         
         sharedState
-            .map(\.FollowerItems)
-            .map { [FollowerSection.init(header: "", items: $0)] }
+            .map(\.FollowItems)
+            .map { [FollowerSection.init( items: $0)] }
             .bind(to: followerListTableView.rx.items(dataSource: followerDS))
             .disposed(by: disposeBag)
     }

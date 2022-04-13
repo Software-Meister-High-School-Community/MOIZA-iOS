@@ -15,7 +15,7 @@ final class FollowerCell: baseTableViewCell<UserList> {
         $0.layer.cornerRadius = 30
     }
     
-    private let userId = UILabel().then{
+    private let userIdLabel = UILabel().then{
         $0.textColor = MOIZAAsset.moizaGray6.color
         $0.font = UIFont(font: MOIZAFontFamily.Roboto.regular, size: 16)
     }
@@ -63,7 +63,7 @@ final class FollowerCell: baseTableViewCell<UserList> {
             flex.addItem(userProfileImageView).marginLeft(4).size(60)
             
             flex.addItem().direction(.column).marginLeft(16).grow(1).define { flex in
-                flex.addItem(userId).width(45)
+                flex.addItem(userIdLabel).width(45)
                 flex.addItem(schoolLabel).width(100%).marginTop(4)
             }
             
@@ -83,7 +83,7 @@ final class FollowerCell: baseTableViewCell<UserList> {
                                      options: [])
         userProfileImageView.backgroundColor = MOIZAAsset.moizaGray3.color
     
-        userId.text = model.name
+        userIdLabel.text = model.name
         schoolLabel.text = model.school.display
         isFollowButton.setTitle("맞팔로우", for: .normal)
         deleteButton.setTitle("삭제", for: .normal)

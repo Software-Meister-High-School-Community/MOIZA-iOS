@@ -1,7 +1,6 @@
 import RxDataSources
 
 struct FollowerSection: SectionModelType {
-    let header: String
     var items: [UserList]
 }
 
