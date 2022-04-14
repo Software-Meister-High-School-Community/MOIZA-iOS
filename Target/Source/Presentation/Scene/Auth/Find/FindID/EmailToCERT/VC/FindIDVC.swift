@@ -54,15 +54,29 @@ final class FindIDVC: baseVC<FindIDReactor> {
                 .alignSelf(.end)
         }
     }
+    override func configureNavigation() {
+        self.navigationItem.configAuthNavigation(title: "회원가입")
+        
+        self.navigationItem.configBack()
+    }
+    
+    // MARK: - Reactor
     override func bindView(reactor: FindIDReactor) {
         nextButton.rx.tap
             .map { _ in Reactor.Action.nextButtonDidTap }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
     }
-    override func configureNavigation() {
-        self.navigationItem.configAuthNavigation(title: "아이디 찾기")
-        self.navigationItem.configBack()
-    }
+//    override func bindState(reactor: FindIDReactor) {
+//        let sharedState = reactor.state.share(replay: 2).observe(on: MainScheduler.asyncInstance)
+//
+//        sharedState
+//            .map(\.isValid)
+//            .withUnretained(self)
+//            .subscribe(onNext: { owner, item in
+//                owner.nextButton.isEnabled = item
+//                owner.nextButton.backgroundColor = item ? MOIZAAsset.moizaPrimaryBlue.color : MOIZAAsset.moizaSecondaryBlue.color
+//            })
+//            .disposed(by: disposeBag)
+//    }
 }
-

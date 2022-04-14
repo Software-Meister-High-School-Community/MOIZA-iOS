@@ -19,7 +19,7 @@ final class CertEmailVC: baseVC<CertEmailReactor> {
     private let rootContainer = UIView()
     private let titleLabel = UILabel().then {
         $0.font = UIFont(font: MOIZAFontFamily.Roboto.regular, size: 18)
-        $0.textColor = .label
+        $0.textColor = MOIZAAsset.moizaGray6.color
         $0.text = "이메일로 인증"
         $0.numberOfLines = 1
     }
@@ -37,10 +37,11 @@ final class CertEmailVC: baseVC<CertEmailReactor> {
         $0.titleLabel?.font = UIFont(font: MOIZAFontFamily.Roboto.regular, size: 14)
         $0.backgroundColor = MOIZAAsset.moizaGray2.color
     }
-    private let reCertLabel = UILabel().then {
+    private var reCertLabel = UILabel().then {
         $0.font = UIFont(font: MOIZAFontFamily.Roboto.regular, size: 12)
         $0.textColor = MOIZAAsset.moizaTheme.color
         $0.text = "인증번호를 다시 입력해주세요"
+        $0.isHidden = true
     }
     private let nextButton = NextButton(title: "다음 단계")
     // MARK: - UI
@@ -81,6 +82,13 @@ final class CertEmailVC: baseVC<CertEmailReactor> {
                 .alignSelf(.end)
         }
     }
+    
+    override func configureNavigation() {
+        self.navigationItem.configAuthNavigation(title: "아이디 찾기")
+        self.navigationItem.configBack()
+    }
+    
+    // MARK: - Reactor
     override func bindView(reactor: CertEmailReactor) {
         nextButton.rx.tap
             .map { _ in Reactor.Action.nextButtonDidTap }
@@ -90,10 +98,36 @@ final class CertEmailVC: baseVC<CertEmailReactor> {
             .map { _ in Reactor.Action.reCertButtonDidTap }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
+        emailTextField.rx.text
+            .orEmpty
+            .map(Reactor.Action.updateEmail)
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
     }
-    override func configureNavigation() {
-        self.navigationItem.configAuthNavigation(title: "아이디 찾기")
-        self.navigationItem.configBack()
+    
+    override func bindState(reactor: CertEmailReactor) {
+        let sharedState = reactor.state.share(replay: 2).observe(on: MainScheduler.asyncInstance)
+        
+        sharedState
+            .map(\.isValid)
+            .withUnretained(self)
+            .subscribe(onNext: { owner, item in
+                owner.nextButton.isEnabled = item
+                owner.nextButton.backgroundColor = item ? MOIZAAsset.moizaPrimaryBlue.color : MOIZAAsset.moizaSecondaryBlue.color
+            })
+            .disposed(by: disposeBag)
+        
+        sharedState
+            .map(\.emailValid)
+            .withUnretained(self)
+            .bind { owner, item in
+                owner.reCertLabel.isHidden = item
+                let color = owner.traitCollection.userInterfaceStyle == .dark ? UIColor.clear.cgColor : MOIZAAsset.moizaGray3.color.cgColor
+                owner.emailTextField.layer.borderColor = item ? color : MOIZAAsset.moizaTheme.color.cgColor
+            }
+            .disposed(by: disposeBag)
     }
+    
+    
 }
 
