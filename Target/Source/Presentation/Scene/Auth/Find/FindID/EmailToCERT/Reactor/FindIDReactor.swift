@@ -50,12 +50,13 @@ extension FindIDReactor {
         switch action {
         case .nextButtonDidTap:
             return nextButtonDidTap()
-        case let .updateEmail(num):
-            return .just(.setEmail(num))
+        case let .updateEmail(email):
+            return .just(.setEmail(email))
         }
     }
 }
 
+// MARK: - Reduce
 extension FindIDReactor {
     func reduce(state: State, mutation: Mutation) -> State {
         var newState = state

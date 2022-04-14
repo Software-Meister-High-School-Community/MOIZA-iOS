@@ -10,6 +10,7 @@ import Foundation
 import ReactorKit
 import RxFlow
 import RxCocoa
+import PinLayout
 
 final class CheckIDReactor: Stepper, Reactor {
     // MARK: - Properties
@@ -20,13 +21,14 @@ final class CheckIDReactor: Stepper, Reactor {
     // MARK: - Reactor
     enum Action {
         case nextButtonDidTap
+        case updateId(String)
     }
     enum Mutation {
-        case setUserId(String)
-        case setIsValid
+        case setId(String)
+        case setIsValid(Bool)
     }
     struct State {
-        var userId: String
+        var id: String
         var isValid: Bool
     }
     
@@ -35,7 +37,7 @@ final class CheckIDReactor: Stepper, Reactor {
     // MARK: - Init
     init() {
         initialState = State(
-            userId: "",
+            id: "",
             isValid: false
         )
     }
@@ -47,7 +49,26 @@ extension CheckIDReactor {
         switch action {
         case .nextButtonDidTap:
             return nextButtonDidTap()
+        case let .updateId(id):
+            return .just(.setId(id))
         }
+    }
+}
+
+// MARK: - Reduce
+extension CheckIDReactor {
+    func reduce(state: State, mutation: Mutation) -> State {
+        var newState = state
+        
+        switch mutation {
+        case let .setId(id):
+            newState.id = id
+        case let .setIsValid(valid):
+            newState.isValid = valid
+        }
+        newState.isValid = checkValidation(newState)
+        
+        return newState
     }
 }
 
@@ -56,5 +77,9 @@ private extension CheckIDReactor {
     func nextButtonDidTap() -> Observable<Mutation> {
         steps.accept(MoizaStep.sendCertRequired)
         return .empty()
+    }
+    func checkValidation(_ state: State) -> Bool {
+        guard !state.id.isEmpty else { return false }
+        return true
     }
 }

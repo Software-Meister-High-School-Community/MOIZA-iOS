@@ -32,6 +32,10 @@ final class CheckIDVC: baseVC<CheckIDReactor> {
     override func addView() {
         view.addSubview(rootContainer)
     }
+    override func configureNavigation() {
+        self.navigationItem.configAuthNavigation(title: "비밀번호 찾기")
+        self.navigationItem.configBack()
+    }
     override func setLayoutSubViews() {
         rootContainer.pin.all(view.pin.safeArea)
         rootContainer.flex.layout()
@@ -58,9 +62,22 @@ final class CheckIDVC: baseVC<CheckIDReactor> {
             .map { _ in Reactor.Action.nextButtonDidTap }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
+        idTextField.rx.text
+            .orEmpty
+            .map(Reactor.Action.updateId)
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
     }
-    override func configureNavigation() {
-        self.navigationItem.configAuthNavigation(title: "비밀번호 찾기")
-        self.navigationItem.configBack()
+    override func bindState(reactor: CheckIDReactor) {
+        let sharedState = reactor.state.share(replay: 1).observe(on: MainScheduler.asyncInstance)
+        
+        sharedState
+            .map(\.isValid)
+            .withUnretained(self)
+            .subscribe(onNext: { owner, item in
+                owner.nextButton.isEnabled = item
+                owner.nextButton.backgroundColor = item ? MOIZAAsset.moizaPrimaryBlue.color : MOIZAAsset.moizaSecondaryBlue.color
+            })
+            .disposed(by: disposeBag)
     }
 }
