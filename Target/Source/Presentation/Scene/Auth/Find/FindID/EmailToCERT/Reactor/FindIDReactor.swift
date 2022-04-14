@@ -20,18 +20,16 @@ final class FindIDReactor: Reactor, Stepper {
     // MARK: - Reactor
     enum Action {
         case nextButtonDidTap
-        case updateCertNumber(String)
-        case reCertButtonDidTap
+        case updateEmail(String)
     }
     enum Mutation {
-        case setCertNumber(String)
+        case setEmail(String)
         case setIsValid(Bool)
         
     }
     struct State {
-        var certNumber: String
         var isValid: Bool
-        var certIsCorrect: Bool
+        var email: String
     }
     
     let initialState: State
@@ -39,9 +37,8 @@ final class FindIDReactor: Reactor, Stepper {
     // MARK: - Init
     init() {
         initialState = State(
-            certNumber: "",
             isValid: false,
-            certIsCorrect: true
+            email: ""
         )
     }
     
@@ -53,12 +50,9 @@ extension FindIDReactor {
         switch action {
         case .nextButtonDidTap:
             return nextButtonDidTap()
-        case let .updateCertNumber(num):
-            return .just(.setCertNumber(num))
-        case .reCertButtonDidTap:
-            return .empty()
+        case let .updateEmail(num):
+            return .just(.setEmail(num))
         }
-        return .empty()
     }
 }
 
@@ -67,11 +61,12 @@ extension FindIDReactor {
         var newState = state
         
         switch mutation {
-        case let .setCertNumber(num):
-            newState.certNumber = num
+        case let .setEmail(email):
+            newState.email = email
         case let .setIsValid(valid):
             newState.isValid = valid
         }
+        newState.isValid = checkValidation(newState)
         
         return newState
     }
@@ -82,5 +77,9 @@ private extension FindIDReactor {
     func nextButtonDidTap() -> Observable<Mutation> {
         steps.accept(MoizaStep.certIsRequired)
         return .empty()
+    }
+    func checkValidation(_ state: State) -> Bool {
+        guard !state.email.isEmpty else { return false }
+        return true
     }
 }

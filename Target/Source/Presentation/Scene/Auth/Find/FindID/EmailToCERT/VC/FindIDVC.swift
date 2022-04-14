@@ -66,17 +66,22 @@ final class FindIDVC: baseVC<FindIDReactor> {
             .map { _ in Reactor.Action.nextButtonDidTap }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
+        emailTextField.rx.text
+            .orEmpty
+            .map(Reactor.Action.updateEmail)
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
     }
-//    override func bindState(reactor: FindIDReactor) {
-//        let sharedState = reactor.state.share(replay: 2).observe(on: MainScheduler.asyncInstance)
-//
-//        sharedState
-//            .map(\.isValid)
-//            .withUnretained(self)
-//            .subscribe(onNext: { owner, item in
-//                owner.nextButton.isEnabled = item
-//                owner.nextButton.backgroundColor = item ? MOIZAAsset.moizaPrimaryBlue.color : MOIZAAsset.moizaSecondaryBlue.color
-//            })
-//            .disposed(by: disposeBag)
-//    }
+    override func bindState(reactor: FindIDReactor) {
+        let sharedState = reactor.state.share(replay: 2).observe(on: MainScheduler.asyncInstance)
+
+        sharedState
+            .map(\.isValid)
+            .withUnretained(self)
+            .subscribe(onNext: { owner, item in
+                owner.nextButton.isEnabled = item
+                owner.nextButton.backgroundColor = item ? MOIZAAsset.moizaPrimaryBlue.color : MOIZAAsset.moizaSecondaryBlue.color
+            })
+            .disposed(by: disposeBag)
+    }
 }
