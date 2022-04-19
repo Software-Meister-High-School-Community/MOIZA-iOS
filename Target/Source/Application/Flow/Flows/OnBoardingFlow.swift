@@ -92,7 +92,7 @@ private extension OnBoardingFlow{
         return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: vc.reactor ?? .init()))
     }
     func navigateToReRegistration() -> FlowContributors {
-        @Inject var vc: ReRegistrationVC
+        @Inject var vc: NewPasswordVC
         self.rootVC.pushViewController(vc, animated: true)
         return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: vc.reactor ?? .init()))
     }

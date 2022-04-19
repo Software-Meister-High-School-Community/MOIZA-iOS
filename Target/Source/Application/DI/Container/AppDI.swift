@@ -82,8 +82,8 @@ extension Container{
         register(SendCertVC.self) { r in
             return SendCertVC(reactor: r.resolve(SendCertReactor.self))
         }
-        register(ReRegistrationVC.self) { r in
-            return ReRegistrationVC(reactor: r.resolve(ReRegistrationReactor.self))
+        register(NewPasswordVC.self) { r in
+            return NewPasswordVC(reactor: r.resolve(NewPasswordReactor.self))
         }
         register(SucFindPWVC.self) { r in
             return SucFindPWVC(reactor: r.resolve(SucFindPWReactor.self))
@@ -109,7 +109,7 @@ extension Container{
         autoregister(SucFindIDReactor.self, initializer: SucFindIDReactor.init)
         autoregister(CheckIDReactor.self, initializer: CheckIDReactor.init)
         autoregister(SendCertReactor.self, initializer: SendCertReactor.init)
-        autoregister(ReRegistrationReactor.self, initializer: ReRegistrationReactor.init)
+        autoregister(NewPasswordReactor.self, initializer: NewPasswordReactor.init)
         autoregister(SucFindPWReactor.self, initializer: SucFindPWReactor.init)
     }
     private func registerStepper(){

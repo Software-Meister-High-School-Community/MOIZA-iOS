@@ -14,7 +14,7 @@ import FlexLayout
 import PinLayout
 import UIKit
 
-final class ReRegistrationVC: baseVC<ReRegistrationReactor> {
+final class NewPasswordVC: baseVC<NewPasswordReactor> {
     // MARK: - Metric
     enum Metric {
         static let spacingMargin: CGFloat = 40
@@ -113,10 +113,65 @@ final class ReRegistrationVC: baseVC<ReRegistrationReactor> {
                     .alignSelf(.end)
             }
     }
-    override func bindView(reactor: ReRegistrationReactor) {
+    override func bindView(reactor: NewPasswordReactor) {
         nextButton.rx.tap
             .map { _ in Reactor.Action.nextButtonDidTap }
             .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        newPwdTextField.rx.text
+            .orEmpty
+            .map(Reactor.Action.updateNewPassword)
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        pwdCheckTextField.rx.text
+            .orEmpty
+            .map(Reactor.Action.updateNewPassWordCheck)
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        newPwdVisibleButton.rx.tap
+            .map{ Reactor.Action.newPwdVisibleButtinDidTap }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        pwdCheckVisibleButton.rx.tap
+            .map{ Reactor.Action.newPwdCheckVisibleButtonDidTap }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+    }
+    
+    override func bindState(reactor: NewPasswordReactor) {
+        let sharedState = reactor.state.share(replay: 6).observe(on: MainScheduler.asyncInstance)
+        
+        sharedState
+            .map(\.newPassWordVisible)
+            .withUnretained(self)
+            .bind { owner, visible in
+                owner.newPwdTextField.isSecureTextEntry = visible
+                owner.newPwdVisibleButton.setImage(UIImage(systemName: visible ? "eye" : "eye.slash")?.tintColor(MOIZAAsset.moizaGray4.color),
+                for: .normal)
+            }
+            .disposed(by: disposeBag)
+        
+        sharedState
+            .map(\.newPassWordCheckVisible)
+            .withUnretained(self)
+            .bind { owner, visible in
+                owner.pwdCheckTextField.isSecureTextEntry = visible
+                owner.pwdCheckVisibleButton.setImage(UIImage(systemName: visible ? "eye" : "eye.slash")?.tintColor(MOIZAAsset.moizaGray4.color), for: .normal)
+            }
+            .disposed(by: disposeBag)
+        
+        sharedState
+            .map(\.valid)
+            .withUnretained(self)
+            .subscribe(onNext: { owner, item in
+                owner.nextButton.isEnabled = item
+                owner.nextButton.backgroundColor = item ? MOIZAAsset.moizaPrimaryBlue.color : MOIZAAsset.moizaSecondaryBlue.color
+            })
+            .disposed(by: disposeBag)
+        
+        sharedState
+            .map(\.newPasswordValid)
+            .bind(to: pwdCheckInvalidLabel.rx.isHidden)
             .disposed(by: disposeBag)
     }
     override func configureNavigation() {
