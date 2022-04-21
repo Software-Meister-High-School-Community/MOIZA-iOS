@@ -53,9 +53,9 @@ private extension MyPageFlow{
         return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: vc.reactor ?? .init()))
     }
     func presentToSort(_ options: [SortOption]) -> FlowContributors {
-        let reactor = MyPageModalReactor()
-        let vc = MyPageModalVC(options, reactor: reactor)
-        self.rootVC.presentPanModal(vc)
+        let reactor = SortModalReactor()
+        let vc = SortModalVC([.major, .sortType], reactor: reactor)
+        self.rootVC.visibleViewController?.presentPanModal(vc)
         return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: reactor))
     }
     func coordinateToFollow() -> FlowContributors {

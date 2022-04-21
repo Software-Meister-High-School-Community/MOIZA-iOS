@@ -13,7 +13,9 @@ final class MyPageVC: baseVC<MyPageReactor> {
     
     private let headerContainer = UIView()
     
-    private let mainContainer = UIView()
+    private let mainContainer = UIView().then{
+        $0.backgroundColor = .red
+    }
     
     private let describeContainer = UIView().then{
         $0.backgroundColor = MOIZAAsset.moizaGray1.color
@@ -59,7 +61,7 @@ final class MyPageVC: baseVC<MyPageReactor> {
     private let webSite = UITextView().then{
         $0.font = UIFont(font: MOIZAFontFamily.Roboto.regular, size: 12)
         $0.textColor = MOIZAAsset.moizaPrimaryBlue.color
-        $0.text = "https://www.instagram.com/baekteun/"
+        $0.text = "https://www.instagram.com/baegteun/"
         $0.dataDetectorTypes = .link
         $0.isEditable = false
         $0.isScrollEnabled = false
