@@ -79,8 +79,8 @@ extension Container{
         register(CheckIDVC.self) { r in
             return CheckIDVC(reactor: r.resolve(CheckIDReactor.self))
         }
-        register(SendCertVC.self) { r in
-            return SendCertVC(reactor: r.resolve(SendCertReactor.self))
+        register(SendCertVC.self) { r, email in
+            return SendCertVC(reactor: r.resolve(SendCertReactor.self), email: email)
         }
         register(NewPasswordVC.self) { r in
             return NewPasswordVC(reactor: r.resolve(NewPasswordReactor.self))

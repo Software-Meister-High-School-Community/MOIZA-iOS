@@ -97,7 +97,7 @@ private extension OnBoardingFlow{
         return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: vc.reactor ?? .init()))
     }
     func navigateToSendCert() -> FlowContributors {
-        @Inject var vc: SendCertVC
+        let vc = AppDelegate.container.resolve(SendCertVC.self, argument: "ksemms20@dgsw.hs.kr")!
         self.rootVC.pushViewController(vc, animated: true)
         return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: vc.reactor ?? .init()))
     }

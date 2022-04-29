@@ -20,15 +20,14 @@ final class SendCertReactor: Stepper, Reactor {
     // MARK: - Reactor
     enum Action {
         case nextButtonDidTap
-        case viewWillAppear
+        case updateCertNumber(String)
     }
     enum Mutation {
-        case setEmail(String)
-        case setIsValid(Bool)
         case certIsCorrect(Bool)
+        case setCertNumber(String)
     }
     struct State {
-        var email: String
+        var certNumber: String
         var isValid: Bool
         var certIsCorrect: Bool
     }
@@ -38,7 +37,7 @@ final class SendCertReactor: Stepper, Reactor {
     // MARK: - Init
     init() {
         self.initialState = State(
-            email: "",
+            certNumber: "",
             isValid: false,
             certIsCorrect: true
         )
@@ -51,8 +50,8 @@ extension SendCertReactor {
         switch action {
         case .nextButtonDidTap:
             return navToReRegistor()
-        case .viewWillAppear:
-            return viewWillAppear()
+        case let .updateCertNumber(certNumber):
+            return .just(.setCertNumber(certNumber))
         }
     }
 }
@@ -60,17 +59,15 @@ extension SendCertReactor {
 // MARK: - Reduce
 extension SendCertReactor {
     func reduce(state: State, mutation: Mutation) -> State {
-        var state = state
+        var newState = state
         switch mutation {
-        case .setEmail:
-            state.email = "받아온 이메일"
-        case let .setIsValid(valid):
-            state.isValid = valid
+        case let .setCertNumber(certNumber):
+            newState.certNumber = certNumber
         case let .certIsCorrect(correct):
-            state.certIsCorrect = correct
+            newState.certIsCorrect = checkCertIsCorrect(newState)
         }
-        
-        return state
+        newState.isValid = checkValidtion(newState)
+        return newState
     }
 }
 // MARK: - Method
@@ -79,7 +76,11 @@ private extension SendCertReactor {
         steps.accept(MoizaStep.reRegistorRequired)
         return .empty()
     }
-    func viewWillAppear() -> Observable<Mutation> {
-        return .empty()
+    func checkValidtion(_ state: State) -> Bool {
+        guard !state.certNumber.isEmpty else { return false }
+        return true
+    }
+    func checkCertIsCorrect(_ state: State) -> Bool {
+        return true
     }
 }
