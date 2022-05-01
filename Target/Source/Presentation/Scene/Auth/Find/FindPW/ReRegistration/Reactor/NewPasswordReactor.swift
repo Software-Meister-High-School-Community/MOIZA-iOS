@@ -21,23 +21,23 @@ final class NewPasswordReactor: Reactor, Stepper {
     enum Action {
         case nextButtonDidTap
         case updateNewPassword(String)
-        case updateNewPassWordCheck(String)
+        case updateNewPasswordCheck(String)
         case newPwdVisibleButtinDidTap
         case newPwdCheckVisibleButtonDidTap
     }
     enum Mutation {
-        case setNewPassWord(String)
-        case setNewPassWordVisible(Bool)
-        case setNewPassWordCheck(String)
-        case setNewPassWordCheckVisible(Bool)
+        case setNewPassword(String)
+        case setNewPasswordVisible(Bool)
+        case setNewPasswordCheck(String)
+        case setNewPasswordCheckVisible(Bool)
     }
     struct State {
-        var passWordIsCorrect: Bool
+        var passwordIsCorrect: Bool
         var valid: Bool
-        var newPassWord: String
-        var newPassWordVisible: Bool
-        var newPassWordCheck: String
-        var newPassWordCheckVisible: Bool
+        var newPassword: String
+        var newPasswordVisible: Bool
+        var newPasswordCheck: String
+        var newPasswordCheckVisible: Bool
         var newPasswordValid: Bool
         var newPasswordCheckedValid: Bool
     }
@@ -47,12 +47,12 @@ final class NewPasswordReactor: Reactor, Stepper {
     // MARK: - Init
     init() {
         initialState = State(
-            passWordIsCorrect: true,
+            passwordIsCorrect: true,
             valid: false,
-            newPassWord: "",
-            newPassWordVisible: true,
-            newPassWordCheck: "",
-            newPassWordCheckVisible: true,
+            newPassword: "",
+            newPasswordVisible: true,
+            newPasswordCheck: "",
+            newPasswordCheckVisible: true,
             newPasswordValid: false,
             newPasswordCheckedValid: false
         )
@@ -66,13 +66,13 @@ extension NewPasswordReactor {
         case .nextButtonDidTap:
             return navToSucFindPW()
         case let .updateNewPassword(newPwd):
-            return .just(.setNewPassWord(newPwd))
-        case let .updateNewPassWordCheck(newPwd):
-            return .just(.setNewPassWordCheck(newPwd))
+            return .just(.setNewPassword(newPwd))
+        case let .updateNewPasswordCheck(newPwd):
+            return .just(.setNewPasswordCheck(newPwd))
         case .newPwdVisibleButtinDidTap:
-            return .just(.setNewPassWordVisible(!currentState.newPassWordVisible))
+            return .just(.setNewPasswordVisible(!currentState.newPasswordVisible))
         case .newPwdCheckVisibleButtonDidTap:
-            return .just(.setNewPassWordCheckVisible(!currentState.newPassWordCheckVisible))
+            return .just(.setNewPasswordCheckVisible(!currentState.newPasswordCheckVisible))
         }
     }
 }
@@ -82,16 +82,16 @@ extension NewPasswordReactor {
     func reduce(state: State, mutation: Mutation) -> State {
         var newState = state
         switch mutation {
-        case let .setNewPassWord(newPwd):
-            newState.newPassWord = newPwd
-            newState.newPasswordValid = checkPasswordCheckValidation(pwd: newPwd, pwdChk: currentState.newPassWordCheck)
-        case let .setNewPassWordCheck(newPwdCheck):
-            newState.newPassWordCheck = newPwdCheck
-            newState.newPasswordValid = checkPasswordCheckValidation(pwd: currentState.newPassWord, pwdChk: newPwdCheck)
-        case let .setNewPassWordVisible(visible):
-            newState.newPassWordVisible = visible
-        case let.setNewPassWordCheckVisible(visible):
-            newState.newPassWordCheckVisible = visible
+        case let .setNewPassword(newPwd):
+            newState.newPassword = newPwd
+            newState.newPasswordValid = checkPasswordCheckValidation(pwd: newPwd, pwdChk: currentState.newPasswordCheck)
+        case let .setNewPasswordCheck(newPwdCheck):
+            newState.newPasswordCheck = newPwdCheck
+            newState.newPasswordValid = checkPasswordCheckValidation(pwd: currentState.newPassword, pwdChk: newPwdCheck)
+        case let .setNewPasswordVisible(visible):
+            newState.newPasswordVisible = visible
+        case let.setNewPasswordCheckVisible(visible):
+            newState.newPasswordCheckVisible = visible
         }
         newState.valid = checkValidation(newState)
         
@@ -106,9 +106,9 @@ private extension NewPasswordReactor {
         return .empty()
     }
     func checkValidation(_ state: State) -> Bool {
-        guard !state.newPassWord.isEmpty,
-              !state.newPassWordCheck.isEmpty,
-              checkPasswordCheckValidation(pwd: state.newPassWord, pwdChk: state.newPassWordCheck)
+        guard !state.newPassword.isEmpty,
+              !state.newPasswordCheck.isEmpty,
+              checkPasswordCheckValidation(pwd: state.newPassword, pwdChk: state.newPasswordCheck)
         else { return false }
         return true
     }

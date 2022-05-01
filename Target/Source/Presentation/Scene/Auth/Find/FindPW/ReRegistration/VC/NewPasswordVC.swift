@@ -125,7 +125,7 @@ final class NewPasswordVC: baseVC<NewPasswordReactor> {
             .disposed(by: disposeBag)
         pwdCheckTextField.rx.text
             .orEmpty
-            .map(Reactor.Action.updateNewPassWordCheck)
+            .map(Reactor.Action.updateNewPasswordCheck)
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
         newPwdVisibleButton.rx.tap
@@ -142,7 +142,7 @@ final class NewPasswordVC: baseVC<NewPasswordReactor> {
         let sharedState = reactor.state.share(replay: 6).observe(on: MainScheduler.asyncInstance)
         
         sharedState
-            .map(\.newPassWordVisible)
+            .map(\.newPasswordVisible)
             .withUnretained(self)
             .bind { owner, visible in
                 owner.newPwdTextField.isSecureTextEntry = visible
@@ -152,7 +152,7 @@ final class NewPasswordVC: baseVC<NewPasswordReactor> {
             .disposed(by: disposeBag)
         
         sharedState
-            .map(\.newPassWordCheckVisible)
+            .map(\.newPasswordCheckVisible)
             .withUnretained(self)
             .bind { owner, visible in
                 owner.pwdCheckTextField.isSecureTextEntry = visible
