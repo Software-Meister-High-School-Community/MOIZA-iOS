@@ -73,7 +73,7 @@ final class FindIDVC: baseVC<FindIDReactor> {
             .disposed(by: disposeBag)
     }
     override func bindState(reactor: FindIDReactor) {
-        let sharedState = reactor.state.share(replay: 2).observe(on: MainScheduler.asyncInstance)
+        let sharedState = reactor.state.share(replay: 1).observe(on: MainScheduler.asyncInstance)
 
         sharedState
             .map(\.isValid)
