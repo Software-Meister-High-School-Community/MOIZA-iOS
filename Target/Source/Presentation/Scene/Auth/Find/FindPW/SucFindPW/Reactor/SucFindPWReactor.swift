@@ -39,15 +39,15 @@ extension SucFindPWReactor {
     func mutate(action: Action) -> Observable<Mutation> {
         switch action {
         case .navToSignInButtonDidTap:
-            return navToSignInVC()
+            return navToRootVC()
         }
     }
 }
 
 // MARK: - Method
 private extension SucFindPWReactor {
-    func navToSignInVC() -> Observable<Mutation> {
-        steps.accept(MoizaStep.signInIsRequired)
+    func navToRootVC() -> Observable<Mutation> {
+        steps.accept(MoizaStep.findingPWIsCompleted)
         return .empty()
     }
 }

@@ -41,6 +41,7 @@ enum MoizaStep: Step{
     case sendCertRequired
     case reRegistorRequired
     case successFindPWRequired
+    case findingPWIsCompleted
     
     // Main
     case mainTabbarIsRequired
