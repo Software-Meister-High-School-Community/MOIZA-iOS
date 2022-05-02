@@ -111,10 +111,10 @@ final class CertEmailVC: baseVC<CertEmailReactor> {
         sharedState
             .map(\.isValid)
             .withUnretained(self)
-            .subscribe(onNext: { owner, item in
+            .bind { owner, item in
                 owner.nextButton.isEnabled = item
                 owner.nextButton.backgroundColor = item ? MOIZAAsset.moizaPrimaryBlue.color : MOIZAAsset.moizaSecondaryBlue.color
-            })
+            }
             .disposed(by: disposeBag)
         
         sharedState

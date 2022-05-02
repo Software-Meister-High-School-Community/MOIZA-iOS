@@ -38,10 +38,10 @@ final class OnBoardingFlow: Flow{
     func navigate(to step: Step) -> FlowContributors {
         guard let step = step.asMoizaStep else { return .none }
         switch step{
-        case .findingPWIsCompleted:
-            return navigateToRoot()
         case .certIsRequired:
             return navigateToCert()
+        case .findingIDIsRequired:
+            return navigateToFindID()
         case .successFindIDRequired:
             return navigateTpSucFindId()
         case .onBoardingIsRequired:
@@ -54,7 +54,7 @@ final class OnBoardingFlow: Flow{
             return navigateToSignUpSetUp(student: student)
         case .signUpSuccessIsRequired:
             return navigateToSignUpSuccess()
-        case .signUpIsCompleted, .signUpGraduateAuthIsCompleted:
+        case .signUpIsCompleted, .signUpGraduateAuthIsCompleted, .findingPWIsCompleted:
             return navigateToRoot()
         case .signInIsRequired:
             return navigateToSignIn()
