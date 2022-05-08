@@ -14,7 +14,11 @@ final class MyPageVC: baseVC<MyPageReactor> {
     private let headerContainer = UIView()
     
     private let mainContainer = UIView().then{
-        $0.backgroundColor = .red
+        $0.backgroundColor = MOIZAAsset.moizaGray1.color
+    }
+    
+    private let postValueContainer = UIView().then{
+        $0.backgroundColor = MOIZAAsset.moizaGray1.color
     }
     
     private let describeContainer = UIView().then{
@@ -153,66 +157,63 @@ final class MyPageVC: baseVC<MyPageReactor> {
     
     // MARK: - UI
     override func addView() {
-        view.addSubViews(headerContainer,postContainer)
-        headerContainer.addSubViews(mainView,descriptionView,backgroundView,sortButton,myPostLabel,profile)
-        mainView.addSubViews(mainContainer,profileName,postLabel,postValueLabel,followingButton,followerButton)
-        descriptionView.addSubViews(describeContainer)
-        describeContainer.addSubViews(introduce,webSite)
-    }
-    
-    override func setLayoutSubViews() {
-        headerContainer.pin.width(100%).height(402)
-        backgroundView.pin.height(99).width(100%)
-        profile.pin.horizontally(18).height(100).width(100).top(69)
-        mainView.pin.below(of: backgroundView, aligned: .center).height(133).width(100%)
-        mainContainer.pin.height(115).width(254).marginLeft(22).after(of: profile)
-        descriptionView.pin.below(of: mainView, aligned: .left).marginTop(11).height(82).width(100%)
-        describeContainer.pin.top(20).horizontally(14).height(35).width(315)
-        myPostLabel.pin.below(of: descriptionView, aligned: .start).marginTop(40).height(16).width(68)
-        sortButton.pin.below(of: descriptionView, aligned: .end).marginTop(34).height(28).width(63).sizeToFit()
-        postContainer.pin.all(view.pin.safeArea)
+            view.addSubViews(headerContainer,postContainer)
+            headerContainer.addSubViews(mainView,descriptionView,backgroundView,sortButton,myPostLabel,profile)
+            mainView.addSubViews(mainContainer,postValueContainer,profileName,postLabel,postValueLabel,followingButton,followerButton)
+            descriptionView.addSubViews(describeContainer)
+            describeContainer.addSubViews(introduce,webSite)
+        }
         
-        mainContainer.flex.define { flex in
-            flex.addItem(profileName).bottom(43)
-            flex.addItem(schoolKind).bottom(35)
-            flex.addItem().bottom(28).direction(.row).define { flex in
-                // MARK: - Post
-                flex.addItem().alignSelf(.center).define { flex in
-                    flex.addItem(postLabel).marginVertical(6).direction(.column)
-                    flex.addItem(postValueLabel).alignSelf(.center)
-                }
-                // MARK: - Follower
-                flex.addItem().marginHorizontal(17%).alignSelf(.center).define { flex in
-                    flex.addItem(followerButton).justifyContent(.center).width(50).height(55).define { flex in
-                        flex.addItem(followerLabel).alignSelf(.center).marginVertical(6)
-                        flex.addItem(followerValueLabel).alignSelf(.center)
-                    }
-                }
-                // MARK: - Following
-                flex.addItem().alignSelf(.center).define { flex in
-                    flex.addItem(followingButton).justifyContent(.center).width(50).height(55).define { flex in
-                        flex.addItem(followingLabel).alignSelf(.center).marginVertical(6)
-                        flex.addItem(followingValueLabel).alignSelf(.center)
-                    }
-                }
+        override func setLayoutSubViews() {
+            headerContainer.pin.width(100%).height(402)
+            backgroundView.pin.height(99).width(100%)
+            profile.pin.horizontally(18).height(100).width(100).top(69)
+            mainView.pin.below(of: backgroundView, aligned: .center).height(133).width(100%)
+            mainContainer.pin.height(60).width(254).marginLeft(22).after(of: profile)
+            postValueContainer.pin.height(60).width(32).topLeft(to: mainContainer.anchor.bottomLeft)
+            followerButton.pin.height(60).width(60).after(of: postValueContainer, aligned: .center).marginHorizontal(40)
+            followingButton.pin.height(60).width(60).after(of: followerButton, aligned: .center).marginHorizontal(40)
+            descriptionView.pin.below(of: mainView, aligned: .left).marginTop(11).height(82).width(100%)
+            describeContainer.pin.top(20).horizontally(14).height(35).width(315)
+            myPostLabel.pin.below(of: descriptionView, aligned: .start).marginTop(40).height(16).width(68)
+            sortButton.pin.below(of: descriptionView, aligned: .end).marginTop(34).height(28).width(63).sizeToFit()
+            postContainer.pin.all(view.pin.safeArea)
+            
+            mainContainer.flex.define { flex in
+                flex.addItem(profileName).marginVertical(8).marginTop(15)
+                flex.addItem(schoolKind)
             }
+            postValueContainer.flex.define { flex in
+                flex.addItem(postLabel).marginTop(20).alignSelf(.center)
+                flex.addItem(postValueLabel).marginVertical(8).alignSelf(.center)
+            }
+            
+            followerButton.flex.define { flex in
+                flex.addItem(followerLabel).marginTop(20).alignSelf(.center)
+                flex.addItem(followerValueLabel).marginVertical(8).alignSelf(.center)
+            }
+            followingButton.flex.define { flex in
+                flex.addItem(followingLabel).marginTop(20).alignSelf(.center)
+                flex.addItem(followingValueLabel).marginVertical(8).alignSelf(.center)
+            }
+            describeContainer.flex.define { flex in
+                flex.addItem(introduce)
+                flex.addItem(webSite).marginVertical(8)
+            }
+            postContainer.flex.define { flex in
+                flex.addItem(postListTableView).grow(1).bottom(0).marginHorizontal(16)
+            }
+            mainContainer.flex.layout()
+            postValueContainer.flex.layout()
+            followerButton.flex.layout()
+            followingButton.flex.layout()
+            describeContainer.flex.layout()
+            postContainer.flex.layout()
         }
         
-        describeContainer.flex.define { flex in
-            flex.addItem(introduce)
-            flex.addItem(webSite).marginVertical(8)
+        override func setLayout() {
+            
         }
-        postContainer.flex.define { flex in
-            flex.addItem(postListTableView).grow(1).bottom(0).marginHorizontal(16)
-        }
-        mainContainer.flex.layout()
-        describeContainer.flex.layout()
-        postContainer.flex.layout()
-    }
-    
-    override func setLayout() {
-        
-    }
     override func bindView(reactor: MyPageReactor) {
         sortButton.rx.tap
             .map { Reactor.Action.sortButtonDidTap }
