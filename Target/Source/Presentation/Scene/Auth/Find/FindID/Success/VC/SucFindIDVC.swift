@@ -78,6 +78,19 @@ final class SucFindIDVC: baseVC<SucFindIDReactor> {
                 }
         }
     }
+    override func configureNavigation() {
+        self.navigationItem.configAuthNavigation(title: "아이디 찾기")
+        self.navigationItem.configBack()
+    }
+    override func darkConfigure() {
+        [
+            idLabel
+        ].forEach{
+            $0.backgroundColor =  MOIZAAsset.moizaDark2.color
+        }
+    }
+    
+    // MARK: - Reactor
     override func bindView(reactor: SucFindIDReactor) {
         navToSingInButton.rx.tap
             .map { _ in Reactor.Action.navToSignInButtonDidTap }
@@ -87,9 +100,5 @@ final class SucFindIDVC: baseVC<SucFindIDReactor> {
             .map { _ in Reactor.Action.findPWButtonDidTap }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
-    }
-    override func configureNavigation() {
-        self.navigationItem.configAuthNavigation(title: "아이디 찾기")
-        self.navigationItem.configBack()
     }
 }

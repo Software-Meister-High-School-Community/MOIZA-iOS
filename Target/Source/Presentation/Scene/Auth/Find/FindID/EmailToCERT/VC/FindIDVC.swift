@@ -59,6 +59,14 @@ final class FindIDVC: baseVC<FindIDReactor> {
         
         self.navigationItem.configBack()
     }
+    override func darkConfigure() {
+        [
+            emailTextField
+        ].forEach {
+            $0.backgroundColor = MOIZAAsset.moizaDark2.color
+            $0.layer.borderColor = UIColor.clear.cgColor
+        }
+    }
     
     // MARK: - Reactor
     override func bindView(reactor: FindIDReactor) {

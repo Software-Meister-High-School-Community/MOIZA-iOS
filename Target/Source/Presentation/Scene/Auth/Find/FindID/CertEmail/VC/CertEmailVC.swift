@@ -87,7 +87,14 @@ final class CertEmailVC: baseVC<CertEmailReactor> {
         self.navigationItem.configAuthNavigation(title: "아이디 찾기")
         self.navigationItem.configBack()
     }
-    
+    override func darkConfigure() {
+        [
+            emailTextField, reCertButton
+        ].forEach {
+            $0.backgroundColor = MOIZAAsset.moizaDark2.color
+            $0.layer.borderColor = UIColor.clear.cgColor
+        }
+    }
     // MARK: - Reactor
     override func bindView(reactor: CertEmailReactor) {
         nextButton.rx.tap
