@@ -69,6 +69,20 @@ final class SendCertVC: baseVC<SendCertReactor> {
                 .alignSelf(.end)
         }
     }
+    override func configureNavigation() {
+        self.navigationItem.configAuthNavigation(title: "비밀번호 찾기")
+        self.navigationItem.configBack()
+    }
+    override func darkConfigure() {
+        [
+            certTextField
+        ].forEach{
+            $0.backgroundColor = MOIZAAsset.moizaDark2.color
+            $0.layer.borderColor = UIColor.clear.cgColor
+        }
+    }
+    
+    // MARK: - Reactor
     override func bindView(reactor: SendCertReactor) {
         nextButton.rx.tap
             .map { _ in Reactor.Action.nextButtonDidTap }
@@ -90,9 +104,5 @@ final class SendCertVC: baseVC<SendCertReactor> {
                 owner.nextButton.isEnabled = item
                 owner.nextButton.backgroundColor = item ? MOIZAAsset.moizaPrimaryBlue.color : MOIZAAsset.moizaSecondaryBlue.color
             })
-    }
-    override func configureNavigation() {
-        self.navigationItem.configAuthNavigation(title: "비밀번호 찾기")
-        self.navigationItem.configBack()
     }
 }

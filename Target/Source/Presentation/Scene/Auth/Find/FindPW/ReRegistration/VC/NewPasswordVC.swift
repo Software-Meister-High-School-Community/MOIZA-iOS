@@ -113,6 +113,16 @@ final class NewPasswordVC: baseVC<NewPasswordReactor> {
                     .alignSelf(.end)
             }
     }
+    override func darkConfigure() {
+        [
+            newPwdTextField, pwdCheckTextField
+        ].forEach{
+            $0.backgroundColor = MOIZAAsset.moizaDark2.color
+            $0.layer.borderColor = UIColor.clear.cgColor
+        }
+    }
+    
+    // MARK: - Reactor
     override func bindView(reactor: NewPasswordReactor) {
         nextButton.rx.tap
             .map { _ in Reactor.Action.nextButtonDidTap }

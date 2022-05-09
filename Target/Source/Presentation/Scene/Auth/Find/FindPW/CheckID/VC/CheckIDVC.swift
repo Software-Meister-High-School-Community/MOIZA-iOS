@@ -57,6 +57,16 @@ final class CheckIDVC: baseVC<CheckIDReactor> {
                 .alignSelf(.end)
         }
     }
+    override func darkConfigure() {
+        [
+            idTextField
+        ].forEach{
+            $0.backgroundColor = MOIZAAsset.moizaDark2.color
+            $0.layer.borderColor = UIColor.clear.cgColor
+        }
+    }
+    
+    // MARK: - Reactor
     override func bindView(reactor: CheckIDReactor) {
         nextButton.rx.tap
             .map { _ in Reactor.Action.nextButtonDidTap }
