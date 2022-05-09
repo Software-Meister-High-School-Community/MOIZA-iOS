@@ -34,9 +34,9 @@ final class MyPageFlow: Flow{
         case let .sortIsRequired(options):
             return presentToSort(options)
         case .followerIsRequired:
-            return coordinateToFollow()
+            return navigateToFollow()
         case .followingIsRequired:
-            return coordinateToFollow()
+            return navigateToFollow()
         case .dismiss:
             return dismissVC()
         default:
@@ -58,7 +58,7 @@ private extension MyPageFlow{
         self.rootVC.visibleViewController?.presentPanModal(vc)
         return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: reactor))
     }
-    func coordinateToFollow() -> FlowContributors {
+    func navigateToFollow() -> FlowContributors {
         @Inject var vc: FollowTabVC
         self.rootVC.pushViewController(vc, animated: true)
         return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: vc.reactor ?? .init()))
