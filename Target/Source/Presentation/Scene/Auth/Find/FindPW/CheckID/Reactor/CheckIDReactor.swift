@@ -75,7 +75,7 @@ extension CheckIDReactor {
 // MARK: - Method
 private extension CheckIDReactor {
     func nextButtonDidTap() -> Observable<Mutation> {
-        steps.accept(MoizaStep.sendCertRequired(/* Todo: 받아온 이메일 넣기*/""))
+        steps.accept(MoizaStep.sendCertRequired("ksemms20@dgsw.hs.kr"/* Todo: 받아온 email 넣어주기 */))
         return .empty()
     }
     func checkValidation(_ state: State) -> Bool {
