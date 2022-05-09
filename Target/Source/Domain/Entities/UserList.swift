@@ -1,5 +1,6 @@
-import CoreGraphics
+
 import UIKit
+
 public struct UserList: Equatable {
     init(userId: Int, name: String, profileImageURL: String, school: School, userScope: UserScope, isFollow: Bool){
         self.userID = userId
