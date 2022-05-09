@@ -5,7 +5,7 @@ import FlexLayout
 import RxSwift
 import Kingfisher
 
-final class FollowingCell: baseTableViewCell<UserList> {
+final class FollowingCell: baseTableViewCell<FollowerUserList> {
     
     private let view = UIView().then {
         $0.backgroundColor = .clear
@@ -67,7 +67,7 @@ final class FollowingCell: baseTableViewCell<UserList> {
             }
         }
     }
-    override func bind(_ model: UserList) {
+    override func bind(_ model: FollowerUserList) {
         userProfileImageView.kf.setImage(with: URL(string: model.profileImageUrl) ?? .none,
                                      placeholder: UIImage(),
                                      options: [])

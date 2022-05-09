@@ -1,13 +1,13 @@
 import RxDataSources
 
 struct FollowerSection: SectionModelType {
-    var items: [UserList]
+    var items: [FollowerUserList]
 }
 
 extension FollowerSection {
-    typealias Item = UserList
+    typealias Item = FollowerUserList
     
-    init(original: FollowerSection, items: [UserList]) {
+    init(original: FollowerSection, items: [FollowerUserList]) {
         self = original
         self.items = items
     }

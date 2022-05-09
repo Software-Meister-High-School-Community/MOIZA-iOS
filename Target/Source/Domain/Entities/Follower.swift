@@ -1,8 +1,8 @@
 import Foundation
 
-struct Follow: Equatable {
+struct Follower: Equatable {
     let isMine: Bool
-    let userList: [UserList]
+    let followerUserList: [FollowerUserList]
 
     enum CodingKeys: String, CodingKey {
         case isMine = "is_mine"

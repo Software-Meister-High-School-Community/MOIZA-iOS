@@ -1,5 +1,5 @@
 
-struct UserListDTO: Decodable {
+struct FollowerUserListDTO: Decodable {
     let userID: Int
     let name: String
     let profileImageURL: String
@@ -15,8 +15,8 @@ struct UserListDTO: Decodable {
         case isFollow = "is_follow"
     }
 }
-extension UserListDTO{
-    func toDomain() -> UserList{
+extension FollowerUserListDTO{
+    func toDomain() -> FollowerUserList{
         return .init(userId: userID,
                      name: name,
                      profileImageURL: profileImageURL,

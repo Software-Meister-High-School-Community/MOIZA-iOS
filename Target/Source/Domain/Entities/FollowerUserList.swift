@@ -1,7 +1,7 @@
 
 import UIKit
 
-public struct UserList: Equatable {
+public struct FollowerUserList: Equatable {
     public init(userId: Int, name: String, profileImageURL: String, school: School, userScope: UserScope, isFollow: Bool){
         self.userID = userId
         self.name = name

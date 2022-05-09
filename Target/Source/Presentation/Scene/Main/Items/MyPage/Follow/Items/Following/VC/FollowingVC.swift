@@ -77,7 +77,7 @@ final class MyPageFollowingVC: baseVC<MyPageFollowReactor>{
         }
         
         sharedState
-            .map(\.FollowItems)
+            .map(\.FollowerItems)
             .map { [FollowingSection.init( items: $0)] }
             .bind(to: followingListTableView.rx.items(dataSource: followingDS))
             .disposed(by: disposeBag)
