@@ -28,7 +28,7 @@ final class MyPageFollowingVC: baseVC<MyPageFollowReactor>{
         $0.showsVerticalScrollIndicator = false
     }
     
-    override func setUp() {
+    override func configureVC() {
         followingListTableView.rx.setDelegate(self).disposed(by: disposeBag)
         view.backgroundColor = MOIZAAsset.moizaGray1.color
     }

@@ -2,7 +2,7 @@
 import UIKit
 
 public struct UserList: Equatable {
-    init(userId: Int, name: String, profileImageURL: String, school: School, userScope: UserScope, isFollow: Bool){
+    public init(userId: Int, name: String, profileImageURL: String, school: School, userScope: UserScope, isFollow: Bool){
         self.userID = userId
         self.name = name
         self.profileImageUrl = profileImageURL
@@ -23,7 +23,7 @@ public struct UserList: Equatable {
     public let userID: Int
     public let name: String
     public let profileImageUrl: String
-    let school: School
-    let userScope: UserScope
+    public let school: School
+    public let userScope: UserScope
     public let isFollow: Bool
 }
