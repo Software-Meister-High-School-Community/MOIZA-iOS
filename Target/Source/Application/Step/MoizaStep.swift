@@ -38,7 +38,7 @@ enum MoizaStep: Step{
     //Find
     case certIsRequired
     case successFindIDRequired
-    case sendCertRequired
+    case sendCertRequired(String)
     case reRegistorRequired
     case successFindPWRequired
     case findingPWIsCompleted

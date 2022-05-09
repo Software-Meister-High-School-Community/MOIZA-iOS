@@ -72,8 +72,8 @@ final class OnBoardingFlow: Flow{
             return .end(forwardToParentFlowWithStep: MoizaStep.mainTabbarIsRequired)
         case .findingPasswordIsRequired:
             return navigateToCheckId()
-        case .sendCertRequired:
-            return navigateToSendCert()
+        case let .sendCertRequired(email):
+            return navigateToSendCert(email: email)
         case .reRegistorRequired:
             return navigateToReRegistration()
         case .successFindPWRequired:
@@ -96,8 +96,8 @@ private extension OnBoardingFlow{
         self.rootVC.pushViewController(vc, animated: true)
         return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: vc.reactor ?? .init()))
     }
-    func navigateToSendCert() -> FlowContributors {
-        let vc = AppDelegate.container.resolve(SendCertVC.self, argument: "ksemms20@dgsw.hs.kr")!
+    func navigateToSendCert(email: String) -> FlowContributors {
+        let vc = AppDelegate.container.resolve(SendCertVC.self, argument: email)!
         self.rootVC.pushViewController(vc, animated: true)
         return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: vc.reactor ?? .init()))
     }
