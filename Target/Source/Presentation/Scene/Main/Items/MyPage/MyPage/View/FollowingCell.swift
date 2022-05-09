@@ -68,7 +68,7 @@ final class FollowingCell: baseTableViewCell<UserList> {
         }
     }
     override func bind(_ model: UserList) {
-        userProfileImageView.kf.setImage(with: URL(string: model.profileImageURL) ?? .none,
+        userProfileImageView.kf.setImage(with: URL(string: model.profileImageUrl) ?? .none,
                                      placeholder: UIImage(),
                                      options: [])
         userProfileImageView.backgroundColor = MOIZAAsset.moizaGray3.color
