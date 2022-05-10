@@ -39,6 +39,12 @@ final class OnBoardingFlow: Flow{
     func navigate(to step: Step) -> FlowContributors {
         guard let step = step.asMoizaStep else { return .none }
         switch step{
+        case .certIsRequired:
+            return navigateToCert()
+        case .findingIDIsRequired:
+            return navigateToFindID()
+        case .successFindIDRequired:
+            return navigateTpSucFindId()
         case .onBoardingIsRequired:
             return coordinateToOnBoarding()
         case .signUpIsRequired:
@@ -49,7 +55,7 @@ final class OnBoardingFlow: Flow{
             return navigateToSignUpSetUp(student: student)
         case .signUpSuccessIsRequired:
             return navigateToSignUpSuccess()
-        case .signUpIsCompleted, .signUpGraduateAuthIsCompleted:
+        case .signUpIsCompleted, .signUpGraduateAuthIsCompleted, .findingPWIsCompleted:
             return navigateToRoot()
         case .signInIsRequired:
             return navigateToSignIn()
@@ -67,6 +73,14 @@ final class OnBoardingFlow: Flow{
             return navigateToGraduateSuccess()
         case .mainTabbarIsRequired:
             return .end(forwardToParentFlowWithStep: MoizaStep.mainTabbarIsRequired)
+        case .findingPasswordIsRequired:
+            return navigateToCheckId()
+        case let .sendCertRequired(email):
+            return navigateToSendCert(email: email)
+        case .reRegistorRequired:
+            return navigateToReRegistration()
+        case .successFindPWRequired:
+            return navigateToSucFindPW()
         default:
             return .none
         }
@@ -75,6 +89,41 @@ final class OnBoardingFlow: Flow{
 
 // MARK: - Method
 private extension OnBoardingFlow{
+    func navigateToSucFindPW() -> FlowContributors {
+        @Inject var vc: SucFindPWVC
+        self.rootVC.pushViewController(vc, animated: true)
+        return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: vc.reactor ?? .init()))
+    }
+    func navigateToReRegistration() -> FlowContributors {
+        @Inject var vc: NewPasswordVC
+        self.rootVC.pushViewController(vc, animated: true)
+        return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: vc.reactor ?? .init()))
+    }
+    func navigateToSendCert(email: String) -> FlowContributors {
+        let vc = AppDelegate.container.resolve(SendCertVC.self, argument: email)!
+        self.rootVC.pushViewController(vc, animated: true)
+        return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: vc.reactor ?? .init()))
+    }
+    func navigateToCheckId() -> FlowContributors {
+        @Inject var vc: CheckIDVC
+        self.rootVC.pushViewController(vc, animated: true)
+        return  .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: vc.reactor ?? .init()))
+    }
+    func navigateTpSucFindId() -> FlowContributors {
+        @Inject var vc: SucFindIDVC
+        self.rootVC.pushViewController(vc, animated: true)
+        return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: vc.reactor ?? .init()))
+    }
+    func navigateToCert() -> FlowContributors{
+        @Inject var vc: CertEmailVC
+        self.rootVC.pushViewController(vc, animated: true)
+        return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: vc.reactor ?? .init()))
+    }
+    func navigateToFindID() -> FlowContributors{
+        @Inject var vc: FindIDVC
+        self.rootVC.pushViewController(vc, animated: true)
+        return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: vc.reactor ?? .init()))
+    }
     func coordinateToOnBoarding() -> FlowContributors{
         self.rootVC.setViewControllers([vc], animated: true)
         return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: vc.reactor ?? .init()))

@@ -36,6 +36,14 @@ enum MoizaStep: Step{
     case signUpGraduateAuthSuccessIsRequired
     case signUpGraduateAuthIsCompleted
     
+    //Find
+    case certIsRequired
+    case successFindIDRequired
+    case sendCertRequired(String)
+    case reRegistorRequired
+    case successFindPWRequired
+    case findingPWIsCompleted
+    
     // Main
     case mainTabbarIsRequired
     case homeIsRequired

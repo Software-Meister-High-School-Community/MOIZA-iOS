@@ -104,25 +104,21 @@ extension PostListReactor {
 private extension PostListReactor {
     func viewWillAppear() -> Observable<Mutation> {
         let recommend: [PostList] = [
-            .init(id: 0, title: "앱아이콘 만드는 법", type: .normal, isLike: .random(), commentCount: 2, likeCount: 3, viewCount: 10, createdAt: Date()),
-            .init(id: 1, title: "무슨질문", type: .question, isLike: .random(), commentCount: 2, likeCount: 3, viewCount: 20, createdAt: Date()),
-            .init(id: 2, title: "앱아이콘 만드는 법", type: .normal, isLike: .random(), commentCount: 2, likeCount: 3, viewCount: 10, createdAt: Date()),
-            .init(id: 3, title: "무슨질문", type: .question, isLike: .random(), commentCount: 2, likeCount: 3, viewCount: 20, createdAt: Date()),
-            .init(id: 4, title: "앱아이콘 만드는 법", type: .normal, isLike: .random(), commentCount: 2, likeCount: 3, viewCount: 10, createdAt: Date()),
-            .init(id: 5, title: "무슨질문", type: .question, isLike: .random(), commentCount: 2, likeCount: 3, viewCount: 20, createdAt: Date())
+            .dummy,
+            .dummy,
+            .dummy,
+            .dummy,
+            .dummy
         ].filter {
             if UserDefaultsLocal.shared.post == .all { return true }
             return $0.type == UserDefaultsLocal.shared.post
         }
         let posts: [PostList] = [
-            .init(id: 6, title: "대충 제목", type: .normal, isLike: .random(), commentCount: 2, likeCount: 19, viewCount: 26, createdAt: Date()),
-            .init(id: 7, title: "제에목", type: .question, isLike: .random(), commentCount: 7, likeCount: 39, viewCount: 72, createdAt: Date()),
-            .init(id: 8, title: "대충 제목", type: .question, isLike: .random(), commentCount: 2, likeCount: 19, viewCount: 26, createdAt: Date()),
-            .init(id: 9, title: "제에목", type: .question, isLike: .random(), commentCount: 7, likeCount: 39, viewCount: 72, createdAt: Date()),
-            .init(id: 10, title: "대충 제목", type: .question, isLike: .random(), commentCount: 2, likeCount: 19, viewCount: 26, createdAt: Date()),
-            .init(id: 11, title: "제에목", type: .question, isLike: .random(), commentCount: 7, likeCount: 39, viewCount: 72, createdAt: Date()),
-            .init(id: 11, title: "제에목", type: .question, isLike: .random(), commentCount: 7, likeCount: 39, viewCount: 72, createdAt: Date()),
-            .init(id: 11, title: "제에목", type: .question, isLike: .random(), commentCount: 7, likeCount: 39, viewCount: 72, createdAt: Date())
+            .dummy,
+            .dummy,
+            .dummy,
+            .dummy,
+            .dummy
         ].filter {
             if UserDefaultsLocal.shared.post == .all { return true }
             return $0.type == UserDefaultsLocal.shared.post
@@ -143,7 +139,13 @@ private extension PostListReactor {
         let padding = contentHeight - contentOffsetY
         if padding < scrollViewHeight {
             self.page += 1
-            return Observable.just([PostList(id: currentState.postItems.count+1, title: "제에목", type: .question, isLike: .random(), commentCount: 27, likeCount: 38, viewCount: 294, createdAt: Date())])
+            return Observable.just([
+                .dummy,
+                .dummy,
+                .dummy,
+                .dummy,
+                .dummy
+            ])
                 .map(Mutation.updatePostList)
         } else {
             return .empty()

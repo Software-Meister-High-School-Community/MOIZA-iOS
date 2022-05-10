@@ -67,6 +67,27 @@ extension Container{
             ])
             return vc
         }
+        register(FindIDVC.self) { r in
+            return FindIDVC(reactor: r.resolve(FindIDReactor.self))
+        }
+        register(CertEmailVC.self) { r in
+            return CertEmailVC(reactor: r.resolve(CertEmailReactor.self))
+        }
+        register(SucFindIDVC.self) { r in
+            return SucFindIDVC(reactor: r.resolve(SucFindIDReactor.self))
+        }
+        register(CheckIDVC.self) { r in
+            return CheckIDVC(reactor: r.resolve(CheckIDReactor.self))
+        }
+        register(SendCertVC.self) { r, email in
+            return SendCertVC(reactor: r.resolve(SendCertReactor.self), email: email)
+        }
+        register(NewPasswordVC.self) { r in
+            return NewPasswordVC(reactor: r.resolve(NewPasswordReactor.self))
+        }
+        register(SucFindPWVC.self) { r in
+            return SucFindPWVC(reactor: r.resolve(SucFindPWReactor.self))
+        }
     }
     private func registerReactor(){
         autoregister(OnBoardingReactor.self, initializer: OnBoardingReactor.init)
@@ -83,6 +104,13 @@ extension Container{
         autoregister(MyPageReactor.self, initializer: MyPageReactor.init)
         autoregister(CategoryReactor.self, initializer: CategoryReactor.init)
         autoregister(PostListReactor.self, initializer: PostListReactor.init)
+        autoregister(FindIDReactor.self, initializer: FindIDReactor.init)
+        autoregister(CertEmailReactor.self, initializer: CertEmailReactor.init)
+        autoregister(SucFindIDReactor.self, initializer: SucFindIDReactor.init)
+        autoregister(CheckIDReactor.self, initializer: CheckIDReactor.init)
+        autoregister(SendCertReactor.self, initializer: SendCertReactor.init)
+        autoregister(NewPasswordReactor.self, initializer: NewPasswordReactor.init)
+        autoregister(SucFindPWReactor.self, initializer: SucFindPWReactor.init)
     }
     private func registerStepper(){
         autoregister(OnBoardingStepper.self, initializer: OnBoardingStepper.init)
