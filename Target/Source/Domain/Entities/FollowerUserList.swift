@@ -10,16 +10,7 @@ public struct FollowerUserList: Equatable {
         self.userScope = userScope
         self.isFollow = isFollow
     }
-    
-    public init(){
-        self.userID = 1
-        self.name = ""
-        self.profileImageUrl = ""
-        self.school = .gsm
-        self.userScope = .user
-        self.isFollow = true
-    }
-    
+
     public let userID: Int
     public let name: String
     public let profileImageUrl: String
