@@ -8,3 +8,14 @@ struct Student: Codable{
     var school: School
     var email: String
 }
+
+extension Student {
+    static let dummy = Student(
+        scope: .allCases.randomElement() ?? .student,
+        name: "김이름",
+        gender: .allCases.randomElement() ?? .male,
+        birth: Date(),
+        school: .allCases.randomElement() ?? .gsm,
+        email: "email@gmail.com"
+    )
+}

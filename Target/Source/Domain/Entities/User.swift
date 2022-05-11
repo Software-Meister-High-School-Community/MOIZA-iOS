@@ -24,3 +24,20 @@ struct User: Equatable {
         case followingCount = "following_count"
     }
 }
+
+extension User {
+    static let dummy = User(
+        userId: .random(in: 0...1000),
+        name: "김이름",
+        school: .allCases.randomElement() ?? .dsm,
+        scope: .allCases.randomElement() ?? .graduate,
+        profileImageUrl: "https://avatars.githubusercontent.com/u/74440939?v=4",
+        profileBackgroundColor: "#FFFFFF",
+        introduce: "안녕하세요 제\n이름은 ...입니다",
+        linkUrl: [
+            "https://github.com/baekteun"
+        ], feedCount: 3,
+        followerCount: 99,
+        followingCount: 248
+    )
+}
