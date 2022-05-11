@@ -64,10 +64,19 @@ final class FollowTabVC: TabmanViewController, ReactorKit.View {
 }
 private extension FollowTabVC{
     func bindState(reactor: MyPageFollowReactor) {
-        let sharedState = reactor.state.share(replay: 1).observe(on: MainScheduler.asyncInstance)
+        let sharedState = reactor.state.share(replay: 2).observe(on: MainScheduler.asyncInstance)
         
         sharedState
             .map(\.FollowerItems)
+            .map(\.count)
+            .bind(with: self) { owner, count in
+                
+                owner.reloadData()
+            }
+            .disposed(by: disposeBag)
+        
+        sharedState
+            .map(\.FollowingItems)
             .map(\.count)
             .bind(with: self) { owner, count in
                 

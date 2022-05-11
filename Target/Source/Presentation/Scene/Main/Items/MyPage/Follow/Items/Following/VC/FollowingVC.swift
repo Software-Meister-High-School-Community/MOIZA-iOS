@@ -1,5 +1,4 @@
 
-
 import UIKit
 import RxDataSources
 import RxSwift
@@ -16,7 +15,7 @@ final class MyPageFollowingVC: baseVC<MyPageFollowReactor>{
         $0.layer.cornerRadius = 5
     }
     
-    private let followerContainer = UIView()
+    private let followingContainer = UIView()
     
     private let followingListTableView = UITableView(frame: .zero, style: .plain).then {
         $0.register(FollowingCell.self, forCellReuseIdentifier: FollowingCell.reusableID)
@@ -33,18 +32,18 @@ final class MyPageFollowingVC: baseVC<MyPageFollowReactor>{
         view.backgroundColor = MOIZAAsset.moizaGray1.color
     }
     override func addView() {
-        view.addSubViews(followerContainer)
+        view.addSubViews(followingContainer)
         headerContainer.addSubViews(searchBar)
     }
     override func setLayoutSubViews() {
-        followerContainer.pin.all(view.pin.safeArea)
-        followerContainer.flex.layout()
+        followingContainer.pin.all(view.pin.safeArea)
+        followingContainer.flex.layout()
         
         headerContainer.pin.width(bound.width-34).height(55)
         searchBar.pin.pinEdges().horizontally(0).marginTop(14).height(35)
     }
     override func setLayout() {
-        followerContainer.flex.define { flex in
+        followingContainer.flex.define { flex in
             flex.addItem(followingListTableView).grow(1).bottom(0).marginHorizontal(16)
         }
     }
@@ -62,7 +61,7 @@ final class MyPageFollowingVC: baseVC<MyPageFollowReactor>{
             .disposed(by: disposeBag)
     }
     override func bindAction(reactor: MyPageFollowReactor) {
-        self.rx.viewDidLoad
+        self.rx.viewWillAppear
             .map { _ in Reactor.Action.viewWillAppear }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
@@ -77,8 +76,8 @@ final class MyPageFollowingVC: baseVC<MyPageFollowReactor>{
         }
         
         sharedState
-            .map(\.FollowerItems)
-            .map { [FollowingSection.init( items: $0)] }
+            .map(\.FollowingItems)
+            .map { [FollowingSection.init(items: $0)] }
             .bind(to: followingListTableView.rx.items(dataSource: followingDS))
             .disposed(by: disposeBag)
     }

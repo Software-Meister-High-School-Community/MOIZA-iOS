@@ -27,3 +27,14 @@ public struct FollowerUserList: Equatable {
     public let userScope: UserScope
     public let isFollow: Bool
 }
+
+public extension FollowerUserList {
+    static let dummy: FollowerUserList = .init(
+        userId: .random(in: 0...100),
+        name: "최형우",
+        profileImageURL: "https://avatars.githubusercontent.com/u/74440939?v=4",
+        school: .dgsm,
+        userScope: UserScope.user,
+        isFollow: .random()
+    )
+}
