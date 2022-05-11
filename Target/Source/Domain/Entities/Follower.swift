@@ -6,6 +6,6 @@ struct Follower: Equatable {
 
     enum CodingKeys: String, CodingKey {
         case isMine = "is_mine"
-        case userList = "user_list"
+        case followerUserList = "user_list"
     }
 }
