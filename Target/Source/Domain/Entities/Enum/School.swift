@@ -1,8 +1,4 @@
-<<<<<<< HEAD:Target/Source/Domain/Entities/School.swift
-public enum School: String, Codable{
-=======
-enum School: String, Codable, CaseIterable{
->>>>>>> 61a303ea20b03aed75749c04679a6bde00a19ca1:Target/Source/Domain/Entities/Enum/School.swift
+public enum School: String, Codable, CaseIterable{
     case gsm = "GSM"
     case dgsm = "DGSW"
     case dsm = "DSM"
@@ -10,7 +6,7 @@ enum School: String, Codable, CaseIterable{
     case bsm = "BSSM"
 }
 
-extension School{
+public extension School{
     func toDomain() -> String{
         switch self {
         case .gsm:

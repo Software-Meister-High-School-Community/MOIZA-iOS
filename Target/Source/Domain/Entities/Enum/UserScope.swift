@@ -1,8 +1,4 @@
-<<<<<<< HEAD:Target/Source/Domain/Entities/UserScope.swift
-public enum UserScope: String, Codable {
-=======
-enum UserScope: String, Codable, CaseIterable {
->>>>>>> 61a303ea20b03aed75749c04679a6bde00a19ca1:Target/Source/Domain/Entities/Enum/UserScope.swift
+public enum UserScope: String, Codable, CaseIterable {
     case user = "USER"
     case student = "STUDENT"
     case graduate = "GRADUATE"

@@ -17,6 +17,7 @@ public struct FollowingUserList: Equatable {
     public let school: School
     public let userScope: UserScope
     public let isFollow: Bool
+    
 }
 
 public extension FollowingUserList {

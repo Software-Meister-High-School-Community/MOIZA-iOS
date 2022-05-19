@@ -1,5 +1,5 @@
 
-struct User: Equatable {
+public struct User: Equatable {
     let userId: Int
     let name: String
     let school: School
