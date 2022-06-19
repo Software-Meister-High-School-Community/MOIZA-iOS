@@ -1,5 +1,5 @@
 import Foundation
-struct ChildComment {
+struct ChildComment: Equatable {
     let id: Int
     let parentCommentId: Int
     let author: Author

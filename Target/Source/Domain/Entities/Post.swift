@@ -1,6 +1,6 @@
 import Foundation
 
-struct Post {
+struct Post: Equatable {
     let author: Author
     let title: String
     let content: String

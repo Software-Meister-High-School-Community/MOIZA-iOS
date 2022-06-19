@@ -1,6 +1,6 @@
 import Foundation
 
-struct Comment {
+struct Comment: Equatable {
     let id: Int
     let author: Author
     let isMine: Bool
