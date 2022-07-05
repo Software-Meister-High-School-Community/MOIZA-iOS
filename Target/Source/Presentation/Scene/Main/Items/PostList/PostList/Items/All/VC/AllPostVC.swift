@@ -64,26 +64,14 @@ final class AllPostVC: baseVC<PostListReactor> {
     
     // MARK: - Reactor
     override func bindView(reactor: PostListReactor) {
-        postListTableView.rx.didScroll
-            .withLatestFrom(self.postListTableView.rx.contentOffset)
-            .map { [weak self] in
-                Reactor.Action.pagenation(
-                    contentHeight: self?.postListTableView.contentSize.height ?? 0,
-                    contentOffsetY: $0.y,
-                    scrollViewHeight: self?.bound.height ?? 0
-                )
-            }
+        postListTableView.rx.reachedBottom(offset: 75)
+            .map { Reactor.Action.reachedBottom(.all) }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
     }
     override func bindAction(reactor: PostListReactor) {
         self.rx.viewDidLoad
             .map { Reactor.Action.viewDidLoad }
-            .bind(to: reactor.action)
-            .disposed(by: disposeBag)
-        
-        self.rx.viewWillAppear.do(onNext: { _ in UserDefaultsLocal.shared.post = .all } )
-            .map { _ in Reactor.Action.viewWillAppear }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
         
@@ -105,13 +93,13 @@ final class AllPostVC: baseVC<PostListReactor> {
         }
         
         sharedState
-            .map(\.recommendItems)
+            .compactMap { $0.recommendItems[.all] }
             .map { [RecommendSection.init(header: "", items: $0)] }
             .bind(to: recommendCollectionView.rx.items(dataSource: recommendDS))
             .disposed(by: disposeBag)
         
         sharedState
-            .map(\.postItems)
+            .compactMap { $0.postItems[.all] }
             .map { [PostSection.init(header: "", items: $0)] }
             .bind(to: postListTableView.rx.items(dataSource: postDS))
             .disposed(by: disposeBag)

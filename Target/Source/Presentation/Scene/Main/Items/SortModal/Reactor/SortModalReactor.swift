@@ -27,14 +27,16 @@ final class SortModalReactor: Reactor, Stepper {
         var major: Major
     }
     let initialState: State
+    private let onComplete: ((PostType, SortType, Major) -> Void)
     
     // MARK: - Init
-    init() {
+    init(initial: (PostType, SortType), onComplete: @escaping ((PostType, SortType, Major) -> Void)) {
         initialState = State(
-            postType: UserDefaultsLocal.shared.post,
-            sortType: UserDefaultsLocal.shared.sort,
+            postType: initial.0,
+            sortType: initial.1,
             major: UserDefaultsLocal.shared.major
         )
+        self.onComplete = onComplete
     }
     
 }
@@ -50,10 +52,8 @@ extension SortModalReactor {
         case let .majorPickerDidSet(major):
             return .just(.setMajor(major))
         case .applyButtonDidTap:
+            onComplete(currentState.postType, currentState.sortType, currentState.major)
             UserDefaultsLocal.shared.major = currentState.major
-            UserDefaultsLocal.shared.post = currentState.postType
-            UserDefaultsLocal.shared.sort = currentState.sortType
-            print(currentState)
             steps.accept(MoizaStep.dismiss)
             return .empty()
         }

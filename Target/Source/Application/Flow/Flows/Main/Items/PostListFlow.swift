@@ -47,8 +47,8 @@ final class PostListFlow: Flow{
             return dismissVC()
         case let .postDetailIsRequired(id):
             return navigateToDetailPost(feedId: id)
-        case let .sortIsRequired(options):
-            return presentToSort(options)
+        case let .sortIsRequired(options, initial, onComplete):
+            return presentToSort(options, initial: initial, onComplete: onComplete)
         default:
             return .none
         }
@@ -73,8 +73,8 @@ private extension PostListFlow{
         self.rootVC.presentPanModal(vc)
         return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: reactor))
     }
-    func presentToSort(_ options: [SortOption]) -> FlowContributors {
-        let reactor = SortModalReactor()
+    func presentToSort(_ options: [SortOption], initial: (PostType, SortType), onComplete: @escaping ((PostType, SortType, Major) -> Void)) -> FlowContributors {
+        let reactor = SortModalReactor(initial: initial, onComplete: onComplete)
         let vc = SortModalVC(options, reactor: reactor)
         self.rootVC.presentPanModal(vc)
         return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: reactor))
