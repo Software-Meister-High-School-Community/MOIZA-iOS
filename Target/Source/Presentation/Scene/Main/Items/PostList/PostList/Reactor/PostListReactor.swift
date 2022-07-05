@@ -112,7 +112,10 @@ private extension PostListReactor {
         return .empty()
     }
     func viewDidLoad() -> Observable<Mutation> {
-        return .empty()
+        return .concat([
+            .just(.setRecommendPostList(type: .all, [.dummy, .dummy, .dummy, .dummy, .dummy])),
+            .just(.setPostList(type: .all, [.dummy, .dummy, .dummy, .dummy, .dummy, .dummy]))
+        ])
     }
     func reachedBottom(postType: PostType) -> Observable<Mutation> {
         return .just(.updatePostList(type: .all, [

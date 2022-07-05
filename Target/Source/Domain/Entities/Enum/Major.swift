@@ -17,7 +17,7 @@ extension Major {
         case .frontEnd: return "FrontEnd"
         case .backEnd: return "BackEnd"
         case .iOS: return "iOS"
-        case .aOS: return "aOS"
+        case .aOS: return "Android"
         case .game: return "Game"
         case .ai: return "AI"
         case .security: return "Security"
