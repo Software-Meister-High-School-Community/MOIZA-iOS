@@ -94,7 +94,7 @@ final class QuestionPostVC: baseVC<PostListReactor> {
     
     // MARK: - Reactor
     override func bindView(reactor: PostListReactor) {
-        postListTableView.rx.reachedBottom(offset: 75)
+        scrollView.rx.reachedBottom(offset: 75)
             .map { Reactor.Action.reachedBottom(.question) }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
