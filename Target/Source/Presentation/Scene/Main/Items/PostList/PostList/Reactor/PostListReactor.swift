@@ -80,6 +80,8 @@ extension PostListReactor {
             return .just(.setSortOption(post, sort, major))
         case let .reachedBottom(postType):
             return reachedBottom(postType: postType)
+        case let .postDidTap(id):
+            steps.accept(MoizaStep.postDetailIsRequired(id))
         }
         return .empty()
     }
