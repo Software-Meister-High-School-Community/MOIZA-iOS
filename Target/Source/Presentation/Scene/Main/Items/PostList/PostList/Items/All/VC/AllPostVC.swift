@@ -32,7 +32,6 @@ final class AllPostVC: baseVC<PostListReactor> {
         $0.rowHeight = 60
         $0.separatorStyle = .none
         $0.backgroundColor = MOIZAAsset.moizaGray2.color
-        $0.showsVerticalScrollIndicator = false
     }
     
     // MARK: - Lifecycle
@@ -100,6 +99,12 @@ final class AllPostVC: baseVC<PostListReactor> {
         
         sortButton.rx.tap
             .map { Reactor.Action.sortButtonDidTap }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
+        postListTableView.rx.modelSelected(PostList.self)
+            .map(\.id)
+            .map(Reactor.Action.postDidTap)
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
     }

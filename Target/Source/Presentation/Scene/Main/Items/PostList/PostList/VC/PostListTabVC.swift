@@ -111,6 +111,7 @@ private extension PostListTabVC {
         self.navigationItem.setRightBarButton(searchButton, animated: false)
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationItem.configBack()
     }
     func darkConfigure() {
         majorButton.layer.borderColor = UIColor.clear.cgColor
