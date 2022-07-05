@@ -21,6 +21,7 @@ final class PostListReactor: Reactor, Stepper {
     
     // MARK: - Reactor
     enum Action {
+        case postDidTap(Int)
         case viewDidLoad
         case viewWillAppear
         case majorButtonDidTap
@@ -72,6 +73,8 @@ extension PostListReactor {
             return viewWillAppear()
         case let .pagenation(contentHeight, contentOffsetY, scrollViewHeight):
             return pagenation(contentHeight: contentHeight, contentOffsetY: contentOffsetY, scrollViewHeight: scrollViewHeight)
+        case let .postDidTap(id):
+            steps.accept(MoizaStep.postDetailIsRequired(id))
         }
         return .empty()
     }

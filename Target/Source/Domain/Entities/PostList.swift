@@ -1,6 +1,6 @@
 import Foundation
 
-struct PostList {
+struct PostList: Equatable {
     let id: Int
     let title: String
     let type: PostType
