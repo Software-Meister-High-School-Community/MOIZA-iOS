@@ -87,6 +87,16 @@ final class MyPageVC: baseVC<MyPageReactor> {
         $0.backgroundColor = MOIZAAsset.moizaGray2.color
         $0.isScrollEnabled = false
     }
+    private let moreOptionButton = UIBarButtonItem(image: .init(systemName: "ellipsis")?.tintColor(MOIZAAsset.moizaGray6.color),
+                                                    style: .plain,
+                                                    target: nil,
+                                                    action: nil)
+    // MARK: - Menu Action
+    private lazy var modifyProfileMenuAction = UIAction(title: "프로필 수정",image: UIImage(systemName: "pencil"),handler: { [weak self] _ in
+        self?.reactor?.action.onNext(.modifyButtonDidTap)
+    })
+    private lazy var settingMenuAction = UIAction(title: "설정",image: UIImage(systemName: "gearshape.fill"), handler: { [weak self]_ in self?.reactor?.action.onNext(.settingButtonDidTap)})
+    private lazy var cancelMenuAction = UIAction(title: "취소", attributes: .destructive, handler: { _ in return })
     
     // MARK: - Lifecycle
     override func viewWillAppear(_ animated: Bool) {
@@ -112,6 +122,15 @@ final class MyPageVC: baseVC<MyPageReactor> {
     }
     
     // MARK: - UI
+    override func setUp() {
+        if #available(iOS 14.0, *) {
+            moreOptionButton.menu = UIMenu(title: "", image: nil, identifier: nil, options: .displayInline, children: [
+                modifyProfileMenuAction,
+                settingMenuAction,
+                cancelMenuAction
+            ])
+        }
+    }
     override func addView() {
         view.addSubViews(scrollView)
         scrollView.addSubViews(rootContainer)
@@ -169,6 +188,7 @@ final class MyPageVC: baseVC<MyPageReactor> {
     override func configureNavigation() {
         self.navigationItem.configLeftLogo()
         self.navigationItem.configBack()
+        self.navigationItem.setRightBarButtonItems([moreOptionButton], animated: true)
     }
     
     // MARK: - Reactor
@@ -179,7 +199,21 @@ final class MyPageVC: baseVC<MyPageReactor> {
             .disposed(by: disposeBag)
     }
     override func bindView(reactor: MyPageReactor) {
+        scrollView.rx.reachedBottom(offset: 75)
+            .map { Reactor.Action.reachedBottom }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
         
+        sortButton.rx.tap
+            .map { Reactor.Action.sortButtonDidTap }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
+        profileContainer.rx.tapGesture()
+            .when(.recognized)
+            .map { _ in Reactor.Action.profileDidTap }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
     }
     override func bindState(reactor: MyPageReactor) {
         let sharedState = reactor.state.share(replay: 2).observe(on: MainScheduler.asyncInstance)

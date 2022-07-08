@@ -35,8 +35,6 @@ final class MyPageFlow: Flow{
             return presentToSort(options, initial: initial, onComplete: onComplete)
         case .followerIsRequired:
             return navigateToFollow()
-        case .followingIsRequired:
-            return navigateToFollow()
         case .dismiss:
             return dismissVC()
         default:

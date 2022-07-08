@@ -73,7 +73,6 @@ enum MoizaStep: Step{
     
     // MyPage
     case followerIsRequired
-    case followingIsRequired
     case myPageModifyIsRequired
     case myPageIntroduceModifyIsRequired
     case myPageWebsiteAddIsRequired

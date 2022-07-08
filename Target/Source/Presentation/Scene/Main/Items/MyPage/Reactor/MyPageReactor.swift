@@ -20,9 +20,7 @@ final class MyPageReactor: Reactor, Stepper {
     
     // MARK: - Reactor
     enum Action {
-        case ellipsisButtonDidTap
-        case followerButtonDidTap
-        case followingButtonDidTap
+        case profileDidTap
         case sortButtonDidTap
         case modifyButtonDidTap
         case settingButtonDidTap
@@ -60,25 +58,16 @@ final class MyPageReactor: Reactor, Stepper {
 extension MyPageReactor {
     func mutate(action: Action) -> Observable<Mutation> {
         switch action {
-        case .ellipsisButtonDidTap:
-            return .empty()
-        case .followerButtonDidTap:
+        case .profileDidTap:
             steps.accept(MoizaStep.followerIsRequired)
-            return .empty()
-        case .followingButtonDidTap:
-            steps.accept(MoizaStep.followingIsRequired)
-            return .empty()
         case .sortButtonDidTap:
             steps.accept(MoizaStep.sortIsRequired([.sortType,.major], initial: (.all, currentState.sortType), onComplete: { [weak self] _, sort, major in
                 self?.action.onNext(.sortDidCompleted(sort, major))
             }))
-            return .empty()
         case .modifyButtonDidTap:
             steps.accept(MoizaStep.myPageModifyIsRequired)
-            return .empty()
         case .settingButtonDidTap:
             steps.accept(MoizaStep.myPageSettingIsRequired)
-            return .empty()
         case .viewWillAppear:
             return viewWillAppear()
         case let .sortDidCompleted(sort, major):
@@ -86,6 +75,7 @@ extension MyPageReactor {
         case .reachedBottom:
             return reachedBottom()
         }
+        return .empty()
     }
 }
 
