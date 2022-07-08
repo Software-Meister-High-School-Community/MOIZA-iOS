@@ -233,6 +233,8 @@ final class MyPageVC: baseVC<MyPageReactor> {
         sharedState
             .compactMap(\.profile)
             .bind(with: self) { owner, profile in
+                owner.profileImageView.kf.setImage(with: URL(string: profile.profileImageUrl),
+                                                   placeholder: UIImage(systemName: "person.fill"))
                 owner.nameLabel.text = profile.name
                 owner.schoolLabel.text = "\(profile.school.display) \(profile.scope.display)"
                 owner.postCountLabel.text = "\(profile.feedCount)"
