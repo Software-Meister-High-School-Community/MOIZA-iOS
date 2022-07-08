@@ -95,6 +95,8 @@ final class PostListTabVC: TabmanViewController, ReactorKit.View {
         bar.indicator.weight = .custom(value: 0.75)
         bar.backgroundView.style = .clear
         
+        bounces = false
+        
         addBar(bar, dataSource: self, at: .top)
     }
 }
