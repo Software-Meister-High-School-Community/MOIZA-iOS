@@ -209,7 +209,7 @@ final class MyPageVC: baseVC<MyPageReactor> {
                 owner.introLabel.flex.markDirty()
                 owner.linkTextView.flex.markDirty()
                 owner.rootContainer.flex.layout(mode: .adjustHeight)
-            })
+            }
             .disposed(by: disposeBag)
     }
 }
