@@ -32,8 +32,8 @@ extension UserProfile {
         school: .allCases.randomElement() ?? .dsm,
         scope: .allCases.randomElement() ?? .graduate,
         profileImageUrl: "https://avatars.githubusercontent.com/u/74440939?v=4",
-        profileBackgroundColor: "#FFFFFF",
-        introduce: "안녕하세요 제\n이름은 ...입니다\niOS만세이",
+        profileBackgroundColor: "#123456",
+        introduce: "안녕하세요 제\n이름은 김이름입니다\niOS만세이",
         linkUrl: [
             "https://github.com/baekteun",
             "https://www.google.com"

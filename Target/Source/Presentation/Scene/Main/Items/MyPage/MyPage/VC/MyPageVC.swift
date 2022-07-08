@@ -13,6 +13,17 @@ final class MyPageVC: baseVC<MyPageReactor> {
     enum Metric {
         static let marginHorizontal: CGFloat = 16
     }
+    enum Font {
+        static let regular18 = UIFont(font: MOIZAFontFamily.Roboto.regular, size: 18)
+        static let regular14 = UIFont(font: MOIZAFontFamily.Roboto.regular, size: 13)
+        static let regular13 = UIFont(font: MOIZAFontFamily.Roboto.regular, size: 13)
+        static let regular12 = UIFont(font: MOIZAFontFamily.Roboto.regular, size: 12)
+        static let bold12 = UIFont(font: MOIZAFontFamily.Roboto.bold, size: 12)
+    }
+    enum Color {
+        static let textColor = MOIZAAsset.moizaGray6.color
+    }
+    
     //MARK: - Properties
     private let rootContainer = UIView()
     private let scrollView = UIScrollView()
@@ -21,44 +32,52 @@ final class MyPageVC: baseVC<MyPageReactor> {
         $0.clipsToBounds = true
         $0.backgroundColor = .white
     }
-    private let profileBackgroundColorView = UIView().then {
-        $0.backgroundColor = .orange
-    }
+    private let profileBackgroundColorView = UIView()
     private let profileImageView = UIImageView().then {
         $0.layer.cornerRadius = 50
+        $0.clipsToBounds = true
         $0.backgroundColor = .gray
     }
     private let nameLabel = UILabel().then {
         $0.text = "최형우"
-        $0.font = UIFont(font: MOIZAFontFamily.Roboto.regular, size: 18)
+        $0.font = Font.regular18
+        $0.textColor = Color.textColor
     }
     private let schoolLabel = UILabel().then {
         $0.text = "어디학교 재학생"
-        $0.font = UIFont(font: MOIZAFontFamily.Roboto.regular, size: 13)
+        $0.lineBreakMode = .byTruncatingMiddle
+        $0.font = Font.regular13
+        $0.textColor = Color.textColor
     }
     private let postLabel = UILabel().then {
         $0.text = "게시물"
-        $0.font = UIFont(font: MOIZAFontFamily.Roboto.regular, size: 12)
+        $0.font = Font.regular12
+        $0.textColor = Color.textColor
     }
     private let postCountLabel = UILabel().then {
         $0.text = "2353"
-        $0.font = UIFont(font: MOIZAFontFamily.Roboto.bold, size: 12)
+        $0.font = Font.bold12
+        $0.textColor = Color.textColor
     }
     private let followerLabel = UILabel().then {
         $0.text = "팔로워"
-        $0.font = UIFont(font: MOIZAFontFamily.Roboto.regular, size: 12)
+        $0.font = Font.regular12
+        $0.textColor = Color.textColor
     }
     private let followerCountLabel = UILabel().then {
         $0.text = "24"
-        $0.font = UIFont(font: MOIZAFontFamily.Roboto.bold, size: 12)
+        $0.font = Font.bold12
+        $0.textColor = Color.textColor
     }
     private let followingLabel = UILabel().then {
         $0.text = "팔로잉"
-        $0.font = UIFont(font: MOIZAFontFamily.Roboto.regular, size: 12)
+        $0.font = Font.regular12
+        $0.textColor = Color.textColor
     }
     private let followingCountLabel = UILabel().then {
         $0.text = "532"
-        $0.font = UIFont(font: MOIZAFontFamily.Roboto.bold, size: 12)
+        $0.font = Font.bold12
+        $0.textColor = Color.textColor
     }
     private let introContaier = UIView().then {
         $0.layer.cornerRadius = 5
@@ -67,10 +86,11 @@ final class MyPageVC: baseVC<MyPageReactor> {
     }
     private let introLabel = UILabel().then {
         $0.numberOfLines = 0
-        $0.font = UIFont(font: MOIZAFontFamily.Roboto.regular, size: 13)
+        $0.font = Font.regular13
+        $0.textColor = Color.textColor
     }
     private let linkTextView = UITextView().then {
-        $0.font = UIFont(font: MOIZAFontFamily.Roboto.regular, size: 12)
+        $0.font = Font.regular12
         $0.textColor = MOIZAAsset.moizaPrimaryBlue.color
         $0.dataDetectorTypes = .link
         $0.isEditable = false
@@ -78,6 +98,8 @@ final class MyPageVC: baseVC<MyPageReactor> {
     }
     private let myPostLabel = UILabel().then {
         $0.text = "나의 게시물"
+        $0.font = Font.regular14
+        $0.textColor = Color.textColor
     }
     private let sortButton = SortButton()
     private let myPostListTableView = UITableView().then {
@@ -237,6 +259,7 @@ final class MyPageVC: baseVC<MyPageReactor> {
                                                    placeholder: UIImage(systemName: "person.fill"))
                 owner.nameLabel.text = profile.name
                 owner.schoolLabel.text = "\(profile.school.display) \(profile.scope.display)"
+                owner.profileBackgroundColorView.backgroundColor = UIColor(hex: profile.profileBackgroundColor)
                 owner.postCountLabel.text = "\(profile.feedCount)"
                 owner.followerCountLabel.text = "\(profile.followerCount)"
                 owner.followingCountLabel.text = "\(profile.followingCount)"
