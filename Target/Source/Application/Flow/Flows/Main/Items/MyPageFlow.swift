@@ -31,8 +31,8 @@ final class MyPageFlow: Flow{
         switch step{
         case .myPageIsRequired:
             return coordinateToMyPage()
-        case let .sortIsRequired(options):
-            return presentToSort(options)
+        case let .sortIsRequired(options, initial, onComplete):
+            return presentToSort(options, initial: initial, onComplete: onComplete)
         case .followerIsRequired:
             return navigateToFollow()
         case .followingIsRequired:
@@ -52,8 +52,8 @@ private extension MyPageFlow{
         self.rootVC.setViewControllers([vc], animated: true)
         return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: vc.reactor ?? .init()))
     }
-    func presentToSort(_ options: [SortOption]) -> FlowContributors {
-        let reactor = SortModalReactor()
+    func presentToSort(_ options: [SortOption], initial: (PostType, SortType), onComplete: @escaping ((PostType, SortType, Major) -> Void)) -> FlowContributors {
+        let reactor = SortModalReactor(initial: initial, onComplete: onComplete)
         let vc = SortModalVC([.major, .sortType], reactor: reactor)
         self.rootVC.visibleViewController?.presentPanModal(vc)
         return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: reactor))

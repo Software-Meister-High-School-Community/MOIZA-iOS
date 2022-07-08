@@ -242,12 +242,6 @@ final class MyPageVC: baseVC<MyPageReactor> {
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
     }
-    override func bindAction(reactor: MyPageReactor) {
-        self.rx.viewWillAppear.do(onNext: { _ in UserDefaultsLocal.shared.post = .normal } )
-            .map { _ in Reactor.Action.viewWillAppear }
-            .bind(to: reactor.action)
-            .disposed(by: disposeBag)
-    }
     override func bindState(reactor: MyPageReactor) {
         let sharedState = reactor.state.share(replay: 1).observe(on: MainScheduler.asyncInstance)
         

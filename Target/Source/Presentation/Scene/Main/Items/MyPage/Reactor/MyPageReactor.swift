@@ -30,6 +30,7 @@ final class MyPageReactor: Reactor, Stepper {
         case modifyButtonDidTap
         case settingButtonDidTap
         case viewWillAppear
+        case sortDidCompleted(SortType, Major)
         case pagenation(
             contentHeight: CGFloat,
             contentOffsetY: CGFloat,
@@ -42,19 +43,26 @@ final class MyPageReactor: Reactor, Stepper {
         case setFollowing(Int)
         case setPostList([PostList])
         case updatePostList([PostList])
+        case setSortOption(SortType, Major)
     }
     struct State {
         var post: Int?
         var follower: Int?
         var following: Int?
         var postItems: [PostList]
+        var sortType: SortType
+        var major: Major
     }
     
     let initialState: State
     
     // MARK: - Init
     init() {
-        initialState = State(postItems: [])
+        initialState = State(
+            postItems: [],
+            sortType: .latest,
+            major: UserDefaultsLocal.shared.major
+        )
     }
     
 }
@@ -78,7 +86,9 @@ extension MyPageReactor {
         case let .updateFollwing(following):
             return .just(.setFollowing(following))
         case .sortButtonDidTap:
-            steps.accept(MoizaStep.sortIsRequired([.sortType,.major]))
+            steps.accept(MoizaStep.sortIsRequired([.sortType,.major], initial: (.all, currentState.sortType), onComplete: { [weak self] _, sort, major in
+                self?.action.onNext(.sortDidCompleted(sort, major))
+            }))
             return .empty()
         case .modifyButtonDidTap:
             steps.accept(MoizaStep.myPageModifyIsRequired)
@@ -90,6 +100,8 @@ extension MyPageReactor {
             return viewWillAppear()
         case let .pagenation(contentHeight, contentOffsetY, scrollViewHeight):
             return pagenation(contentHeight: contentHeight, contentOffsetY: contentOffsetY, scrollViewHeight: scrollViewHeight)
+        case let .sortDidCompleted(sort, major):
+            return .just(.setSortOption(sort, major))
         }
     }
 }
@@ -110,6 +122,9 @@ extension MyPageReactor {
             newState.postItems = posts
         case let .updatePostList(posts):
             newState.postItems.append(contentsOf: posts)
+        case let .setSortOption(sort, major):
+            newState.sortType = sort
+            newState.major = major
         }
         return newState
     }
@@ -118,19 +133,8 @@ extension MyPageReactor {
 // MARK: - Method
 private extension MyPageReactor {
     func viewWillAppear() -> Observable<Mutation>{
-        let posts: [PostList] = [
-            .init(id: 6, title: "대충 제목", type: .normal, isLike: .random(), commentCount: 2, likeCount: 19, viewCount: 26, createdAt: Date()),
-            .init(id: 7, title: "제에목", type: .question, isLike: .random(), commentCount: 7, likeCount: 39, viewCount: 72, createdAt: Date()),
-            .init(id: 8, title: "대충 제목", type: .normal, isLike: .random(), commentCount: 2, likeCount: 19, viewCount: 26, createdAt: Date()),
-            .init(id: 9, title: "제에목", type: .question, isLike: .random(), commentCount: 7, likeCount: 39, viewCount: 72, createdAt: Date()),
-            .init(id: 10, title: "대충 제목", type: .normal, isLike: .random(), commentCount: 2, likeCount: 19, viewCount: 26, createdAt: Date()),
-            .init(id: 11, title: "제에목", type: .question, isLike: .random(), commentCount: 7, likeCount: 39, viewCount: 72, createdAt: Date())
-        ].filter {
-            if UserDefaultsLocal.shared.post == .all { return true }
-            return $0.type == UserDefaultsLocal.shared.post
-        }
         return .concat([
-            .just(.setPostList(posts))
+            .just(.setPostList([.dummy, .dummy, .dummy]))
         ])
     }
     func pagenation(
