@@ -6,9 +6,13 @@ import RxCocoa
 import RxDataSources
 
 final class QuestionPostVC: baseVC<PostListReactor> {
+    // MARK: - Metric
+    enum Metric {
+        static let marginHorizontal: CGFloat = 16
+    }
     // MARK: - Properties
+    private let scrollView = UIScrollView()
     private let rootContainer = UIView()
-    private let headerContainer = UIView()
     private let recommendCollectionView = UICollectionView(frame: .zero, collectionViewLayout: .init()).then {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
@@ -29,31 +33,55 @@ final class QuestionPostVC: baseVC<PostListReactor> {
         $0.rowHeight = 60
         $0.separatorStyle = .none
         $0.backgroundColor = MOIZAAsset.moizaGray2.color
-        $0.showsVerticalScrollIndicator = false
+    }
+    
+    // MARK: - Lifecycle
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        postListTableView.addObserver(self, forKeyPath: "contentSize", options: .new, context: nil)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        postListTableView.removeObserver(self, forKeyPath: "contentSize")
+    }
+    
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        if keyPath == "contentSize" {
+            if object is UITableView {
+                if let newValue = change?[.newKey] as? CGSize {
+                    postListTableView.flex.height(newValue.height + 30)
+                    rootContainer.flex.layout(mode: .adjustHeight)
+                    scrollView.contentSize = rootContainer.frame.size
+                }
+            }
+        }
     }
     
     // MARK: - UI
-    override func setUp() {
-        postListTableView.rx.setDelegate(self).disposed(by: disposeBag)
-    }
     override func addView() {
-        view.addSubViews(rootContainer)
-        headerContainer.addSubViews(recommendCollectionView, headerLabel, sortButton)
+        view.addSubViews(scrollView)
+        scrollView.addSubViews(rootContainer)
     }
     override func setLayoutSubViews() {
-        rootContainer.pin.all(view.pin.safeArea)
-        rootContainer.flex.layout()
+        scrollView.pin.all(view.pin.safeArea)
+        rootContainer.pin.top().width(100%)
         
-        headerContainer.pin.width(bound.width-34).height(300)
-        recommendCollectionView.pin.pinEdges().horizontally(10).marginTop(20).height(200)
-        headerLabel.pin.topLeft(to: recommendCollectionView.anchor.bottomLeft).marginTop(30).sizeToFit()
-        sortButton.pin.topRight(to: recommendCollectionView.anchor.bottomRight).marginTop(30).sizeToFit()
+        rootContainer.flex.layout(mode: .adjustHeight)
+        scrollView.contentSize = rootContainer.frame.size
     }
     override func setLayout() {
         rootContainer.flex.define { flex in
-            flex.addItem(postListTableView).grow(1).bottom(0).marginHorizontal(17)
+            flex.addItem().height(175).define { flex in
+                flex.addItem(recommendCollectionView).marginHorizontal(Metric.marginHorizontal).height(175)
+            }
+            flex.addItem().direction(.row).marginTop(30).marginHorizontal(Metric.marginHorizontal).define { flex in
+                flex.addItem(headerLabel)
+                flex.addItem().grow(1)
+                flex.addItem(sortButton)
+            }
+            flex.addItem(postListTableView).marginTop(29).marginHorizontal(Metric.marginHorizontal).grow(1)
         }
-        
     }
     override func configureVC() {
         view.backgroundColor = MOIZAAsset.moizaGray2.color
@@ -65,26 +93,19 @@ final class QuestionPostVC: baseVC<PostListReactor> {
     
     // MARK: - Reactor
     override func bindView(reactor: PostListReactor) {
-        postListTableView.rx.didScroll
-            .withLatestFrom(self.postListTableView.rx.contentOffset)
-            .map { [weak self] in
-                Reactor.Action.pagenation(
-                    contentHeight: self?.postListTableView.contentSize.height ?? 0,
-                    contentOffsetY: $0.y,
-                    scrollViewHeight: self?.bound.height ?? 0
-                )
-            }
+        scrollView.rx.reachedBottom(offset: 75)
+            .map { Reactor.Action.reachedBottom(.question) }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
+        sortButton.rx.tap
+            .map { Reactor.Action.sortButtonDidTap }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
     }
     override func bindAction(reactor: PostListReactor) {
         self.rx.viewDidLoad
             .map { Reactor.Action.viewDidLoad }
-            .bind(to: reactor.action)
-            .disposed(by: disposeBag)
-        
-        self.rx.viewWillAppear.do(onNext: { _ in UserDefaultsLocal.shared.post = .question } )
-            .map { _ in Reactor.Action.viewWillAppear }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
         
@@ -106,34 +127,16 @@ final class QuestionPostVC: baseVC<PostListReactor> {
         }
         
         sharedState
-            .map(\.recommendItems)
+            .compactMap { $0.recommendItems[.question] }
             .map { [RecommendSection.init(header: "", items: $0)] }
             .bind(to: recommendCollectionView.rx.items(dataSource: recommendDS))
             .disposed(by: disposeBag)
         
         sharedState
-            .map(\.postItems)
+            .compactMap { $0.postItems[.question] }
             .map { [PostSection.init(header: "", items: $0)] }
             .bind(to: postListTableView.rx.items(dataSource: postDS))
             .disposed(by: disposeBag)
         
-    }
-}
-
-// MARK: - UITableViewDelegate
-extension QuestionPostVC: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return headerContainer
-    }
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return headerContainer.frame.height
-    }
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let headerHeight: CGFloat = headerContainer.frame.height
-        if scrollView.contentOffset.y <= headerHeight, scrollView.contentOffset.y >= 0 {
-            scrollView.contentInset = .init(top: -scrollView.contentOffset.y, left: 0, bottom: 0, right: 0)
-        } else if scrollView.contentOffset.y >= headerHeight {
-            scrollView.contentInset = .init(top: -headerHeight, left: 0, bottom: 0, right: 0)
-        }
     }
 }

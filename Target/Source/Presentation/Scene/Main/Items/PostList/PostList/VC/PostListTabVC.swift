@@ -95,6 +95,8 @@ final class PostListTabVC: TabmanViewController, ReactorKit.View {
         bar.indicator.weight = .custom(value: 0.75)
         bar.backgroundView.style = .clear
         
+        bounces = false
+        
         addBar(bar, dataSource: self, at: .top)
     }
 }
@@ -109,6 +111,7 @@ private extension PostListTabVC {
         self.navigationItem.setRightBarButton(searchButton, animated: false)
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationItem.configBack()
     }
     func darkConfigure() {
         majorButton.layer.borderColor = UIColor.clear.cgColor

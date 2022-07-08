@@ -52,7 +52,7 @@ enum MoizaStep: Step{
     case myPageIsRequired
     
     // Common
-    case sortIsRequired(_ options: [SortOption])
+    case sortIsRequired(_ options: [SortOption], initial: (PostType, SortType), onComplete: ((PostType, SortType, Major) -> Void))
     case majorSelectIsRequired
     case postDetailIsRequired(Int)
     case postDetailImageListIsRequired

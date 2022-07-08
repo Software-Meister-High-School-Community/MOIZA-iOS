@@ -5,9 +5,7 @@ import RxSwift
 
 final class PostCell: baseTableViewCell<PostList> {
     // MARK: - Properties
-    private let view = UIView().then {
-        $0.backgroundColor = .clear
-    }
+    private let view = UIView()
     private let iconImageView = UIImageView()
     private let titleLabel = UILabel().then {
         $0.textColor = MOIZAAsset.moizaGray6.color
