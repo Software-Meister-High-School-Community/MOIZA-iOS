@@ -33,9 +33,10 @@ extension UserProfile {
         scope: .allCases.randomElement() ?? .graduate,
         profileImageUrl: "https://avatars.githubusercontent.com/u/74440939?v=4",
         profileBackgroundColor: "#FFFFFF",
-        introduce: "안녕하세요 제\n이름은 ...입니다",
+        introduce: "안녕하세요 제\n이름은 ...입니다\niOS만세이",
         linkUrl: [
-            "https://github.com/baekteun"
+            "https://github.com/baekteun",
+            "https://www.google.com"
         ], feedCount: 3,
         followerCount: 99,
         followingCount: 248

@@ -113,7 +113,8 @@ extension MyPageReactor {
 private extension MyPageReactor {
     func viewWillAppear() -> Observable<Mutation>{
         return .concat([
-            .just(.setUserProfile(.dummy))
+            .just(.setUserProfile(.dummy)),
+            .just(.setPostList([.dummy, .dummy]))
         ])
     }
     func reachedBottom() -> Observable<Mutation> {
