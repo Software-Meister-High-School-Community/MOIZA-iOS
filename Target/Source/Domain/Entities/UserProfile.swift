@@ -1,5 +1,5 @@
 
-public struct User: Equatable {
+public struct UserProfile: Equatable {
     let userId: Int
     let name: String
     let school: School
@@ -25,8 +25,8 @@ public struct User: Equatable {
     }
 }
 
-extension User {
-    static let dummy = User(
+extension UserProfile {
+    static let dummy = UserProfile(
         userId: .random(in: 0...1000),
         name: "김이름",
         school: .allCases.randomElement() ?? .dsm,

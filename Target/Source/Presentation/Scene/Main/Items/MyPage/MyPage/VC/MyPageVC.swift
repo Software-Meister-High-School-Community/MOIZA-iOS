@@ -230,15 +230,8 @@ final class MyPageVC: baseVC<MyPageReactor> {
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
         
-        postListTableView.rx.didScroll
-            .withLatestFrom(self.postListTableView.rx.contentOffset)
-            .map { [weak self] in
-                Reactor.Action.pagenation(
-                    contentHeight: self?.postListTableView.contentSize.height ?? 0,
-                    contentOffsetY: $0.y,
-                    scrollViewHeight: self?.bound.height ?? 0
-                )
-            }
+        postListTableView.rx.reachedBottom(offset: 75)
+            .map { Reactor.Action.reachedBottom }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
     }
