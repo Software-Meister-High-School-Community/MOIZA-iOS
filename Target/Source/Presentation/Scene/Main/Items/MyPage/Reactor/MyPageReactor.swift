@@ -89,6 +89,7 @@ extension MyPageReactor {
             newState.postItems = posts
         case let .setUserProfile(user):
             newState.profile = user
+            UserDefaultsLocal.shared.userID = user.userId
         case let .updatePostList(posts):
             newState.postItems.append(contentsOf: posts)
         case let .setSortOption(sort, major):
