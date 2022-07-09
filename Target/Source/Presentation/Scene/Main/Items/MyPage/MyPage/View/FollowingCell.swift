@@ -12,19 +12,21 @@ final class FollowingCell: baseTableViewCell<FollowingUserList> {
     }
     private let userProfileImageView = UIImageView().then{
         $0.clipsToBounds = true
-        $0.layer.cornerRadius = 30
+        $0.layer.cornerRadius = 27.5
     }
     
-    private let userId = UILabel().then{
+    private let userIdLabel = UILabel().then{
         $0.textColor = MOIZAAsset.moizaGray6.color
         $0.font = UIFont(font: MOIZAFontFamily.Roboto.regular, size: 16)
     }
     private let schoolLabel = UILabel().then {
         $0.textColor = MOIZAAsset.moizaGray6.color
         $0.font = UIFont(font: MOIZAFontFamily.Roboto.regular, size: 12)
+        $0.lineBreakMode = .byTruncatingMiddle
     }
     
     private let isFollowingButton = UIButton().then {
+        $0.setTitle("팔로잉", for: .normal)
         $0.backgroundColor = MOIZAAsset.moizaGray1.color
         $0.layer.cornerRadius = 5
         $0.layer.borderColor = MOIZAAsset.moizaGray3.color.cgColor
@@ -41,7 +43,6 @@ final class FollowingCell: baseTableViewCell<FollowingUserList> {
         model = nil
         userProfileImageView.image = nil
         schoolLabel.text = nil
-        isFollowingButton.setTitle("팔로잉", for: .normal)
     }
     // MARK: - UI
     override func addView() {
@@ -52,17 +53,16 @@ final class FollowingCell: baseTableViewCell<FollowingUserList> {
         view.flex.layout()
     }
     override func setLayout() {
-        view.flex.direction(.row).marginVertical(5).alignItems(.center).define { flex in
-            flex.addItem(userProfileImageView).marginLeft(4).size(60)
+        view.flex.direction(.row).marginVertical(10).alignItems(.center).define { flex in
+            flex.addItem(userProfileImageView).marginLeft(4).size(55)
             
-            flex.addItem().direction(.column).marginLeft(16).grow(1).define { flex in
-                flex.addItem(userId).width(45)
-                flex.addItem(schoolLabel).width(100%).marginTop(4)
-            }
-            
-            flex.addItem().direction(.row).paddingLeft(10).grow(1).define { flex in
-                flex.addItem().shrink(1).grow(1).alignItems(.end).define { flex in
-                    flex.addItem(isFollowingButton).width(50).height(27).marginRight(10)
+            flex.addItem().direction(.row).grow(1).define { flex in
+                flex.addItem().marginLeft(16).maxWidth(60%).define { flex in
+                    flex.addItem(userIdLabel)
+                    flex.addItem(schoolLabel).marginTop(4)
+                }
+                flex.addItem().direction(.rowReverse).grow(1).define { flex in
+                    flex.addItem(isFollowingButton).width(50).height(27)
                 }
             }
         }
@@ -73,8 +73,8 @@ final class FollowingCell: baseTableViewCell<FollowingUserList> {
                                      options: [])
         userProfileImageView.backgroundColor = MOIZAAsset.moizaGray3.color
     
-        userId.text = model.name
-        schoolLabel.text = model.school.display
+        userIdLabel.text = model.name
+        schoolLabel.text = "\(model.school.display) \(model.userScope.display)"
         isFollowingButton.setTitle("팔로잉", for: .normal)
     }
     override func configureCell() {

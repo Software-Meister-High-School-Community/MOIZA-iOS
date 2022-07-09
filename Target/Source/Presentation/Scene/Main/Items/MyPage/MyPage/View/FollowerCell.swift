@@ -12,7 +12,7 @@ final class FollowerCell: baseTableViewCell<FollowerUserList> {
     }
     private let userProfileImageView = UIImageView().then{
         $0.clipsToBounds = true
-        $0.layer.cornerRadius = 30
+        $0.layer.cornerRadius = 27.5
     }
     
     private let userIdLabel = UILabel().then{
