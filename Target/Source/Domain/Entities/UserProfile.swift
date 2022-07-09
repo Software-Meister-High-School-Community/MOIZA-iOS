@@ -1,5 +1,5 @@
 
-struct User: Equatable {
+public struct UserProfile: Equatable {
     let userId: Int
     let name: String
     let school: School
@@ -25,17 +25,18 @@ struct User: Equatable {
     }
 }
 
-extension User {
-    static let dummy = User(
+extension UserProfile {
+    static let dummy = UserProfile(
         userId: .random(in: 0...1000),
         name: "김이름",
         school: .allCases.randomElement() ?? .dsm,
         scope: .allCases.randomElement() ?? .graduate,
         profileImageUrl: "https://avatars.githubusercontent.com/u/74440939?v=4",
-        profileBackgroundColor: "#FFFFFF",
-        introduce: "안녕하세요 제\n이름은 ...입니다",
+        profileBackgroundColor: "#123456",
+        introduce: "안녕하세요 제\n이름은 김이름입니다\niOS만세이",
         linkUrl: [
-            "https://github.com/baekteun"
+            "https://github.com/baekteun",
+            "https://www.google.com"
         ], feedCount: 3,
         followerCount: 99,
         followingCount: 248

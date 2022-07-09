@@ -1,4 +1,4 @@
-enum UserScope: String, Codable, CaseIterable {
+public enum UserScope: String, Codable, CaseIterable {
     case user = "USER"
     case student = "STUDENT"
     case graduate = "GRADUATE"

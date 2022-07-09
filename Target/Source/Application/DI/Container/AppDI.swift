@@ -57,6 +57,10 @@ extension Container{
         register(CategoryVC.self) { r in
             return CategoryVC(reactor: r.resolve(CategoryReactor.self))
         }
+        register(PostBoardVC.self) { r in
+            return PostBoardVC(reactor: r.resolve(PostBoardReactor.self))
+        }
+        
         register(PostListTabVC.self) { r in
             let reactor = r.resolve(PostListReactor.self)
             let vc = PostListTabVC(reactor: reactor)
@@ -64,6 +68,15 @@ extension Container{
                 AllPostVC(reactor: vc.reactor),
                 QuestionPostVC(reactor: vc.reactor),
                 NormalPostVC(reactor: vc.reactor)
+            ])
+            return vc
+        }
+        register(FollowTabVC.self) { r in
+            let reactor = r.resolve(MyPageFollowReactor.self)
+            let vc = FollowTabVC(reactor: reactor)
+            vc.setViewControllers([
+                MyPageFollowerVC(reactor: vc.reactor),
+                MyPageFollowingVC(reactor: vc.reactor)
             ])
             return vc
         }
@@ -103,7 +116,10 @@ extension Container{
         autoregister(HomeReactor.self, initializer: HomeReactor.init)
         autoregister(MyPageReactor.self, initializer: MyPageReactor.init)
         autoregister(CategoryReactor.self, initializer: CategoryReactor.init)
+        autoregister(PostBoardReactor.self, initializer: PostBoardReactor.init)
+        
         autoregister(PostListReactor.self, initializer: PostListReactor.init)
+        autoregister(MyPageFollowReactor.self, initializer: MyPageFollowReactor.init)
         autoregister(FindIDReactor.self, initializer: FindIDReactor.init)
         autoregister(CertEmailReactor.self, initializer: CertEmailReactor.init)
         autoregister(SucFindIDReactor.self, initializer: SucFindIDReactor.init)
@@ -133,6 +149,5 @@ extension Container{
         
     }
     private func registerUseCases(){
-        
     }
 }

@@ -1,4 +1,4 @@
-enum School: String, Codable, CaseIterable{
+public enum School: String, Codable, CaseIterable{
     case gsm = "GSM"
     case dgsm = "DGSW"
     case dsm = "DSM"
@@ -6,7 +6,7 @@ enum School: String, Codable, CaseIterable{
     case bsm = "BSSM"
 }
 
-extension School{
+public extension School{
     func toDomain() -> String{
         switch self {
         case .gsm:

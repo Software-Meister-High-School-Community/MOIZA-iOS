@@ -25,7 +25,7 @@ def pods
   pod 'FlexLayout', '~> 1.3.23'
   pod 'SwiftDate', '~> 6.3.1'
   pod 'IQKeyboardManagerSwift', '~> 6.5.9'
-  pod 'Tabman'
+  pod 'Tabman', '~> 2.11.1'
   pod 'ViewAnimator', '~> 3.1.0'
   pod 'PanModal', '~> 1.2.7'
   pod 'Kingfisher', '~> 7.2.0'

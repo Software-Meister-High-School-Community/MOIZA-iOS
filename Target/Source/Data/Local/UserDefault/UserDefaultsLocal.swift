@@ -3,6 +3,7 @@ import Foundation
 final class UserDefaultsLocal {
     enum forKeys {
         static let major = "major"
+        static let userId = "userid"
     }
     static let shared = UserDefaultsLocal()
     
@@ -16,6 +17,14 @@ final class UserDefaultsLocal {
         }
         set {
             preferences.set(newValue.rawValue, forKey: forKeys.major)
+        }
+    }
+    var userID: Int {
+        get {
+            preferences.integer(forKey: forKeys.userId)
+        }
+        set {
+            preferences.set(newValue, forKey: forKeys.userId)
         }
     }
 }
