@@ -57,7 +57,7 @@ private extension MyPageFlow{
         return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: reactor))
     }
     func navigateToFollow() -> FlowContributors {
-        @Inject var vc: FollowTabVC
+        @Inject var vc: MyFollowTabVC
         self.rootVC.pushViewController(vc, animated: true)
         return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: vc.reactor ?? .init()))
     }

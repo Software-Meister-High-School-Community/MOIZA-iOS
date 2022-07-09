@@ -71,9 +71,9 @@ extension Container{
             ])
             return vc
         }
-        register(FollowTabVC.self) { r in
-            let reactor = r.resolve(MyPageFollowReactor.self)
-            let vc = FollowTabVC(reactor: reactor)
+        register(MyFollowTabVC.self) { r in
+            let reactor = r.resolve(MyFollowReactor.self)
+            let vc = MyFollowTabVC(reactor: reactor)
             vc.setViewControllers([
                 MyPageFollowerVC(reactor: vc.reactor),
                 MyPageFollowingVC(reactor: vc.reactor)
@@ -119,7 +119,7 @@ extension Container{
         autoregister(PostBoardReactor.self, initializer: PostBoardReactor.init)
         
         autoregister(PostListReactor.self, initializer: PostListReactor.init)
-        autoregister(MyPageFollowReactor.self, initializer: MyPageFollowReactor.init)
+        autoregister(MyFollowReactor.self, initializer: MyFollowReactor.init)
         autoregister(FindIDReactor.self, initializer: FindIDReactor.init)
         autoregister(CertEmailReactor.self, initializer: CertEmailReactor.init)
         autoregister(SucFindIDReactor.self, initializer: SucFindIDReactor.init)
