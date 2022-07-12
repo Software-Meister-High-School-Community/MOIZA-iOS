@@ -3,6 +3,7 @@ import PinLayout
 import FlexLayout
 import RxSwift
 import RxDataSources
+import BTImageView
 
 final class DetailPostVC: baseVC<DetailPostReactor> {
     // MARK: - Metric
@@ -65,6 +66,10 @@ final class DetailPostVC: baseVC<DetailPostReactor> {
         $0.font = Font.contentFont
         $0.textColor = Color.contentTextColor
         $0.numberOfLines = 0
+    }
+    private let postImagesView = BTImageView().then {
+        $0.aligns = [2, 2]
+        $0.axis = .vertical
     }
     private let likeButton = UIButton().then {
         $0.setImage(.init(systemName: "heart")?.tintColor(MOIZAAsset.moizaGray4.color), for: .normal)
@@ -153,6 +158,7 @@ final class DetailPostVC: baseVC<DetailPostReactor> {
                     flex.addItem(userInfoLabel).marginLeft(12)
                 }
                 flex.addItem(contentLabel).marginTop(30).marginHorizontal(Metric.marginHorizontal)
+                flex.addItem(postImagesView).marginTop(20).width(bound.width-32).height((bound.width-32) * 0.5743).marginHorizontal(Metric.marginHorizontal).display(.none)
                 flex.addItem(likeButton).marginLeft(Metric.marginHorizontal).marginTop(20).marginBottom(25).alignSelf(.start)
             }
             flex.addItem().direction(.row).marginHorizontal(Metric.marginHorizontal).marginTop(40).define { flex in
@@ -232,6 +238,12 @@ final class DetailPostVC: baseVC<DetailPostReactor> {
                     title: UserDefaultsLocal.shared.major.display,
                     subtitle: "\(post.feedType.display) 게시판"
                 )
+                if let urls = post.imageUrls, !urls.isEmpty {
+                    owner.postImagesView.setImages(urls: urls)
+                    owner.postImagesView.flex.display(.flex)
+                } else {
+                    owner.postImagesView.flex.display(.none)
+                }
                 
                 [
                     owner.likeButton, owner.titleLabel, owner.postInfoLabel, owner.userInfoLabel, owner.contentLabel,

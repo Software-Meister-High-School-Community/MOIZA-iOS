@@ -23,7 +23,7 @@ extension ChildComment {
                 "https://avatars.githubusercontent.com/u/81547954?s=70&v=4",
                 "https://avatars.githubusercontent.com/u/3011832?s=100&v=4",
                 "https://avatars.githubusercontent.com/u/102890390?s=100&v=4",
-                "https://avatars.githubusercontent.com/u/65935582?s=100&v=4"
+                "https://avatars.githubusercontent.com/u/80076029?v=4"
             ].randomElements(),
             createdAt: .init(timeIntervalSinceNow: .init(Int.random(in: -128600...128600))),
             content: [

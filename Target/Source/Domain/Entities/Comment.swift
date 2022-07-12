@@ -31,7 +31,7 @@ extension Comment {
                 "https://avatars.githubusercontent.com/u/91456952?s=100&v=4",
                 "https://avatars.githubusercontent.com/u/85563909?s=100&v=4",
                 "https://avatars.githubusercontent.com/u/80795917?s=100&v=4",
-                "https://avatars.githubusercontent.com/u/3011832?s=100&v=4"
+                "https://avatars.githubusercontent.com/u/80076029?v=4"
             ].randomElements(),
             childComments: [
                 .dummy, .dummy, .dummy, .dummy, .dummy, .dummy, .dummy
