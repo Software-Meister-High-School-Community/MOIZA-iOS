@@ -23,10 +23,10 @@ public extension School{
     }
     var display: String {
         switch self {
-        case .gsm: return "광주소프트웨어마이스터고등학교"
-        case .dsm: return "대덕소프트웨어마이스터고등학교"
-        case .dgsm: return "대구소프트웨어마이스터고등학교"
-        case .bsm: return "부산소프트웨어마이스터고등학교"
+        case .gsm: return "광주소프트웨어마이스터고"
+        case .dsm: return "대덕소프트웨어마이스터고"
+        case .dgsm: return "대구소프트웨어마이스터고"
+        case .bsm: return "부산소프트웨어마이스터고"
         case .mirim: return "미림마이스터고"
         }
     }
