@@ -31,6 +31,7 @@ final class AllPostVC: baseVC<PostListReactor> {
         $0.register(PostCell.self, forCellReuseIdentifier: PostCell.reusableID)
         $0.rowHeight = 60
         $0.separatorStyle = .none
+        $0.isScrollEnabled = false
         $0.backgroundColor = MOIZAAsset.moizaGray2.color
     }
     
@@ -103,6 +104,12 @@ final class AllPostVC: baseVC<PostListReactor> {
             .disposed(by: disposeBag)
         
         postListTableView.rx.modelSelected(PostList.self)
+            .map(\.id)
+            .map(Reactor.Action.postDidTap)
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
+        recommendCollectionView.rx.modelSelected(PostList.self)
             .map(\.id)
             .map(Reactor.Action.postDidTap)
             .bind(to: reactor.action)

@@ -11,12 +11,12 @@ final class PostCell: baseTableViewCell<PostList> {
         $0.textColor = MOIZAAsset.moizaGray6.color
         $0.font = UIFont(font: MOIZAFontFamily.Roboto.regular, size: 14)
     }
-    private let commentCount = UIButton().then {
+    private let commentCountButton = UIButton().then {
         $0.setImage(.init(systemName: "bubble.right")?.tintColor(MOIZAAsset.moizaGray4.color), for: .normal)
         $0.setTitleColor(MOIZAAsset.moizaGray5.color, for: .normal)
         $0.titleLabel?.font = UIFont(font: MOIZAFontFamily.Roboto.regular, size: 12)
     }
-    private let likeCount = UIButton().then {
+    private let likeCountButton = UIButton().then {
         $0.setTitleColor(MOIZAAsset.moizaGray5.color, for: .normal)
         $0.titleLabel?.font = UIFont(font: MOIZAFontFamily.Roboto.regular, size: 12)
     }
@@ -29,10 +29,10 @@ final class PostCell: baseTableViewCell<PostList> {
         model = nil
         iconImageView.image = nil
         titleLabel.text = nil
-        commentCount.setTitle("", for: .normal)
-        likeCount.setTitle("", for: .normal)
-        commentCount.imageView?.image = nil
-        likeCount.imageView?.image = nil
+        commentCountButton.setTitle("", for: .normal)
+        likeCountButton.setTitle("", for: .normal)
+        commentCountButton.imageView?.image = nil
+        likeCountButton.imageView?.image = nil
     }
     // MARK: - UI
     override func addView() {
@@ -47,11 +47,11 @@ final class PostCell: baseTableViewCell<PostList> {
             flex.addItem(iconImageView).marginLeft(10).size(25)
             flex.addItem(titleLabel).width(52.4%).marginLeft(12)
             flex.addItem().direction(.row).paddingLeft(15).grow(1).define { flex in
-                flex.addItem().shrink(1).grow(1).alignItems(.start).define { flex in
-                    flex.addItem(commentCount)
+                flex.addItem().shrink(1).grow(1).define { flex in
+                    flex.addItem(commentCountButton)
                 }
-                flex.addItem().shrink(1).grow(1).alignItems(.start).define { flex in
-                    flex.addItem(likeCount)
+                flex.addItem().shrink(1).grow(1).define { flex in
+                    flex.addItem(likeCountButton)
                 }
             }
         }
@@ -61,12 +61,14 @@ final class PostCell: baseTableViewCell<PostList> {
         .init(systemName: "questionmark.circle.fill")?.tintColor(MOIZAAsset.moizaPrimaryYellow.color) :
         MOIZAAsset.moizaBookReader.image.tintColor(MOIZAAsset.moizaPrimaryYellow.color)
         titleLabel.text = model.title
-        commentCount.setTitle("\(model.commentCount)", for: .normal)
-        likeCount.setTitle("\(model.likeCount)", for: .normal)
+        commentCountButton.setTitle("\(model.commentCount)", for: .normal)
+        commentCountButton.flex.markDirty()
+        likeCountButton.setTitle("\(model.likeCount)", for: .normal)
+        likeCountButton.flex.markDirty()
         if model.isLike {
-            likeCount.setImage(.init(systemName: "heart.fill")?.tintColor(MOIZAAsset.moizaPrimaryYellow.color), for: .normal)
+            likeCountButton.setImage(.init(systemName: "heart.fill")?.tintColor(MOIZAAsset.moizaPrimaryYellow.color), for: .normal)
         } else {
-            likeCount.setImage(.init(systemName: "heart")?.tintColor(MOIZAAsset.moizaGray4.color), for: .normal)
+            likeCountButton.setImage(.init(systemName: "heart")?.tintColor(MOIZAAsset.moizaGray4.color), for: .normal)
         }
     }
     override func configureCell() {

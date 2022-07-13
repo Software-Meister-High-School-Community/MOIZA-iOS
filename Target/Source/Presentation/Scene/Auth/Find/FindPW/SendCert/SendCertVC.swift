@@ -37,7 +37,7 @@ final class SendCertVC: baseVC<SendCertReactor> {
                 \(email) 로
                 인증번호가 전송되었습니다.
             """)
-        description.setColorForText(textToFind: email, withColor: MOIZAAsset.moizaPrimaryBlue.color)
+        description.insetColorForText(textToFind: email, withColor: MOIZAAsset.moizaPrimaryBlue.color)
         descriptionLabel.attributedText = description
     }
     required init?(coder: NSCoder) {
