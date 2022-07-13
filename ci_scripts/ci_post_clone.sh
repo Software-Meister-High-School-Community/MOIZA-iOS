@@ -1,8 +1,10 @@
 #!/bin/sh
 
 brew install cocoapods
-curl -Ls https://install.tuist.io | bash
+INSTALL_DIR=$PWD curl -Ls https://install.tuist.io | bash
 
-tuist generate
+
+$INSTALL_DIR/tuist generate
+
 pod install
 
