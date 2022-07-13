@@ -7,49 +7,47 @@ import PinLayout
 import FlexLayout
 
 final class MyPageFollowingVC: baseVC<MyFollowReactor>{
+    // MARK: - Metric
+    enum Metric {
+        static let marginHorizontal: CGFloat = 16
+    }
     
-    private let headerContainer = UIView()
-    
+    // MARK: - Properties
+    private let rootContainer = UIView()
     private let searchBar = UISearchBar().then{
         $0.searchBarStyle = .minimal
         $0.layer.cornerRadius = 5
     }
-    
-    private let followingContainer = UIView()
-    
     private let followingListTableView = UITableView(frame: .zero, style: .plain).then {
         $0.register(FollowingCell.self, forCellReuseIdentifier: FollowingCell.reusableID)
         $0.rowHeight = 77
         $0.separatorStyle = .singleLine
         $0.separatorColor = MOIZAAsset.moizaGray3.color
-        $0.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-        $0.backgroundColor = MOIZAAsset.moizaGray1.color
+        $0.backgroundColor = .clear
         $0.showsVerticalScrollIndicator = false
     }
-    
-    override func setUp() {
-        followingListTableView.rx.setDelegate(self).disposed(by: disposeBag)
-    }
-    
-    override func configureVC() {
-        view.backgroundColor = MOIZAAsset.moizaGray1.color
-    }
     override func addView() {
-        view.addSubViews(followingContainer)
-        headerContainer.addSubViews(searchBar)
+        view.addSubViews(rootContainer)
     }
     override func setLayoutSubViews() {
-        followingContainer.pin.all(view.pin.safeArea)
-        followingContainer.flex.layout()
+        rootContainer.pin.all(view.pin.safeArea)
         
-        headerContainer.pin.width(bound.width-34).height(55)
-        searchBar.pin.pinEdges().horizontally(0).marginTop(14).height(35)
+        rootContainer.flex.layout()
     }
     override func setLayout() {
-        followingContainer.flex.define { flex in
-            flex.addItem(followingListTableView).grow(1).bottom(0).marginHorizontal(16)
+        rootContainer.flex.define { flex in
+            flex.addItem(searchBar).marginHorizontal(Metric.marginHorizontal).marginTop(14).height(35)
+            flex.addItem(followingListTableView).marginTop(20).marginHorizontal(Metric.marginHorizontal).grow(1)
         }
     }
+    override func configureVC() {
+        rootContainer.backgroundColor = MOIZAAsset.moizaGray1.color
+    }
+    override func darkConfigure() {
+        rootContainer.backgroundColor = MOIZAAsset.moizaDark2.color
+    }
+    
+    // MARK: - Reactor
     override func bindView(reactor: MyFollowReactor) {
         
     }
@@ -73,21 +71,5 @@ final class MyPageFollowingVC: baseVC<MyFollowReactor>{
             .map { [FollowingSection.init(items: $0)] }
             .bind(to: followingListTableView.rx.items(dataSource: followingDS))
             .disposed(by: disposeBag)
-    }
-}
-extension MyPageFollowingVC: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return headerContainer
-    }
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return headerContainer.frame.height
-    }
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let headerHeight: CGFloat = headerContainer.frame.height
-        if scrollView.contentOffset.y <= headerHeight, scrollView.contentOffset.y >= 0 {
-            scrollView.contentInset = .init(top: -scrollView.contentOffset.y, left: 0, bottom: 0, right: 0)
-        } else if scrollView.contentOffset.y >= headerHeight {
-            scrollView.contentInset = .init(top: -headerHeight, left: 0, bottom: 0, right: 0)
-        }
     }
 }

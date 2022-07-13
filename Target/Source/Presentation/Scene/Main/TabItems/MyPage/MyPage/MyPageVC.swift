@@ -95,6 +95,7 @@ final class MyPageVC: baseVC<MyPageReactor> {
         $0.dataDetectorTypes = .link
         $0.isEditable = false
         $0.isScrollEnabled = false
+        $0.backgroundColor = .clear
     }
     private let myPostLabel = UILabel().then {
         $0.text = "나의 게시물"
@@ -108,6 +109,7 @@ final class MyPageVC: baseVC<MyPageReactor> {
         $0.separatorStyle = .none
         $0.backgroundColor = MOIZAAsset.moizaGray2.color
         $0.isScrollEnabled = false
+        $0.backgroundColor = .clear
     }
     private let moreOptionButton = UIBarButtonItem(image: .init(systemName: "ellipsis")?.tintColor(MOIZAAsset.moizaGray6.color),
                                                     style: .plain,
@@ -210,7 +212,16 @@ final class MyPageVC: baseVC<MyPageReactor> {
     override func configureNavigation() {
         self.navigationItem.configLeftLogo()
         self.navigationItem.configBack()
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationController?.navigationBar.isTranslucent = false
         self.navigationItem.setRightBarButtonItems([moreOptionButton], animated: true)
+    }
+    override func darkConfigure() {
+        scrollView.backgroundColor = MOIZAAsset.moizaDark1.color
+        rootContainer.backgroundColor = MOIZAAsset.moizaDark1.color
+        profileContainer.backgroundColor = MOIZAAsset.moizaDark2.color
+        introContaier.backgroundColor = MOIZAAsset.moizaDark2.color
     }
     
     // MARK: - Reactor
