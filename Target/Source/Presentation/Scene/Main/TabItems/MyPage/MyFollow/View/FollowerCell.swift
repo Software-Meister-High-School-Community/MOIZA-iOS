@@ -29,7 +29,7 @@ final class FollowerCell: baseTableViewCell<FollowerUserList> {
         $0.setTitle("맞팔로우", for: .normal)
         $0.backgroundColor = MOIZAAsset.moizaPrimaryBlue.color
         $0.layer.cornerRadius = 5
-        $0.setTitleColor(MOIZAAsset.moizaGray1.color, for: .normal)
+        $0.setTitleColor(MOIZAAsset.moizaConstGray1.color, for: .normal)
         $0.titleLabel?.font = UIFont(font: MOIZAFontFamily.Roboto.regular, size: 10)
     }
     private let deleteButton = UIButton().then {
@@ -81,8 +81,8 @@ final class FollowerCell: baseTableViewCell<FollowerUserList> {
                                      options: [])
         userProfileImageView.backgroundColor = MOIZAAsset.moizaGray3.color
     
-        userIdLabel.text = model.name
         schoolLabel.text = "\(model.school.display) \(model.userScope.display)"
+        userIdLabel.text = model.name
         isFollowButton.isHidden = model.isFollow
     }
     override func configureCell() {

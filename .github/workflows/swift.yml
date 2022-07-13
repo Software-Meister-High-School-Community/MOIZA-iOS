@@ -1,8 +1,8 @@
-name: Swift
+name: pr
 
 on:
   push:
-    branches: [ master, develop ]
+    branches: [ develop, master ]
 
 jobs:
   build:
@@ -12,7 +12,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
       with:
-        swift-version: "5.5.2"
+        swift-version: latest
         xcode-version: latest
     - name: install tuist
       run: curl -Ls https://install.tuist.io | bash
