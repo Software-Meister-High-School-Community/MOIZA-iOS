@@ -49,6 +49,8 @@ final class PostListFlow: Flow{
             return navigateToDetailPost(feedId: id)
         case let .sortIsRequired(options, initial, onComplete):
             return presentToSort(options, initial: initial, onComplete: onComplete)
+        case .searchIsRequired:
+            return navigateToSearch()
         default:
             return .none
         }
@@ -86,6 +88,12 @@ private extension PostListFlow{
     func navigateToDetailPost(feedId: Int) -> FlowContributors {
         let reactor = DetailPostReactor(feedId: feedId)
         let vc = DetailPostVC(reactor: reactor)
+        self.rootVC.pushViewController(vc, animated: true)
+        return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: reactor))
+    }
+    func navigateToSearch() -> FlowContributors {
+        let reactor = SearchReactor()
+        let vc = SearchVC(reactor: reactor)
         self.rootVC.pushViewController(vc, animated: true)
         return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: reactor))
     }

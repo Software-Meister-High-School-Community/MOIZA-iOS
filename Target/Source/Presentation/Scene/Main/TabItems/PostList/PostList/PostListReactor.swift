@@ -29,6 +29,7 @@ final class PostListReactor: Reactor, Stepper {
         case reachedBottom(PostType)
         case sortButtonDidTap
         case sortOnComplete(PostType, SortType, Major)
+        case searchButtonDidTap
     }
     enum Mutation {
         case setMajor(Major)
@@ -82,6 +83,8 @@ extension PostListReactor {
             return reachedBottom(postType: postType)
         case let .postDidTap(id):
             steps.accept(MoizaStep.postDetailIsRequired(id))
+        case .searchButtonDidTap:
+            steps.accept(MoizaStep.searchIsRequired)
         }
         return .empty()
     }
