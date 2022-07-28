@@ -3,6 +3,9 @@ import PinLayout
 import FlexLayout
 import Foundation
 import Then
+import RxSwift
+import RxCocoa
+import RxDataSources
 
 final class SearchVC: baseVC<SearchReactor> {
     // MARK: - Metrict
@@ -47,7 +50,10 @@ final class SearchVC: baseVC<SearchReactor> {
         $0.titleLabel?.font = Font.allRemoveButtonFont
     }
     private let recentSearchTableView = UITableView().then {
+        $0.register(RecentSearchCell.self, forCellReuseIdentifier: RecentSearchCell.reusableID)
         $0.backgroundColor = .clear
+        $0.separatorStyle = .none
+        $0.rowHeight = 46
     }
     
     // MARK: - UI
@@ -73,7 +79,7 @@ final class SearchVC: baseVC<SearchReactor> {
                 flex.addItem().grow(1)
                 flex.addItem(allRemoveButton)
             }
-            flex.addItem(recentSearchTableView).marginTop(10).marginHorizontal(Metric.marginHorizontal).grow(1)
+            flex.addItem(recentSearchTableView).marginTop(10).grow(1)
         }
     }
     override func configureVC() {
@@ -81,5 +87,57 @@ final class SearchVC: baseVC<SearchReactor> {
     }
     override func configureNavigation() {
         self.navigationItem.setTitle(title: "검색")
+    }
+    
+    // MARK: - Reactor
+    override func bindAction(reactor: SearchReactor) {
+        self.rx.viewWillAppear
+            .map { _ in Reactor.Action.viewWillAppear }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+    }
+    override func bindView(reactor: SearchReactor) {
+        allRemoveButton.rx.tap
+            .map { Reactor.Action.allRemoveButtonDidTap }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
+        recentSearchTableView.rx.modelSelected(RecentSearch.self)
+            .map(\.keyword)
+            .map(Reactor.Action.recentSearchKeywordDidTap(keyword:))
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
+        searchTextField.rx.text.orEmpty
+            .map(Reactor.Action.updateSearchTextField)
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+    }
+    override func bindState(reactor: SearchReactor) {
+        let sharedState = reactor.state.share(replay: 2).observe(on: MainScheduler.asyncInstance)
+        
+        let recentSearchDS = RxTableViewSectionedReloadDataSource<RecentSearchSection> { [weak self] _, tv, ip, item in
+            guard let cell = tv.dequeueReusableCell(withIdentifier: RecentSearchCell.reusableID, for: ip) as? RecentSearchCell else { return .init() }
+            cell.model = item
+            cell.delegate = self
+            return cell
+        }
+        
+        sharedState
+            .map(\.searchText)
+            .bind(to: searchTextField.rx.text)
+            .disposed(by: disposeBag)
+        
+        sharedState
+            .map(\.recentSeachList)
+            .map { [RecentSearchSection.init(items: $0)] }
+            .bind(to: recentSearchTableView.rx.items(dataSource: recentSearchDS))
+            .disposed(by: disposeBag)
+    }
+}
+
+extension SearchVC: RecentSearchCellDelegate {
+    func removeButtonDidTap(id: Int) {
+        self.reactor?.action.onNext(.recentSearchRemoveButtonDidTap(id: id))
     }
 }
