@@ -85,6 +85,9 @@ final class SearchVC: baseVC<SearchReactor> {
     override func configureVC() {
         view.backgroundColor = MOIZAAsset.moizaGray2.color
     }
+    override func darkConfigure() {
+        view.backgroundColor = MOIZAAsset.moizaDark1.color
+    }
     override func configureNavigation() {
         self.navigationItem.setTitle(title: "검색")
     }
