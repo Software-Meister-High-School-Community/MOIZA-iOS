@@ -56,13 +56,13 @@ enum MoizaStep: Step{
     case majorSelectIsRequired
     case postDetailIsRequired(Int)
     case postDetailImageListIsRequired
+    case searchIsRequired
+    case searchResultIsRequired
     
     // Home
     
     // Posts
     case categoryDropdownIsRequired
-    case searchIsRequired
-    case searchResultIsRequired
     case postListIsRequired
     case postWriteIsRequired
     case temporarySavedPostIsRequired
