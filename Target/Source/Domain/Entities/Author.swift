@@ -1,5 +1,6 @@
+import Foundation
 struct Author: Equatable {
-    let id: Int
+    let id: String
     let profileImageUrl: String
     let name: String
     let schoolName: School
@@ -9,7 +10,7 @@ struct Author: Equatable {
 extension Author {
     static var dummy: Author {
         Author(
-            id: .random(in: 0...500),
+            id: UUID().uuidString,
             profileImageUrl: [
                 "https://avatars.githubusercontent.com/u/91456952?s=100&v=4",
                 "https://avatars.githubusercontent.com/u/85563909?s=100&v=4",

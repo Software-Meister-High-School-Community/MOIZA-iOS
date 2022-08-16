@@ -1,7 +1,7 @@
 import Foundation
 
 struct PostList: Equatable {
-    let id: Int
+    let id: String
     let title: String
     let type: PostType
     let isLike: Bool
@@ -14,7 +14,7 @@ struct PostList: Equatable {
 extension PostList {
     static var dummy: PostList {
         PostList(
-            id: .random(in: 0...100),
+            id: UUID().uuidString,
             title: [
                 "이러이럴때 침착하게 대응하는 방~법",
                 "마법학교 앞점멸 천재가 되었다.",

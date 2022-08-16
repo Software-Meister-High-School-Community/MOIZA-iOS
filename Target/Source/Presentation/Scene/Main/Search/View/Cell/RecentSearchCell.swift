@@ -6,7 +6,7 @@ import RxSwift
 import RxCocoa
 
 protocol RecentSearchCellDelegate: AnyObject {
-    func removeButtonDidTap(id: Int)
+    func removeButtonDidTap(id: String)
 }
 
 final class RecentSearchCell: baseTableViewCell<RecentSearch> {

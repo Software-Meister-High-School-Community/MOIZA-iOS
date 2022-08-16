@@ -90,6 +90,7 @@ final class SearchVC: baseVC<SearchReactor> {
     }
     override func configureNavigation() {
         self.navigationItem.setTitle(title: "검색")
+        self.navigationItem.configBack()
     }
     
     // MARK: - Reactor
@@ -113,6 +114,16 @@ final class SearchVC: baseVC<SearchReactor> {
         
         searchTextField.rx.text.orEmpty
             .map(Reactor.Action.updateSearchTextField)
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
+        searchTextField.rx.controlEvent(.editingDidEndOnExit)
+            .map { Reactor.Action.searchBarDidCommit }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
+        searchButton.rx.tap
+            .map { Reactor.Action.searchBarDidCommit }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
     }
@@ -140,7 +151,7 @@ final class SearchVC: baseVC<SearchReactor> {
 }
 
 extension SearchVC: RecentSearchCellDelegate {
-    func removeButtonDidTap(id: Int) {
+    func removeButtonDidTap(id: String) {
         self.reactor?.action.onNext(.recentSearchRemoveButtonDidTap(id: id))
     }
 }

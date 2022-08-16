@@ -21,7 +21,7 @@ final class PostListReactor: Reactor, Stepper {
     
     // MARK: - Reactor
     enum Action {
-        case postDidTap(Int)
+        case postDidTap(String)
         case viewDidLoad
         case viewWillAppear
         case majorButtonDidTap

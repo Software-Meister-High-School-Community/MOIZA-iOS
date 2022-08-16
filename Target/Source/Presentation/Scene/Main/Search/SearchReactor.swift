@@ -14,12 +14,13 @@ final class SearchReactor: Reactor, Stepper {
         case viewWillAppear
         case recentSearchKeywordDidTap(keyword: String)
         case allRemoveButtonDidTap
-        case recentSearchRemoveButtonDidTap(id: Int)
+        case recentSearchRemoveButtonDidTap(id: String)
         case updateSearchTextField(String)
+        case searchBarDidCommit
     }
     enum Mutation {
         case setRecentSearchList([RecentSearch])
-        case removeRecentSearchById(Int)
+        case removeRecentSearchById(String)
         case setSearchText(String)
     }
     struct State {
@@ -52,6 +53,8 @@ extension SearchReactor {
             return .just(.setSearchText(text))
         case let .recentSearchKeywordDidTap(keyword):
             return .just(.setSearchText(keyword))
+        case .searchBarDidCommit:
+            steps.accept(MoizaStep.searchResultIsRequired(keyword: currentState.searchText))
         }
         return .empty()
     }
@@ -86,7 +89,7 @@ private extension SearchReactor {
     func allRemoveButtonDidTap() -> Observable<Mutation> {
         return .just(.setRecentSearchList([]))
     }
-    func recentSearchRemoveButtonDidTap(id: Int) -> Observable<Mutation> {
+    func recentSearchRemoveButtonDidTap(id: String) -> Observable<Mutation> {
         
         return .just(.removeRecentSearchById(id))
     }

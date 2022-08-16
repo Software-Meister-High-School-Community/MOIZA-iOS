@@ -19,9 +19,9 @@ final class UserDefaultsLocal {
             preferences.set(newValue.rawValue, forKey: forKeys.major)
         }
     }
-    var userID: Int {
+    var userID: String {
         get {
-            preferences.integer(forKey: forKeys.userId)
+            preferences.string(forKey: forKeys.userId) ?? ""
         }
         set {
             preferences.set(newValue, forKey: forKeys.userId)

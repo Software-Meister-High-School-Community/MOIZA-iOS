@@ -1,8 +1,8 @@
 import Foundation
 
 struct ChildComment: Equatable {
-    let id: Int
-    let parentCommentId: Int
+    let id: String
+    let parentCommentId: String
     let author: Author
     let isMine: Bool
     let likeCount: Int
@@ -14,8 +14,8 @@ struct ChildComment: Equatable {
 extension ChildComment {
     static var dummy: ChildComment {
         ChildComment(
-            id: .random(in: 0...300),
-            parentCommentId: .random(in: 0...500),
+            id: UUID().uuidString,
+            parentCommentId: UUID().uuidString,
             author: .dummy,
             isMine: .random(),
             likeCount: .random(in: 0...3000),

@@ -1,7 +1,7 @@
 import Foundation
 
 struct Comment: Equatable {
-    let id: Int
+    let id: String
     let author: Author
     let isMine: Bool
     let isPinned: Bool
@@ -15,7 +15,7 @@ struct Comment: Equatable {
 extension Comment {
     static var dummy: Comment {
         Comment(
-            id: .random(in: 0...500),
+            id: UUID().uuidString,
             author: .dummy,
             isMine: .random(),
             isPinned: false,
