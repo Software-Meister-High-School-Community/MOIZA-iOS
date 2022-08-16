@@ -1,14 +1,14 @@
 import Foundation
 
 public struct RecentSearch: Equatable {
-    let id: Int
+    let id: String
     let keyword: String
 }
 
 extension RecentSearch {
     static var dummy: RecentSearch {
         RecentSearch(
-            id: .random(in: 1...100),
+            id: UUID().uuidString,
             keyword: [
                 "맥북",
                 "리액트",

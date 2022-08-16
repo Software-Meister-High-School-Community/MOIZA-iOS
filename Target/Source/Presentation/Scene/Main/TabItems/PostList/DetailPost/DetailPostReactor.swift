@@ -24,12 +24,12 @@ final class DetailPostReactor: Reactor, Stepper {
         var comments: [Comment]
         var post: Post?
     }
-    private let id: Int
+    private let id: String
     let initialState: State
     
     // MARK: - Init
     init(
-        feedId: Int
+        feedId: String
     ) {
         self.id = feedId
         initialState = State(

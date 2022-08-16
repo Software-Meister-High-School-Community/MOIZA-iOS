@@ -1,6 +1,7 @@
+import Foundation
 
 public struct UserProfile: Equatable {
-    let userId: Int
+    let userId: String
     let name: String
     let school: School
     let scope: UserScope
@@ -27,7 +28,7 @@ public struct UserProfile: Equatable {
 
 extension UserProfile {
     static let dummy = UserProfile(
-        userId: .random(in: 0...1000),
+        userId: UUID().uuidString,
         name: ["김성훈", "최형우", "김상은", "남화진인"].randomElement() ?? "",
         school: .allCases.randomElement() ?? .dsm,
         scope: .allCases.randomElement() ?? .graduate,

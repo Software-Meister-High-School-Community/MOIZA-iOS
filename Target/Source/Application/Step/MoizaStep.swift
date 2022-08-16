@@ -54,10 +54,10 @@ enum MoizaStep: Step{
     // Common
     case sortIsRequired(_ options: [SortOption], initial: (PostType, SortType), onComplete: ((PostType, SortType, Major) -> Void))
     case majorSelectIsRequired
-    case postDetailIsRequired(Int)
+    case postDetailIsRequired(String)
     case postDetailImageListIsRequired
     case searchIsRequired
-    case searchResultIsRequired
+    case searchResultIsRequired(keyword: String)
     
     // Home
     
