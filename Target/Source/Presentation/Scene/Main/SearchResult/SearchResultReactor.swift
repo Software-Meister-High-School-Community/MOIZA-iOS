@@ -13,17 +13,23 @@ final class SearchResultReactor: Reactor, Stepper {
     enum Action {
         case viewDidLoad
         case postDidTap(String)
+        case sortButtonDidTap
+        case setSorting(Major, PostType, SortType)
     }
     enum Mutation {
         case setKeyword(String)
         case setPosts([PostList])
         case setUsers([SearchUserList])
         case appendPosts([PostList])
+        case setSorting(Major, PostType, SortType)
     }
     struct State {
         var keyword: String
         var posts: [PostList]
         var users: [SearchUserList]
+        var major: Major
+        var postType: PostType
+        var sortType: SortType
     }
     let initialState: State
     
@@ -32,7 +38,10 @@ final class SearchResultReactor: Reactor, Stepper {
         initialState = State(
             keyword: keyword,
             posts: [],
-            users: []
+            users: [],
+            major: UserDefaultsLocal.shared.major,
+            postType: .all,
+            sortType: .latest
         )
     }
     
@@ -46,6 +55,12 @@ extension SearchResultReactor {
             return viewDidLoad()
         case let .postDidTap(id):
             steps.accept(MoizaStep.postDetailIsRequired(id))
+        case .sortButtonDidTap:
+            steps.accept(MoizaStep.sortIsRequired([.major, .postType, .sortType], initial: (PostType.all, SortType.latest), onComplete: { [weak self] post, sort, major in
+                self?.action.onNext(.setSorting(major, post, sort))
+            }))
+        case let .setSorting(major, post, sort):
+            return .just(.setSorting(major, post, sort))
         }
         return .empty()
     }
@@ -65,6 +80,10 @@ extension SearchResultReactor {
             newState.users = users
         case let .appendPosts(posts):
             newState.posts.append(contentsOf: posts)
+        case let .setSorting(major, post, sort):
+            newState.major = major
+            newState.postType = post
+            newState.sortType = sort
         }
         
         return newState
