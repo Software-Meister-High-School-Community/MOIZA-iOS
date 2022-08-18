@@ -19,19 +19,22 @@ final class AlarmReactor: Reactor, Stepper {
     
     // MARK: - Reactor
     enum Action {
-        
+        case onAppear
     }
     enum Mutation {
         
     }
     struct State {
-        
+        var pinnedNotice: NoticeList?
+        var notificationList: [NotificationList]
     }
     let initialState: State
     
     // MARK: - Init
     init() {
-        initialState = State()
+        initialState = State(
+            notificationList: []
+        )
     }
     
 }
@@ -40,7 +43,8 @@ final class AlarmReactor: Reactor, Stepper {
 extension AlarmReactor {
     func mutate(action: Action) -> Observable<Mutation> {
         switch action {
-            
+        case .onAppear:
+            return onAppear()
         }
         return .empty()
     }
@@ -61,5 +65,7 @@ extension AlarmReactor {
 
 // MARK: - Method
 private extension AlarmReactor {
-    
+    func onAppear() -> Observable<Mutation> {
+        return .empty()
+    }
 }
