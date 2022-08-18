@@ -56,7 +56,7 @@ extension SearchResultReactor {
         case let .postDidTap(id):
             steps.accept(MoizaStep.postDetailIsRequired(id))
         case .sortButtonDidTap:
-            steps.accept(MoizaStep.sortIsRequired([.major, .postType, .sortType], initial: (PostType.all, SortType.latest), onComplete: { [weak self] post, sort, major in
+            steps.accept(MoizaStep.sortIsRequired([.major, .postType, .sortType], initial: (currentState.postType, currentState.sortType), onComplete: { [weak self] post, sort, major in
                 self?.action.onNext(.setSorting(major, post, sort))
             }))
         case let .setSorting(major, post, sort):

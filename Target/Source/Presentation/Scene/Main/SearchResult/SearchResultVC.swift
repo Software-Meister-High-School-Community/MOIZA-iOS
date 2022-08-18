@@ -77,6 +77,9 @@ final class SearchResultVC: baseVC<SearchResultReactor> {
     override func configureVC() {
         view.backgroundColor = MOIZAAsset.moizaGray2.color
     }
+    override func darkConfigure() {
+        view.backgroundColor = MOIZAAsset.moizaDark1.color
+    }
     override func configureNavigation() {
         self.navigationItem.configBack()
     }

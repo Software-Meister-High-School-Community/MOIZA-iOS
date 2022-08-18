@@ -61,6 +61,9 @@ final class UserCell: baseCollectionViewCell<SearchUserList> {
         backgroundColor = MOIZAAsset.moizaGray1.color
         layer.cornerRadius = 11
     }
+    override func darkConfigure() {
+        backgroundColor = MOIZAAsset.moizaDark2.color
+    }
     
     override func bind(_ model: SearchUserList) {
         userProfileImageView.kf.setImage(with: URL(string: model.profileImageUrl))
