@@ -2,6 +2,8 @@ import PinLayout
 import FlexLayout
 import UIKit
 import Then
+import RxSwift
+import RxDataSources
 
 final class AlarmVC: baseVC<AlarmReactor> {
     // MARK: - Metric
@@ -34,7 +36,10 @@ final class AlarmVC: baseVC<AlarmReactor> {
         $0.font = Font.categoryFont
         $0.textColor = Color.cateogryTextColor
     }
-    private let notificationTableView = UITableView()
+    private let notificationTableView = UITableView().then {
+        $0.register(NotificationCell.self, forCellReuseIdentifier: NotificationCell.reusableID)
+        $0.rowHeight = UITableView.automaticDimension
+    }
     
     override func addView() {
         view.addSubViews(rootContainer)
@@ -61,5 +66,38 @@ final class AlarmVC: baseVC<AlarmReactor> {
     }
     override func darkConfigure() {
         view.backgroundColor = MOIZAAsset.moizaDark1.color
+    }
+    
+    // MARK: - Reactor
+    override func bindAction(reactor: AlarmReactor) {
+        self.rx.viewWillAppear
+            .map { _ in Reactor.Action.onAppear }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+    }
+    
+    override func bindState(reactor: AlarmReactor) {
+        let sharedState = reactor.state.share(replay: 1).observe(on: MainScheduler.asyncInstance)
+        
+        let notiDS = RxTableViewSectionedReloadDataSource<NotificationSection> { _, tv, ip, item in
+            guard let cell = tv.dequeueReusableCell(withIdentifier: NotificationCell.reusableID, for: ip) as? NotificationCell else { return .init() }
+            cell.model = item
+            return cell
+        }
+        notiDS.titleForHeaderInSection = { ds, index in
+            ds.sectionModels[index].date
+        }
+        
+        sharedState
+            .map(\.notificationList)
+            .map { dict in
+                let list = dict.keys.map { NotificationSection.init(items: dict[$0] ?? [], date: $0) }
+                return list.sorted { lhs, rhs in
+                    lhs.date > rhs.date
+                }
+            }
+            .bind(to: notificationTableView.rx.items(dataSource: notiDS))
+            .disposed(by: disposeBag)
+            
     }
 }

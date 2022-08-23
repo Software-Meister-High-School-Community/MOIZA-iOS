@@ -22,18 +22,18 @@ final class AlarmReactor: Reactor, Stepper {
         case onAppear
     }
     enum Mutation {
-        
+        case setNotifications([NotificationList])
     }
     struct State {
         var pinnedNotice: NoticeList?
-        var notificationList: [NotificationList]
+        var notificationList: [String: [NotificationList]]
     }
     let initialState: State
     
     // MARK: - Init
     init() {
         initialState = State(
-            notificationList: []
+            notificationList: [:]
         )
     }
     
@@ -56,7 +56,12 @@ extension AlarmReactor {
         var newState = state
         
         switch mutation {
-            
+        case let .setNotifications(list):
+            list.forEach { noti in
+                let title = "\(noti.createdAt.year)/\(noti.createdAt.month)/\(noti.createdAt.day)"
+                if newState.notificationList[title] == nil { newState.notificationList[title] = [] }
+                newState.notificationList[title]?.append(noti)
+            }
         }
         
         return newState
@@ -66,6 +71,8 @@ extension AlarmReactor {
 // MARK: - Method
 private extension AlarmReactor {
     func onAppear() -> Observable<Mutation> {
-        return .empty()
+        return .concat([
+            .just(.setNotifications([.dummy, .dummy, .dummy]))
+        ])
     }
 }
