@@ -11,7 +11,7 @@ import RxCocoa
 import PinLayout
 import FlexLayout
 
-final class OnBoardingVC: baseVC<OnBoardingReactor>{
+final class OnBoardingVC: BaseVC<OnBoardingReactor>{
     // MARK: - Properties
     private let logoImageView = UIImageView().then {
         $0.image = MOIZAAsset.moizaLogo.image

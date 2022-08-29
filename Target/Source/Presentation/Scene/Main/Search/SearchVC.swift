@@ -7,7 +7,7 @@ import RxSwift
 import RxCocoa
 import RxDataSources
 
-final class SearchVC: baseVC<SearchReactor> {
+final class SearchVC: BaseVC<SearchReactor> {
     // MARK: - Metrict
     enum Metric {
         static let marginHorizontal: CGFloat = 16

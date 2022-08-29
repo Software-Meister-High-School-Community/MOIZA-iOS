@@ -14,7 +14,7 @@ import RxViewController
 import PinLayout
 import FlexLayout
 
-final class SignInVC: baseVC<SignInReactor>{
+final class SignInVC: BaseVC<SignInReactor>{
     
     private let mainContainer = UIView()
     

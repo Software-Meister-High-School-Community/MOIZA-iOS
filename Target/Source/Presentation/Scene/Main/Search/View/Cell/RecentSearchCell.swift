@@ -9,7 +9,7 @@ protocol RecentSearchCellDelegate: AnyObject {
     func removeButtonDidTap(id: String)
 }
 
-final class RecentSearchCell: baseTableViewCell<RecentSearch> {
+final class RecentSearchCell: BaseTableViewCell<RecentSearch> {
     // MARK: - Metric
     enum Metric {
         

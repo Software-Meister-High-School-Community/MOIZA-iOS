@@ -6,7 +6,7 @@ import RxViewController
 import PinLayout
 import FlexLayout
 
-final class MyPageFollowerVC: baseVC<MyFollowReactor>{
+final class MyPageFollowerVC: BaseVC<MyFollowReactor>{
     // MARK: - Metric
     enum Metric {
         static let marginHorizontal: CGFloat = 16

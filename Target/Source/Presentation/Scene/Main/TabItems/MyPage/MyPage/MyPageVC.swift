@@ -8,7 +8,7 @@ import RxCocoa
 import FlexLayout
 import Then
 
-final class MyPageVC: baseVC<MyPageReactor> {
+final class MyPageVC: BaseVC<MyPageReactor> {
     // MARK: - Metric
     enum Metric {
         static let marginHorizontal: CGFloat = 16

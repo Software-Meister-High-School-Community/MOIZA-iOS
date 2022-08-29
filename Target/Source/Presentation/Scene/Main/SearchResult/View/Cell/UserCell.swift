@@ -4,7 +4,7 @@ import FlexLayout
 import Kingfisher
 import Then
 
-final class UserCell: baseCollectionViewCell<SearchUserList> {
+final class UserCell: BaseCollectionViewCell<SearchUserList> {
     // MARK: - Metric
     enum Metric {
         

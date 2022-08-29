@@ -5,7 +5,7 @@ import FlexLayout
 import RxSwift
 import RxCocoa
 
-final class SearchResultVC: baseVC<SearchResultReactor> {
+final class SearchResultVC: BaseVC<SearchResultReactor> {
     // MARK: - Metric
     enum Metric {
         static let marginHorizontal: CGFloat = 16

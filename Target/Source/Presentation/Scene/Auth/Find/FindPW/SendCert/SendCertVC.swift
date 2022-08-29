@@ -15,7 +15,7 @@ import RxFlow
 import RxSwift
 import ReactorKit
 
-final class SendCertVC: baseVC<SendCertReactor> {
+final class SendCertVC: BaseVC<SendCertReactor> {
     // MARK: - Properties
     private let rootContainer = UIView()
     private let descriptionLabel = UILabel().then {

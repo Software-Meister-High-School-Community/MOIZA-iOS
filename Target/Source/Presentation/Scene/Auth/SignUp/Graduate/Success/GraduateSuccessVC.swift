@@ -11,7 +11,7 @@ import PinLayout
 import FlexLayout
 import RxCocoa
 
-final class GraduateSuccessVC: baseVC<GraduateSuccessReactor> {
+final class GraduateSuccessVC: BaseVC<GraduateSuccessReactor> {
     // MARK: - Properties
     private let rootContainer = UIView()
     private let paperPlaneImageView = UIImageView().then {

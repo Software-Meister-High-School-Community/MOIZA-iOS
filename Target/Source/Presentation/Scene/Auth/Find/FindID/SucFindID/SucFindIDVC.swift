@@ -15,7 +15,7 @@ import RxKeyboard
 import Then
 import ReactorKit
 
-final class SucFindIDVC: baseVC<SucFindIDReactor> {
+final class SucFindIDVC: BaseVC<SucFindIDReactor> {
     // MARK: - Properties
     private let rootContainer = UIView()
     private let nameLabel = UILabel().then {

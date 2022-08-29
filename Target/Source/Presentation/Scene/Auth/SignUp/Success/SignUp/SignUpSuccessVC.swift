@@ -11,7 +11,7 @@ import PinLayout
 import FlexLayout
 import RxCocoa
 
-final class SignUpSuccessVC: baseVC<SignUpSuccessReactor> {
+final class SignUpSuccessVC: BaseVC<SignUpSuccessReactor> {
     // MARK: - Properties
     private let rootContainer = UIView()
     private let checkMarkImageView = UIImageView().then {

@@ -2,7 +2,7 @@ import UIKit
 import FlexLayout
 import RxSwift
 
-final class RecommendCell: baseCollectionViewCell<PostList> {
+final class RecommendCell: BaseCollectionViewCell<PostList> {
     // MARK: - Properties
     private let iconImageView = UIImageView().then {
         $0.contentMode = .scaleAspectFit

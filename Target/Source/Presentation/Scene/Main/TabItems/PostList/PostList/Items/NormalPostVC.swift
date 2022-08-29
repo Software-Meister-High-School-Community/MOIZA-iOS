@@ -5,7 +5,7 @@ import RxSwift
 import RxCocoa
 import RxDataSources
 
-final class NormalPostVC: baseVC<PostListReactor> {
+final class NormalPostVC: BaseVC<PostListReactor> {
     // MARK: - Metric
     enum Metric {
         static let marginHorizontal: CGFloat = 16

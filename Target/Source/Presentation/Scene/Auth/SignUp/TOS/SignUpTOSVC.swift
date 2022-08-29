@@ -15,7 +15,7 @@ import RxViewController
 import PinLayout
 import FlexLayout
 
-final class SignUpTOSVC: baseVC<SignUpTOSReactor>{
+final class SignUpTOSVC: BaseVC<SignUpTOSReactor>{
     // MARK: - Properties
     private let progressBar = SignUpProgress()
     private let titleLabel = SubTitleLabel(title: "약관동의")

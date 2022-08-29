@@ -11,7 +11,7 @@ import RxSwift
 import Then
 import PinLayout
 
-final class GenderCell: baseCollectionViewCell<Gender>{
+final class GenderCell: BaseCollectionViewCell<Gender>{
     // MARK: - Properties
     private let titleLabel = UILabel().then {
         $0.font = UIFont(font: MOIZAFontFamily.Roboto.regular, size: 16)

@@ -4,7 +4,7 @@ import FlexLayout
 import RxSwift
 import RxDataSources
 
-final class AllPostVC: baseVC<PostListReactor> {
+final class AllPostVC: BaseVC<PostListReactor> {
     // MARK: - Metric
     enum Metric {
         static let marginHorizontal: CGFloat = 16

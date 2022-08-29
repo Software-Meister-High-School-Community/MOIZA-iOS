@@ -15,7 +15,7 @@ protocol TOSCellDelegate: AnyObject {
     func detailButtonDidTap(type: TOSType)
 }
 
-final class TOSCell: baseTableViewCell<TOSModel>{
+final class TOSCell: BaseTableViewCell<TOSModel>{
     // MARK: - Properties
     weak var delegate: TOSCellDelegate?
     private let checkButton = M13Checkbox().then {

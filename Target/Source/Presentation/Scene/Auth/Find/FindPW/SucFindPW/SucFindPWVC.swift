@@ -15,7 +15,7 @@ import RxKeyboard
 import Then
 import ReactorKit
 
-final class SucFindPWVC: baseVC<SucFindPWReactor> {
+final class SucFindPWVC: BaseVC<SucFindPWReactor> {
     // MARK: - Properties
     private let rootContainer = UIView()
     private let checkMarkImageView = UIImageView().then {

@@ -15,7 +15,7 @@ import RxSwift
 import UniformTypeIdentifiers
 import Photos
 
-final class GraduateFileVC: baseVC<GraduateFileReactor> {
+final class GraduateFileVC: BaseVC<GraduateFileReactor> {
     // MARK: - Properties
     private let progressBar = SignUpProgress().then {
         $0.numberOfPoints = 2

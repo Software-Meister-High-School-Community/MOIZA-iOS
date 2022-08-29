@@ -1,6 +1,6 @@
 import UIKit
 
-class baseHeaderFooterView<T>: UITableViewHeaderFooterView {
+class BaseHeaderFooterView<T>: UITableViewHeaderFooterView {
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
         addView()

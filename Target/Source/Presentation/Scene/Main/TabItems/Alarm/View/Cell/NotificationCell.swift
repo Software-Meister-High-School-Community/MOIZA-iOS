@@ -3,7 +3,7 @@ import PinLayout
 import FlexLayout
 import Then
 
-final class NotificationCell: baseTableViewCell<NotificationList> {
+final class NotificationCell: BaseTableViewCell<NotificationList> {
     private let rootContainer = UIView()
     private let notificationLabel = UILabel().then {
         $0.font = UIFont(font: MOIZAFontFamily.Roboto.regular, size: 12)

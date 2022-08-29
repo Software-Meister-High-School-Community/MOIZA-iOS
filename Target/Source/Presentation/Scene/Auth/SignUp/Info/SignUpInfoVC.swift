@@ -19,7 +19,7 @@ import RxDataSources
 import RxSwift
 import RxKeyboard
 
-final class SignUpInfoVC: baseVC<SignUpInfoReactor>{
+final class SignUpInfoVC: BaseVC<SignUpInfoReactor>{
     // MARK: - Metric
     enum Fonts {
         static let regular14 = UIFont(font: MOIZAFontFamily.Roboto.regular, size: 14)

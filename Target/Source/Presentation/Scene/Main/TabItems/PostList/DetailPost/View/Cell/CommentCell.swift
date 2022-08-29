@@ -5,7 +5,7 @@ import Kingfisher
 import BTImageView
 import Then
 
-final class CommentCell: baseTableViewCell<Comment> {
+final class CommentCell: BaseTableViewCell<Comment> {
     // MARK: - Metric
     enum Metric {
         static let marginHorizontal: CGFloat = 16

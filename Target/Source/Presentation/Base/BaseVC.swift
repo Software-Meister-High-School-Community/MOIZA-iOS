@@ -10,7 +10,7 @@ import ReactorKit
 import Then
 import SnapKit
 
-class baseVC<T: Reactor>: UIViewController{
+class BaseVC<T: Reactor>: UIViewController{
     let bound = UIScreen.main.bounds
     var disposeBag: DisposeBag = .init()
     
@@ -56,7 +56,7 @@ class baseVC<T: Reactor>: UIViewController{
     func bindState(reactor: T){}
 }
 
-extension baseVC: View{
+extension BaseVC: View{
     func bind(reactor: T) {
         bindView(reactor: reactor)
         bindAction(reactor: reactor)

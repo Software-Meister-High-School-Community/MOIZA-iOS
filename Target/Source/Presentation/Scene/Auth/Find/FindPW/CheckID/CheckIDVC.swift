@@ -14,7 +14,7 @@ import FlexLayout
 import PinLayout
 import UIKit
 
-final class CheckIDVC: baseVC<CheckIDReactor> {
+final class CheckIDVC: BaseVC<CheckIDReactor> {
     // MARK: - Properties
     private let rootContainer = UIView()
     private let titleLabel = UILabel().then {

@@ -5,7 +5,7 @@ import FlexLayout
 import RxSwift
 import Kingfisher
 
-final class FollowingCell: baseTableViewCell<FollowingUserList> {
+final class FollowingCell: BaseTableViewCell<FollowingUserList> {
     
     private let view = UIView().then {
         $0.backgroundColor = .clear

@@ -10,7 +10,7 @@ import UIKit
 import PinLayout
 import ViewAnimator
 
-final class CategoryVC: baseVC<CategoryReactor> {
+final class CategoryVC: BaseVC<CategoryReactor> {
     // MARK: - Metric
     enum Metric {
         static let betweenSpacing: CGFloat = 11

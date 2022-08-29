@@ -12,7 +12,7 @@ import PinLayout
 import RxCocoa
 import FlexibleSteppedProgressBar
 
-final class GraduateAuthVC: baseVC<GraduateAuthReactor> {
+final class GraduateAuthVC: BaseVC<GraduateAuthReactor> {
     // MARK: - Metric
     
     // MARK: - Properties

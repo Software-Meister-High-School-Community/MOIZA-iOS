@@ -5,7 +5,7 @@ import PanModal
 import RxSwift
 import RxCocoa
 
-final class SortModalVC: baseVC<SortModalReactor> {
+final class SortModalVC: BaseVC<SortModalReactor> {
     // MARK: - Properties
     private let options: [SortOption]
     private let rootContainer = UIView()

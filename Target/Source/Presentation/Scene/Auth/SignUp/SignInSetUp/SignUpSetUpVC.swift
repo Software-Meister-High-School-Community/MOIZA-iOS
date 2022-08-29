@@ -14,7 +14,7 @@ import UIKit
 import FlexLayout
 import RxKeyboard
 
-final class SignUpSetUpVC: baseVC<SignUpSetUpReactor>{
+final class SignUpSetUpVC: BaseVC<SignUpSetUpReactor>{
     // MARK: - Metric
     enum Metric {
         static let spacingMargin: CGFloat = 40

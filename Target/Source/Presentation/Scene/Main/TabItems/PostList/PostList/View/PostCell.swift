@@ -3,7 +3,7 @@ import Then
 import FlexLayout
 import RxSwift
 
-final class PostCell: baseTableViewCell<PostList> {
+final class PostCell: BaseTableViewCell<PostList> {
     // MARK: - Properties
     private let view = UIView()
     private let iconImageView = UIImageView()

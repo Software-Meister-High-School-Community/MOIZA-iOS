@@ -5,7 +5,7 @@ import Then
 import RxSwift
 import RxDataSources
 
-final class AlarmVC: baseVC<AlarmReactor> {
+final class AlarmVC: BaseVC<AlarmReactor> {
     // MARK: - Metric
     enum Metric {
         static let marginHorizontal: CGFloat = 16

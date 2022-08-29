@@ -14,7 +14,7 @@ import FlexLayout
 import PinLayout
 import UIKit
 
-final class NewPasswordVC: baseVC<NewPasswordReactor> {
+final class NewPasswordVC: BaseVC<NewPasswordReactor> {
     // MARK: - Metric
     enum Metric {
         static let spacingMargin: CGFloat = 40

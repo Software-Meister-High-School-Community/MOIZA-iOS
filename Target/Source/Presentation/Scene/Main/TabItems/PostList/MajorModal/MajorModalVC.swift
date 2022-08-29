@@ -4,7 +4,7 @@ import PinLayout
 import RxDataSources
 import RxSwift
 
-final class MajorModalVC: baseVC<MajorModalReactor> {
+final class MajorModalVC: BaseVC<MajorModalReactor> {
     // MARK: - Properties
     private let closeButton = UIButton().then {
         $0.setImage(.init(systemName: "xmark")?.tintColor(MOIZAAsset.moizaGray6.color), for: .normal)

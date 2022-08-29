@@ -2,7 +2,7 @@ import UIKit
 import PinLayout
 import RxSwift
 
-final class MajorCell: baseTableViewCell<Major> {
+final class MajorCell: BaseTableViewCell<Major> {
     // MARK: - Properties
     private let titleLabel = UILabel().then {
         $0.textColor = MOIZAAsset.moizaGray5.color

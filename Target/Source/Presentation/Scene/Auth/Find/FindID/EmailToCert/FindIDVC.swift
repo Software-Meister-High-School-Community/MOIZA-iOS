@@ -15,7 +15,7 @@ import RxCocoa
 import RxKeyboard
 import Then
 
-final class FindIDVC: baseVC<FindIDReactor> {
+final class FindIDVC: BaseVC<FindIDReactor> {
     // MARK: - Properties
     private let rootContainer = UIView()
     private let titleLabel = UILabel().then {

@@ -6,6 +6,6 @@
 //  Copyright © 2022 com.connect. All rights reserved.
 //
 
-final class HomeVC: baseVC<HomeReactor> {
+final class HomeVC: BaseVC<HomeReactor> {
     
 }

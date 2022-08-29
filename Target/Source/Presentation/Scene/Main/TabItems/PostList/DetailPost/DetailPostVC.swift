@@ -5,7 +5,7 @@ import RxSwift
 import RxDataSources
 import BTImageView
 
-final class DetailPostVC: baseVC<DetailPostReactor> {
+final class DetailPostVC: BaseVC<DetailPostReactor> {
     // MARK: - Metric
     enum Metric {
         static let marginHorizontal: CGFloat = 16

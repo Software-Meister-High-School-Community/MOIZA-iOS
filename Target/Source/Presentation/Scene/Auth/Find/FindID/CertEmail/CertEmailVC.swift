@@ -14,7 +14,7 @@ import RxCocoa
 import RxKeyboard
 import Then
 
-final class CertEmailVC: baseVC<CertEmailReactor> {
+final class CertEmailVC: BaseVC<CertEmailReactor> {
     // MARK: - Properties
     private let rootContainer = UIView()
     private let titleLabel = UILabel().then {
