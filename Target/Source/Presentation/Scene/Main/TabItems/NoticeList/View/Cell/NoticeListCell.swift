@@ -50,6 +50,10 @@ final class NoticeListCell: BaseTableViewCell<NoticeList> {
         self.backgroundColor = .clear
         selectionStyle = .none
     }
+    override func darkConfigure() {
+        rootContainer.backgroundColor = MOIZAAsset.moizaDark2.color
+        dateLabel.textColor = MOIZAAsset.moizaDark4.color
+    }
     
     override func bind(_ model: NoticeList) {
         titleLabel.text = model.title

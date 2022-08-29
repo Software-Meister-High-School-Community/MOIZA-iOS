@@ -24,6 +24,9 @@ final class NoticeListVC: BaseVC<NoticeListReactor> {
         self.navigationItem.configBack()
         self.navigationItem.setTitle(title: "공지사항")
     }
+    override func darkConfigure() {
+        noticeListTableView.backgroundColor = MOIZAAsset.moizaDark1.color
+    }
     
     // MARK: - Reactor
     override func bindAction(reactor: NoticeListReactor) {
