@@ -67,7 +67,7 @@ private extension MyFollowTabVC{
         let sharedState = reactor.state.share(replay: 2).observe(on: MainScheduler.asyncInstance)
         
         sharedState
-            .map(\.FollowerItems)
+            .map(\.followerItems)
             .map(\.count)
             .bind(with: self) { owner, count in
                 
@@ -76,7 +76,7 @@ private extension MyFollowTabVC{
             .disposed(by: disposeBag)
         
         sharedState
-            .map(\.FollowingItems)
+            .map(\.followingItems)
             .map(\.count)
             .bind(with: self) { owner, count in
                 

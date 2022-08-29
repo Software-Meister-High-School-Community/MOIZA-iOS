@@ -5,7 +5,7 @@ extension UINavigationItem{
         let lb = UILabel()
         lb.text = title
         lb.textColor = MOIZAAsset.moizaGray6.color
-        lb.font = UIFont(font: MOIZAFontFamily.Roboto.regular, size: 16)
+        lb.font = UIFont(font: MOIZAFontFamily.Roboto.regular, size: 14)
         self.titleView = lb
     }
     func setTitleWithSubTitle(title: String, subtitle: String) {

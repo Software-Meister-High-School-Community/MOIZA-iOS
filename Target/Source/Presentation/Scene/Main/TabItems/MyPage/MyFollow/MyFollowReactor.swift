@@ -19,15 +19,15 @@ final class MyFollowReactor: Reactor, Stepper {
         case setFollowingList([FollowingUserList])
     }
     struct State {
-        var FollowerItems: [FollowerUserList]
-        var FollowingItems: [FollowingUserList]
+        var followerItems: [FollowerUserList]
+        var followingItems: [FollowingUserList]
     }
     
     let initialState: State
     
     // MARK: - Init
     init() {
-        initialState = State(FollowerItems: [], FollowingItems: [])
+        initialState = State(followerItems: [], followingItems: [])
     }
     
 }
@@ -48,9 +48,9 @@ extension MyFollowReactor {
         var newState = state
         switch mutation {
         case let .setFollowerList(followers):
-            newState.FollowerItems = followers
+            newState.followerItems = followers
         case let .setFollowingList(followings):
-            newState.FollowingItems = followings
+            newState.followingItems = followings
         }
         return newState
     }

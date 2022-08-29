@@ -11,19 +11,21 @@ final class NoticeListReactor: Reactor, Stepper {
     
     // MARK: - Reactor
     enum Action {
-        
+        case viewDidLoad
     }
     enum Mutation {
-        
+        case setNoticeList([NoticeList])
     }
     struct State {
-        
+        var noticeList: [NoticeList]
     }
     let initialState: State
     
     // MARK: - Init
     init() {
-        initialState = State()
+        initialState = State(
+            noticeList: []
+        )
     }
     
 }
@@ -32,7 +34,8 @@ final class NoticeListReactor: Reactor, Stepper {
 extension NoticeListReactor {
     func mutate(action: Action) -> Observable<Mutation> {
         switch action {
-            
+        case .viewDidLoad:
+            return viewDidLoad()
         }
         return .empty()
     }
@@ -44,7 +47,8 @@ extension NoticeListReactor {
         var newState = state
         
         switch mutation {
-            
+        case let .setNoticeList(list):
+            newState.noticeList = list
         }
         
         return newState
@@ -53,5 +57,7 @@ extension NoticeListReactor {
 
 // MARK: - Method
 private extension NoticeListReactor {
-    
+    func viewDidLoad() -> Observable<Mutation> {
+        return .just(.setNoticeList([.dummy, .dummy, .dummy, .dummy]))
+    }
 }

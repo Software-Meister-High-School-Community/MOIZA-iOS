@@ -63,6 +63,7 @@ final class AlarmVC: BaseVC<AlarmReactor> {
     }
     override func configureVC() {
         view.backgroundColor = MOIZAAsset.moizaGray2.color
+        self.navigationItem.configBack()
     }
     override func darkConfigure() {
         view.backgroundColor = MOIZAAsset.moizaDark1.color
@@ -75,7 +76,12 @@ final class AlarmVC: BaseVC<AlarmReactor> {
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
     }
-    
+    override func bindView(reactor: AlarmReactor) {
+        allNoticeListButton.rx.tap
+            .map { Reactor.Action.noticeListButtonDidTap }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+    }
     override func bindState(reactor: AlarmReactor) {
         let sharedState = reactor.state.share(replay: 1).observe(on: MainScheduler.asyncInstance)
         

@@ -103,7 +103,10 @@ extension Container{
         }
     }
     private func registerReactor(){
-        autoregister(OnBoardingReactor.self, initializer: OnBoardingReactor.init)
+        // MARK: - Auth
+        register(OnBoardingReactor.self) { r in
+            return OnBoardingReactor()
+        }
         autoregister(SignUpTOSReactor.self, initializer: SignUpTOSReactor.init)
         autoregister(SignUpInfoReactor.self, initializer: SignUpInfoReactor.init)
         autoregister(SignUpSetUpReactor.self, initializer: SignUpSetUpReactor.init)
@@ -112,14 +115,6 @@ extension Container{
         autoregister(GraduateAuthReactor.self, initializer: GraduateAuthReactor.init)
         autoregister(GraduateFileReactor.self, initializer: GraduateFileReactor.init)
         autoregister(GraduateSuccessReactor.self, initializer: GraduateSuccessReactor.init)
-        autoregister(AlarmReactor.self, initializer: AlarmReactor.init)
-        autoregister(HomeReactor.self, initializer: HomeReactor.init)
-        autoregister(MyPageReactor.self, initializer: MyPageReactor.init)
-        autoregister(CategoryReactor.self, initializer: CategoryReactor.init)
-        autoregister(PostBoardReactor.self, initializer: PostBoardReactor.init)
-        
-        autoregister(PostListReactor.self, initializer: PostListReactor.init)
-        autoregister(MyFollowReactor.self, initializer: MyFollowReactor.init)
         autoregister(FindIDReactor.self, initializer: FindIDReactor.init)
         autoregister(CertEmailReactor.self, initializer: CertEmailReactor.init)
         autoregister(SucFindIDReactor.self, initializer: SucFindIDReactor.init)
@@ -127,6 +122,19 @@ extension Container{
         autoregister(SendCertReactor.self, initializer: SendCertReactor.init)
         autoregister(NewPasswordReactor.self, initializer: NewPasswordReactor.init)
         autoregister(SucFindPWReactor.self, initializer: SucFindPWReactor.init)
+        
+        // MARK: - Tab
+        autoregister(AlarmReactor.self, initializer: AlarmReactor.init)
+        register(NoticeListReactor.self) { r in
+            return NoticeListReactor()
+        }
+        autoregister(HomeReactor.self, initializer: HomeReactor.init)
+        autoregister(MyPageReactor.self, initializer: MyPageReactor.init)
+        autoregister(CategoryReactor.self, initializer: CategoryReactor.init)
+        autoregister(PostBoardReactor.self, initializer: PostBoardReactor.init)
+        
+        autoregister(PostListReactor.self, initializer: PostListReactor.init)
+        autoregister(MyFollowReactor.self, initializer: MyFollowReactor.init)
     }
     private func registerStepper(){
         autoregister(OnBoardingStepper.self, initializer: OnBoardingStepper.init)

@@ -214,7 +214,6 @@ final class MyPageVC: BaseVC<MyPageReactor> {
         self.navigationItem.configBack()
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
-        self.navigationController?.navigationBar.isTranslucent = false
         self.navigationItem.setRightBarButtonItems([moreOptionButton], animated: true)
     }
     override func darkConfigure() {
