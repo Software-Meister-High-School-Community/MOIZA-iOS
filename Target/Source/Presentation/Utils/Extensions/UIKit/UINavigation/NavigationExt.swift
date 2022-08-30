@@ -5,14 +5,14 @@ extension UINavigationItem{
         let lb = UILabel()
         lb.text = title
         lb.textColor = MOIZAAsset.moizaGray6.color
-        lb.font = UIFont(font: MOIZAFontFamily.Roboto.regular, size: 16)
+        lb.font = UIFont(font: MOIZAFontFamily.Roboto.regular, size: 14)
         self.titleView = lb
     }
     func setTitleWithSubTitle(title: String, subtitle: String) {
         let lb = UILabel()
         let str = NSMutableAttributedString(string: "\(title)\n\(subtitle)")
-        str.setFontForText(textToFind: title, withFont: UIFont(font: MOIZAFontFamily.Roboto.bold, size: 12) ?? .init())
-        str.setFontForText(textToFind: subtitle, withFont: UIFont(font: MOIZAFontFamily.Roboto.regular, size: 12) ?? .init())
+        str.insetFontForText(textToFind: title, withFont: UIFont(font: MOIZAFontFamily.Roboto.bold, size: 12) ?? .init())
+        str.insetFontForText(textToFind: subtitle, withFont: UIFont(font: MOIZAFontFamily.Roboto.regular, size: 12) ?? .init())
         lb.numberOfLines = 0
         lb.textAlignment = .center
         lb.textColor = MOIZAAsset.moizaGray6.color

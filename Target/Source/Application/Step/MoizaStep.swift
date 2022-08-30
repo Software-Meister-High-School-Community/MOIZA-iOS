@@ -52,17 +52,17 @@ enum MoizaStep: Step{
     case myPageIsRequired
     
     // Common
-    case sortIsRequired(_ options: [SortOption])
+    case sortIsRequired(_ options: [SortOption], initial: (PostType, SortType), onComplete: ((PostType, SortType, Major) -> Void))
     case majorSelectIsRequired
-    case postDetailIsRequired(Int)
+    case postDetailIsRequired(String)
     case postDetailImageListIsRequired
+    case searchIsRequired
+    case searchResultIsRequired(keyword: String)
     
     // Home
     
     // Posts
     case categoryDropdownIsRequired
-    case searchIsRequired
-    case searchResultIsRequired
     case postListIsRequired
     case postWriteIsRequired
     case temporarySavedPostIsRequired
@@ -73,7 +73,6 @@ enum MoizaStep: Step{
     
     // MyPage
     case followerIsRequired
-    case followingIsRequired
     case myPageModifyIsRequired
     case myPageIntroduceModifyIsRequired
     case myPageWebsiteAddIsRequired

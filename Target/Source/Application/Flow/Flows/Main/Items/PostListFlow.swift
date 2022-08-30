@@ -47,8 +47,12 @@ final class PostListFlow: Flow{
             return dismissVC()
         case let .postDetailIsRequired(id):
             return navigateToDetailPost(feedId: id)
-        case let .sortIsRequired(options):
-            return presentToSort(options)
+        case let .sortIsRequired(options, initial, onComplete):
+            return presentToSort(options, initial: initial, onComplete: onComplete)
+        case .searchIsRequired:
+            return navigateToSearch()
+        case let .searchResultIsRequired(keyword):
+            return navigateToSearchResult(keyword: keyword)
         default:
             return .none
         }
@@ -73,8 +77,8 @@ private extension PostListFlow{
         self.rootVC.presentPanModal(vc)
         return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: reactor))
     }
-    func presentToSort(_ options: [SortOption]) -> FlowContributors {
-        let reactor = SortModalReactor()
+    func presentToSort(_ options: [SortOption], initial: (PostType, SortType), onComplete: @escaping ((PostType, SortType, Major) -> Void)) -> FlowContributors {
+        let reactor = SortModalReactor(initial: initial, onComplete: onComplete)
         let vc = SortModalVC(options, reactor: reactor)
         self.rootVC.presentPanModal(vc)
         return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: reactor))
@@ -83,9 +87,21 @@ private extension PostListFlow{
         self.rootVC.visibleViewController?.dismiss(animated: true, completion: nil)
         return .none
     }
-    func navigateToDetailPost(feedId: Int) -> FlowContributors {
+    func navigateToDetailPost(feedId: String) -> FlowContributors {
         let reactor = DetailPostReactor(feedId: feedId)
         let vc = DetailPostVC(reactor: reactor)
+        self.rootVC.pushViewController(vc, animated: true)
+        return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: reactor))
+    }
+    func navigateToSearch() -> FlowContributors {
+        let reactor = SearchReactor()
+        let vc = SearchVC(reactor: reactor)
+        self.rootVC.pushViewController(vc, animated: true)
+        return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: reactor))
+    }
+    func navigateToSearchResult(keyword: String) -> FlowContributors {
+        let reactor = SearchResultReactor(keyword: keyword)
+        let vc = SearchResultVC(reactor: reactor)
         self.rootVC.pushViewController(vc, animated: true)
         return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: reactor))
     }

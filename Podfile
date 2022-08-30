@@ -29,6 +29,7 @@ def pods
   pod 'ViewAnimator', '~> 3.1.0'
   pod 'PanModal', '~> 1.2.7'
   pod 'Kingfisher', '~> 7.2.0'
+  pod 'BTImageView', '~> 1.1.5'
 
   # Network
   pod 'Moya/RxSwift', '~> 15.0.0'

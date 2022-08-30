@@ -1,5 +1,6 @@
 PODS:
   - Alamofire (5.5.0)
+  - BTImageView (1.1.5)
   - Differentiator (5.0.0)
   - Firebase/Core (8.12.1):
     - Firebase/CoreOnly
@@ -149,6 +150,7 @@ PODS:
   - WeakMapTable (1.2.0)
 
 DEPENDENCIES:
+  - BTImageView (~> 1.1.5)
   - Firebase/Core (~> 8.12.0)
   - Firebase/Messaging (~> 8.12.0)
   - FlexibleSteppedProgressBar (~> 0.7.2)
@@ -178,6 +180,7 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - Alamofire
+    - BTImageView
     - Differentiator
     - Firebase
     - FirebaseAnalytics
@@ -219,6 +222,7 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   Alamofire: 1c4fb5369c3fe93d2857c780d8bbe09f06f97e7c
+  BTImageView: 2ca963626a895e681da31f9be49918f7d8820673
   Differentiator: e8497ceab83c1b10ca233716d547b9af21b9344d
   Firebase: 580d09e8edafc3073ebf09c03fd42e4d80d35fe9
   FirebaseAnalytics: bd10d7706ba8d6e01ea2816f8fe9e9b881cb0918
@@ -258,6 +262,6 @@ SPEC CHECKSUMS:
   ViewAnimator: a9ceed80266e00fd435ec4fb99b2df64d580d0e4
   WeakMapTable: 05c694ce8439a7a9ebabb56187287a63c57673d6
 
-PODFILE CHECKSUM: 4299bae61f20c26a06ff9f3219e98b35be97e037
+PODFILE CHECKSUM: c63ba3c3acefbced497f18c4023a45536817a0be
 
 COCOAPODS: 1.11.2

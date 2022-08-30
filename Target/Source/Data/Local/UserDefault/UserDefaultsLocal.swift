@@ -3,8 +3,7 @@ import Foundation
 final class UserDefaultsLocal {
     enum forKeys {
         static let major = "major"
-        static let sort = "sort"
-        static let post = "post"
+        static let userId = "userid"
     }
     static let shared = UserDefaultsLocal()
     
@@ -20,22 +19,12 @@ final class UserDefaultsLocal {
             preferences.set(newValue.rawValue, forKey: forKeys.major)
         }
     }
-    
-    var sort: SortType {
+    var userID: String {
         get {
-            SortType(rawValue: preferences.string(forKey: forKeys.sort) ?? "") ?? .latest
+            preferences.string(forKey: forKeys.userId) ?? ""
         }
         set {
-            preferences.set(newValue.rawValue, forKey: forKeys.sort)
-        }
-    }
-    
-    var post: PostType {
-        get {
-            PostType(rawValue: preferences.string(forKey: forKeys.post) ?? "") ?? .all
-        }
-        set {
-            preferences.set(newValue.rawValue, forKey: forKeys.post)
+            preferences.set(newValue, forKey: forKeys.userId)
         }
     }
 }

@@ -38,6 +38,8 @@ final class AlarmFlow: Flow{
         switch step{
         case .alarmIsRequired:
             return coordinateToAlarm()
+        case .allNoticeListIsRequired:
+            return navigateToAllNotice()
         default:
             return .none
         }
@@ -49,5 +51,11 @@ private extension AlarmFlow{
     func coordinateToAlarm() -> FlowContributors {
         self.rootVC.setViewControllers([vc], animated: true)
         return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: vc.reactor ?? .init()))
+    }
+    func navigateToAllNotice() -> FlowContributors {
+        @Inject var reactor: NoticeListReactor!
+        let vc = NoticeListVC(reactor: reactor)
+        self.rootVC.pushViewController(vc, animated: true)
+        return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: reactor))
     }
 }

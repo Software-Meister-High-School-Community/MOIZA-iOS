@@ -14,7 +14,7 @@ import RxViewController
 import PinLayout
 import FlexLayout
 
-final class PostBoardVC: baseVC<PostBoardReactor>{
+final class PostBoardVC: BaseVC<PostBoardReactor>{
     
     private let mainContainer = UIView()
     private let numberOfDraftsButton = UIButton().then{
