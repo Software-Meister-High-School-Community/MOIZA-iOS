@@ -39,6 +39,8 @@ final class MyPageFlow: Flow{
             return navigateToFollow()
         case .dismiss:
             return dismissVC()
+        case .myPageModifyIsRequired:
+            return coordinateToModify()
         default:
             return .none
         }
@@ -66,5 +68,10 @@ private extension MyPageFlow{
     func dismissVC() -> FlowContributors {
         self.rootVC.visibleViewController?.dismiss(animated: true, completion: nil)
         return .none
+    }
+    func coordinateToModify() -> FlowContributors {
+        @Inject var vc: ModifyProfileVC
+        self.rootVC.setViewControllers([vc], animated: true)
+        return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: vc.reactor ?? .init()))
     }
 }

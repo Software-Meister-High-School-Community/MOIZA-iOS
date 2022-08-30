@@ -60,6 +60,9 @@ extension Container{
         register(PostBoardVC.self) { r in
             return PostBoardVC(reactor: r.resolve(PostBoardReactor.self))
         }
+        register(ModifyProfileVC.self) { r in
+            return ModifyProfileVC(reactor: r.resolve(ModifyProfileReactor.self))
+        }
         
         register(PostListTabVC.self) { r in
             let reactor = r.resolve(PostListReactor.self)
@@ -127,6 +130,7 @@ extension Container{
         autoregister(SendCertReactor.self, initializer: SendCertReactor.init)
         autoregister(NewPasswordReactor.self, initializer: NewPasswordReactor.init)
         autoregister(SucFindPWReactor.self, initializer: SucFindPWReactor.init)
+        autoregister(ModifyProfileReactor.self, initializer: ModifyProfileReactor.init)
     }
     private func registerStepper(){
         autoregister(OnBoardingStepper.self, initializer: OnBoardingStepper.init)
