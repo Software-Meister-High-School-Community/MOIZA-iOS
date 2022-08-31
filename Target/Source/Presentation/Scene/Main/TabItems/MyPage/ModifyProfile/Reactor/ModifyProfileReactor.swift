@@ -21,14 +21,12 @@ final class ModifyProfileReactor: Reactor, Stepper {
     
     // MARK: - Reactor
     enum Action {
-        case ellipsisButtonDidTap
         case followerButtonDidTap
         case followingButtonDidTap
         case updateFollower(Int)
         case updateFollwing(Int)
         case changeProfileButtonDidTap
-        case modifyButtonDidTap
-        case settingButtonDidTap
+        case introduceButtonDidTap
         case pagenation(
             contentHeight: CGFloat,
             contentOffsetY: CGFloat,
@@ -55,8 +53,6 @@ final class ModifyProfileReactor: Reactor, Stepper {
 extension ModifyProfileReactor {
     func mutate(action: Action) -> Observable<Mutation> {
         switch action {
-        case .ellipsisButtonDidTap:
-            return .empty()
         case .followerButtonDidTap:
             steps.accept(MoizaStep.followerIsRequired)
             return .empty()
@@ -70,11 +66,8 @@ extension ModifyProfileReactor {
         case .changeProfileButtonDidTap:
             steps.accept(MoizaStep.changeProfileIsRequired)
             return .empty()
-        case .modifyButtonDidTap:
-            steps.accept(MoizaStep.myPageModifyIsRequired)
-            return .empty()
-        case .settingButtonDidTap:
-            steps.accept(MoizaStep.myPageSettingIsRequired)
+        case .introduceButtonDidTap:
+            steps.accept(MoizaStep.myPageIntroduceModifyIsRequired)
             return .empty()
         case let .pagenation(contentHeight, contentOffsetY, scrollViewHeight):
             return pagenation(contentHeight: contentHeight, contentOffsetY: contentOffsetY, scrollViewHeight: scrollViewHeight)
@@ -86,7 +79,6 @@ extension ModifyProfileReactor {
 extension ModifyProfileReactor {
     func reduce(state: State, mutation: Mutation) -> State {
         var newState = state
-        
         switch mutation {
         case let .setFollower(follower):
             newState.follower = follower

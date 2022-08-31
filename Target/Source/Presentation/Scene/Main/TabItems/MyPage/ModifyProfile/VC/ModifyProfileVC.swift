@@ -97,7 +97,7 @@ final class ModifyProfileVC: BaseVC<ModifyProfileReactor> {
     
     private let changeProfileButton = UIButton().then{
         $0.setTitle("사진 바꾸기", for: .normal)
-        $0.setTitleColor(MOIZAAsset.moizaGray5.color, for: .normal)
+        $0.setTitleColor(MOIZAAsset.moizaGray6.color, for: .normal)
         $0.titleLabel?.font = UIFont(font: MOIZAFontFamily.Roboto.regular, size: 12)
         $0.layer.cornerRadius = 5
         $0.layer.borderColor = MOIZAAsset.moizaGray3.color.cgColor
@@ -169,6 +169,9 @@ final class ModifyProfileVC: BaseVC<ModifyProfileReactor> {
     }
     
     private let firstAddButton = WebsiteAddButton()
+    private let secondAddButton = WebsiteAddButton()
+    private let thirdAddButton = WebsiteAddButton()
+    
     override func configureNavigation() {
         self.navigationItem.configLeftLogo()
     }
@@ -203,7 +206,6 @@ final class ModifyProfileVC: BaseVC<ModifyProfileReactor> {
             websiteLabel.pin.below(of: introduceButton, aligned: .start).marginTop(30).height(16).width(111)
             websiteContainer.pin.height(150).width(92%).below(of: websiteLabel, aligned: .start).marginTop(10)
             
-            
             mainContainer.flex.define { flex in
                 flex.addItem(profileName).marginVertical(8).marginTop(15)
                 flex.addItem(schoolKind)
@@ -224,6 +226,8 @@ final class ModifyProfileVC: BaseVC<ModifyProfileReactor> {
             
             websiteContainer.flex.define { flex in
                 flex.addItem(firstAddButton).width(100%).alignSelf(.center)
+                flex.addItem(secondAddButton).width(100%).alignSelf(.center).marginTop(6)
+                flex.addItem(thirdAddButton).width(100%).alignSelf(.center).marginTop(6)
             }
         
             mainContainer.flex.layout()
@@ -248,6 +252,13 @@ final class ModifyProfileVC: BaseVC<ModifyProfileReactor> {
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
         
+        changeProfileButton.rx.tap
+        
+        introduceButton.rx.tap
+            .map{ Reactor.Action.introduceButtonDidTap}
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+            
     }
     override func bindAction(reactor: ModifyProfileReactor) {
         
