@@ -110,18 +110,79 @@ final class ModifyProfileVC: BaseVC<ModifyProfileReactor> {
         $0.font = UIFont(font: MOIZAFontFamily.Roboto.regular, size: 14)
         $0.text = "배경 컬러 변경"
     }
+    
+    private let collectionView = UICollectionView(frame: .zero, collectionViewLayout: .init()).then {
+        let layout = UICollectionViewFlowLayout()
+        layout.itemSize = .init(width: 38, height: 38)
+        layout.minimumLineSpacing = 12
+        layout.minimumInteritemSpacing = 12
+        $0.showsHorizontalScrollIndicator = false
+        $0.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+        $0.collectionViewLayout = layout
+        $0.horizontalScrollIndicatorInsets = UIEdgeInsets(top: 12, left: 19, bottom: 12, right: 19)
+        $0.backgroundColor = .clear
+    }
+    
+    private let colorArray = [
+        UIColor.red,
+        UIColor.yellow,
+        UIColor.blue,
+        UIColor.orange,
+        UIColor.brown,
+        UIColor.cyan,
+        UIColor.lightGray,
+        UIColor.red,
+        UIColor.yellow,
+        UIColor.blue,
+        UIColor.orange,
+        UIColor.brown,
+        UIColor.cyan,
+        UIColor.lightGray,
+        UIColor.red,
+        UIColor.yellow,
+        UIColor.blue,
+        UIColor.orange,
+        UIColor.brown,
+        UIColor.cyan,
+        UIColor.lightGray
+    ]
+    
+    private let introduceLabel = UILabel().then{
+        $0.textColor = MOIZAAsset.moizaGray5.color
+        $0.font = UIFont(font: MOIZAFontFamily.Roboto.regular, size: 14)
+        $0.text = "소개"
+    }
+    
+    private let introduceButton = UIButton().then{
+        $0.backgroundColor = MOIZAAsset.moizaGray1.color
+        $0.layer.cornerRadius = 10
+    }
+    
+    private let websiteLabel = UILabel().then{
+        $0.textColor = MOIZAAsset.moizaGray5.color
+        $0.font = UIFont(font: MOIZAFontFamily.Roboto.regular, size: 14)
+        $0.text = "웹사이트 (최대 3개)"
+    }
+    
+    private let websiteContainer = UIView().then{
+        $0.backgroundColor = .clear
+    }
+    
+    private let firstAddButton = WebsiteAddButton()
     override func configureNavigation() {
         self.navigationItem.configLeftLogo()
     }
     
     override func setUp() {
         view.backgroundColor = MOIZAAsset.moizaGray2.color
+        collectionView.dataSource = self
+        collectionView.delegate = self
     }
     
     // MARK: - UI
     override func addView() {
             view.addSubViews(headerContainer)
-            headerContainer.addSubViews(mainView,backgroundView,profile,changeBackgroundColorLabel,changeProfileButton)
+        headerContainer.addSubViews(mainView,backgroundView,profile,changeBackgroundColorLabel,changeProfileButton,collectionView,introduceLabel,introduceButton,websiteLabel,websiteContainer)
             mainView.addSubViews(mainContainer,postValueContainer,profileName,postLabel,postValueLabel,followingButton,followerButton)
         }
         
@@ -136,7 +197,11 @@ final class ModifyProfileVC: BaseVC<ModifyProfileReactor> {
             followerButton.pin.height(60).width(60).after(of: postValueContainer, aligned: .center).marginLeft(10%)
             followingButton.pin.height(60).width(60).after(of: followerButton, aligned: .center).marginLeft(7%)
             changeBackgroundColorLabel.pin.below(of: mainView, aligned: .start).marginTop(40).height(16).width(82)
-    
+            collectionView.pin.height(150).width(92%).below(of: changeBackgroundColorLabel, aligned: .start).marginTop(10)
+            introduceLabel.pin.below(of: collectionView, aligned: .start).marginTop(15).height(16).width(26)
+            introduceButton.pin.below(of: introduceLabel, aligned: .start).marginTop(10).width(of: collectionView).height(38)
+            websiteLabel.pin.below(of: introduceButton, aligned: .start).marginTop(30).height(16).width(111)
+            websiteContainer.pin.height(150).width(92%).below(of: websiteLabel, aligned: .start).marginTop(10)
             
             
             mainContainer.flex.define { flex in
@@ -156,10 +221,16 @@ final class ModifyProfileVC: BaseVC<ModifyProfileReactor> {
                 flex.addItem(followingLabel).marginTop(20).alignSelf(.center)
                 flex.addItem(followingValueLabel).marginVertical(8).alignSelf(.center)
             }
+            
+            websiteContainer.flex.define { flex in
+                flex.addItem(firstAddButton).width(100%).alignSelf(.center)
+            }
+        
             mainContainer.flex.layout()
             postValueContainer.flex.layout()
             followerButton.flex.layout()
             followingButton.flex.layout()
+            websiteContainer.flex.layout()
         }
         
         override func setLayout() {
@@ -200,5 +271,22 @@ extension ModifyProfileVC: UITableViewDelegate {
         } else if scrollView.contentOffset.y >= headerHeight {
             scrollView.contentInset = .init(top: -headerHeight, left: 0, bottom: 0, right: 0)
         }
+    }
+}
+
+extension ModifyProfileVC: UICollectionViewDataSource,UICollectionViewDelegate{
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return colorArray.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
+        cell.backgroundColor = colorArray[indexPath.row]
+        cell.layer.cornerRadius = 5
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 2
     }
 }

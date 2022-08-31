@@ -68,6 +68,7 @@ extension ModifyProfileReactor {
         case let .updateFollwing(following):
             return .just(.setFollowing(following))
         case .changeProfileButtonDidTap:
+            steps.accept(MoizaStep.changeProfileIsRequired)
             return .empty()
         case .modifyButtonDidTap:
             steps.accept(MoizaStep.myPageModifyIsRequired)
