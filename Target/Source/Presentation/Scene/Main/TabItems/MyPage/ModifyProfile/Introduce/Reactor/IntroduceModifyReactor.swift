@@ -30,7 +30,7 @@ final class IntroduceModifyReactor: Reactor, Stepper{
     
     // MARK: - Init
     init(){
-        initialState = State()
+        initialState = State(introduce: "")
     }
 }
 

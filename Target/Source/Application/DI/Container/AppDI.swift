@@ -104,6 +104,9 @@ extension Container{
         register(SucFindPWVC.self) { r in
             return SucFindPWVC(reactor: r.resolve(SucFindPWReactor.self))
         }
+        register(IntroduceModifyVC.self) { r in
+            return IntroduceModifyVC(reactor: r.resolve(IntroduceModifyReactor.self))
+        }
     }
     private func registerReactor(){
         // MARK: - Auth
@@ -139,6 +142,7 @@ extension Container{
         
         autoregister(PostListReactor.self, initializer: PostListReactor.init)
         autoregister(MyFollowReactor.self, initializer: MyFollowReactor.init)
+        autoregister(IntroduceModifyReactor.self, initializer: IntroduceModifyReactor.init)
     }
     private func registerStepper(){
         autoregister(OnBoardingStepper.self, initializer: OnBoardingStepper.init)

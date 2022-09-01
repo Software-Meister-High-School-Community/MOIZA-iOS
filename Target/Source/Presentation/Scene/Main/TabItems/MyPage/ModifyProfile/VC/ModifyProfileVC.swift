@@ -174,6 +174,7 @@ final class ModifyProfileVC: BaseVC<ModifyProfileReactor> {
     
     override func configureNavigation() {
         self.navigationItem.configLeftLogo()
+        self.navigationItem.configBack()
     }
     
     override func setUp() {
