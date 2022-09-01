@@ -217,6 +217,7 @@ final class MyPageVC: BaseVC<MyPageReactor> {
         self.navigationItem.setRightBarButtonItems([moreOptionButton], animated: true)
     }
     override func darkConfigure() {
+        view.backgroundColor = MOIZAAsset.moizaDark1.color
         scrollView.backgroundColor = MOIZAAsset.moizaDark1.color
         rootContainer.backgroundColor = MOIZAAsset.moizaDark1.color
         profileContainer.backgroundColor = MOIZAAsset.moizaDark2.color
