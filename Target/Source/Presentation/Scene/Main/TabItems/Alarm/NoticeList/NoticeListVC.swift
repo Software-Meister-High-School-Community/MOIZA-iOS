@@ -34,6 +34,12 @@ final class NoticeListVC: BaseVC<NoticeListReactor> {
             .map { Reactor.Action.viewDidLoad }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
+        
+        noticeListTableView.rx.modelSelected(NoticeList.self)
+            .map(\.id)
+            .map(Reactor.Action.noticeDidTap)
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
     }
     override func bindState(reactor: NoticeListReactor) {
         let sharedStae = reactor.state.share(replay: 1).observe(on: MainScheduler.asyncInstance)

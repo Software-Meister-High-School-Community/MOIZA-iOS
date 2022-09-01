@@ -21,6 +21,7 @@ final class AlarmReactor: Reactor, Stepper {
     enum Action {
         case onAppear
         case noticeListButtonDidTap
+        case pinnedNoticeDidTap
     }
     enum Mutation {
         case setNotifications([NotificationList])
@@ -48,6 +49,8 @@ extension AlarmReactor {
             return onAppear()
         case .noticeListButtonDidTap:
             steps.accept(MoizaStep.allNoticeListIsRequired)
+        case .pinnedNoticeDidTap:
+            steps.accept(MoizaStep.detailNoticeIsRequired(noticeId: currentState.pinnedNotice?.id ?? ""))
         }
         return .empty()
     }

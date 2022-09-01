@@ -4,6 +4,7 @@ import UIKit
 import Then
 import RxSwift
 import RxDataSources
+import RxGesture
 
 final class AlarmVC: BaseVC<AlarmReactor> {
     // MARK: - Metric
@@ -79,6 +80,12 @@ final class AlarmVC: BaseVC<AlarmReactor> {
     override func bindView(reactor: AlarmReactor) {
         allNoticeListButton.rx.tap
             .map { Reactor.Action.noticeListButtonDidTap }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
+        noticeView.rx.tapGesture()
+            .when(.recognized)
+            .map { _ in Reactor.Action.pinnedNoticeDidTap }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
     }

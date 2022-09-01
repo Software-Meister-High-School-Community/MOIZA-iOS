@@ -3,7 +3,7 @@ import RxFlow
 import RxSwift
 import RxRelay
 
-final class NoticeListReactor: Reactor, Stepper {
+final class DetailNoticeReactor: Reactor, Stepper {
     // MARK: - Properties
     var steps: PublishRelay<Step> = .init()
     
@@ -14,24 +14,24 @@ final class NoticeListReactor: Reactor, Stepper {
         case viewDidLoad
     }
     enum Mutation {
-        case setNoticeList([NoticeList])
+        case setNotice(Notice)
     }
     struct State {
-        var noticeList: [NoticeList]
+        var notice: Notice?
     }
     let initialState: State
+    private let noticeId: String
     
     // MARK: - Init
-    init() {
-        initialState = State(
-            noticeList: []
-        )
+    init(noticeId: String) {
+        self.noticeId = noticeId
+        initialState = State()
     }
     
 }
 
 // MARK: - Mutate
-extension NoticeListReactor {
+extension DetailNoticeReactor {
     func mutate(action: Action) -> Observable<Mutation> {
         switch action {
         case .viewDidLoad:
@@ -42,13 +42,13 @@ extension NoticeListReactor {
 }
 
 // MARK: - Reduce
-extension NoticeListReactor {
+extension DetailNoticeReactor {
     func reduce(state: State, mutation: Mutation) -> State {
         var newState = state
         
         switch mutation {
-        case let .setNoticeList(list):
-            newState.noticeList = list
+        case let .setNotice(notice):
+            newState.notice = notice
         }
         
         return newState
@@ -56,8 +56,8 @@ extension NoticeListReactor {
 }
 
 // MARK: - Method
-private extension NoticeListReactor {
+private extension DetailNoticeReactor {
     func viewDidLoad() -> Observable<Mutation> {
-        return .just(.setNoticeList([.dummy, .dummy, .dummy, .dummy]))
+        return .just(.setNotice(.dummy))
     }
 }

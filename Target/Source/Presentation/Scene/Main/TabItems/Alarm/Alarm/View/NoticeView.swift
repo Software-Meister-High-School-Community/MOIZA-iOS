@@ -23,8 +23,7 @@ final class NoticeView: UIView {
     }
     
     public func setNotice(notice: NoticeList?) {
-        guard let notice = notice else { return }
-        contentLabel.text = notice.title
+        contentLabel.text = notice?.title ?? "고정된 공지가 없습니다."
     }
     
     private func setLayout() {

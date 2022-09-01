@@ -40,6 +40,8 @@ final class AlarmFlow: Flow{
             return coordinateToAlarm()
         case .allNoticeListIsRequired:
             return navigateToAllNotice()
+        case let .detailNoticeIsRequired(noticeId):
+            return navigateToDetailNotice(noticeId: noticeId)
         default:
             return .none
         }
@@ -55,6 +57,12 @@ private extension AlarmFlow{
     func navigateToAllNotice() -> FlowContributors {
         @Inject var reactor: NoticeListReactor!
         let vc = NoticeListVC(reactor: reactor)
+        self.rootVC.pushViewController(vc, animated: true)
+        return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: reactor))
+    }
+    func navigateToDetailNotice(noticeId: String) -> FlowContributors {
+        let reactor = DetailNoticeReactor(noticeId: noticeId)
+        let vc = DetailNoticeVC(reactor: reactor)
         self.rootVC.pushViewController(vc, animated: true)
         return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: reactor))
     }

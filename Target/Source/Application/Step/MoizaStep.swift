@@ -70,6 +70,7 @@ enum MoizaStep: Step{
     
     // Alarm
     case allNoticeListIsRequired
+    case detailNoticeIsRequired(noticeId: String)
     
     // MyPage
     case followerIsRequired
