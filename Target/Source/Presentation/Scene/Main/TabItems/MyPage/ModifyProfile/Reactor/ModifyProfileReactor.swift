@@ -27,6 +27,7 @@ final class ModifyProfileReactor: Reactor, Stepper {
         case updateFollwing(Int)
         case changeProfileButtonDidTap
         case introduceButtonDidTap
+        case websiteButtonDidTap
         case pagenation(
             contentHeight: CGFloat,
             contentOffsetY: CGFloat,
@@ -68,6 +69,9 @@ extension ModifyProfileReactor {
             return .empty()
         case .introduceButtonDidTap:
             steps.accept(MoizaStep.myPageIntroduceModifyIsRequired)
+            return .empty()
+        case .websiteButtonDidTap:
+            steps.accept(MoizaStep.myPageWebsiteAddIsRequired)
             return .empty()
         case let .pagenation(contentHeight, contentOffsetY, scrollViewHeight):
             return pagenation(contentHeight: contentHeight, contentOffsetY: contentOffsetY, scrollViewHeight: scrollViewHeight)

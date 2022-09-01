@@ -259,7 +259,21 @@ final class ModifyProfileVC: BaseVC<ModifyProfileReactor> {
             .map{ Reactor.Action.introduceButtonDidTap}
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
+        
+        firstAddButton.rx.tap
+            .map { Reactor.Action.websiteButtonDidTap }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
             
+        secondAddButton.rx.tap
+            .map { Reactor.Action.websiteButtonDidTap }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
+        thirdAddButton.rx.tap
+            .map { Reactor.Action.websiteButtonDidTap }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
     }
     override func bindAction(reactor: ModifyProfileReactor) {
         

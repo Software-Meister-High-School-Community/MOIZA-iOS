@@ -41,6 +41,8 @@ final class MyPageFlow: Flow{
             return coordinateToModify()
         case .myPageIntroduceModifyIsRequired:
             return coordinateToIntroduceModify()
+        case .myPageWebsiteAddIsRequired:
+            return coordinateToWebsiteModify()
         default:
             return .none
         }
@@ -76,6 +78,11 @@ private extension MyPageFlow{
     }
     func coordinateToIntroduceModify() -> FlowContributors {
         @Inject var vc: IntroduceModifyVC
+        self.rootVC.setViewControllers([vc], animated: true)
+        return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: vc.reactor ?? .init()))
+    }
+    func coordinateToWebsiteModify() -> FlowContributors {
+        @Inject var vc: WebsiteModifyVC
         self.rootVC.setViewControllers([vc], animated: true)
         return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: vc.reactor ?? .init()))
     }

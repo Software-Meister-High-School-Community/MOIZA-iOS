@@ -107,6 +107,9 @@ extension Container{
         register(IntroduceModifyVC.self) { r in
             return IntroduceModifyVC(reactor: r.resolve(IntroduceModifyReactor.self))
         }
+        register(WebsiteModifyVC.self) { r in
+            return WebsiteModifyVC(reactor: r.resolve(WebsiteModifyReactor.self))
+        }
     }
     private func registerReactor(){
         // MARK: - Auth
@@ -129,6 +132,7 @@ extension Container{
         autoregister(NewPasswordReactor.self, initializer: NewPasswordReactor.init)
         autoregister(SucFindPWReactor.self, initializer: SucFindPWReactor.init)
         autoregister(ModifyProfileReactor.self, initializer: ModifyProfileReactor.init)
+        autoregister(WebsiteModifyReactor.self, initializer: WebsiteModifyReactor.init)
         
         // MARK: - Tab
         autoregister(AlarmReactor.self, initializer: AlarmReactor.init)
