@@ -76,7 +76,7 @@ final class CategoryVC: BaseVC<CategoryReactor> {
     }
     override func setLayoutSubViews() {
         scrollView.pin.all(view.pin.safeArea)
-        scrollView.contentSize = .init(width: scrollView.bounds.width, height: scrollView.bounds.height*1.15)
+        scrollView.contentSize = .init(width: scrollView.bounds.width, height: Metric.defaultLen * 6)
         frontCategory.pin.topLeft(Metric.padding).size(Metric.defaultLen)
         backCategory.pin.topRight(Metric.padding).height(Metric.defaultLen).width(Metric.twiceLen)
         designCategory.pin.below(of: frontCategory, aligned: .left).marginTop(Metric.padding).width(Metric.defaultLen).height(Metric.twiceLen)
