@@ -36,6 +36,7 @@ final class ModifyProfileReactor: Reactor, Stepper {
             contentOffsetY: CGFloat,
             scrollViewHeight: CGFloat
         )
+        case saveButtonDidTap
     }
     enum Mutation {
         case setFollower(Int)
@@ -92,6 +93,9 @@ extension ModifyProfileReactor {
             return .concat([
                 .just(.setImage(nil))
             ])
+        case .saveButtonDidTap:
+            steps.accept(MoizaStep.myPageIsRequired)
+            return .empty()
         }
         return .empty()
     }

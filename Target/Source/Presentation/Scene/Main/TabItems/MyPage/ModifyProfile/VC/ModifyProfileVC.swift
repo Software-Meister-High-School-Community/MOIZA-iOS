@@ -175,6 +175,8 @@ final class ModifyProfileVC: BaseVC<ModifyProfileReactor> {
         $0.allowsEditing = true
     }
     
+    private let saveButton = NextButton(title: "저장")
+    
     override func configureNavigation() {
         self.navigationItem.configLeftLogo()
         self.navigationItem.configBack()
@@ -190,7 +192,7 @@ final class ModifyProfileVC: BaseVC<ModifyProfileReactor> {
     // MARK: - UI
     override func addView() {
             view.addSubViews(scrollView)
-        scrollView.addSubViews(mainView,backgroundView,profileImageView,changeBackgroundColorLabel,changeProfileButton,collectionView,introduceLabel,introduceButton,websiteLabel,websiteContainer)
+        scrollView.addSubViews(mainView,backgroundView,profileImageView,changeBackgroundColorLabel,changeProfileButton,collectionView,introduceLabel,introduceButton,websiteLabel,websiteContainer,saveButton)
             mainView.addSubViews(mainContainer,postValueContainer,profileName,postLabel,postValueLabel,followingButton,followerButton)
         }
         
@@ -211,6 +213,7 @@ final class ModifyProfileVC: BaseVC<ModifyProfileReactor> {
             introduceButton.pin.below(of: introduceLabel, aligned: .start).marginTop(10).width(of: collectionView).height(38)
             websiteLabel.pin.below(of: introduceButton, aligned: .start).marginTop(30).height(16).width(111)
             websiteContainer.pin.height(150).width(92%).below(of: websiteLabel, aligned: .start).marginTop(10)
+            saveButton.pin.marginTop(30).width(62).height(32).below(of: websiteContainer, aligned: .end)
             
             mainContainer.flex.define { flex in
                 flex.addItem(profileName).marginVertical(8).marginTop(15)
@@ -282,6 +285,11 @@ final class ModifyProfileVC: BaseVC<ModifyProfileReactor> {
         
         thirdAddButton.rx.tap
             .map { Reactor.Action.websiteButtonDidTap }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
+        saveButton.rx.tap
+            .map{ Reactor.Action.saveButtonDidTap }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
     }
