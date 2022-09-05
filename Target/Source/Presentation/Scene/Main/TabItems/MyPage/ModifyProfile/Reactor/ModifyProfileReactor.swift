@@ -31,7 +31,6 @@ final class ModifyProfileReactor: Reactor, Stepper {
         case alert(title: String?, message: String, style: UIAlertController.Style, actions: [UIAlertAction])
         case errorAlert(title: String?, message: String)
         case cancelButtonDidTap
-        case requestButtonDidTap
         case pagenation(
             contentHeight: CGFloat,
             contentOffsetY: CGFloat,
@@ -93,8 +92,6 @@ extension ModifyProfileReactor {
             return .concat([
                 .just(.setImage(nil))
             ])
-        case .requestButtonDidTap:
-            steps.accept(MoizaStep.signUpGraduateAuthSuccessIsRequired)
         }
         return .empty()
     }

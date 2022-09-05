@@ -17,7 +17,9 @@ import Photos
 
 final class ModifyProfileVC: BaseVC<ModifyProfileReactor> {
     
-    private let headerContainer = UIView()
+    private let scrollView = UIScrollView().then{
+        $0.showsVerticalScrollIndicator = false
+    }
     
     private let mainContainer = UIView().then{
         $0.backgroundColor = .clear
@@ -191,13 +193,14 @@ final class ModifyProfileVC: BaseVC<ModifyProfileReactor> {
     
     // MARK: - UI
     override func addView() {
-            view.addSubViews(headerContainer)
-        headerContainer.addSubViews(mainView,backgroundView,profileImageView,changeBackgroundColorLabel,changeProfileButton,collectionView,introduceLabel,introduceButton,websiteLabel,websiteContainer)
+            view.addSubViews(scrollView)
+        scrollView.addSubViews(mainView,backgroundView,profileImageView,changeBackgroundColorLabel,changeProfileButton,collectionView,introduceLabel,introduceButton,websiteLabel,websiteContainer)
             mainView.addSubViews(mainContainer,postValueContainer,profileName,postLabel,postValueLabel,followingButton,followerButton)
         }
         
         override func setLayoutSubViews() {
-            headerContainer.pin.all(view.pin.safeArea)
+            scrollView.pin.all()
+            scrollView.contentSize = .init(width: bound.width, height: bound.height*1.05)
             backgroundView.pin.height(99).width(92%).hCenter()
             profileImageView.pin.horizontally(18).height(100).width(100).top(69)
             changeProfileButton.pin.below(of: profileImageView, aligned: .center).marginTop(16).height(30).width(80).sizeToFit()
@@ -299,23 +302,6 @@ final class ModifyProfileVC: BaseVC<ModifyProfileReactor> {
             .disposed(by: disposeBag)
     }
     
-}
-// MARK: - UITableViewDelegate
-extension ModifyProfileVC: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return headerContainer
-    }
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return headerContainer.frame.height
-    }
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let headerHeight: CGFloat = headerContainer.frame.height
-        if scrollView.contentOffset.y <= headerHeight, scrollView.contentOffset.y >= 0 {
-            scrollView.contentInset = .init(top: -scrollView.contentOffset.y, left: 0, bottom: 0, right: 0)
-        } else if scrollView.contentOffset.y >= headerHeight {
-            scrollView.contentInset = .init(top: -headerHeight, left: 0, bottom: 0, right: 0)
-        }
-    }
 }
 
 extension ModifyProfileVC: UICollectionViewDataSource,UICollectionViewDelegate{
