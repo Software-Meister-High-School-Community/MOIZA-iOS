@@ -29,10 +29,6 @@ final class ModifyProfileVC: BaseVC<ModifyProfileReactor> {
         $0.backgroundColor = MOIZAAsset.moizaGray1.color
     }
     
-    private let scrollView = UIScrollView().then {
-        $0.showsVerticalScrollIndicator = true
-    }
-    
     private let backgroundView = UIView().then{
         $0.backgroundColor = MOIZAAsset.moizaPrimaryYellow.color
         $0.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
