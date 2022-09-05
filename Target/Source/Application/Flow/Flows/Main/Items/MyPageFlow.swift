@@ -43,6 +43,8 @@ final class MyPageFlow: Flow{
             return coordinateToIntroduceModify()
         case .myPageWebsiteAddIsRequired:
             return coordinateToWebsiteModify()
+        case let .alert(title, message, style, action):
+            return presentToAlert(title: title, message: message, style: style, action: action)
         default:
             return .none
         }
@@ -85,5 +87,18 @@ private extension MyPageFlow{
         @Inject var vc: WebsiteModifyVC
         self.rootVC.setViewControllers([vc], animated: true)
         return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: vc.reactor ?? .init()))
+    }
+    func presentToAlert(title: String?, message: String?, style: UIAlertController.Style, action: [UIAlertAction]) -> FlowContributors {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: style)
+        action.forEach { alert.addAction($0) }
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            guard let view = rootVC.visibleViewController?.view else { return .none }
+            guard let popOver = alert.popoverPresentationController else { return .none }
+            popOver.sourceView = view
+            popOver.sourceRect = CGRect(x: view.bounds.midX, y: view.bounds.midY, width: 0, height: 0)
+            popOver.permittedArrowDirections = []
+        }
+        self.rootVC.visibleViewController?.present(alert, animated: true)
+        return .none
     }
 }

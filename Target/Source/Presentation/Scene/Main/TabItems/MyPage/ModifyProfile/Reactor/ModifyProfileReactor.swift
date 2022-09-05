@@ -25,9 +25,13 @@ final class ModifyProfileReactor: Reactor, Stepper {
         case followingButtonDidTap
         case updateFollower(Int)
         case updateFollwing(Int)
-        case changeProfileButtonDidTap
         case introduceButtonDidTap
         case websiteButtonDidTap
+        case imageDidSelected(Data?, String)
+        case alert(title: String?, message: String, style: UIAlertController.Style, actions: [UIAlertAction])
+        case errorAlert(title: String?, message: String)
+        case cancelButtonDidTap
+        case requestButtonDidTap
         case pagenation(
             contentHeight: CGFloat,
             contentOffsetY: CGFloat,
@@ -37,16 +41,22 @@ final class ModifyProfileReactor: Reactor, Stepper {
     enum Mutation {
         case setFollower(Int)
         case setFollowing(Int)
+        case setImage(Data?)
     }
     struct State {
         var follower: Int?
         var following: Int?
+        var selectedData: Data?
     }
     
     let initialState: State
     // MARK: - Init
     init(){
-        initialState = State()
+        initialState = State(
+            follower: 0,
+            following: 0,
+            selectedData: nil
+        )
     }
 }
 
@@ -64,7 +74,7 @@ extension ModifyProfileReactor {
             return .just(.setFollower(follower))
         case let .updateFollwing(following):
             return .just(.setFollowing(following))
-        case .changeProfileButtonDidTap:
+        case .imageDidSelected:
             steps.accept(MoizaStep.changeProfileIsRequired)
             return .empty()
         case .introduceButtonDidTap:
@@ -75,7 +85,18 @@ extension ModifyProfileReactor {
             return .empty()
         case let .pagenation(contentHeight, contentOffsetY, scrollViewHeight):
             return pagenation(contentHeight: contentHeight, contentOffsetY: contentOffsetY, scrollViewHeight: scrollViewHeight)
+        case let .alert(title, message, style, actions):
+            steps.accept(MoizaStep.alert(title: title, message: message, style: style, actions: actions))
+        case let .errorAlert(title, message):
+            steps.accept(MoizaStep.errorAlert(title: title, message: message))
+        case .cancelButtonDidTap:
+            return .concat([
+                .just(.setImage(nil))
+            ])
+        case .requestButtonDidTap:
+            steps.accept(MoizaStep.signUpGraduateAuthSuccessIsRequired)
         }
+        return .empty()
     }
 }
 
@@ -88,6 +109,8 @@ extension ModifyProfileReactor {
             newState.follower = follower
         case let .setFollowing(following):
             newState.following = following
+        case let .setImage(data):
+            newState.selectedData = data
         }
         return newState
     }
