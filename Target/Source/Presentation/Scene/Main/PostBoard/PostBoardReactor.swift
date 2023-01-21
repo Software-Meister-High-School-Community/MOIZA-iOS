@@ -1,11 +1,3 @@
-//
-//  PostBoardReactor.swift
-//  MOIZA
-//
-//  Created by 임준화 on 2022/02/18.
-//  Copyright © 2022 com.connect. All rights reserved.
-//
-
 import ReactorKit
 import RxFlow
 import RxRelay

@@ -55,7 +55,7 @@ final class FindIDVC: BaseVC<FindIDReactor> {
         }
     }
     override func configureNavigation() {
-        self.navigationItem.configAuthNavigation(title: "회원가입")
+        self.navigationItem.configAuthNavigation(title: "아이디 찾기")
         
         self.navigationItem.configBack()
     }
