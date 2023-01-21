@@ -8,6 +8,8 @@
 ## 📸 Screenshots
 ![promotion](https://user-images.githubusercontent.com/74440939/213873575-f2d7e09a-9360-45b8-a5db-47c38d97530a.png)
 
+<br>
+
 ## 📚 Tech Stack
 - Swift
 - PinLayout, FlexLayout
@@ -27,6 +29,8 @@ $ brew install make
 $ make generate
 $ xed .
 ```
+
+<br>
 
 ## ⭐️ Key Function
 ### 첫화면
